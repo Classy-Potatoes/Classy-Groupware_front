@@ -44,6 +44,11 @@
     justify-content: center; /* 세로로 가운데 정렬 */
 }
 
+.navbar-link {
+    text-decoration: none; /* 링크의 텍스트 디코레이션을 비활성화합니다. */
+    color: inherit; /* 기본 텍스트 색상으로 설정합니다. */
+}
+
 .profile img{
     margin-top: 37px;
 }

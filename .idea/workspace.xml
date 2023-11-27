@@ -4,25 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ff7d7234-1d05-48b3-8ef3-af1e6dfb8a45" name="변경" comment="">
-      <change afterPath="$PROJECT_DIR$/src/dashBoard/components/common/Header.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/dashBoard/components/common/Navbar.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/dashBoard/layouts/Layout.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/dashBoard/modules/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/dashBoard/pages/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/favicon.ico" beforeDir="false" afterPath="$PROJECT_DIR$/public/favicon.ico" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.html" afterDir="false" />
+    <list default="true" id="ff7d7234-1d05-48b3-8ef3-af1e6dfb8a45" name="변경" comment="Feat/#2/ 헤더랑 네비 ui">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/store.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/store.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/style/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/style/Nav.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/dashBoard/components/common/Navbar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/dashBoard/components/common/Navbar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/project/pages/sample.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/project/pages/ProjectMain.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/style/Nav.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/style/Nav.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,7 +50,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "Feature/#2/nav",
-    "last_opened_file_path": "C:/Users/somt1/OneDrive/바탕 화면/chap03-comprehensive-react",
+    "last_opened_file_path": "C:/Dev/Final/classy-server",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -100,8 +87,17 @@
       <updated>1700794231937</updated>
       <workItem from="1700794233090" duration="2652000" />
       <workItem from="1700900097269" duration="216000" />
-      <workItem from="1701043905400" duration="7714000" />
+      <workItem from="1701043905400" duration="13137000" />
     </task>
+    <task id="LOCAL-00001" summary="Feat/#2/ 헤더랑 네비 ui">
+      <option name="closed" value="true" />
+      <created>1701051935264</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1701051935264</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -117,5 +113,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Feat/#2/ 헤더랑 네비 ui" />
+    <option name="LAST_COMMIT_MESSAGE" value="Feat/#2/ 헤더랑 네비 ui" />
   </component>
 </project>
