@@ -1,0 +1,97 @@
+/* 인선 ---------------------------------------------------------------------- */
+/* header ------------------------------------------------------------------------------------ */
+.header-container {
+    display: flex;
+    align-items: center;
+    border-bottom: 11px solid rgba(51, 51, 51, 1);
+}
+
+.main-logo {
+    height: 100px;
+    height: 122px;
+    margin-left: 46px;
+}
+
+.logo-name {
+    color: black;
+    font-size: 20px;
+    font-family: Noto Sans;
+    font-weight: 400;
+    margin-left: 10px;
+}
+
+/* nav-bar --------------------------------------------------------------------------------- */
+.navbar-div {
+    width: 280px;
+    height: 915px;
+    background-color: rgba(51, 51, 51, 1);
+    display: flex; /* 가로로 가운데 정렬 */
+    flex-direction: column; /* 세로로 나열 */
+    align-items: center; /* 세로로 가운데 정렬 */
+    justify-content: center; /* 가로로 가운데 정렬 */
+}
+
+.nav-bar {
+    width: 200px;
+    height: 550px;
+    left: 0px;
+    top: 0px;
+    /* position: absolute; */ /* 위치 조절이 필요한 경우 주석 해제 */
+    background: #161616;
+    border-radius: 10px;
+    display: flex; /* 가로 가운데 정렬을 위해 flex 사용 */
+    flex-direction: column; /* 세로로 나열하기 위해 추가 */
+    justify-content: center; /* 세로로 가운데 정렬 */
+}
+
+.profile img{
+    margin-top: 37px;
+}
+
+.nav-name {
+    margin-top: 20px;
+    color: white;
+    font-size: 24px;
+    font-family: Noto Sans;
+    font-weight: 600;
+}
+
+.nav-name span{
+    color: white;
+    font-size: 14px;
+    font-family: Noto Sans;
+    font-weight: 400;
+    margin-left: 8px;
+}
+
+.nav-name img {
+    display: inline-block;
+    margin-left: 15px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.nav-bar p {
+    display: flex;
+    color: white;
+    font-size: 16px;
+    font-family: Noto Sans;
+    font-weight: 700;
+    margin-left: 40px;
+    margin-bottom: 3px;
+}
+
+.nav-bar img {
+    margin-right: 10px;
+}
+
+/* 날씨 */
+.weather {
+    width: 150px;
+    height: 180px;
+    background: #F4F2F2;
+    border-radius: 10px;
+    margin-left: 25px;
+    margin-top: 20px;
+}
+
