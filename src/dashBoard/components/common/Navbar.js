@@ -1,19 +1,19 @@
 import {NavLink, useNavigate} from "react-router-dom";
 
 
-function Navbar() {
+function Navbar({ isOpen }) {
 
     const navigete = useNavigate();
 
     return (
-        <div className="navbar-div">
+        <div className="main-navbar-div">
             <div className="profile"><img src="/image%208.png"/></div>
             <div className="nav-name">스폰지밥<br/><span>개발팀/팀장</span><br/>
                 <img src="/outline_me.png"/>
-                <img src="/logout.png"/>
+                <img className="nav-logout" src="/logout.png"/>
             </div>
 
-            <div className="nav-bar">
+            <div className="main-nav-bar">
 
                 <p><img src="/message.png"/>쪽지함</p>
                 <p><img src="/approval.png"/>전자결재</p>
