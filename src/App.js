@@ -3,6 +3,7 @@ import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Layout from "./dashBoard/layouts/Layout";
 import ProjectMain from "./project/pages/ProjectMain";
 import CalendarLayout from "./calendar/layouts/CalendarLayout";
+import './style/Calendar.css';
 
 function App() {
   return (
