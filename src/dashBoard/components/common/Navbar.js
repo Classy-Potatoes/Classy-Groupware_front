@@ -18,7 +18,7 @@ function Navbar({ isOpen }) {
                 <p><img src="/message.png"/>쪽지함</p>
                 <p><img src="/approval.png"/>전자결재</p>
                 <NavLink to="/project"><p><img src="/project.png"/>프로젝트</p></NavLink>
-                <p><img src="/calender.png"/>캘린더</p>
+                <p><NavLink to="/calendar"><img src="/calender.png"/>캘린더</NavLink></p>
                 <p><img src="/work.png"/>업무</p>
                 <p><img src="/board.png"/>공지게시판</p>
                 <p><img src="/phone.png"/>연락망</p>
