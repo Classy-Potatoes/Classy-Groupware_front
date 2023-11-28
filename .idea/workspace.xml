@@ -6,10 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="ff7d7234-1d05-48b3-8ef3-af1e6dfb8a45" name="변경" comment="Feat/#2/ 헤더랑 네비 ui">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/dashBoard/components/common/Navbar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/dashBoard/components/common/Navbar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/project/pages/sample.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/project/pages/ProjectMain.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/style/Nav.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/style/Nav.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,7 +45,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "Feature/#2/nav",
+    "git-widget-placeholder": "Feat/#1/캘린더",
     "last_opened_file_path": "C:/Dev/Final/classy-server",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -57,6 +53,7 @@
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "settings.editor.selected.configurable": "File.Encoding",
+    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\IntelliJ IDEA 2023.2.1\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
