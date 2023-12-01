@@ -1,20 +1,40 @@
 import {NavLink} from "react-router-dom";
 import {useState} from "react";
 import Navbar from "../../../dashBoard/components/common/Navbar";
+import {ToastContainer} from "react-toastify";
+import NewProjectWriteModal from "../modal/NewProjectWriteModal";
 
 function ProjectNavBar() {
 
     const [isNavOpen, setIsNavOpen] = useState(false);
+    const [newProjectWriteModal,setNewProjectWriteModal ] = useState(false);
 
     const handleNavToggle = () => {
         setIsNavOpen(!isNavOpen);
     };
 
+    /* 새 프로젝트 만들기 */
+    const onClickNewProjectHandler = () => {
+        setNewProjectWriteModal(true);
+    }
+
     return (
         <>
+            <ToastContainer hideProgressBar={true} position="top-center"/>
+            {
+                newProjectWriteModal &&
+                <NewProjectWriteModal
+                    setNewProjectWriteModal={setNewProjectWriteModal()}
+                />
+            }
             <div className={`navbar-div ${isNavOpen ? "nav-open" : ""}`}>
-                <div className="add-project">
-                    <p>+새프로젝트</p>
+                <div >
+                    <button
+                        className="add-project"
+                        onClick={() => onClickNewProjectHandler }
+                    >
+                        <p>+새프로젝트</p>
+                    </button>
                 </div>
                 <div className="total-nav" onClick={handleNavToggle}>
                     <img src="/ph_list-light.png" alt="전체" />
