@@ -1,9 +1,7 @@
 import {NavLink, useNavigate} from "react-router-dom";
 
 
-function Navbar({ isOpen }) {
-
-    const navigete = useNavigate();
+function Navbar() {
 
     return (
         <div className="main-navbar-div">

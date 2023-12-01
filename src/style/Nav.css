@@ -24,7 +24,7 @@
 /* nav-bar --------------------------------------------------------------------------------- */
 .main-navbar-div {
     width: 280px;
-    height: 929px;
+    height: 822px;
     background-color: rgba(51, 51, 51, 1);
     display: flex;
     flex-direction: column;
@@ -36,7 +36,7 @@
 
 .main-nav-bar {
     width: 200px;
-    height: 580px;
+    height: 500px;
     background: #161616;
     border-radius: 10px;
     display: flex; /* 가로 가운데 정렬을 위해 flex 사용 */
@@ -79,7 +79,8 @@
     font-family: Noto Sans;
     font-weight: 700;
     margin-left: 40px;
-    margin-bottom: 15px;
+    margin-top: 15px;
+    /*margin-bottom: 15px;*/
 }
 
 .main-nav-bar img {
@@ -89,7 +90,7 @@
 /* 날씨 */
 .weather {
     width: 150px;
-    height: 200px;
+    height: 170px;
     background: #F4F2F2;
     border-radius: 10px;
     margin-left: 25px;
@@ -100,7 +101,7 @@
 
 .navbar-div{
     width: 280px;
-    height: 927px;
+    height: 822px;
     background-color: rgba(51, 51, 51, 1);
     display: flex; /* 가로로 가운데 정렬 */
     flex-direction: column; /* 세로로 나열 */
@@ -178,7 +179,7 @@
     position: fixed;
     top: 0;
     left: 0;
-    margin-top: 130px;
+    margin-top: 133px;
     z-index: 1; /* Navbar가 ProjectNavBar 위에 나타나도록 더 높은 z-index를 설정합니다. */
     background-color: #333333; /* 슬라이딩된 부분을 채울 색상을 설정하세요. */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* 그림자 효과를 추가하세요. */
