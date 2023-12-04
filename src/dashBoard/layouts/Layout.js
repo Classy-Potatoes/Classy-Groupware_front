@@ -6,11 +6,15 @@ function Layout() {
 
     return (
         <>
-            <Header/>
-            <Navbar/>
-            <main className="main">
-                <Outlet/>
-            </main>
+            <div className="container-column">
+                <Header/>
+                <div className="container-row">
+                    <Navbar/>
+                    <main className="main">
+                        <Outlet/>
+                    </main>
+                </div>
+            </div>
         </>
     );
 }
