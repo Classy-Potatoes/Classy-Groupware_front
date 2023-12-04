@@ -1,9 +1,29 @@
+/* common ----------------------------------- */
+
+html {
+    height: 100%;
+}
+body{
+    height: 100%;
+}
+#root {
+    height: 100%;
+}
+
+
 /* 인선 ---------------------------------------------------------------------- */
 /* header ------------------------------------------------------------------------------------ */
+
+.header-line {
+    height: 1%;
+    background-color: rgba(51, 51, 51, 1);
+}
+
 .header-container {
+    height: 14%;
     display: flex;
     align-items: center;
-    border-bottom: 11px solid rgba(51, 51, 51, 1);
+    /*border-bottom: 11px solid rgba(51, 51, 51, 1);*/
 }
 
 .main-logo {
@@ -24,7 +44,7 @@
 /* nav-bar --------------------------------------------------------------------------------- */
 .main-navbar-div {
     width: 280px;
-    height: 822px;
+    height: 85%;
     background-color: rgba(51, 51, 51, 1);
     display: flex;
     flex-direction: column;
@@ -90,18 +110,18 @@
 /* 날씨 */
 .weather {
     width: 150px;
-    height: 170px;
+    height: 150px;
     background: #F4F2F2;
     border-radius: 10px;
     margin-left: 25px;
-    margin-top: 30px;
+    margin-top: 20px;
 }
 
 /* 프로젝트 네비바 --------------------------------------------------------------------------------- */
 
 .navbar-div{
     width: 280px;
-    height: 822px;
+    height: 85%;
     background-color: rgba(51, 51, 51, 1);
     display: flex; /* 가로로 가운데 정렬 */
     flex-direction: column; /* 세로로 나열 */

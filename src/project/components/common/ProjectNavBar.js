@@ -1,8 +1,7 @@
 import {NavLink} from "react-router-dom";
 import {useState} from "react";
 import Navbar from "../../../dashBoard/components/common/Navbar";
-import {ToastContainer} from "react-toastify";
-import NewProjectWriteModal from "../modal/NewProjectWriteModal";
+
 
 function ProjectNavBar() {
 
@@ -20,13 +19,13 @@ function ProjectNavBar() {
 
     return (
         <>
-            <ToastContainer hideProgressBar={true} position="top-center"/>
-            {
-                newProjectWriteModal &&
-                <NewProjectWriteModal
-                    setNewProjectWriteModal={setNewProjectWriteModal()}
-                />
-            }
+            {/*<ToastContainer hideProgressBar={true} position="top-center"/>*/}
+            {/*{*/}
+            {/*    newProjectWriteModal &&*/}
+            {/*    <NewProjectWriteModal*/}
+            {/*        setNewProjectWriteModal={setNewProjectWriteModal()}*/}
+            {/*    />*/}
+            {/*}*/}
             <div className={`navbar-div ${isNavOpen ? "nav-open" : ""}`}>
                 <div >
                     <button
