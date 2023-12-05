@@ -5,7 +5,9 @@ import './style/member/styleTest.css';
 import './style/calendar.css';
 import 'react-toastify/dist/ReactToastify.css';
 import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
+import './style/note/note.css'
 import Layout from "./dashBoard/layouts/Layout";
+import NoteMain from "./note/pages/notes/NoteMain";
 import ProjectMain from "./project/pages/ProjectMain";
 import CalendarLayout from "./calendar/layouts/CalendarLayout";
 import ProtectedRoute from "./common/components/router/ProtectedRoute";
@@ -20,11 +22,11 @@ function App() {
               <Route path="/member/login" element={ <ProtectedRoute loginCheck={ false }><Login /></ProtectedRoute> } />
 
               <Route path="project" element={ <ProtectedRoute loginCheck={ true }><ProjectMain /></ProtectedRoute> } />
-              <Route path="calendar" element={ <ProtectedRoute loginCheck={ true }><CalendarLayout/></ProtectedRoute> }>
+              <Route path="calendar" element={ <ProtectedRoute loginCheck={ true }><CalendarLayout/></ProtectedRoute> }/>
+              <Route path="note" element={ <NoteMain/> }/>
 
-              </Route>
+
           </Routes>
-
 
       </BrowserRouter>
   );
