@@ -1,14 +1,28 @@
 import {NavLink, useNavigate} from "react-router-dom";
+import {removeToken} from "../../../member/utils/TokenUtils";
 
 
 function Navbar() {
+
+    // 로그아웃
+    const onClickLogoutHandler = () => {
+        // 토큰은 삭제했지만 화면은 변화가 없기 때문에
+        // 메인으로 리로딩 하게 해준다.
+
+        removeToken();
+        window.location.replace("/");
+    }
+
 
     return (
         <div className="main-navbar-div">
             <div className="profile"><img src="/image%208.png"/></div>
             <div className="nav-name">스폰지밥<br/><span>개발팀/팀장</span><br/>
                 <img src="/outline_me.png"/>
-                <img className="nav-logout" src="/logout.png"/>
+                <img
+                    onClick={ onClickLogoutHandler }
+                    className="nav-logout"
+                    src="/logout.png"/>
             </div>
 
             <div className="main-nav-bar">
