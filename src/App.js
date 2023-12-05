@@ -18,8 +18,7 @@ function App() {
               <Route path="/" element={ <Navigate to="/member/login" /> } />
               <Route path="/member/login"  element={ <ProtectedRoute loginCheck={ false }><Login /></ProtectedRoute> } />
 
-              <Route path="/dashBoard" element={ <Layout/> }/>
-              {/*<Route path="/dashBoard" element={ <ProtectedRoute loginCheck={ true }><Layout/></ProtectedRoute> }/>*/}
+              <Route path="/dashBoard" element={ <ProtectedRoute loginCheck={ true }><Layout/></ProtectedRoute> }/>
               <Route path="project" element={ <ProtectedRoute loginCheck={ true }><ProjectMain /></ProtectedRoute> } />
               <Route path="calendar" element={ <ProtectedRoute loginCheck={ true }><CalendarLayout/></ProtectedRoute> }>
 
