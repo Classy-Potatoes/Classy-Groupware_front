@@ -14,7 +14,7 @@ function Login() {
         if( loginSuccess === true ) {
             // 온전히 다시 모든 화면을 리로드 한다.
             // 리덕스의 값을 다 날려주기 위해서
-            window.location.replace("/dashBoard");
+            window.location.replace("/");
 
         } else if( loginSuccess === false ) {
 
