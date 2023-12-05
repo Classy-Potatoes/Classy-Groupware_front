@@ -1,4 +1,4 @@
-import {authRequest, request} from "./Api";
+import {authRequest, request} from "../../common/apis/Api";
 import {toast} from "react-toastify";
 import {getProfile, loginFailure, loginSuccess, signupFailure, signupSuccess} from "../modules/MemberModule";
 import {saveToken} from "../utils/TokenUtils";
