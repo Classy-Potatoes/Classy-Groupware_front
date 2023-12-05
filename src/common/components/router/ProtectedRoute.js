@@ -13,7 +13,7 @@ function ProtectedRoute( { loginCheck, authCheck, children } ) {
         /* 로그인 해야만 볼 수 있는 기능 (마이페이지) */
         // children <ProtectedRoute> 로 감싼 안쪽에 있는 컴포넌트를 뜻함
         // 로그인이 되어있다면 자식 컴포턴트를 보여주고 아니면 뒤쪽에 설정해준곳으로 이동시킨다.
-        return isLogin() ? children : <Navigate to="/" />
+        return isLogin() ? children : <Navigate to="/member/login" />
 
     } else {
         /* 로그인 하면 볼 수 없는 기능 (로그인, 회원가입) */
