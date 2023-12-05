@@ -1,6 +1,6 @@
 import {useState} from "react";
 import {useDispatch} from "react-redux";
-import {callLoginAPI} from "../../apis/MemberAPICalls";
+import {callLoginAPI} from "../../../member/apis/MemberAPICalls";
 
 function LoginForm() {
 

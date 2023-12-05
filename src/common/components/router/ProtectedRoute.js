@@ -1,5 +1,5 @@
 import {Navigate} from "react-router-dom";
-import {isAdmin, isLogin} from "../../utils/TokenUtils";
+import {isAdmin, isLogin} from "../../../member/utils/TokenUtils";
 
 function ProtectedRoute( { loginCheck, authCheck, children } ) {
 
