@@ -3,6 +3,7 @@ import './style/nav.css';
 import './style/main.css';
 import './style/member/styleTest.css';
 import './style/calendar.css';
+import './style/Project.css';
 import 'react-toastify/dist/ReactToastify.css';
 import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
 import './style/note/note.css'
@@ -21,7 +22,7 @@ function App() {
               <Route path="/dashBoard" element={ <ProtectedRoute loginCheck={ true }><Layout/></ProtectedRoute> }/>
               <Route path="/member/login" element={ <ProtectedRoute loginCheck={ false }><Login /></ProtectedRoute> } />
 
-              <Route path="project" element={ <ProtectedRoute loginCheck={ true }><ProjectMain /></ProtectedRoute> } />
+              <Route path="projects" element={ <ProtectedRoute loginCheck={ true }><ProjectMain /></ProtectedRoute> } />
               <Route path="calendar" element={ <ProtectedRoute loginCheck={ true }><CalendarLayout/></ProtectedRoute> }/>
               <Route path="note" element={ <NoteMain/> }/>
 
