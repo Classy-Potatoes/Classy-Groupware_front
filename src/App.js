@@ -20,7 +20,7 @@ function App() {
               <Route path="/member/login" element={ <ProtectedRoute loginCheck={ false }><Login /></ProtectedRoute> } />
 
               <Route path="/" element={ <ProtectedRoute loginCheck={ true }><Layout/></ProtectedRoute> }/>
-              <Route path="project" element={ <ProtectedRoute loginCheck={ true }><ProjectMain /></ProtectedRoute> } />
+              <Route path="projects" element={ <ProtectedRoute loginCheck={ true }><ProjectMain /></ProtectedRoute> } />
               <Route path="calendar" element={ <ProtectedRoute loginCheck={ true }><CalendarLayout/></ProtectedRoute> }>
 
               </Route>

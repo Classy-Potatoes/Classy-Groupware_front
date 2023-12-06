@@ -97,12 +97,6 @@
     margin-top: 10px;
 }
 
-/*.newProject-date-radio label {*/
-/*    display: block;*/
-/*    font-weight: 300;*/
-/*    margin-bottom: 5px;*/
-/*}*/
-
 .newProject-date-radio input[type="radio"] {
     appearance: none;
     -webkit-appearance: none;
@@ -119,7 +113,7 @@
     background-color: #333;
 }
 
-.project-button-div button {
+.project-button-div {
     margin-top: 30px;
     margin-bottom: 20px;
     background: #444444;
@@ -131,4 +125,5 @@
     width: 200px;
     padding: 5px;
 }
+
 
