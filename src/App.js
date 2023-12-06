@@ -1,14 +1,14 @@
 import './style/main.css';
 import './style/nav.css';
-import './style/main.css';
 import './style/member/styleTest.css';
 import './style/calendar.css';
 import './style/Project.css';
+import './style/note/note.css'
 import 'react-toastify/dist/ReactToastify.css';
 import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
-import './style/note/note.css'
+
 import Layout from "./dashBoard/layouts/Layout";
-import NoteMain from "./note/pages/notes/NoteMain";
+import NoteMain from "./note/pages/NoteMain";
 import ProjectMain from "./project/pages/ProjectMain";
 import CalendarLayout from "./calendar/layouts/CalendarLayout";
 import ProtectedRoute from "./common/components/router/ProtectedRoute";
