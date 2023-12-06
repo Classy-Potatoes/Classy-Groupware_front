@@ -3,6 +3,7 @@ import './style/nav.css';
 import './style/main.css';
 import './style/member/styleTest.css';
 import './style/calendar.css';
+import './style/Project.css';
 import 'react-toastify/dist/ReactToastify.css';
 import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
 import Layout from "./dashBoard/layouts/Layout";
