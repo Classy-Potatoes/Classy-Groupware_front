@@ -8,11 +8,12 @@ import 'react-toastify/dist/ReactToastify.css';
 import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
 
 import Layout from "./dashBoard/layouts/Layout";
-import NoteMain from "./note/pages/NoteMain";
 import ProjectMain from "./project/pages/ProjectMain";
 import CalendarLayout from "./calendar/layouts/CalendarLayout";
 import ProtectedRoute from "./common/components/router/ProtectedRoute";
 import Login from "./common/pages/Login";
+import NoteReceivedMain from "./note/pages/NoteReceivedMain";
+import NoteLayout from "./note/layouts/NoteLayout";
 
 function App() {
   return (
@@ -24,7 +25,10 @@ function App() {
 
               <Route path="projects" element={ <ProtectedRoute loginCheck={ true }><ProjectMain /></ProtectedRoute> } />
               <Route path="calendar" element={ <ProtectedRoute loginCheck={ true }><CalendarLayout/></ProtectedRoute> }/>
-              <Route path="note" element={ <NoteMain/> }/>
+              <Route path="/note" element={ <ProtectedRoute loginCheck={ true }><NoteLayout/></ProtectedRoute> }>
+                  <Route index element={ <NoteReceivedMain/> }/>
+                  <Route path="received" element={ <NoteReceivedMain/> }/>
+              </Route>
 
 
           </Routes>
