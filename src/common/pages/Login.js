@@ -7,24 +7,33 @@ import LoginForm from "../components/form/LoginForm";
 function Login() {
 
     const navigate = useNavigate();
-    const { loginSuccess } = useSelector( state => state.memberReducer );
+    const loginResult = useSelector( state => state.memberReducer );
 
     useEffect(() => {
 
-        if( loginSuccess === true ) {
-            // 온전히 다시 모든 화면을 리로드 한다.
-            // 리덕스의 값을 다 날려주기 위해서
-            window.location.replace("/");
+        if( loginResult?.loginResult === true ) {
 
-        } else if( loginSuccess === false ) {
+            toast.success('반갑습니다.', {
+                autoClose : 500,
+                onClose : () => {
+                    // 온전히 다시 모든 화면을 리로드 한다.
+                    // 리덕스의 값을 다 날려주기 위해서
+                    window.location.replace("/");
+                }
+            });
 
-            toast.warning('아이디와 비밀번호를 확인해주세요.');
+        } else if( loginResult?.loginResult === false ) {
+            // 기존 메시지 모두 삭제.
+            toast.dismiss();
+            toast.warning('아이디와 비밀번호를 확인해주세요.', {
+                autoClose : 1000
+            });
         }
 
-    }, [ loginSuccess ]);
+    }, [ loginResult ]);
 
     const onClickSearchHandler = () => {
-        navigate('/');
+        navigate('/member/search');
     }
     const onClickSignupHandler = () => {
         navigate('/member/regist');
