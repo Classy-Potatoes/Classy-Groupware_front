@@ -3,6 +3,8 @@ import {useState} from "react";
 import Navbar from "../../../dashBoard/components/common/Navbar";
 import NewProjectWriteModal from "../modal/NewProjectWriteModal";
 import {ToastContainer} from "react-toastify";
+import {authRequest} from "../../../common/apis/Api";
+import {isHeader, isLogin} from "../../../member/utils/TokenUtils";
 
 
 function ProjectNavBar() {
@@ -19,6 +21,7 @@ function ProjectNavBar() {
         setNewProjectWriteModal(true);
     }
 
+
     return (
         <>
             <ToastContainer hideProgressBar={true} position="top-center"/>
@@ -30,12 +33,18 @@ function ProjectNavBar() {
             }
             <div className={`navbar-div ${isNavOpen ? "nav-open" : ""}`}>
                 <div>
-                    <button
-                        className="add-project"
-                        onClick={ onClickNewProjectHandler }
-                    >
-                        <p>+새프로젝트</p>
-                    </button>
+                    {/*{ isHeader() ? (*/}
+                        <button className="add-project" onClick={onClickNewProjectHandler}>
+                            <p>+새프로젝트</p>
+                        </button>
+                    {/*) : (*/}
+                    {/*    <div  className="project-Classy">*/}
+                    {/*        <p>*/}
+                    {/*            Classy<br/>*/}
+                    {/*            Groupware*/}
+                    {/*        </p>*/}
+                    {/*    </div>*/}
+                    {/*)}*/}
                 </div>
                 <div className="total-nav" onClick={handleNavToggle}>
                     <img src="/ph_list-light.png" alt="전체" />
@@ -47,7 +56,7 @@ function ProjectNavBar() {
                     <div className="nav-bar-p">
                         <p><img src="/message.png"/>쪽지함</p>
                         <p><img src="/approval.png"/>전자결재</p>
-                        <NavLink to="/project"><p><img src="/project.png"/>프로젝트</p></NavLink>
+                        <NavLink to="/projects"><p><img src="/project.png"/>프로젝트</p></NavLink>
                         <p><img src="/calender.png"/>캘린더</p>
                         <p><img src="/work.png"/>업무</p>
                         <p><img src="/board.png"/>공지게시판</p>
@@ -56,6 +65,7 @@ function ProjectNavBar() {
                     </div>
                 </div>
             </div>
+
             {/* isNavOpen 값에 따라 Navbar를 조건부로 렌더링 */}
             {isNavOpen && (
                 <div className="navbar-overlay">

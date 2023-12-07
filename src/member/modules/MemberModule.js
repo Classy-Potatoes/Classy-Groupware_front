@@ -5,21 +5,25 @@ import {createActions, handleActions} from "redux-actions";
 const initialState = {};
 
 /* 액션타입 */
-// const SIGNUP_SUCCESS = 'member/SIGNUP_SUCCESS';
-// const SIGNUP_FAILURE = 'member/SIGNUP_FAILURE';
-const LOGIN_SUCCESS = 'member/LOGIN_SUCCESS';
-const LOGIN_FAILURE = 'member/LOGIN_FAILURE';
+const SIGNUP_RESULT = 'member/SIGNUP_RESULT';
+const LOGIN_RESULT = 'member/LOGIN_RESULT';
+const SEARCH_ID_RESULT = 'member/SEARCH_ID_RESULT';
+const SEARCH_PWD_RESULT = 'member/SEARCH_PWD_RESULT';
 // const GET_PROFILE = 'member/GET_PROFILE';
 
 
-/* 액션 함수 */
-export const { member : { signupSuccess, signupFailure, loginSuccess, loginFailure, getProfile } } = createActions({
 
-   // [ SIGNUP_SUCCESS ] : () => ({ signupSuccess : true }),
-   // [ SIGNUP_FAILURE ] : () => ({ signupSuccess : false }),
-   [ LOGIN_SUCCESS ] : () => ({ loginSuccess : true }),
-   [ LOGIN_FAILURE ] : () => ({ loginSuccess : false }),
+/* 액션 함수 */
+export const { member : { signupResult, loginResult, searchIdResult,
+                           searchPwdResult,
+                           getProfile } } = createActions({
+
+   [ SIGNUP_RESULT ] : isSignUpResult => ({ signupResult : isSignUpResult }),
+   [ LOGIN_RESULT ] : isLoginResult => ({ loginResult : isLoginResult }),
+   [ SEARCH_ID_RESULT ] : result => ({ searchIdResult : result.data }),
+   [ SEARCH_PWD_RESULT ] : result => ({ searchPwdResult : result.data }),
    // [ GET_PROFILE ] : ( result ) => ({ profileInfo : result.data })
+
 
 });
 
@@ -27,10 +31,10 @@ export const { member : { signupSuccess, signupFailure, loginSuccess, loginFailu
 /* 리듀서 함수 */
 const memberReducer = handleActions({
 
-   // [ SIGNUP_SUCCESS ] : ( state, { payload } ) => payload,
-   // [ SIGNUP_FAILURE ] : ( state, { payload } ) => payload,
-   [ LOGIN_SUCCESS ] : ( state, { payload } ) => payload,
-   [ LOGIN_FAILURE ] : ( state, { payload } ) => payload,
+   [ SIGNUP_RESULT ] : ( state, { payload } ) => payload,
+   [ LOGIN_RESULT ] : ( state, { payload } ) => payload,
+   [ SEARCH_ID_RESULT ] : ( state, { payload } ) => payload,
+   [ SEARCH_PWD_RESULT ] : ( state, { payload } ) => payload,
    // [ GET_PROFILE ] : ( state, { payload } ) => payload
 
 }, initialState);

@@ -6,8 +6,7 @@ function Navbar() {
 
     // 로그아웃
     const onClickLogoutHandler = () => {
-        // 토큰은 삭제했지만 화면은 변화가 없기 때문에
-        // 메인으로 리로딩 하게 해준다.
+        // 토큰은 삭제 했지만 화면은 변화가 없기 때문에 메인 으로 리로딩.
 
         removeToken();
         window.location.replace("/");
