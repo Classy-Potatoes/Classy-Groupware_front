@@ -48,4 +48,16 @@ export const isAdmin = () => {
     return isLogin() && ( getDecodeAccessToken().memberRole === 'ROLE_ADMIN');
 }
 
+export const isHeader = () => {
+    const decodedToken = getDecodeAccessToken();
+    console.log("Decoded Token:", decodedToken);
+    const infoCode = decodedToken?.infoCode;
+    console.log("infoCode:", infoCode);
+
+    // 로그인이 되어 있고, jobCode가 부장이상 일때
+    const result = isLogin() && infoCode && infoCode.jobCode >= 4;
+    console.log("jobCode:", infoCode?.jobCode);
+    console.log("result:", result);
+    return result;
+}
 

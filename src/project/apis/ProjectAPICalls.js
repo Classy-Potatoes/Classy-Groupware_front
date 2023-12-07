@@ -1,7 +1,7 @@
 
-import {authRequest} from "../../common/apis/Api";
+import {authRequest, request} from "../../common/apis/Api";
 import {toast} from "react-toastify";
-import {postSuccess} from "../modules/ProjectModule";
+import {getMydeptprojects, getProjects, postSuccess} from "../modules/ProjectModule";
 
 export const callProjectRegistAPI = ({ projectRegistRequest }) => {
 
@@ -23,6 +23,50 @@ export const callProjectRegistAPI = ({ projectRegistRequest }) => {
         if(result?.status === 201) {
             dispatch(postSuccess());
             toast.info("새 프로젝트 생성이 완료 되었습니다.");
+        }
+    }
+}
+
+export const callMyProjectListAPI = ({ currentPage = 1 }) => {
+
+    return async (dispatch, getState) => {
+
+        const result
+            = await authRequest.get(`/cg-api/v1/projects/myProjects?page=${currentPage}`,
+            {
+                headers : {
+                    'Content-Type' : 'application/json'
+                }
+            }).catch(e => {
+            console.log(e);
+        });
+
+        console.log('callMyProjectListAPI : ', result);
+
+        if(result?.status === 200) {
+            dispatch(getProjects(result));
+        }
+    }
+}
+
+export const callMyDeptProjectListAPI = ({ currentPage = 1}) => {
+
+    return async (dispatch, getState) => {
+
+        const result
+            = await authRequest.get(`/cg-api/v1/projects/myDept?page=${currentPage}`,
+            {
+                headers : {
+                    'Content-Type' : 'application/json'
+                }
+            }).catch(e => {
+            console.log(e);
+        });
+
+        console.log('callMyDeptProjectListAPI : ', result);
+
+        if(result?.status === 200) {
+            dispatch(getMydeptprojects(result));
         }
     }
 }

@@ -7,10 +7,12 @@ import './style/Project.css';
 import 'react-toastify/dist/ReactToastify.css';
 import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
 import Layout from "./dashBoard/layouts/Layout";
-import ProjectMain from "./project/pages/ProjectMain";
+import ProjectLayout from "./project/layouts/ProjectLayout";
 import CalendarLayout from "./calendar/layouts/CalendarLayout";
 import ProtectedRoute from "./common/components/router/ProtectedRoute";
 import Login from "./common/pages/Login";
+import MyProjectMain from "./project/pages/projects/MyProjectMain";
+import MyDeptProjectMain from "./project/pages/projects/MyDeptProjectMain";
 import Error from "./common/pages/Error";
 import Signup from "./member/pages/Signup";
 import SearchPwd from "./member/pages/SearchPwd";
@@ -33,7 +35,16 @@ function App() {
               </Route>
 
 
-              <Route path="projects" element={ <ProtectedRoute loginCheck={ true }><ProjectMain /></ProtectedRoute> } />
+              <Route path="projects" element={ <ProtectedRoute loginCheck={ true }><ProjectLayout /></ProtectedRoute> } >
+                  <Route index element={
+                      <div>
+                          <MyProjectMain />
+                          <MyDeptProjectMain />
+                      </div>
+                  }/>
+
+              </Route>
+
               <Route path="calendar" element={ <ProtectedRoute loginCheck={ true }><CalendarLayout/></ProtectedRoute> }>
 
               </Route>
