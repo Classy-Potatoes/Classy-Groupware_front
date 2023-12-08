@@ -11,6 +11,10 @@ import ProjectLayout from "./project/layouts/ProjectLayout";
 import CalendarLayout from "./calendar/layouts/CalendarLayout";
 import ProtectedRoute from "./common/components/router/ProtectedRoute";
 import Login from "./common/pages/Login";
+import Vacation from "./appreval/components/Form/Vacation";
+import Expense from "./appreval/components/Form/Expense";
+import Letter from "./appreval/components/Form/Letter";
+import ApprovalLayOut from "./appreval/layouts/ApprovalLayOut";
 import MyProjectMain from "./project/pages/projects/MyProjectMain";
 import MyDeptProjectMain from "./project/pages/projects/MyDeptProjectMain";
 import Error from "./common/pages/Error";
@@ -47,6 +51,12 @@ function App() {
 
               <Route path="calendar" element={ <ProtectedRoute loginCheck={ true }><CalendarLayout/></ProtectedRoute> }>
 
+              </Route>
+
+              <Route path="approval" element={<ApprovalLayOut/>}>
+                  <Route path="letter" element={<ProtectedRoute loginCheck={ true }><Letter/></ProtectedRoute>} />
+                  <Route path="expense" element={<ProtectedRoute loginCheck={ true }> <Expense/> </ProtectedRoute>} />
+                  <Route path="vacation" element={<ProtectedRoute loginCheck={true }> <Vacation/></ProtectedRoute>} />
               </Route>
 
               {/* 정한 것 외에는 모두 에러 페이지로 이동 */}

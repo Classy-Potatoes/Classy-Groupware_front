@@ -1,4 +1,33 @@
 /* 인선 ---------------------------------------------------------------------- */
+/* header ------------------------------------------------------------------------------------ */
+
+.header-line {
+    height: 1%;
+    background-color: rgba(51, 51, 51, 1);
+}
+
+.header-container {
+    height: 14%;
+    display: flex;
+    align-items: center;
+    /*border-bottom: 11px solid rgba(51, 51, 51, 1);*/
+}
+
+.main-logo {
+    height: 100px;
+    height: 122px;
+    margin-left: 46px;
+}
+
+.logo-name {
+    color: black;
+    font-size: 20px;
+    font-family: Noto Sans;
+    font-weight: 400;
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+
 /* nav-bar --------------------------------------------------------------------------------- */
 .main-navbar-div {
     width: 280px;
@@ -191,6 +220,89 @@
 .navbar-overlay.nav-open {
     transform: translateX(0);
 }
+
+/* 전자결재 네비바 (준홍)--------------------------------------------------------------------------------- */
+
+
+.approvalTitle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 200px;
+    height: 60px;
+    background: #161616;
+    border-radius: 10px;
+    margin-top: 27px;
+}
+
+.approvalTitle p {
+    color: #CEC35E;
+    font-size: 20px;
+    font-family: Noto Sans;
+    text-align: left;
+}
+
+.approvalCategoryList {
+    background-color: #161616;
+    font-size: 20px;
+    color : white;
+    font-family: Noto Sans;
+
+}
+
+.active-link {
+    color : #CEC35E;
+
+}
+
+.approvalContainer {
+    display: flex;
+    flex-direction: row;
+    height:  85%;
+    width: 280px;
+}
+
+.approvalView {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.approvalNav {
+    height: 100%;
+}
+
+/* 네비 위에 네비 나타내기 */
+.approval-navbar-overlay {
+    height: 85%;
+    position: fixed;
+    top: 143px;
+    left: 0;
+    z-index: 1; /* Navbar가 ProjectNavBar 위에 나타나도록 더 높은 z-index를 설정합니다. */
+    background-color: #333333; /* 슬라이딩된 부분을 채울 색상을 설정하세요. */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* 그림자 효과를 추가하세요. */
+    overflow-y: auto; /* 만약 내용이 넘칠 경우 스크롤이 가능하도록 설정합니다. */
+    transition: transform 0.3s ease;
+}
+
+.approval-div.nav-open {
+    transform: translateX(250px); /* 슬라이딩 이동 거리를 조절합니다. */
+}
+
+.approval-navbar-overlay.nav-open {
+    transform: translateX(0);
+}
+
+.approval-div{
+    width: 280px;
+    height: 100%;
+    background-color: rgba(51, 51, 51, 1);
+    display: flex; /* 가로로 가운데 정렬 */
+    flex-direction: column; /* 세로로 나열 */
+    align-items: center; /* 세로로 가운데 정렬 */
+    transition: transform 0.3s ease;
+}
+
 
 
 
