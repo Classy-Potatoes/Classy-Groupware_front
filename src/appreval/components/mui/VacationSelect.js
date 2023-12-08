@@ -5,11 +5,13 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
-export default function BasicSelect() {
+export default function BasicSelect({onSelectChange}) {
     const [value, setValue] = React.useState('');
 
     const handleChange = (event) => {
-        setValue(event.target.value);
+        const selectedValue = event.target.value;
+        setValue(selectedValue);
+        onSelectChange(selectedValue); // 부모로 선택된 값을 전달
     };
 
     return (
@@ -22,6 +24,7 @@ export default function BasicSelect() {
                     value={value}
                     label="휴가구분"
                     onChange={handleChange}
+                    name="vacationType"
                 >
                     <MenuItem value="연차">연차</MenuItem>
                     <MenuItem value="반차">반차</MenuItem>

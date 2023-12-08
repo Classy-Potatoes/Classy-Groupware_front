@@ -194,11 +194,11 @@
     height: 50px;
     text-align: center;
     line-height: 50px;
-    font-family: Noto Sans;
-    font-weight: bold;
 }
 
 .vacation-mainTitle p {
+    font-family: Noto Sans;
+    font-weight: bolder;
     width: 80px;
     border-bottom: solid black 1px;
     border-right: solid black 1px;
