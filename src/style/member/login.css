@@ -213,7 +213,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: end;
+    align-items: flex-end;
 }
 
 .signup-div-right span {

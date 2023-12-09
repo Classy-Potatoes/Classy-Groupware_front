@@ -15,12 +15,19 @@ function NoteReceivedMain() {
         dispatch(callNoteReceivedListAPI({ currentPage }));
     }, [currentPage]);
 
+    // 드롭다운 메뉴의 옵션 설정
+    const dropdownOptions = [
+        { label: "전체" },
+        { label: "보낸 사람" },
+        { label: "내용" },
+    ];
+
     return (
         <>
             { notes
                 &&
                 <>
-                    <NoteListItem note={ notes.data } />
+                    <NoteListItem note={ notes.data } title="받은 쪽지함" options={ dropdownOptions } />
                     <PagingBar pageInfo={ notes.pageInfo } setCurrentPage={ setCurrentPage }/>
                 </>
             }
