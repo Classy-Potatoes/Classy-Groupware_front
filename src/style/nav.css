@@ -1,33 +1,4 @@
 /* 인선 ---------------------------------------------------------------------- */
-/* header ------------------------------------------------------------------------------------ */
-
-.header-line {
-    height: 1%;
-    background-color: rgba(51, 51, 51, 1);
-}
-
-.header-container {
-    height: 14%;
-    display: flex;
-    align-items: center;
-    /*border-bottom: 11px solid rgba(51, 51, 51, 1);*/
-}
-
-.main-logo {
-    height: 100px;
-    height: 122px;
-    margin-left: 46px;
-}
-
-.logo-name {
-    color: black;
-    font-size: 20px;
-    font-family: Noto Sans;
-    font-weight: 400;
-    margin-left: 10px;
-    margin-bottom: 10px;
-}
-
 /* nav-bar --------------------------------------------------------------------------------- */
 .main-navbar-div {
     width: 280px;
@@ -221,6 +192,9 @@
     transform: translateX(0);
 }
 
+
+
+
 /* 전자결재 네비바 (준홍)--------------------------------------------------------------------------------- */
 
 
@@ -310,4 +284,22 @@
 /* nav-bar --------------------------------------------------------------------------------- */
 .nav-logout {
     cursor: pointer;
+}
+
+.mypageTitle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 200px;
+    height: 60px;
+    background: #161616;
+    border-radius: 10px;
+    margin-top: 27px;
+}
+
+.mypageTitle p {
+    color: #CEC35E;
+    font-size: 20px;
+    font-family: Noto Sans;
+    text-align: left;
 }
