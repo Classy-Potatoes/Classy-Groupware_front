@@ -47,7 +47,8 @@ body{
 .main-logo {
     height: 100px;
     height: 122px;
-    margin-left: 50px;
+    margin-left: 46px;
+    cursor: pointer;
 }
 
 .logo-name {
@@ -57,4 +58,5 @@ body{
     font-weight: 400;
     margin-left: 10px;
     margin-bottom: 10px;
+    cursor: pointer;
 }
