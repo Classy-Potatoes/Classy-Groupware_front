@@ -1,4 +1,33 @@
 /* 인선 ---------------------------------------------------------------------- */
+/* header ------------------------------------------------------------------------------------ */
+
+.header-line {
+    height: 1%;
+    background-color: rgba(51, 51, 51, 1);
+}
+
+.header-container {
+    height: 14%;
+    display: flex;
+    align-items: center;
+    /*border-bottom: 11px solid rgba(51, 51, 51, 1);*/
+}
+
+.main-logo {
+    height: 100px;
+    height: 122px;
+    margin-left: 46px;
+}
+
+.logo-name {
+    color: black;
+    font-size: 20px;
+    font-family: Noto Sans;
+    font-weight: 400;
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+
 /* nav-bar --------------------------------------------------------------------------------- */
 .main-navbar-div {
     width: 280px;
@@ -134,14 +163,14 @@
     font-size: 15px;
     font-family: Noto Sans;
     font-weight: 700;
-    margin-right: 105px;
+    margin-right: 60px;
     margin-top: 20px;
     margin-bottom: 20px;
     cursor: pointer;
 }
 
 .total-nav img {
-    margin-right: 7px; /* 이미지와 텍스트 사이의 간격을 조절 */
+    margin-right: 5px; /* 이미지와 텍스트 사이의 간격을 조절 */
 }
 
 .nav-bar {
@@ -194,16 +223,16 @@
 
 /* 주희 ---------------------------------------------------------------------- */
 /* 쪽지 네비바 --------------------------------------------------------------------------------- */
-/* 카테고리 간격 설정 */
-.note-nav-bar p {
+/*카테고리 간격 설정*/
+.note-nav-bar li a {
     line-height: 2.5;
-    font-family: Noto Sans;
 }
 
-/* CG 로고 설정 */
+/*CG 로고 설정*/
 .note-navbar-title {
     display: flex;
     align-items: center;
+    justify-content: flex-start;
     width: 200px;
     height: 60px;
     background: #161616;
@@ -211,12 +240,17 @@
     margin-top: 27px;
 }
 
-/* CG로고 글자 설정 */
+/*CG로고 글자 설정*/
 .note-navbar-title p {
     color: #C0A3FF;
     font-size: 22px;
     font-family: Noto Sans;
+    text-align: left;
     margin-left: 20px;
+}
+
+.note-nav-bar li {
+    list-style-type: none;
 }
 
 /*전체 카테고리에 대한 이미지와 글자 간격 설정*/
@@ -226,15 +260,17 @@
 
 .note-nav-bar {
     width: 200px;
-    height: 600px;
+    height: 630px;
     background: #161616;
     border-radius: 10px;
     display: flex; /* 가로 가운데 정렬을 위해 flex 사용 */
     flex-direction: column; /* 세로로 나열하기 위해 추가 */
+    font-size: 20px;
+    font-family: Noto Sans;
     color: white;
 }
 
-/* 쪽지 메인 글자 위치 설정 */
+/*쪽지 메인 글자 위치 설정*/
 .note-nav-main {
     padding-right: 40px;
     padding-top: 30px;
@@ -243,11 +279,10 @@
     font-size: 25px;
 }
 
-/* 쪽지 하위 글자 글자 위치 설정 */
+/*쪽지 하위 글자 글자 위치 설정*/
 .note-nav-category {
     padding-left: 30px;
     padding-top: 15px;
-    font-size: 20px;
 }
 
 .note-img {
@@ -261,14 +296,25 @@
     padding-left: 10px;
 }
 
-.note-nav-category p:hover {
-    color: #C0A3FF;
+.note-main {
+    padding-bottom: 5px;
 }
 
-/* 검은 div 설정 */
-.notes-container{
+.note-total-nav {
     display: flex;
-    height: 85%;
+    align-items: center; /* 수직 중앙 정렬 */
+    color: white;
+    font-size: 15px;
+    font-family: Noto Sans;
+    font-weight: 700;
+    margin-right: 105px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+
+.note-nav-category li a:hover {
+    color: #C0A3FF;
 }
 
 /* 전자결재 네비바 (준홍)--------------------------------------------------------------------------------- */

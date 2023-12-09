@@ -4,7 +4,7 @@ import './style/main.css';
 import './style/member/login.css';
 import './style/calendar.css';
 import './style/Project.css';
-import './style/note/receivedNote.css'
+import './style/note/note.css'
 import 'react-toastify/dist/ReactToastify.css';
 import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
 
@@ -42,9 +42,9 @@ function App() {
                   <Route path="pwdSearch" element={ <ProtectedRoute loginCheck={ false }><SearchPwd /></ProtectedRoute> } />
               </Route>
 
-              <Route path="note" element={ <ProtectedRoute loginCheck={ true }><NoteLayout/></ProtectedRoute> }>
+              <Route path="/note" element={ <ProtectedRoute loginCheck={ true }><NoteLayout/></ProtectedRoute> }>
                   <Route index element={ <NoteReceivedMain/> }/>
-
+                  <Route path="received" element={ <NoteReceivedMain/> }/>
               </Route>
 
 
