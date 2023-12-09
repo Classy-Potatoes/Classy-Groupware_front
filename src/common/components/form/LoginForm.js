@@ -5,40 +5,15 @@ import {callLoginAPI} from "../../../member/apis/MemberAPICalls";
 function LoginForm() {
 
     const dispatch = useDispatch();
-    const [ isValid, setIsValid ] = useState( false );
-    const [ form, setFrom ] = useState({
-        memberId : "",
-        memberPassword : "",
-    });
+    const [ form, setForm ] = useState({});
 
     const onChangeHandler = e => {
 
-        setFrom({
+        setForm({
             ...form,
             [ e.target.name ]: e.target.value
         });
     }
-
-    const validate = (type, value) => {
-        // 공백 확인 정규식
-        const blankRegex = /\S/;
-
-        if (type === "memberId" || type === "memberPassword" ) {
-            return blankRegex.test( value );
-        }
-
-        return true;
-    }
-
-    const validateForm = () => {
-        const { memberId, memberPassword } = form;
-        return validate("memberId", memberId) && validate("memberPassword", memberPassword);
-    };
-
-    // 입력값이 변경될 때마다 유효성을 검사하여 상태 업데이트
-    const onFormChange = () => {
-        setIsValid( validateForm() );
-    };
 
     const onClickLoginHandler = () => {
 
@@ -61,26 +36,19 @@ function LoginForm() {
                 type="text"
                 name="memberId"
                 placeholder="아이디를 입력해주세요"
-                onChange={(e) => {
-                    onChangeHandler(e);
-                    onFormChange();
-                }}
+                onChange={ onChangeHandler }
             />
             <input
                 className="login-inputImg-pw"
                 type="password"
                 name="memberPassword"
                 placeholder="비밀번호를 입력해주세요"
-                onChange={(e) => {
-                    onChangeHandler(e);
-                    onFormChange();
-                }}
+                onChange={ onChangeHandler }
                 onKeyUp={ onEnterkeyHandler }
             />
             <button
                 className="login-button"
                 onClick={ onClickLoginHandler }
-                disabled={ !isValid }
             >
                 Login
             </button>

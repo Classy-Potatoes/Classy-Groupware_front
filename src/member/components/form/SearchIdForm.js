@@ -5,10 +5,10 @@ import {callSearchIdAPI} from "../../../member/apis/MemberAPICalls";
 function SearchIdForm() {
 
     const dispatch = useDispatch();
-    const [ form, setFrom ] = useState({});
+    const [ form, setForm ] = useState({});
 
     const onChangeHandler = e => {
-        setFrom({
+        setForm({
             ...form,
             [ e.target.name ]: e.target.value
         });
