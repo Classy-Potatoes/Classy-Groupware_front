@@ -133,7 +133,8 @@
 .signup-div-profile-img {
     width: 100px;
     height: 100px;
-    background-image : url('/public/member/signupImg.png');
+    object-fit: cover;
+    border-radius: 50%;
 }
 
 .signup-div-profile-title {
@@ -170,6 +171,17 @@
     margin-bottom: 3px;
 }
 
+.signup-div-left-address {
+    width: 220px;
+    height: 30px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
 .signup-div-left-email {
     width: 220px;
     height: 30px;
@@ -188,6 +200,10 @@
     border-radius: 10px;
     text-indent: 10px;
     font-size: 12px;
+}
+
+.disabledInput {
+    color: white;
 }
 
 .signup-div .disabledInput::placeholder {
@@ -213,7 +229,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: end;
+    align-items: flex-end;
 }
 
 .signup-div-right span {
@@ -222,7 +238,7 @@
     margin-bottom: 3px;
 }
 
-.signup-div .zipcode-input {
+.signup-div .width130-input {
     margin-top: 5px;
     margin-bottom: 5px;
     height: 30px;
@@ -243,7 +259,7 @@
     align-items: center;
 }
 
-.signup-div .address-search {
+.signup-div .small-search-btn {
     margin-top: 5px;
     margin-bottom: 5px;
     height: 30px;

@@ -7,18 +7,15 @@ import SignupForm from "../components/form/SignupForm";
 
 function Signup() {
 
-    const navigate = useNavigate();
     const { signupResult } = useSelector(state => state.memberReducer );
-
 
     useEffect(() => {
 
         if ( signupResult === true ) {
-            navigate('/member/login');
+            window.location.replace("/");
         }
 
     }, [ signupResult ]);
-
 
     return (
         <>

@@ -13,14 +13,7 @@ function Login() {
 
         if( loginResult?.loginResult === true ) {
 
-            toast.success('반갑습니다.', {
-                autoClose : 500,
-                onClose : () => {
-                    // 온전히 다시 모든 화면을 리로드 한다.
-                    // 리덕스의 값을 다 날려주기 위해서
-                    window.location.replace("/");
-                }
-            });
+            window.location.replace("/");
 
         } else if( loginResult?.loginResult === false ) {
             // 기존 메시지 모두 삭제.
