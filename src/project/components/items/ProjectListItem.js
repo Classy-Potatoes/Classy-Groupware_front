@@ -1,8 +1,10 @@
 import {useEffect, useState} from "react";
+import {useNavigate} from "react-router-dom";
 
 function ProjectListItem({project : {projectCode, projectTitle, deptName, participantCount} }) {
 
     const [backgroundColor, setBackgroundColor] = useState('');
+    const navigate = useNavigate();
 
     useEffect(() => {
         // localStorage에서 저장된 색상을 불러오기
@@ -21,9 +23,17 @@ function ProjectListItem({project : {projectCode, projectTitle, deptName, partic
         }
     }, [projectCode]); // projectCode가 변경될 때마다 useEffect 다시 실행
 
+    const onClickProjectHandler = () => {
+        navigate(`/projects/${projectCode}`);
+    }
+
     return(
 
-            <div className="project-div" style={{ backgroundColor }}>
+            <div
+                className="project-div"
+                style={{ backgroundColor }}
+                onClick={ onClickProjectHandler }
+            >
                 <h3>{ projectTitle }</h3>
                 <h5>{ deptName }</h5>
                 <h4>{ participantCount }명 참여중</h4>

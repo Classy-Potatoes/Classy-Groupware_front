@@ -46,6 +46,7 @@ function ProjectNavBar() {
                     {/*    </div>*/}
                     {/*)}*/}
                 </div>
+
                 <div className="total-nav" onClick={handleNavToggle}>
                     <img src="/ph_list-light.png" alt="전체" />
                     <p>전체</p>
@@ -54,14 +55,10 @@ function ProjectNavBar() {
                 <div className="nav-bar">
 
                     <div className="nav-bar-p">
-                        <p><img src="/message.png"/>쪽지함</p>
-                        <p><img src="/approval.png"/>전자결재</p>
+
                         <NavLink to="/projects"><p><img src="/project.png"/>프로젝트</p></NavLink>
-                        <p><img src="/calender.png"/>캘린더</p>
-                        <p><img src="/work.png"/>업무</p>
-                        <p><img src="/board.png"/>공지게시판</p>
-                        <p><img src="/phone.png"/>연락망</p>
-                        <p><img src="/Vector.png"/>관리기능</p>   {/* 로그인 구현되면 권한 설정해서 관리자만 보이게 함 */}
+                        <NavLink to="/projects/myTask"><p><img src="/calender.png"/>내 업무</p></NavLink>
+                        <NavLink to="/projects/myTodo"><p><img src="/work.png"/>내 할일</p></NavLink>
                     </div>
                 </div>
             </div>

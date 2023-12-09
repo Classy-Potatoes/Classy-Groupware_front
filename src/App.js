@@ -4,7 +4,7 @@ import './style/main.css';
 import './style/member/login.css';
 import './style/member/member.css';
 import './style/calendar.css';
-import './style/Project.css';
+import './style/project/Project.css';
 import 'react-toastify/dist/ReactToastify.css';
 import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
 import Layout from "./dashBoard/layouts/Layout";
@@ -23,6 +23,10 @@ import Signup from "./member/pages/Signup";
 import SearchPwd from "./member/pages/SearchPwd";
 import SearchId from "./member/pages/SearchId";
 import ResultSearchId from "./member/pages/ResultSearchId";
+import ProjectDetail from "./project/pages/projects/ProjectDetail";
+import ProjectInvite from "./project/pages/projects/ProjectInvite";
+import ProjectDetailLayout from "./project/layouts/ProjectDetailLayout";
+import ProjectDashBoard from "./project/layouts/ProjectDashBoard";
 import Profile from "./member/pages/mypage/Profile";
 import MyPageLayout from "./member/layouts/MyPageLayout";
 import PasswordChange from "./member/pages/mypage/PasswordChange";
@@ -64,6 +68,14 @@ function App() {
                           <MyDeptProjectMain />
                       </div>
                   }/>
+                  <Route path=":projectCode" element={<ProtectedRoute loginCheck={ true }><ProjectDetailLayout /></ProtectedRoute>} >
+                    <Route index element={
+                        <div className="project-post-div">
+                            <ProjectDashBoard/>
+                        </div>
+                    }/>
+                      <Route path="myTask" element={<ProtectedRoute loginCheck={ true }><ProjectDashBoard /></ProtectedRoute>} />
+                  </Route>
 
               </Route>
 
