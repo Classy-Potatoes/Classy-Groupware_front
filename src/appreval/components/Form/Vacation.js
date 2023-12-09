@@ -180,8 +180,8 @@ function Vacation() {
                                 sx={{
                                     '& > :not(style)': {m: 1, width: '220px'},
                                 }}
-                                novalidate
-                                aotuComplete="off"
+                                noValidate={true}
+                                autoComplete="off"
                             >
                                 <Input
                                     placeholder="'-'를 제외한 핸드폰번호 입력"
@@ -200,7 +200,7 @@ function Vacation() {
                                 sx={{
                                     '& .MuiTextField-root': {m: 1, width: '920px', margin: 'auto'},
                                 }}
-                                noValidate
+                                noValidate={true}
                                 autoComplete="off"
                             >
                                 <TextField
@@ -228,7 +228,7 @@ function Vacation() {
                             sx={{
                                 '& .MuiTextField-root': {m: 1, width: '1000px', margin: 'auto'},
                             }}
-                            noValidate
+                            noValidate={true}
                             autoComplete="off"
                         >
                             <TextField

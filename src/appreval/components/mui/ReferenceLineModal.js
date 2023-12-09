@@ -58,7 +58,6 @@ export default function ReferenceLineModal({writer, onRegisterClick}) {
 
     );
 
-        console.log(filteredMembers);
 
     const handleRemoveMember = (index) => {
         const newSelectedMembers = [...selectedMembers];
