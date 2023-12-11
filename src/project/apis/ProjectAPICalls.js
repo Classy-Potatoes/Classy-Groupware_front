@@ -2,7 +2,6 @@
 import {authRequest, request} from "../../common/apis/Api";
 import {toast} from "react-toastify";
 import {
-    getDeptmember,
     getMydeptmember,
     getMydeptprojects, getMytask,
     getProject,
@@ -32,7 +31,6 @@ export const callProjectRegistAPI = ({ projectRegistRequest }) => {
 
         if(result?.status === 201) {
             dispatch(postSuccess());
-            toast.info("새 프로젝트 생성이 완료 되었습니다.");
         }
     }
 };
@@ -153,7 +151,7 @@ export const callProjectRemoveAPI =({projectCode}) => {
 
         if(result.status === 204) {
             window.location.replace("/projects");
-            toast.info("상품 삭제가 완료 되었습니다.");
+            toast.info("프로젝트 삭제가 완료 되었습니다.");
         }
 
     }
@@ -190,3 +188,21 @@ export const callDeptMemberSearchAPI = ({ deptCode,infoName }) => {
         }
     }
 }
+
+/* 프로젝트 초대하기 */
+export const callInviteMemberAPI = ({ projectInviteMemberRequests }) => {
+
+    return async (disPatch, getState ) => {
+
+        const result = await authRequest.post(`/cg-api/v1/invite`, projectInviteMemberRequests);
+
+        console.log('callInviteMemberAPI :', result);
+
+        if(result?.status === 201) {
+            disPatch(postSuccess());
+        }
+
+    }
+}
+
+

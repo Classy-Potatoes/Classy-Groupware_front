@@ -23,8 +23,6 @@ import Signup from "./member/pages/Signup";
 import SearchPwd from "./member/pages/SearchPwd";
 import SearchId from "./member/pages/SearchId";
 import ResultSearchId from "./member/pages/ResultSearchId";
-import ProjectDetail from "./project/pages/projects/ProjectDetail";
-import ProjectInvite from "./project/pages/projects/ProjectInvite";
 import ProjectDetailLayout from "./project/layouts/ProjectDetailLayout";
 import ProjectDashBoard from "./project/layouts/ProjectDashBoard";
 import Profile from "./member/pages/mypage/Profile";

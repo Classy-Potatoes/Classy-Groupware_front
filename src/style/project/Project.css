@@ -548,3 +548,24 @@
     padding: 10px;
 }
 
+/* 프로젝트 대시보드 네비 */
+.project-Nav-List {
+    display: flex;
+    align-items: center;
+    margin-left: 100px;
+    padding: 15px;
+}
+
+.project-Nav-List-border {
+    border-bottom: 1px solid black;
+    width: 98%;
+    margin-left: 10px;
+}
+
+.project-Nav-List img {
+    margin-left: 150px; /* Adjust the margin as needed */
+}
+
+.project-Nav-List p {
+    margin-left: 5px;
+}
