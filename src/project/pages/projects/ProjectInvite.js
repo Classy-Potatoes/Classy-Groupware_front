@@ -59,7 +59,7 @@ function ProjectInvite() {
                 </div>
             )}
             {inviteModal && (
-                <InviteModal setInviteModal={setInviteModal} deptCode={project.deptCode} />
+                <InviteModal setInviteModal={setInviteModal} deptCode={project.deptCode} projectCode={projectCode} />
             )}
             {projectMember && (
                 <div className="project-invite-div">
