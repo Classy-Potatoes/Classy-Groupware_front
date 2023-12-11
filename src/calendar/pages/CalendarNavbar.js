@@ -1,5 +1,6 @@
-import calLogo from '../imgages/cal-logo.png';
-import menuLogo from '../imgages/menu.png';
+import calLogo from '../images/cal-logo.png';
+import menuLogo from '../images/menu.png';
+import SideCalendar from "./SideCalendar";
 
 function CalendarNavbar() {
 
@@ -15,9 +16,9 @@ function CalendarNavbar() {
                         <div className="cal-menu-logo"><img src={menuLogo}/></div>
                         <div className="cal-menu-title">메뉴</div>
                     </div>
-                    <div className="cal-box">
-
-                    </div>
+                </div>
+                <div className="cal-box">
+                    <SideCalendar/>
                 </div>
             </div>
         </>

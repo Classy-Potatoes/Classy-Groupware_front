@@ -1,5 +1,7 @@
 import './style/main.css';
 import './style/nav.css';
+import './style/member/styleTest.css';
+import './calendar/calendarStyle/Calendar.css'
 import './style/main.css';
 import './style/member/login.css';
 import './style/member/member.css';
@@ -79,9 +81,8 @@ function App() {
 
               </Route>
 
-              <Route path="calendar" element={ <ProtectedRoute loginCheck={ true }><CalendarLayout/></ProtectedRoute> }>
+              <Route path="calendar" element={ <ProtectedRoute loginCheck={ true }><CalendarLayout/></ProtectedRoute> }/>
 
-              </Route>
 
               <Route path="approval" element={<ApprovalLayOut/>}>
                   <Route path="letter" element={<ProtectedRoute loginCheck={ true }><Letter/></ProtectedRoute>} />
@@ -104,8 +105,6 @@ function App() {
               {/* 정한 것 외에는 모두 에러 페이지로 이동 */}
               <Route path="*" element={ <Error /> } />
           </Routes>
-
-
       </BrowserRouter>
   );
 }
