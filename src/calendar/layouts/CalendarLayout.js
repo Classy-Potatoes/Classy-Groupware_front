@@ -4,28 +4,38 @@ import CalendarNavbar from "../pages/CalendarNavbar";
 import {CalendarMain} from "../components/CalendarMain";
 import {useDispatch, useSelector} from "react-redux";
 import {callCalendarListAPI, callPersonalListAPI, callProjectListAPI} from "../apis/CalendarAPICalls";
+import CalendarRegistModal from "../modals/CalendarRegistModal";
+import {ToastContainer} from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { ko } from "date-fns/esm/locale";
 
 function CalendarLayout() {
 
-    const dispatch = useDispatch();
-    const {allSchedule, projectSchedule, personalSchedule} = useSelector(state => state.scheduleReducer);
 
-    const [schedule, setSchedule] = useState([]);
+    const [scheduleRegistModal, setScheduleRegistModal] = useState(false);
+    const dispatch = useDispatch();
+    const {allSchedule} = useSelector(state => state.scheduleReducer);
 
     useEffect(() => {
-        dispatch(callCalendarListAPI()).then(() => {
-            setSchedule(allSchedule);
-        });
-    }, [dispatch]);
+        dispatch(callCalendarListAPI());
+    }, []);
 
-    const onClickedProject = () => {
-        dispatch(callProjectListAPI());
-        setSchedule(projectSchedule);
+    const clickedNewSchedule = () => {
+        setScheduleRegistModal(true);
     }
 
-    const onClickedPersonal = () => {
+    const clickedProject = () => {
+        dispatch(callProjectListAPI());
+    }
+
+    const clickedPersonal = () => {
         dispatch(callPersonalListAPI());
-        setSchedule(personalSchedule);
+    }
+
+    const clickAllSchedule = () => {
+        dispatch(callCalendarListAPI());
     }
 
     return (
@@ -33,14 +43,30 @@ function CalendarLayout() {
             <Header/>
             <div className="cal-all-box">
                 <CalendarNavbar/>
-                <div className="cal-container">
-                    <CalendarMain allSchedule={schedule}/>
-                </div>
-                <div className="cal-button-area">
-                    <div className="cal-add-button">일정 추가</div>
-                    <div className="cal-project-button" onClick={onClickedProject}>프로젝트</div>
-                    <div className="cal-personal-button" onClick={onClickedPersonal}>개인일정</div>
-                </div>
+                {true
+                    &&
+                    <>
+                        <ToastContainer
+                            hideProgressBar={true}
+                            position="top-center"
+                        />
+                        <div className="cal-container">
+                            <CalendarMain allSchedule={allSchedule}/>
+                        </div>
+                        <div className="cal-button-area">
+                            <div className="cal-add-button cal-select-button" onClick={clickedNewSchedule}>일정 추가</div>
+                            <div className="cal-all-button cal-select-button" onClick={clickAllSchedule}>전체일정</div>
+                            <div className="cal-project-button cal-select-button" onClick={clickedProject}>프로젝트</div>
+                            <div className="cal-personal-button cal-select-button" onClick={clickedPersonal}>개인일정</div>
+                        </div>
+                    </>
+                }
+                {
+                    scheduleRegistModal &&
+                    <CalendarRegistModal
+                        setScheduleRegist={setScheduleRegistModal}
+                    />
+                }
             </div>
         </>
     );

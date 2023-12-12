@@ -1,0 +1,786 @@
+/*!* 프로젝트 생성 modal ------------------------------------------------------------------------------------------------ *!*/
+
+.newProject-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+
+.newProject-modal-container {
+    position: absolute;
+    width: 550px;
+    height: auto;
+    text-align: center;
+    background-color: rgb(255, 255, 255);
+    border-radius: 10px;
+    box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+    z-index: 1000;
+    border: 1px solid black;
+    overflow: hidden;
+    overflow-y: auto; /* 수직 스크롤 가능하도록 설정 */
+}
+
+.newProject-name-div {
+    border-bottom: 1px solid black;
+    background-color: #333333;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px;
+}
+
+.newProject-name-div > div {
+    margin: 0;
+    padding: 15px;
+}
+
+.newProject-name-div > div p {
+    color: white;
+    font-size: 20px;
+    font-family: 'Noto Sans', sans-serif;
+    font-weight: 600;
+}
+
+.newProject-name-div > div button{
+    cursor: pointer;
+    color: white;
+    font-weight: 600;
+}
+
+.project-info-input {
+    width: 80%;
+    height: 40px;
+    margin: 20px 0 0 10px;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.newProject-date {
+    display: flex;
+    justify-content: space-around;
+    margin-left: 40px;
+    margin-top: 15px;
+}
+
+.newProject-date-label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 15px;
+    font-family: Noto Sans;
+    font-weight: 500;
+}
+
+.newProject-date-label label {
+    margin-bottom: 10px; /* 원하는 만큼 조절 */
+}
+
+.newProject-dept {
+    font-family: Noto Sans;
+    margin-top: 20px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    margin-left: 50px;
+}
+
+.newProject-date-radio {
+    display: flex;
+    /*flex-direction: column;*/
+    justify-items: left;
+    margin-left: 50px;
+    margin-top: 10px;
+}
+
+.newProject-date-radio input[type="radio"] {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #333;
+    border-radius: 4px;
+    outline: none;
+    margin-right: 5px;
+}
+
+.newProject-date-radio input[type="radio"]:checked {
+    background-color: #333;
+}
+
+.project-button-div {
+    margin-top: 30px;
+    margin-bottom: 20px;
+    background: #444444;
+    border-radius: 10px;
+    color: white;
+    font-size: 18px;
+    font-family: Noto Sans;
+    font-weight: 600;
+    width: 200px;
+    padding: 5px;
+    cursor: pointer;
+}
+
+/* 프로젝트 메인 페이지 -----------------------------------------------------------*/
+.projectsContainer {
+    display: flex;
+    height: 85%;
+}
+
+.projectsView {
+    width: 100%;
+    z-index: 1;
+}
+
+/* 내가 참여중인 프로젝트 */
+
+.projects-div{
+    /*width: 90%;*/
+    border-bottom: 1px solid black;
+    margin-left: 10px;
+    margin-top: 30px;
+}
+.projects-div p {
+    margin-left: 50px;
+    font-size: 24px;
+    font-family: Noto Sans;
+    font-weight: 400;
+}
+
+.project-div {
+    width: 215px;
+    height: 178px;
+    margin-left: 50px;
+    margin-top: 50px;
+    margin-bottom: 70px;
+    display: inline-block;
+    border-radius: 20px;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.project-div h3 {
+    color: white;
+    font-size: 20px;
+    font-family: Noto Sans;
+    font-weight: 700;
+    padding: 20px;
+}
+
+.projects-div h5{
+    color: white;
+    font-size: 15px;
+    font-family: Noto Sans;
+    font-weight: 500;
+    margin-left: 20px;
+}
+
+.project-div h4 {
+    color: white;
+    font-size: 15px;
+    font-family: Noto Sans;
+    font-weight: 600;
+    margin-left: 20px;
+    margin-top: 60px;
+}
+
+/* 프로젝트 디테일 페이지 오른쪽 ---------------------------------------------------------- */
+.project-detail-div{
+    display: flex;
+    justify-content: flex-end;
+    height: 300px;
+    margin-top: 30px;
+    margin-right: 40px;
+}
+
+.project-invite-div{
+    display: flex;
+    justify-content: flex-end;
+    height: 300px;
+    margin-right: 10px;
+}
+
+/* 프로젝트 디테일 정보 */
+.project-detail-tr {
+    margin-bottom: 20px;
+    display: flex; /* 각 행을 세로로 정렬하기 위해 추가 */
+    flex-direction: column; /* 세로 정렬 */
+}
+
+.project-detail-tr th{
+    color: white;
+    font-size: 20px;
+    font-family: Noto Sans;
+    font-weight: 700;
+    background: #9F8A8A;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 10px;
+    width: 170px;
+    height: 50px;
+    line-height: 1.5; /* 높이에 따라 조절 (적절한 값으로 변경) */
+}
+
+.project-detail-tr td {
+    text-align: center;
+    font-size: 20px;
+    font-family: Noto Sans;
+    font-weight: 700;
+}
+
+/* 프로젝트 초대하기 -------------------------------- */
+
+.project-invite {
+    display: flex; /* 각 행을 세로로 정렬하기 위해 추가 */
+    flex-direction: column; /* 세로 정렬 */
+    justify-content: center;
+    margin-top: 180px;
+}
+
+/* 초대하기 버튼*/
+.invite-button {
+    background: #333333;
+    border-radius: 10px;
+    color: white;
+    font-size: 15px;
+    font-family: Noto Sans;
+    font-weight: 400;
+    padding: 10px;
+    width: 130px;
+    margin-bottom: 10px;
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+.inviteList-div {
+    border: 1px solid black;
+    border-radius: 5px;
+    margin-right: 70px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* 전체 참여자 */
+.total-invite {
+    font-size: 15px;
+    font-family: Noto Sans;
+    font-weight: 500;
+    border-bottom: 1px solid black;
+    margin-bottom: 10px;
+    padding: 5px;
+}
+
+/* 초대자 이름 */
+.invite-name {
+    display: flex;
+    flex-direction: column; /* 수직으로 정렬 */
+    max-height: 100px; /* 원하는 최대 높이 설정 */
+    overflow-y: auto; /* 세로 스크롤을 표시할 수 있도록 설정 */
+}
+
+.invite-name > div {
+    display: flex;
+    align-items: center; /* 수직 가운데 정렬 */
+    margin-bottom: 10px; /* 아래쪽 간격 조절 */
+}
+
+.invite-name img {
+    margin-right: 8px; /* 이미지와 텍스트 사이 간격 조절 */
+}
+
+.invite-name span {
+    font-size: 16px;
+    font-weight: 400;
+}
+
+/* 수정,삭제 */
+.project-button {
+    margin-top: 130px;
+}
+
+/* 수정,삭제 버튼 */
+.project-button button {
+    background: #B6B0B0;
+    border-radius: 10px;
+    color: white;
+    font-size: 15px;
+    font-family: Noto Sans;
+    font-weight: 400;
+    border: 0;
+    padding: 7px;
+    margin-right: 20px;
+    width: 70px;
+    cursor: pointer;
+}
+
+/* 프로젝트 디테일 대시보드 */
+
+.project-rayout-div {
+    display: flex;
+}
+
+.project-rayout-right {
+    flex-direction: column; /* 세로 정렬 */
+}
+
+.project-dashBoard {
+    border: 1px solid black;
+    border-bottom: 0;
+    width: 90%;
+    height: auto;
+    margin-left: 60px;
+    margin-top: 50px;
+}
+
+/* 내 업무, 내 할일 영역 */
+
+.project-dashBoard-list {
+    border-bottom: 1px solid #cccccc;
+    padding: 10px;
+    width: 98%;
+    margin-left: 10px;
+    display: flex;
+}
+
+/* 내 업무, 내 할일 조회 영역 */
+
+.myTask-div {
+    border: 1px solid black;
+    padding: 10px;
+    width: 40%;
+    margin-top: 25px;
+    margin-left: 30px;
+}
+
+.myTask-div p {
+    font-size: 32px;
+    font-family: Noto Sans;
+    font-weight: 700;
+    border-bottom: 2px black solid;
+    padding: 8px;
+}
+
+/* 표 분류 */
+.myTask-Tilte {
+    border-bottom: 1px solid black;
+
+}
+
+.myTask-Tilte th {
+    padding: 5px; /* 적절한 간격 값을 지정하세요 */
+    font-family: 'Noto Sans', sans-serif;
+}
+
+/* 또는 특정 각 셀에 대해 간격을 조정하려면 다음과 같이 각각 스타일을 지정할 수 있습니다. */
+
+.myTask-Tilte th:nth-child(1) {
+    padding-right: 85px; /* 첫 번째 th에 대한 간격을 조정합니다. */
+}
+
+.myTask-Tilte th:nth-child(2) {
+    padding-right: 100px; /* 두 번째 th에 대한 간격을 조정합니다. */
+}
+
+/* 표 내용 */
+
+.myTask-contents {
+    border-bottom: 1px solid black;
+    text-align: center;
+    width: 100%;
+}
+
+.myTask-contents td {
+    padding: 5px; /* 적절한 간격 값을 지정하세요 */
+    font-family: 'Noto Sans', sans-serif;
+}
+
+.myTask-contents td:nth-child(1) {
+    text-align: center; /* taskCode를 왼쪽 정렬합니다. */
+    width: 60px;
+}
+
+.myTask-contents td:nth-child(2) {
+    text-align: center;
+    width: 200px;
+}
+
+.myTask-contents td:nth-child(3) {
+    text-align: center;
+    width: 80px;
+}
+
+.truncate {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* 프로젝트 취소 모달 */
+.confirm-delete-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border: 1px solid #ccc;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    text-align: center;
+}
+
+.confirm-delete-modal p {
+    margin-bottom: 20px;
+}
+
+.confirm-delete-modal button {
+    margin-right: 10px;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.confirm-delete-modal button.cancel {
+    background-color: #ccc; /* 회색 */
+    color: white;
+}
+
+.confirm-delete-modal-button {
+    background-color: #333333; /* #333333 */
+    color: white;
+}
+
+.confirm-delete-modal button:hover {
+    opacity: 0.8;
+}
+
+/* 프로젝트 초대하기 모달 */
+.invite-modal-overlay {
+    position: fixed;
+    top: 25%;
+    left: 60%;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.invite-modal-div {
+    width: 300px;
+    background-color: #F4F2F2;
+    border-radius: 8px;
+    padding: 20px;
+    z-index: 1001;
+    position: absolute; /* 변경된 부분 */
+    top: 50%; /* 변경된 부분 */
+    left: 50%; /* 변경된 부분 */
+    transform: translate(-50%, -50%); /* 변경된 부분 */
+    border: 0.5px solid #444444;
+}
+
+.invite-modal-header {
+    text-align: center;
+    margin-bottom: 15px;
+    color: black;
+    font-size: 20px;
+    font-family: Noto Sans;
+    font-weight: 700;
+    background-color: #D3D3D3;
+    padding: 15px;
+}
+
+.invite-modal-search {
+    border: 0.5px solid #D9D9D9;
+    padding: 5px;
+    display: flex ;
+    alignItems:center;
+}
+.invite-modal-search img {
+    margin-left: 10px;
+}
+
+.invite-modal-content {
+    margin-bottom: 20px;
+    margin-top: 20px;
+    max-height: 100px; /* 스크롤이 나타날 최대 높이 지정 */
+    overflow-y: auto; /* 세로 스크롤이 나타나도록 설정 */
+}
+
+.invite-modal-footer {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.invite-close-button {
+    background-color: #ddd;
+    color: #333;
+    border: none;
+    padding: 8px 12px;
+    margin-right: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.invite-invite-button {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* 초대 명단 리스트 */
+
+/* 체크박스 */
+.invite-checkbox {
+    margin-right: 10px;
+}
+
+.inviteDeptList-div{
+    font-size: 15px;
+    font-family: Noto Sans;
+    font-weight: 500;
+    border: 0.5px solid #444444;
+    margin-bottom: 10px;
+    padding: 10px;
+}
+
+/* 프로젝트 대시보드 네비 */
+
+.project-write-div {
+    border: 1px solid black;
+    border-top: 0;
+    width: 90%;
+    margin-left: 60px;
+}
+.project-Nav-List-border {
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 20px;
+    width: 98%;
+    margin-left: 10px;
+}
+
+.project-Nav-List {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 100px;
+}
+
+.project-Nav-List-button {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    padding: 10px;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.project-Nav-List-button:hover {
+    background-color: #f0f0f0;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.project-Nav-List-button.active {
+    color: #CB1132;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.project-Nav-List-button img {
+    margin-bottom: 5px;
+}
+
+/* 글작성 ----------------------------------------- */
+
+.project-postTitle-input{
+    border: none;
+    border-bottom: 1px solid black;
+    margin-left: 30px;
+    width: 270%;
+    padding: 10px;
+    font-size: 30px;
+}
+
+.project-postBody-input{
+    border: none;
+    border-bottom: 1px solid black;
+    margin-left: 30px;
+    width: 270%;
+    height: 150px;
+    padding: 15px;
+    font-size: 20px;
+}
+
+.project-post-button {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.project-post-button img {
+    margin-left: 30px;
+}
+
+.project-postregist-button {
+    color: white;
+    font-size: 20px;
+    font-family: Noto Sans;
+    font-weight: 400;
+    width: 117px;
+    height: 42px;
+    background: #333333;
+    border-radius: 10px;
+    margin-right: 30px;
+    margin-top: 10px;
+}
+
+/* 업무 작성하기 */
+
+.project-taskTitle-input{
+    border: none;
+    border-bottom: 1px solid black;
+    margin-left: 30px;
+    width: 95%;
+    padding: 10px;
+    font-size: 30px;
+}
+
+.project-taskBody-input{
+    border: none;
+    border-bottom: 1px solid black;
+    margin-left: 30px;
+    width: 95%;
+    height: 150px;
+    padding: 15px;
+    font-size: 20px;
+}
+
+.task-middle {
+    padding: 10px;
+    width: 1245px;
+}
+/* 요청 */
+.task-request {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid black;
+    padding: 10px;
+    margin-left: 20px;
+}
+
+.task-request img {
+    margin-right: 10px; /* 이미지와 텍스트 사이 간격 조절 */
+}
+
+.task-request p {
+    background: #333333;
+    border: 1px black solid;
+    border-radius: 5px;
+    color: white;
+    width: 135px;
+    height: 40px;
+    text-align: center;
+    font-size: 20px;
+    font-family: "Noto Sans";
+    font-weight: 400;
+    padding: 10px;
+}
+
+/* 담당자 */
+.task-manager{
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid black;
+    padding: 10px;
+    margin-left: 20px;
+}
+
+.task-manager img {
+    margin-right: 10px; /* 이미지와 텍스트 사이 간격 조절 */
+}
+
+
+/* 날짜 */
+.task-date-label {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid black;
+    padding: 10px;
+    margin-left: 20px;
+}
+
+.task-date-label img {
+    margin-right: 10px;
+}
+
+.task-date-label label {
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+    color: #808080;
+    font-size: 20px;
+    font-family: Noto Sans;
+    font-weight: 400;
+    border: 1px solid #808080;
+    border-radius: 5px;
+    width: 135px;
+    height: 40px;
+    justify-content: center;
+}
+
+/* 우선순위 */
+.task-priority {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid black;
+    padding: 10px;
+    margin-left: 20px;
+}
+
+.task-priority img {
+    margin-right: 10px;
+}
+
+.task-priority select {
+    color: #808080;
+    font-size: 20px;
+    font-family: Noto Sans;
+    font-weight: 400;
+    width: 138px;
+    height: 40px;
+    border-radius: 5px;
+    text-align: center;
+}
+/* 첨부파일 */
+.project-post-button div>div {
+    margin-left: 25px;
+}
+/* 첨부파일 취소 */
+.attachment-cencel {
+    font-size: 15px;
+    margin-left: 5px;
+    font-weight: 600;
+}
+
+/* 일반 게시글 조회 */
+
+.projectList-div{
+    border: 1px solid black;
+    margin-top: 20px;
+    width: 90%;
+    margin-left: 60px;
+    padding: 20px;
+}

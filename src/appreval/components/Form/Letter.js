@@ -252,6 +252,7 @@ function Letter() {
                                 rows={1}
                                 name="documentTitle"
                                 onChange={onChangeHandler}
+                                sx={{ backgroundColor : 'rgba(0,0,0,0.06)'}}
                             />
                         </Box>
                     </div>

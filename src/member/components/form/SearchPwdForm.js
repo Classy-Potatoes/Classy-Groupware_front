@@ -5,7 +5,7 @@ import {callEmailSearchPwdAPI} from "../../apis/MemberAPICalls";
 function SearchPwdForm() {
 
     const dispatch = useDispatch();
-    const [ form, setFrom ] = useState({
+    const [ form, setForm ] = useState({
         memberId: "",
         infoCode: "",
         infoEmail: "",
@@ -13,7 +13,7 @@ function SearchPwdForm() {
     });
 
     const onChangeHandler = e => {
-        setFrom({
+        setForm({
             ...form,
             [ e.target.name ]: e.target.value
         });

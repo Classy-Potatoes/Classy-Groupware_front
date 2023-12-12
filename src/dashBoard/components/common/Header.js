@@ -19,7 +19,9 @@ function Header () {
                     alt="CG 로고"
                     className="main-logo"
                 />
-                <a className="logo-name">Classy<br/>
+                <a className="logo-name"
+                   onClick={ onClickHandler }
+                >Classy<br/>
                     Groupware</a>
             </div>
             <div className="header-line" />

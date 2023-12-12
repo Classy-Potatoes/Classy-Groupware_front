@@ -5,6 +5,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { ko } from 'date-fns/esm/locale';
 import {useNavigate} from "react-router-dom";
+import {toast} from "react-toastify";
 
 function NewProjectWriteModal({ setNewProjectWriteModal }) {
 
@@ -17,9 +18,10 @@ function NewProjectWriteModal({ setNewProjectWriteModal }) {
 
         useEffect(() => {
                 if(postSuccess === true) {
-                        navigate(`/projects`, { replace : true });
+                        setNewProjectWriteModal(false);
+                        window.location.reload();
                 }
-        }, [postSuccess]);
+        }, [postSuccess, setNewProjectWriteModal]);
 
         /* 입력 양식 값 변경 시 state 수정 */
         const onChangeHandler = e => {
@@ -130,9 +132,9 @@ function NewProjectWriteModal({ setNewProjectWriteModal }) {
                             </div>
                                     <button
                                         className="project-button-div"
-                                            onClick={ onClickProjectRegistHandler }
-                                            >
-                                            프로젝트생성
+                                        onClick={ onClickProjectRegistHandler }
+                                    >
+                                        프로젝트생성
                                     </button>
                     </div>
                 </div>
