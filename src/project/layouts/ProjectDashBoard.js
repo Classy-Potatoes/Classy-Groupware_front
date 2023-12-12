@@ -18,6 +18,7 @@ function ProjectDashBoard() {
 
     return (
             <>
+                <div>
                         <div className="project-dashBoard">
                             <div className="project-dashBoard-list">
                                 {   myTask
@@ -26,8 +27,9 @@ function ProjectDashBoard() {
                                 }
                                 <MyProjectTodoList/>
                             </div>
-                            <ProjectNavList/>
                         </div>
+                            <ProjectNavList/>
+                </div>
 
             </>
 

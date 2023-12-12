@@ -1,7 +1,17 @@
 function MyProjectTaskListItem({ projectTask }) {
 
+    function truncateText(text, maxLength) {
+        if (text.length <= maxLength) {
+            return text;
+        }
+        return text.substring(0, maxLength) + '...';
+    }
 
-    return (
+
+    const truncatedTitle = truncateText(projectTask.taskTitle, 5);
+
+
+        return (
         <>
             <div>
                 <div>
@@ -9,7 +19,7 @@ function MyProjectTaskListItem({ projectTask }) {
                         <tbody>
                         <tr>
                             <td>{projectTask.taskCode}</td>
-                            <td className="truncate">{projectTask.taskTitle}</td>
+                            <td className="truncate">{truncatedTitle}</td>
                             <td>{projectTask.taskRequestDate}</td>
                         </tr>
                         </tbody>

@@ -118,7 +118,7 @@ export const callProjectMyTasktListAPI = ({currentPage = 1}) => {
 
         const result = await authRequest.get(`/cg-api/v1/task/myTask?page=${currentPage}`);
 
-        console.log('callProjectPostListAPI :' , result);
+        console.log('callProjectMyTasktListAPI :' , result);
 
         if(result?.status === 200) {
             disPatch(getMytask(result));

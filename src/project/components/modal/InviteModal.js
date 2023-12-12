@@ -29,7 +29,7 @@ function InviteModal({ setInviteModal, deptCode, projectCode }) {
         const timer = setTimeout(() => {
             // 검색 요청 보내기
             dispatch(callDeptMemberSearchAPI({ deptCode, infoName }));
-        }, 300); // 500ms마다 검색 요청 보내기 (쓸데없이 자주 보내지 않도록)
+        }, 300); //
 
         return () => clearTimeout(timer); // 타이머 클리어
     }, [infoName, deptCode, dispatch]);
