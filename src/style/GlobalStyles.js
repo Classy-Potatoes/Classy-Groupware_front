@@ -18,6 +18,13 @@ const GlobalStyles = createGlobalStyle`
       text-decoration: none; /* 링크의 밑줄 제거 */
       color: inherit; /* 링크의 기본 색상 사용 */
     };
+    
+    button {
+      border: none;
+      background-color: transparent;
+      padding: 0;
+      cursor: pointer;
+    };
 `;
 
 export default GlobalStyles;

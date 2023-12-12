@@ -50,6 +50,8 @@
 
 .newProject-name-div > div button{
     cursor: pointer;
+    color: white;
+    font-weight: 600;
 }
 
 .project-info-input {
@@ -333,8 +335,9 @@
 
 .project-dashBoard {
     border: 1px solid black;
+    border-bottom: 0;
     width: 90%;
-    height: 700px;
+    height: auto;
     margin-left: 60px;
     margin-top: 50px;
 }
@@ -342,7 +345,7 @@
 /* 내 업무, 내 할일 영역 */
 
 .project-dashBoard-list {
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid #cccccc;
     padding: 10px;
     width: 98%;
     margin-left: 10px;
@@ -381,11 +384,11 @@
 /* 또는 특정 각 셀에 대해 간격을 조정하려면 다음과 같이 각각 스타일을 지정할 수 있습니다. */
 
 .myTask-Tilte th:nth-child(1) {
-    padding-right: 60px; /* 첫 번째 th에 대한 간격을 조정합니다. */
+    padding-right: 85px; /* 첫 번째 th에 대한 간격을 조정합니다. */
 }
 
 .myTask-Tilte th:nth-child(2) {
-    padding-right: 230px; /* 두 번째 th에 대한 간격을 조정합니다. */
+    padding-right: 100px; /* 두 번째 th에 대한 간격을 조정합니다. */
 }
 
 /* 표 내용 */
@@ -393,6 +396,7 @@
 .myTask-contents {
     border-bottom: 1px solid black;
     text-align: center;
+    width: 100%;
 }
 
 .myTask-contents td {
@@ -401,11 +405,18 @@
 }
 
 .myTask-contents td:nth-child(1) {
-    padding-right: 60px; /* 첫 번째 th에 대한 간격을 조정합니다. */
+    text-align: center; /* taskCode를 왼쪽 정렬합니다. */
+    width: 60px;
 }
 
 .myTask-contents td:nth-child(2) {
-    padding-right: 150px; /* 두 번째 th에 대한 간격을 조정합니다. */
+    text-align: center;
+    width: 200px;
+}
+
+.myTask-contents td:nth-child(3) {
+    text-align: center;
+    width: 80px;
 }
 
 .truncate {
@@ -549,23 +560,227 @@
 }
 
 /* 프로젝트 대시보드 네비 */
-.project-Nav-List {
-    display: flex;
-    align-items: center;
-    margin-left: 100px;
-    padding: 15px;
-}
 
+.project-write-div {
+    border: 1px solid black;
+    border-top: 0;
+    width: 90%;
+    margin-left: 60px;
+}
 .project-Nav-List-border {
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 20px;
     width: 98%;
     margin-left: 10px;
 }
 
-.project-Nav-List img {
-    margin-left: 150px; /* Adjust the margin as needed */
+.project-Nav-List {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 100px;
 }
 
-.project-Nav-List p {
+.project-Nav-List-button {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    padding: 10px;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.project-Nav-List-button:hover {
+    background-color: #f0f0f0;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.project-Nav-List-button.active {
+    color: #CB1132;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.project-Nav-List-button img {
+    margin-bottom: 5px;
+}
+
+/* 글작성 ----------------------------------------- */
+
+.project-postTitle-input{
+    border: none;
+    border-bottom: 1px solid black;
+    margin-left: 30px;
+    width: 270%;
+    padding: 10px;
+    font-size: 30px;
+}
+
+.project-postBody-input{
+    border: none;
+    border-bottom: 1px solid black;
+    margin-left: 30px;
+    width: 270%;
+    height: 150px;
+    padding: 15px;
+    font-size: 20px;
+}
+
+.project-post-button {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.project-post-button img {
+    margin-left: 30px;
+}
+
+.project-postregist-button {
+    color: white;
+    font-size: 20px;
+    font-family: Noto Sans;
+    font-weight: 400;
+    width: 117px;
+    height: 42px;
+    background: #333333;
+    border-radius: 10px;
+    margin-right: 30px;
+    margin-top: 10px;
+}
+
+/* 업무 작성하기 */
+
+.project-taskTitle-input{
+    border: none;
+    border-bottom: 1px solid black;
+    margin-left: 30px;
+    width: 95%;
+    padding: 10px;
+    font-size: 30px;
+}
+
+.project-taskBody-input{
+    border: none;
+    border-bottom: 1px solid black;
+    margin-left: 30px;
+    width: 95%;
+    height: 150px;
+    padding: 15px;
+    font-size: 20px;
+}
+
+.task-middle {
+    padding: 10px;
+    width: 1245px;
+}
+/* 요청 */
+.task-request {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid black;
+    padding: 10px;
+    margin-left: 20px;
+}
+
+.task-request img {
+    margin-right: 10px; /* 이미지와 텍스트 사이 간격 조절 */
+}
+
+.task-request p {
+    background: #333333;
+    border: 1px black solid;
+    border-radius: 5px;
+    color: white;
+    width: 135px;
+    height: 40px;
+    text-align: center;
+    font-size: 20px;
+    font-family: "Noto Sans";
+    font-weight: 400;
+    padding: 10px;
+}
+
+/* 담당자 */
+.task-manager{
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid black;
+    padding: 10px;
+    margin-left: 20px;
+}
+
+.task-manager img {
+    margin-right: 10px; /* 이미지와 텍스트 사이 간격 조절 */
+}
+
+
+/* 날짜 */
+.task-date-label {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid black;
+    padding: 10px;
+    margin-left: 20px;
+}
+
+.task-date-label img {
+    margin-right: 10px;
+}
+
+.task-date-label label {
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+    color: #808080;
+    font-size: 20px;
+    font-family: Noto Sans;
+    font-weight: 400;
+    border: 1px solid #808080;
+    border-radius: 5px;
+    width: 135px;
+    height: 40px;
+    justify-content: center;
+}
+
+/* 우선순위 */
+.task-priority {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid black;
+    padding: 10px;
+    margin-left: 20px;
+}
+
+.task-priority img {
+    margin-right: 10px;
+}
+
+.task-priority select {
+    color: #808080;
+    font-size: 20px;
+    font-family: Noto Sans;
+    font-weight: 400;
+    width: 138px;
+    height: 40px;
+    border-radius: 5px;
+    text-align: center;
+}
+/* 첨부파일 */
+.project-post-button div>div {
+    margin-left: 25px;
+}
+/* 첨부파일 취소 */
+.attachment-cencel {
+    font-size: 15px;
     margin-left: 5px;
+    font-weight: 600;
+}
+
+/* 일반 게시글 조회 */
+
+.projectList-div{
+    border: 1px solid black;
+    margin-top: 20px;
+    width: 90%;
+    margin-left: 60px;
+    padding: 20px;
 }
