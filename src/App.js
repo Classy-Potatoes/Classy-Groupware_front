@@ -1,13 +1,9 @@
 import './style/main.css';
 import './style/nav.css';
 import './calendar/calendarStyle/Calendar.css'
-import './style/main.css';
 import './style/member/admin.css';
 import './style/member/login.css';
-import './style/calendar.css';
-import './style/Project.css';
 import './style/note/receivedNote.css'
-import './style/note/note.css'
 import './style/member/member.css';
 import './style/project/Project.css';
 import 'react-toastify/dist/ReactToastify.css';
