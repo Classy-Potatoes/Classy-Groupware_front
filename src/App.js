@@ -1,3 +1,4 @@
+import './style/main.css';
 import './style/nav.css';
 import './calendar/calendarStyle/Calendar.css'
 import './style/main.css';
@@ -5,6 +6,7 @@ import './style/member/admin.css';
 import './style/member/login.css';
 import './style/calendar.css';
 import './style/Project.css';
+import './style/note/receivedNote.css'
 import './style/note/note.css'
 import './style/member/member.css';
 import './style/project/Project.css';
@@ -29,6 +31,8 @@ import Signup from "./member/pages/Signup";
 import SearchPwd from "./member/pages/SearchPwd";
 import SearchId from "./member/pages/SearchId";
 import ResultSearchId from "./member/pages/ResultSearchId";
+import NoteSentMain from "./note/pages/NoteSentMain";
+import NoteImportantMain from "./note/pages/NoteImportantMain";
 import ProjectDetailLayout from "./project/layouts/ProjectDetailLayout";
 import ProjectDashBoard from "./project/layouts/ProjectDashBoard";
 import Profile from "./member/pages/mypage/Profile";
@@ -64,10 +68,11 @@ function App() {
                   </Route>
               </Route>
 
-              <Route path="/note" element={ <ProtectedRoute loginCheck={ true }><NoteLayout/></ProtectedRoute> }>
-                  <Route index element={ <NoteReceivedMain/> }/>
-                  <Route path="received" element={ <NoteReceivedMain/> }/>
-              </Route>
+                <Route path="note" element={ <ProtectedRoute loginCheck={ true }><NoteLayout/></ProtectedRoute> }>
+                    <Route index element={ <NoteReceivedMain/> }/>
+                    <Route path="sent" element={ <NoteSentMain/> }/>
+                    <Route path="important" element={ <NoteImportantMain/> }/>
+                </Route>
 
 
               <Route path="projects" element={ <ProtectedRoute loginCheck={ true }><ProjectLayout /></ProtectedRoute> } >

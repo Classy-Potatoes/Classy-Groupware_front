@@ -1,0 +1,24 @@
+/* paging bar ------------------------------------------------------------------------ */
+.paging-ul {
+    display: flex;
+    list-style-type: none;
+    margin-bottom: 30px;
+}
+
+.paging-link {
+    margin: 5px;
+    border-radius: 25px;
+    text-decoration: none;
+    color: black; /* 숫자의 색상 설정 */
+    font-weight: bold;
+}
+
+.paging-link:hover {
+    cursor: pointer;
+    background-color: #f3c3e2;
+}
+
+.paging-link.disabled {
+    pointer-events: none; /* 클릭 이벤트 비활성화 */
+    opacity: 0.5; /* 비활성화 상태를 시각적으로 나타내기 위한 투명도 설정 */
+}
