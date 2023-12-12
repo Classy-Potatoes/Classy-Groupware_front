@@ -1,7 +1,7 @@
-import './style/main.css';
 import './style/nav.css';
 import './calendar/calendarStyle/Calendar.css'
 import './style/main.css';
+import './style/member/admin.css';
 import './style/member/login.css';
 import './style/member/member.css';
 import './style/project/Project.css';

@@ -10,6 +10,7 @@ const LOGIN_RESULT = 'member/LOGIN_RESULT';
 const SEARCH_ID_RESULT = 'member/SEARCH_ID_RESULT';
 const DUPLICATE_ID_RESULT = 'member/DUPLICATE_ID_RESULT';
 const SEARCH_INFO_CODE_RESULT = 'member/SEARCH_INFO_CODE_RESULT';
+const GET_NON_MEMBERS = 'member/GET_NON_MEMBERS';
 // const SEARCH_PWD_RESULT = 'member/SEARCH_PWD_RESULT';
 // const GET_PROFILE = 'member/GET_PROFILE';
 
@@ -18,7 +19,7 @@ const SEARCH_INFO_CODE_RESULT = 'member/SEARCH_INFO_CODE_RESULT';
 /* 액션 함수 */
 export const { member : { signupResult, loginResult, searchIdResult,
                             duplicateIdResult, searchInfoCodeResult,
-
+                           getNonMembers,
                            getProfile } } = createActions({
 
    [ SIGNUP_RESULT ] : isSignUpResult => ({ signupResult : isSignUpResult }),
@@ -26,6 +27,7 @@ export const { member : { signupResult, loginResult, searchIdResult,
    [ SEARCH_ID_RESULT ] : result => ({ searchIdResult : result.data }),
    [ DUPLICATE_ID_RESULT ] : result => ({ duplicateIdResult : { isCheck : result.data } }),
    [ SEARCH_INFO_CODE_RESULT ] : result => ({ searchInfoCodeResult : result.data }),
+   [ GET_NON_MEMBERS ] : result => ({ getNonMembers : result.data }),
    // [ SEARCH_PWD_RESULT ] : result => ({ searchPwdResult : result.data }),
    // [ GET_PROFILE ] : ( result ) => ({ profileInfo : result.data })
 
@@ -41,6 +43,7 @@ const memberReducer = handleActions({
    [ SEARCH_ID_RESULT ] : ( state, { payload } ) => payload,
    [ DUPLICATE_ID_RESULT ] : ( state, { payload } ) => ({...state, ...payload}),
    [ SEARCH_INFO_CODE_RESULT ] : ( state, { payload } ) => payload,
+   [ GET_NON_MEMBERS ] : ( state, { payload } ) => payload,
    // [ SEARCH_PWD_RESULT ] : ( state, { payload } ) => payload,
    // [ GET_PROFILE ] : ( state, { payload } ) => payload
 

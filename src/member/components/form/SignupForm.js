@@ -96,10 +96,31 @@ function SignupForm() {
 
 
     const onChangeHandler = e => {
-        setForm({
-            ...form,
-            [ e.target.name ]: e.target.value
-        });
+
+        const { name, value } = e.target;
+
+        if (name === 'infoPhone') {
+            // 입력된 값에서 숫자만 추출
+            const inputValue = value.replace(/\D/g, "");
+
+            const formattedPhoneNumber = inputValue.replace(
+                /(\d{1,3})(\d{4})(\d{4})/,
+                "$1-$2-$3"
+            );
+
+            setForm({
+                ...form,
+                [ name ]: formattedPhoneNumber,
+            });
+
+        } else {
+
+            setForm({
+                ...form,
+                [ name ]: value,
+            });
+
+        }
     }
 
     // 가입하기 버튼 이벤트
@@ -268,6 +289,7 @@ function SignupForm() {
                         type="text"
                         name="infoPhone"
                         placeholder="* 휴대번호"
+                        value={ form.infoPhone }
                         onChange={ onChangeHandler }
                         disabled={ !searchInfoCodeResult ? true : false }
                     />
