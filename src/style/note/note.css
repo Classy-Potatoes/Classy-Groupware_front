@@ -13,7 +13,62 @@
 }
 
 .note-search {
+    display: inline-flex;
+    align-items: center;
+    height: 80px;
     margin-left: 60px;
+}
+
+.note-search select {
+    height: 40px;
+    margin-right: 15px;
+    padding: 0px 30px 0px 15px;
+    border-radius: 192px;
+}
+
+.note-search .input-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.note-search input {
+    width: 500px;
+    height: 40px;
+    padding: 0px 30px 0px 20px;
+    border-radius: 192px;
+    border: 2px solid #C0A3FF;
+}
+
+.note-search button {
+    width: 120px;
+    height: 40px;
+    border-radius: 192px;
+    border: 1.5px solid #ccc;
+}
+
+.note-search .note-search-button {
+    background-color: white;
+    margin-left: 15px;
+}
+
+.note-search .note-delete-button, .sent-delete-button,
+.note-search .note-important-button {
+    background-color: #333333;
+    color: white;
+    float: right;
+}
+
+
+.note-search .note-important-button {
+    margin-left: 235px;
+}
+
+.sent-delete-button {
+    margin-left: 365px;
+}
+
+.note-search .note-delete-button {
+    margin-left: 10px;
 }
 
 
@@ -50,13 +105,7 @@
 }
 
 /* 기타 스타일 (선택적으로 사용) */
-.note-search {
-    display: inline-flex;
-    align-items: center;
-    flex-direction: row;
-    height: 80px;
-    width: 1000px;
-}
+
 
 
 

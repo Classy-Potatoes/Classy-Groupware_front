@@ -3,7 +3,7 @@ import './style/nav.css';
 import './calendar/calendarStyle/Calendar.css'
 import './style/member/admin.css';
 import './style/member/login.css';
-import './style/note/receivedNote.css'
+import './style/note/note.css'
 import './style/member/member.css';
 import './style/project/Project.css';
 import 'react-toastify/dist/ReactToastify.css';
@@ -66,6 +66,7 @@ function App() {
 
                 <Route path="note" element={ <ProtectedRoute loginCheck={ true }><NoteLayout/></ProtectedRoute> }>
                     <Route index element={ <NoteReceivedMain/> }/>
+                    <Route path="received" element={<NoteReceivedMain />} />
                     <Route path="sent" element={ <NoteSentMain/> }/>
                     <Route path="important" element={ <NoteImportantMain/> }/>
                 </Route>

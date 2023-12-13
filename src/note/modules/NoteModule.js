@@ -15,8 +15,8 @@ export const { note : { postSuccess, getNotes } } = createActions({
 
 /* 리듀서 */
 const noteReducer = handleActions({
-    [POST_SUCCESS] : (state, { payload }) => payload,
-    [GET_NOTES] : (state, { payload }) => payload,
+    [POST_SUCCESS] : (state, { payload }) => ({ ...state, ...payload }),
+    [GET_NOTES] : (state, { payload }) => ({ ...state, ...payload }),
 }, initialState);
 
 export default noteReducer;

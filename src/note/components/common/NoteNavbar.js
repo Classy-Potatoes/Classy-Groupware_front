@@ -3,7 +3,6 @@ import {useState} from "react";
 import Navbar from "../../../dashBoard/components/common/Navbar";
 import * as React from "react";
 
-
 function NoteNavbar() {
 
     const [isNavOpen, setIsNavOpen] = useState(false);
@@ -11,6 +10,11 @@ function NoteNavbar() {
     const handleNavToggle = () => {
         setIsNavOpen(!isNavOpen);
     };
+
+    const activeStyle = {
+        color: '#C0A3FF'
+    }
+
 
     return (
         <>
@@ -38,10 +42,14 @@ function NoteNavbar() {
                     </div>
 
                     <div className="note-nav-category">
-                        <p><NavLink to="/note/write">쪽지 작성</NavLink></p>
-                        <p><NavLink to="/note/receive">받은 쪽지함</NavLink></p>
-                        <p><NavLink to="/note/sent">보낸 쪽지함</NavLink></p>
-                        <p><NavLink to="/note/important">중요 쪽지함</NavLink></p>
+                        <p><NavLink style={ ({ isActive }) => (isActive ? activeStyle: {}) }
+                                    to="/note/write">쪽지 작성</NavLink></p>
+                        <p><NavLink style={ ({ isActive }) => (isActive ? activeStyle: {}) }
+                                    to="/note/received" >받은 쪽지함</NavLink></p>
+                        <p><NavLink style={ ({ isActive }) => (isActive ? activeStyle: {}) }
+                                    to="/note/sent">보낸 쪽지함</NavLink></p>
+                        <p><NavLink style={ ({ isActive }) => (isActive ? activeStyle: {}) }
+                                    to="/note/important">중요 쪽지함</NavLink></p>
                     </div>
 
                 </div>

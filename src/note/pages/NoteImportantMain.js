@@ -4,7 +4,6 @@ import {callNoteImportantListAPI} from "../apis/NoteAPICalls";
 import PagingBar from "../../common/components/pagingBar/PagingBar";
 import NoteListItem from "../components/items/NoteListItem";
 
-
 function NoteImportantMain() {
 
     const dispatch = useDispatch(); //store에 값을 저장할 때 dispatch 이용
@@ -16,12 +15,10 @@ function NoteImportantMain() {
         dispatch(callNoteImportantListAPI({ currentPage }));
     }, [currentPage]);
 
-    // slect 메뉴의 옵션 설정
-    const searchCondition = [
-        { label: "전체" },
-        { label: "보낸 사람" },
-        { label: "받는 사람" },
-        { label: "내용" },
+    const options = [
+        { value: '전체', label: '전체' },
+        { value: '보낸 사람', label: '보낸 사람' },
+        { value: '내용', label: '내용' },
     ];
 
     return (
@@ -29,8 +26,9 @@ function NoteImportantMain() {
             { notes
                 &&
                 <>
-                    <NoteListItem note={ notes.data } title="중요 쪽지함" options={ searchCondition }
-                                  showSender={ true } showReceiver={ true } showBoth={ false }/>
+                    <NoteListItem note={ notes.data } title="중요 쪽지함"
+                                  options={ options } noteType="important"
+                                  showSender={ true } showReceiver={ false }/>
                     <PagingBar pageInfo={ notes.pageInfo } setCurrentPage={ setCurrentPage }/>
                 </>
             }
