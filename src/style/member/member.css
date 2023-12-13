@@ -31,9 +31,12 @@
     font-weight: bold;
 }
 
-.member-top-search {
-
+.member-top-title-ad {
+    font-size: 30px;
+    font-weight: bold;
+    margin-right: 120px;
 }
+
 
 .member-top-btn {
     height: 40px;

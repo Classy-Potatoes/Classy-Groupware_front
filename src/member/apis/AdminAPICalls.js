@@ -1,7 +1,7 @@
 import {authRequest } from "../../common/apis/Api";
 import {toast} from "react-toastify";
 import {
-    getNonMembers,
+    getNonMembers, getAdminMembers,
     getJobs, getDepts, infoRegistResult,
 } from "../modules/AdminModule";
 
@@ -49,6 +49,58 @@ export const callJobListAPI = () => {
 
         if( result?.status === 200 ) {
             dispatch( getJobs( result ) );
+        }
+
+    }
+
+};
+
+
+// 회원 목록 조회
+export const callAdminMembersAPI = ( { currentPage } ) => {
+
+    return async (dispatch, getState) => {
+
+        const result =
+            await authRequest.get(`/cg-api/v1/ad/members?page=${currentPage}`,
+                {
+                    headers : {
+                        'Content-Type' : 'application/json'
+                    }
+                }).catch(e => {
+                console.log(e);
+            });
+
+        console.log('callAdminMembersAPI result : ', result);
+
+        if(result?.status === 200) {
+            dispatch( getAdminMembers( result ) );
+        }
+
+    }
+
+};
+
+
+// 회원 목록 조회(search)
+export const callAdminMembersSearchAPI = ( { infoName, currentPage } ) => {
+
+    return async (dispatch, getState) => {
+
+        const result =
+            await authRequest.get(`/cg-api/v1/ad/members/search?infoName=${infoName}&page=${currentPage}`,
+                {
+                    headers : {
+                        'Content-Type' : 'application/json'
+                    }
+                }).catch(e => {
+                console.log(e);
+            });
+
+        console.log('callAdminMembersSearchAPI result : ', result);
+
+        if(result?.status === 200) {
+            dispatch( getAdminMembers( result ) );
         }
 
     }
