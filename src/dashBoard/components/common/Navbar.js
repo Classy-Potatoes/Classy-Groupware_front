@@ -32,7 +32,7 @@ function Navbar() {
                 <p><img src="/work.png"/>업무</p>
                 <p><img src="/board.png"/>공지게시판</p>
                 <NavLink to="/network"><p><img src="/phone.png"/>연락망</p></NavLink>
-                { isAdmin() && <NavLink to="/admin/managementMember"><p><img src="/Vector.png"/>관리기능</p></NavLink> }
+                { isAdmin() && <NavLink to="/admin/member/main"><p><img src="/Vector.png"/>관리기능</p></NavLink> }
 
                 <div className="weather">
                     날씨 영역

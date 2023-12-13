@@ -30,8 +30,8 @@ function AdminPageNavBar() {
                 <div className="nav-bar">
 
                     <div className="nav-bar-p">
-                        <NavLink to="/admin/managementMember"><p>회원관리</p></NavLink>
-                        <NavLink to="/admin/managementNonMember"><p>미분류 회원 관리</p></NavLink>
+                        <NavLink to="/admin/member/main"><p>회원관리</p></NavLink>
+                        <NavLink to="/admin/nonMember/main"><p>미분류 회원 관리</p></NavLink>
                     </div>
                 </div>
             </div>
