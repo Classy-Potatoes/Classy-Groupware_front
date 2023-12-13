@@ -37,19 +37,13 @@ export const signupInputChecks = ( form, imageInput ) => {
                 autoClose : 1000
             });
         }
-    } else if ( form.infoPhone === "" || !/^[0-9]+$/.test( form.infoPhone ) ) {
+    } else if ( form.infoPhone === "" ) {
 
-        if ( form.infoPhone === "" ) {
-            toast.dismiss();
-            toast.warning('휴대번호를 입력해주세요.', {
-                autoClose : 1000
-            });
-        } else {
-            toast.dismiss();
-            toast.warning('휴대번호는 숫자로 입력해주세요.', {
-                autoClose: 1000
-            });
-        }
+        toast.dismiss();
+        toast.warning('휴대번호를 입력해주세요.', {
+            autoClose : 1000
+        });
+
     } else if( form.infoEmail === "" || !/^[a-zA-Z0-9]+$/.test( form.infoEmail ) ) {
 
         if ( form.infoEmail === "" ) {

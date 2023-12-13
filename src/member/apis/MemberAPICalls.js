@@ -2,7 +2,7 @@ import {authRequest, request} from "../../common/apis/Api";
 import {toast} from "react-toastify";
 import {
     getProfile, loginResult, searchIdResult,
-    signupResult, duplicateIdResult, searchInfoCodeResult,
+    signupResult, duplicateIdResult, searchInfoCodeResult, getNonMembers,
 } from "../modules/MemberModule";
 import {saveToken} from "../utils/TokenUtils";
 
@@ -217,6 +217,31 @@ export const callEmailSearchPwdAPI = ( { searchPwdRequest } ) => {
             toast.error('아이디와 사번이 일치하지 않습니다.', {
                 autoClose : 1000
             });
+        }
+
+    }
+
+};
+
+
+// 미분류 회원 목록 조회
+export const callNonMembersAPI = ( { currentPage } ) => {
+
+    return async (dispatch, getState) => {
+
+        const result = await authRequest.get(`/cg-api/v1/ad/memberStatus`,
+            {
+                headers : {
+                    'Content-Type' : 'application/json'
+                }
+            }).catch(e => {
+            console.log(e);
+        });
+
+        console.log('callNonMembersAPI result : ', result);
+
+        if(result?.status === 200) {
+            dispatch( getNonMembers( result ) );
         }
 
     }

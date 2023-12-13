@@ -1,8 +1,5 @@
 function PagingBar({ pageInfo, setCurrentPage }) {
 
-    // const pageNumber = [...Array(pageInfo.endPage - pageInfo.startPage + 1).keys()]
-    //                                 .map(key => key + pageInfo.startPage);
-
     const pageNumber = [];
 
     for(let i = pageInfo.startPage; i <= pageInfo.endPage; i++) {
