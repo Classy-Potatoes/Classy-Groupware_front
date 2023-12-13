@@ -30,20 +30,20 @@ import MyPageLayout from "./member/layouts/MyPageLayout";
 import PasswordChange from "./member/pages/mypage/PasswordChange";
 import MemberReturn from "./member/pages/mypage/MemberReturn";
 import AdminPageLayout from "./member/layouts/AdminPageLayout";
-import MemberManagement from "./member/pages/admin/MemberManagement";
-import NonMemberManagement from "./member/pages/admin/NonMemberManagement";
+import AdminMemberMain from "./member/pages/admin/AdminMemberMain";
+import NonMemberMain from "./member/pages/admin/NonMemberMain";
 import MemberNetwork from "./member/pages/network/MemberNetwork";
 import NetworkPageLayout from "./member/layouts/NetworkPageLayout";
+import NonMemberSearchMain from "./member/pages/admin/NonMemberSearchMain";
+import AdminMemberSearchMain from "./member/pages/admin/AdminMemberSearchMain";
 
 function App() {
   return (
       <BrowserRouter>
           <Routes>
-              {/* 로그인 된 상태가 아니라면 /member/login으로 이동 */}
               <Route path="/" element={ <Navigate to="/dashBoard" /> } />
               <Route path="/dashBoard" element={ <ProtectedRoute loginCheck={ true }><Layout/></ProtectedRoute> }/>
 
-              {/* 로그인, 아이디 찾기, 비밀번호 찾기, 회원가입, 마이페이지 */}
               <Route path="/member">
                   <Route path="login" element={ <ProtectedRoute loginCheck={ false }><Login /></ProtectedRoute> } />
                   <Route path="regist" element={ <ProtectedRoute loginCheck={ false }><Signup /></ProtectedRoute> } />
@@ -57,7 +57,6 @@ function App() {
                       <Route path="memberReturn" element={  <MemberReturn/> }/>
                   </Route>
               </Route>
-
 
               <Route path="projects" element={ <ProtectedRoute loginCheck={ true }><ProjectLayout /></ProtectedRoute> } >
                   <Route index element={
@@ -79,7 +78,6 @@ function App() {
 
               <Route path="calendar" element={ <ProtectedRoute loginCheck={ true }><CalendarLayout/></ProtectedRoute> }/>
 
-
               <Route path="approval" element={<ApprovalLayOut/>}>
                   <Route path="letter" element={<ProtectedRoute loginCheck={ true }><Letter/></ProtectedRoute>} />
                   <Route path="expense" element={<ProtectedRoute loginCheck={ true }> <Expense/> </ProtectedRoute>} />
@@ -94,8 +92,14 @@ function App() {
               {/* 관리기능 */}
               <Route path="/admin" element={ <ProtectedRoute loginCheck={ true }><AdminPageLayout/></ProtectedRoute> }>
                   <Route index element={ <Navigate to="/admin/managementMember" replace/>}/>
-                  <Route path="managementMember" element={  <MemberManagement/> }/>
-                  <Route path="managementNonMember" element={  <NonMemberManagement/> }/>
+                  <Route path="member">
+                      <Route path="main" element={  <AdminMemberMain/> }/>
+                      <Route path="search" element={  <AdminMemberSearchMain/> }/>
+                  </Route>
+                  <Route path="nonMember">
+                      <Route path="main" element={  <NonMemberMain/> }/>
+                      <Route path="search" element={  <NonMemberSearchMain/> }/>
+                  </Route>
               </Route>
 
               {/* 정한 것 외에는 모두 에러 페이지로 이동 */}

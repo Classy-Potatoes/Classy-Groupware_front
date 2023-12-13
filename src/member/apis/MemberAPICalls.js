@@ -1,8 +1,8 @@
 import {authRequest, request} from "../../common/apis/Api";
 import {toast} from "react-toastify";
 import {
-    getProfile, loginResult, searchIdResult,
-    signupResult, duplicateIdResult, searchInfoCodeResult, getNonMembers,
+    loginResult, searchIdResult,
+    signupResult, duplicateIdResult, searchInfoCodeResult,
 } from "../modules/MemberModule";
 import {saveToken} from "../utils/TokenUtils";
 
@@ -222,46 +222,3 @@ export const callEmailSearchPwdAPI = ( { searchPwdRequest } ) => {
     }
 
 };
-
-
-// 미분류 회원 목록 조회
-export const callNonMembersAPI = ( { currentPage } ) => {
-
-    return async (dispatch, getState) => {
-
-        const result = await authRequest.get(`/cg-api/v1/ad/memberStatus`,
-            {
-                headers : {
-                    'Content-Type' : 'application/json'
-                }
-            }).catch(e => {
-            console.log(e);
-        });
-
-        console.log('callNonMembersAPI result : ', result);
-
-        if(result?.status === 200) {
-            dispatch( getNonMembers( result ) );
-        }
-
-    }
-
-};
-
-
-export const callMemberAPI = () => {
-
-    return async (dispatch, getState) => {
-
-        // 인증이 필요하기 때문에 authRequest를 사용 (일반적인건 Request 사용했다)
-        const result = await authRequest.get('/api/v1/member');
-
-        console.log('callMemberAPI result : ', result);
-
-        if ( result.status === 200 ) {
-            dispatch( getProfile( result ) );
-        }
-
-    }
-
-}
