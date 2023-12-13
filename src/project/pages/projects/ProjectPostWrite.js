@@ -16,9 +16,6 @@ function ProjectPostWrite({projectCode}) {
         postBody: '',
     });
 
-    console.log("projectCode", projectCode);
-
-
 
     useEffect(() => {
         // Update projectCode in form when the prop changes
@@ -70,6 +67,7 @@ function ProjectPostWrite({projectCode}) {
     };
 
     const onClickPostRegistrationHandler = () => {
+
         const formData = new FormData();
         formData.append("attachment", fileInput.current.files[0]);
         formData.append(
@@ -134,9 +132,9 @@ function ProjectPostWrite({projectCode}) {
                             style={{ display: 'none' }}
                             type="file"
                             name="attachment"
-                            accept="image/jpg,image/png,image/jpeg,image/gif, txt"
                             ref={fileInput}
                             onChange={onChangeFileUpload}
+                            multiple
                         />
                         <button
                             className="project-post-button"

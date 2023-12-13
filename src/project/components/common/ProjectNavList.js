@@ -11,6 +11,7 @@ function ProjectNavList() {
     const {project} = useSelector((state) => state.projectReducer);
 
 
+
     // project 객체에서 projectCode를 추출
     const projectCode = project ? project.projectCode : null;
 
@@ -54,7 +55,7 @@ function ProjectNavList() {
             </div>
             </div>
                 <div className="projectList-div">
-                    {currentComponent === 'post' && <ProjectPostList />}
+                    {currentComponent === 'post' && <ProjectPostList/>}
                     {currentComponent === 'task' && <ProjectTaskWrite projectCode={projectCode}/>}
                     {/*{currentComponent === 'calendar' && <ProjectCalendarWrite />}*/}
                     {/*{currentComponent === 'todo' && <ProjectTodoWrite />}*/}
