@@ -181,13 +181,6 @@
     font-family: Noto Sans;
 }
 
-/*.loginUserProfile input {*/
-/*    width: 260px;*/
-/*    font-family: Noto Sans;*/
-/*    overflow: auto;*/
-/*    display: none;*/
-/*}*/
-
 .vacation-mainTitle {
     display: grid;
     grid-template-columns: 80px 920px;
@@ -277,8 +270,9 @@
     font-weight: bolder;
     text-align: center;
     width: 1000px;
-    height: 80px;
-    line-height: 80px;
+    height: 40px;
+    line-height: 40px;
+    margin-top: 3%;
 }
 
 .vacation-NameSign {
@@ -305,6 +299,67 @@
     font-weight: bold;
 }
 
+.vacationBody-detail-page {
+    width: 900px;
+    height: 150px;
+    overflow: auto;
+    padding: 10px;
+    font-size: 17px;
+    font-family: Noto Sans;
+    border-bottom: 1px black solid;
+    overflow: auto;
+}
+
+.vacationBody-detail-page-title{
+    width: 80px;
+    height: 200px;
+    border-right: black solid 1px;
+    border-bottom: black solid 1px;
+    font-family: Noto Sans;
+    text-align: center;
+    line-height: 200px;
+    font-family: Noto Sans;
+    font-weight: bolder;
+
+}
+
+.vacationBody-detail-page-body {
+    font-family: Noto Sans;
+    font-size: 17px;
+    width: 920px;
+    height: 200px;
+    overflow: auto;
+    border-bottom: 1px solid black;
+    padding: 10px;
+}
+
+.vacationBody-div{
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+
+}
+
+.vacationTypeBody-detail-page {
+    font-family: Noto Sans;
+    font-size: 20px;
+    font-weight: bolder;
+    margin-left: 2%;
+}
+
+.vacationDateBody-detail-page {
+    font-family: Noto Sans;
+    font-size: 20px;
+    font-weight: bolder;
+    margin-left: 2%;
+}
+
+.vacationRegistDate-detail-page{
+    font-family: Noto Sans;
+    font-size: 20px;
+    width: 1000px;
+    text-align: center;
+
+}
 
 
 

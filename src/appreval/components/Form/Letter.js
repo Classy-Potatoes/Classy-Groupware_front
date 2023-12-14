@@ -12,6 +12,7 @@ import BasicModal from "../mui/approvalLineModal";
 import ReferenceLineModal from "../mui/ReferenceLineModal";
 import SendIcon from "@mui/icons-material/Send";
 import {toast, ToastContainer} from "react-toastify";
+import {useNavigate} from "react-router-dom";
 
 
 function Letter() {
@@ -24,8 +25,9 @@ function Letter() {
     const [selectedFiles, setSelectedFiles] = React.useState([]);
     const attachmentInput = useRef();
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
-    /* 서버로 보내기 */
+
 
     const onChangeHandler = e => {
         setForm({
@@ -52,7 +54,7 @@ function Letter() {
                         // 새 파일 정보로 selectedFiles 업데이트
                         setSelectedFiles((prevFiles) => [
                             ...prevFiles,
-                            { name: file.name, data: result },
+                            { name: file.name, file: file },
                         ]);
                     }
                 };
@@ -73,16 +75,6 @@ function Letter() {
         }
     };
 
-    /* 파일 첨부시 파일 이름 출력 핸들러 */
-    const handleFileChange = (event) => {
-        const files = event.target.files;
-        setSelectedFiles(files? Array.from(files) : []);
-    };
-    /* onChange 핸들러를 두개 동시에 써야하기때문에 캡슐화해서 호출한다*/
-    const combinedFileChange = (event) => {
-        handleFileChange(event);
-        onChangefileUpload();
-    };
 
     /* 서버로 보내기 */
     const onClickCompletedHandler = () => {
@@ -100,11 +92,7 @@ function Letter() {
 
         /* 서버로 전달한 FormData 형태의 객체 설정 */
         const formData = new FormData();
-        // 다중파일 처리
-        for (let i = 0; i < attachmentInput.current.files.length; i++)
-        {
-            formData.append("attachment", attachmentInput.current.files[i]);
-        }
+
 
         formData.append("letterRequest", new Blob([JSON.stringify({
             documentTitle: form.documentTitle,
@@ -117,7 +105,12 @@ function Letter() {
             documentType: "품의서",
         })], { type: 'application/json' }));
 
-        dispatch(callRegistLetterAPI({letterRequest : formData}));
+        // 다중파일 처리
+        for (let i = 0; i < selectedFiles.length; i++) {
+            formData.append("attachment",  selectedFiles[i].file);
+        }
+
+        dispatch(callRegistLetterAPI({letterRequest : formData, navigate}));
     }
 
 
@@ -137,7 +130,7 @@ function Letter() {
      const {writer} = useSelector(state => state.approvalReducer);
 
     useEffect(() => {
-        dispatch(callWriterInfoAPI())
+        dispatch(callWriterInfoAPI());
     }, []);
 
 
@@ -219,7 +212,7 @@ function Letter() {
                             <Button component="label" variant="contained" startIcon={<CloudUploadIcon/>}
                                     style={{width: 90, height: 43, marginLeft: 3}}>
                                 파일 첨부
-                                <VisuallyHiddenInput multiple type="file" onChange={combinedFileChange} ref={attachmentInput}/>
+                                <VisuallyHiddenInput multiple type="file" formEncType="multipart/form-data" onChange={onChangefileUpload} ref={attachmentInput}/>
                             </Button>
                             {selectedFiles.length > 0 && (
                                 <div className="letter-file-info">
