@@ -23,14 +23,16 @@ function ProjectModifyModal({ setProjectModifyModal }) {
 
         useEffect(() => {
                 // project에 필요한 속성들이 있을 것으로 가정합니다.
-                setForm({
-                        projectTitle: project.projectTitle || '',
-                        projectBody: project.projectBody || '',
-                        projectStartDate: project?.projectStartDate,
-                        projectEndDate: project?.projectEndDate,
-                        deptCode: project?.deptCode ,
-                });
-        }, [project]);                  /* 선생님한테 질문하기 !! */
+                if (project) {
+                        setForm({
+                                projectTitle: project.projectTitle || '',
+                                projectBody: project.projectBody || '',
+                                projectStartDate: project?.projectStartDate,
+                                projectEndDate: project?.projectEndDate,
+                                deptCode: project?.deptCode,
+                        });
+                }
+        }, [project]);               /* 선생님한테 질문하기 !! */
 
         /* 수정 성공시 */
         useEffect(() => {

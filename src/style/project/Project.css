@@ -566,6 +566,8 @@
     border-top: 0;
     width: 90%;
     margin-left: 60px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+
 }
 .project-Nav-List-border {
     border-bottom: 1px solid #ccc;
@@ -577,7 +579,7 @@
 .project-Nav-List {
     display: flex;
     justify-content: space-between;
-    padding: 10px 100px;
+    padding: 10px 200px;
 }
 
 .project-Nav-List-button {
@@ -600,6 +602,7 @@
 
 .project-Nav-List-button img {
     margin-bottom: 5px;
+    width: 30px;
 }
 
 /* 글작성 ----------------------------------------- */
@@ -775,7 +778,7 @@
     font-weight: 600;
 }
 
-/* 일반 게시글 조회 */
+/* 일반 게시글 조회 -------------------------------------------*/
 
 .projectList-div{
     border: 1px solid black;
@@ -783,4 +786,189 @@
     width: 90%;
     margin-left: 60px;
     padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    margin-bottom: 30px;
+}
+
+.project-post-item-div{
+    border: 1px solid #808080;
+    border-radius: 5px;
+    margin-top: 30px;
+    padding: 20px;
+    box-shadow: 0 0 5px rgba(132, 128, 133, 1);
+
+}
+
+.project-postList-name {
+    font-size: 20px;
+    font-family: Noto Sans;
+    font-weight: 400;
+    margin-bottom: 10px;
+    padding: 5px;
+}
+
+.project-postList-date {
+    font-size: 15px;
+    font-family: Noto Sans;
+    font-weight: 400;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 2px solid black;
+    padding: 5px;
+}
+
+.project-postList-button{
+    font-size: 15px;
+    font-family: Noto Sans;
+    font-weight: 300;
+}
+
+.project-postList-button button {
+    border: 1px solid black;
+    border-radius: 5px;
+    margin-left: 5px;
+    padding: 5px;
+    transition: background-color 0.3s ease; /* 트랜지션 효과를 추가합니다. */
+
+    /* 기본 배경색 (회색) */
+    background-color: #cccccc;
+}
+
+.project-postList-button button:hover {
+    /* 호버 시 배경색 (연보라색) */
+    background-color: #E09FF6;
+}
+
+.project-postList-Title {
+    font-size: 30px;
+    font-family: Noto Sans;
+    font-weight: 500;
+    border-bottom: 1px solid black;
+    padding: 15px;
+}
+
+.project-postList-Title input {
+    font-size: 30px;
+    font-family: Noto Sans;
+    font-weight: 500;
+}
+
+.project-postList-Body{
+    border-bottom: 2px solid black;
+    padding: 10px;
+    height: 200px;
+    overflow-y: auto;
+}
+
+.project-postList-Body input {
+    font-size: 20px;
+    font-family: Noto Sans;
+    font-weight: 400;
+}
+
+.project-post-file {
+    font-family: Noto Sans;
+    padding: 10px;
+    display: flex;
+}
+
+.project-post-file label{
+    font-size: 18px;
+    font-weight: 600;
+    font-family: Noto Sans;
+    margin-right: 20px;
+}
+
+.project-post-reply {
+    background: #E7E2E2;
+    padding: 10px;
+    height: 300px;
+    overflow-y: auto;
+}
+
+.reply-item {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.reply-info {
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+    font-family: Noto Sans;
+    font-weight: 700;
+}
+
+.reply-info img {
+    margin-right: 10px;
+}
+
+.reply-body {
+    flex: 1;
+    margin-left: 20px;
+}
+
+.reply-date{
+    margin-right: 10px;
+}
+
+
+.reply-actions button {
+    margin-left: 5px;
+    padding: 5px;
+    border: 1px solid black;
+    border-radius: 5px;
+    background-color: #F4F2F2;
+}
+
+.reply-actions button:hover {
+    background-color: #E09FF6;
+}
+
+.reply-regist {
+    background: #E7E2E2;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.reply-regist img {
+    margin-right: 10px;
+    margin-top: 5px;
+    height: 25px;
+
+}
+
+.reply-regist-input {
+    margin-right: 10px;
+    background: #D9D9D9;
+    border-radius: 5px;
+    border: 0;
+    width: 1000px;
+    padding: 10px;
+}
+
+.reply-regist button {
+    background: #333333;
+    border-radius: 10px;
+    color: white;
+    font-size: 15px;
+    font-family: Noto Sans;
+    font-weight: 400;
+    padding: 5px;
+    width: 50px;
+}
+
+.project-post-paging {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+/* 첨부파일 저장 */
+.fileNameButton {
+    cursor: pointer;
 }

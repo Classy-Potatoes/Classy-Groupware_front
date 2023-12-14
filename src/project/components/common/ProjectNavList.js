@@ -12,6 +12,8 @@ function ProjectNavList() {
     const [currentComponent, setCurrentComponent] = useState('post');
     const {project} = useSelector((state) => state.projectReducer);
 
+
+
     console.log(project, "sdfsdfsdfs")
     // project 객체에서 projectCode를 추출
     const projectCode = project ? project.projectCode : null;
@@ -58,11 +60,11 @@ function ProjectNavList() {
 
             {currentComponent === 'post' || currentComponent === 'task' ?
                 <div className="projectList-div">
-            {currentComponent === 'post' && <ProjectPostList/>}
-            {currentComponent === 'task' && <ProjectTaskWrite projectCode={projectCode}/>}
-    {/*{currentComponent === 'calendar' && <ProjectCalendarWrite />}*/}
-    {/*{currentComponent === 'todo' && <ProjectTodoWrite />}*/}
-</div> : <>{style.display === 'none'}</>
+                    {currentComponent === 'post' && <ProjectPostList/>}
+                    {currentComponent === 'task' && <ProjectTaskWrite projectCode={projectCode}/>}
+                    {/*{currentComponent === 'calendar' && <ProjectCalendarWrite />}*/}
+                    {/*{currentComponent === 'todo' && <ProjectTodoWrite />}*/}
+                </div> : <>{style.display === 'none'}</>
             }
 
 
