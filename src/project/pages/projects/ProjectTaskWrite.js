@@ -77,7 +77,7 @@ function ProjectTaskWrite({ projectCode }) {
     };
 
     /* 등록 눌렀을때 핸들러 */
-    const onClickPostRegistrationHandler = async () => {
+    const onClickTaskRegistrationHandler = async () => {
         const formData = new FormData();
 
         // 첨부 파일 추가
@@ -258,7 +258,7 @@ function ProjectTaskWrite({ projectCode }) {
 
                 <button
                     className="project-postregist-button"
-                    onClick={onClickPostRegistrationHandler}
+                    onClick={onClickTaskRegistrationHandler}
                 >
                     등록
                 </button>
