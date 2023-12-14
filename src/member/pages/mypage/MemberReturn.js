@@ -1,26 +1,17 @@
-import {useEffect} from "react";
-import {useDispatch, useSelector} from "react-redux";
+import {ToastContainer} from "react-toastify";
+import ReturnItem from "../../components/items/ReturnItem";
 
 function MemberReturn() {
 
-    const dispatch = useDispatch();
-    // const { profileInfo } = useSelector( state => state.memberReducer );
-
-
-    useEffect(() => {
-
-        // dispatch( callMemberAPI() );
-
-    }, []);
-
-
     return (
-        <div className="profile-background-div">
-            {/*{*/}
-            {/*    profileInfo &&*/}
-            {/*        <ProfileItem profileInfo={ profileInfo } />*/}
-            {/*}*/}
-        </div>
+        <>
+            <ToastContainer hideProgressBar={ true } position="top-center" />
+            <div className="profile-background-div">
+                <div className='memberReturn-div'>
+                    <ReturnItem />
+                </div>
+            </div>
+        </>
     );
 
 }

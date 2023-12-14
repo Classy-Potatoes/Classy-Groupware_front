@@ -135,6 +135,17 @@
 
 
 /* mypage ----------------------------------------------------------------------- */
+
+.profile-background-div{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+}
+
 .mypage-div {
     height: 720px;
     width: 950px;
@@ -226,14 +237,92 @@
 }
 
 
-
-/* profile ----------------------------------------- */
-.profile-background-div{
-    height: 100%;
+.memberReturn-div {
+    width: 600px;
+    height: 570px;
     display: flex;
+    flex-wrap: wrap;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     margin: 0;
     padding: 0;
+    background-color: rgb(0, 0, 0, 60%);
+    border-radius: 10px;
+}
+
+.return-div-layout {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+    margin-bottom: 15px;
+    padding: 0;
+}
+
+.return-div-items-top {
+    width: 550px;
+    height: 220px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #FBFBFB;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    padding: 10px;
+}
+
+.return-div-items-mid {
+    width: 550px;
+    height: 120px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #FBFBFB;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    padding: 10px;
+}
+
+.return-div-items-bot {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+.return-checkbox {
+    margin-right: 15px;
+    cursor: pointer;
+    width: 15px;
+    height: 15px;
+}
+
+
+/*--------------------------------*/
+
+.return-div-items-title {
+    color: orangered;
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.return-div-items-content {
+    font-size: 11px;
+    margin-bottom: 10px;
+}
+
+.memberReturn-div button {
+    margin-top: 10px;
+    margin-bottom: 5px;
+    height: 45px;
+    width: 220px;
+    border-radius: 10px;
+    background-color: #333333;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
 }

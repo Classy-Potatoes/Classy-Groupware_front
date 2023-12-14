@@ -3,7 +3,7 @@ import {toast} from "react-toastify";
 import {
     loginResult, searchIdResult,
     signupResult, duplicateIdResult, searchInfoCodeResult,
-    pwdChangeResult,
+    pwdChangeResult, memberReturnResult,
 } from "../modules/MemberModule";
 import {saveToken} from "../utils/TokenUtils";
 import {getAdminMembers} from "../modules/AdminModule";
@@ -253,6 +253,31 @@ export const callPwdChangeAPI = (  { memberPwdRequest } ) => {
                     }
                 );
             }
+        }
+
+    }
+
+};
+
+
+// 회원 반납(마이페이지)
+export const callMemberReturnAPI = ( ) => {
+
+    return async (dispatch, getState) => {
+
+        const result =
+            await authRequest.put(`/cg-api/v1/member/returnUser`, {
+                headers : {
+                    'Content-Type' : 'application/json'
+                }
+            }).catch(e => {
+                console.log(e);
+            });
+
+        console.log('callMemberReturnAPI result : ', result);
+
+        if( result?.status === 201 ) {
+            dispatch( memberReturnResult( true ) );
         }
 
     }
