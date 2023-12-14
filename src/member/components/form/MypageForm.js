@@ -9,9 +9,7 @@ import {
 } from "../../apis/MemberAPICalls";
 import {useDispatch, useSelector} from "react-redux";
 import DaumPostcode from "react-daum-postcode";
-import {hide} from "react-modal/lib/helpers/ariaAppHider";
 import {toast} from "react-toastify";
-import {searchInfoCodeResult} from "../../modules/MemberModule";
 import {signupInputChecks} from "../../utils/SignupInputChecks";
 
 
@@ -31,9 +29,8 @@ const customStyles = {
     },
 };
 
-Modal.setAppElement('#root');
 
-function SignupForm() {
+function MypageForm() {
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -85,6 +82,8 @@ function SignupForm() {
     }, [ duplicateIdResult ]);
 
 
+
+
     const onChangeHandler = e => {
 
         const { name, value } = e.target;
@@ -116,31 +115,17 @@ function SignupForm() {
     // 가입하기 버튼 이벤트
     const onClickSignupHandler = () => {
 
-        const selectedFile = imageInput.current.files[0];
+        // const selectedFile = imageInput.current.files[0];
+        //
+        // // input 검증 메서드
+        // const checkedForm = signupInputChecks( form, imageInput );
+        //
+        // if ( checkedForm ) {
+        //     const profileImgFile = imageInput.current.files[0];
+        //
+        //     dispatch( callSignupAPI({ signupRequest : checkedForm, signupImgRequest : profileImgFile } ));
+        // }
 
-        // input 검증 메서드
-        const checkedForm = signupInputChecks( form, imageInput );
-
-        if ( checkedForm ) {
-            const profileImgFile = imageInput.current.files[0];
-
-            dispatch( callSignupAPI({ signupRequest : checkedForm, signupImgRequest : profileImgFile } ));
-        }
-
-    }
-
-
-    // 메인으로 버튼 이벤트
-    const onClickBackHandler = () => {
-        window.location.replace("/");
-    }
-    // 아이디 중복 검사 버튼 이벤트
-    const onClickIdCheckHandler = () => {
-        dispatch( callDuplicateIdAPI( { duplicateIdRequest : form } ) );
-    }
-    // 사번 검증 버튼 이벤트
-    const onClickInfoCodeCheckHandler = () => {
-        dispatch( callSearchInfoCodeAPI( { searchInfoCodeRequest : form } ) );
     }
 
 
@@ -202,16 +187,15 @@ function SignupForm() {
                     <DaumPostcode onComplete={ handleComplete } style={{ height: '450px'}}/>
                 </Modal>
             ) }
-            <div className="login-div-title">회원가입</div>
+
+            <div></div>
+            <div></div>
+
             <div className="signup-div-profile">
 
                 <div onClick={ onClickImageUpload } >
-                    { imageUrl ? (
+                    { imageUrl && (
                         <img src={ imageUrl }
-                             alt='profileImg'
-                             className="signup-div-profile-img"/>
-                    ) : (
-                        <img src="/member/signupImg.png"
                              alt='profileImg'
                              className="signup-div-profile-img"/>
                     )}
@@ -226,9 +210,9 @@ function SignupForm() {
                     onChange={ onChangeImageUpload }
                 />
             </div>
+
             <div className="signup-div-form">
                 <div className="signup-div-left">
-                    <span>* 사전에 받은 사원번호를 입력해주세요.</span>
                     <div className="signup-div-left-address">
                         <input
                             type="text"
@@ -237,12 +221,6 @@ function SignupForm() {
                             placeholder="* 사원번호"
                             onChange={ onChangeHandler }
                         />
-                        <button
-                            className="small-search-btn"
-                            onClick={ onClickInfoCodeCheckHandler }
-                        >
-                            사번확인
-                        </button>
                     </div>
                     <div className="signup-div-left-address">
                         <input
@@ -253,28 +231,7 @@ function SignupForm() {
                             onChange={ onChangeHandler }
                             disabled={ !searchInfoCodeResult ? true : false }
                         />
-                        <button
-                            className="small-search-btn"
-                            onClick={ onClickIdCheckHandler }
-                            disabled={ !searchInfoCodeResult ? true : false }
-                        >
-                            중복확인
-                        </button>
                     </div>
-                    <input
-                        type="password"
-                        name="memberPassword"
-                        placeholder="* 비밀번호"
-                        onChange={ onChangeHandler }
-                        disabled={ !searchInfoCodeResult ? true : false }
-                    />
-                    <input
-                        type="password"
-                        name="memberPasswordCheck"
-                        placeholder="* 비밀번호 확인"
-                        onChange={ onChangeHandler }
-                        disabled={ !searchInfoCodeResult ? true : false }
-                    />
                     <input
                         type="text"
                         name="infoPhone"
@@ -305,7 +262,6 @@ function SignupForm() {
                 </div>
 
                 <div className="signup-div-right">
-                    <span>* 은 필수 입력 사항입니다.</span>
                     {
                         searchInfoCodeResult &&
                         <>
@@ -370,17 +326,17 @@ function SignupForm() {
                 </div>
             </div>
             <div className="signup-div-button">
-                <button
-                    onClick={ onClickBackHandler }
-                >
-                    메인으로
-                </button>
-                <button
-                    onClick={ onClickSignupHandler }
-                    // disabled={ isInput() ? true : false }
-                >
-                    가입하기
-                </button>
+                {/*<button*/}
+                {/*    onClick={ onClickBackHandler }*/}
+                {/*>*/}
+                {/*    메인으로*/}
+                {/*</button>*/}
+                {/*<button*/}
+                {/*    onClick={ onClickSignupHandler }*/}
+                {/*    // disabled={ isInput() ? true : false }*/}
+                {/*>*/}
+                {/*    가입하기*/}
+                {/*</button>*/}
             </div>
 
 
@@ -390,4 +346,4 @@ function SignupForm() {
 
 }
 
-export default SignupForm;
+export default MypageForm;

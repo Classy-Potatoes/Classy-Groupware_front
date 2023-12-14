@@ -3,9 +3,12 @@ import {toast} from "react-toastify";
 import {
     loginResult, searchIdResult,
     signupResult, duplicateIdResult, searchInfoCodeResult,
+    pwdChangeResult,
 } from "../modules/MemberModule";
 import {saveToken} from "../utils/TokenUtils";
+import {getAdminMembers} from "../modules/AdminModule";
 
+// 회원가입
 export const callSignupAPI = ( { signupRequest, signupImgRequest } ) => {
 
     const modifiedRequest = {
@@ -222,3 +225,37 @@ export const callEmailSearchPwdAPI = ( { searchPwdRequest } ) => {
     }
 
 };
+
+
+// 비밀번호 번경(마이페이지)
+export const callPwdChangeAPI = (  { memberPwdRequest } ) => {
+
+    return async (dispatch, getState) => {
+
+        const result =
+            await authRequest.put(`/cg-api/v1/member/pwdUpdate`, memberPwdRequest, {
+                    headers : {
+                        'Content-Type' : 'application/json'
+                    }
+            }).catch(e => {
+                console.log(e);
+            });
+
+        console.log('callPwdChangeAPI result : ', result);
+
+        if( result?.status === 200 ) {
+            if ( result.data === true ) {
+                dispatch( pwdChangeResult( result ) );
+            } else {
+                toast.error('현재 비밀번호 불일치',
+                    {
+                        autoClose : 1000,
+                    }
+                );
+            }
+        }
+
+    }
+
+};
+
