@@ -1,10 +1,10 @@
+import './style/main.css';
 import './style/nav.css';
 import './calendar/calendarStyle/Calendar.css'
-import './style/main.css';
 import './style/member/admin.css';
 import './style/member/login.css';
-import './style/member/member.css';
 import './style/note/note.css'
+import './style/member/member.css';
 import './style/project/Project.css';
 import 'react-toastify/dist/ReactToastify.css';
 import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
@@ -40,6 +40,8 @@ import AdminMemberMain from "./member/pages/admin/AdminMemberMain";
 import NonMemberMain from "./member/pages/admin/NonMemberMain";
 import MemberNetwork from "./member/pages/network/MemberNetwork";
 import NetworkPageLayout from "./member/layouts/NetworkPageLayout";
+import NoteSearch from "./note/pages/NoteSearch";
+import NoteReceived from "./note/pages/NoteReceived";
 import NonMemberSearchMain from "./member/pages/admin/NonMemberSearchMain";
 import AdminMemberSearchMain from "./member/pages/admin/AdminMemberSearchMain";
 import ReportWaiting from "./appreval/components/ReportLists/ReportWaiting";
@@ -79,9 +81,14 @@ function App() {
 
                 <Route path="note" element={ <ProtectedRoute loginCheck={ true }><NoteLayout/></ProtectedRoute> }>
                     <Route index element={ <NoteReceivedMain/> }/>
-                    <Route path="received" element={<NoteReceivedMain />} />
-                    <Route path="sent" element={ <NoteSentMain/> }/>
-                    <Route path="important" element={ <NoteImportantMain/> }/>
+                    <Route path="received/:noteCode" element={< NoteReceived/> }/>
+                    <Route path="sent" element={ <NoteSentMain/> }>
+                        <Route path=":noteCode" element={ <NoteReceived/> }/>
+                    </Route>
+                    <Route path="important" element={ <NoteImportantMain/> }>
+                        <Route path=":noteCode" element={<NoteReceived/>} />
+                    </Route>
+                    <Route path="search" element={ <NoteSearch/> }/>
                 </Route>
 
               <Route path="projects" element={ <ProtectedRoute loginCheck={ true }><ProjectLayout /></ProtectedRoute> } >

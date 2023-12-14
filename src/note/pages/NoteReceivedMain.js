@@ -4,6 +4,7 @@ import {callNoteReceivedListAPI} from "../apis/NoteAPICalls";
 import PagingBar from "../../common/components/pagingBar/PagingBar";
 import NoteListItem from "../components/items/NoteListItem";
 
+
 function NoteReceivedMain() {
 
     const dispatch = useDispatch(); //store에 값을 저장할 때 dispatch 이용

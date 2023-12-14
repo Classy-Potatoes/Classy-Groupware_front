@@ -3,20 +3,32 @@ import * as React from "react";
 import "react-toastify/dist/ReactToastify.css";
 import {useState} from "react";
 import { DatePicker } from 'react-rainbow-components';
-import {toast} from "react-toastify";
-import {callNoteReceivedRemoveAPI} from "../../apis/NoteAPICalls";
 import {useDispatch} from "react-redux";
 
-// const callNoteSearchAPI = async (searchCondition, option) => {
-//     try {
-//         const response = await fetch(`/api/note/search?searchCondition=${searchCondition}&option=${option}`);
-//         const data = await response.json();
-//         return data;
-//     } catch (error) {
-//         console.error("Error fetching search results", error);
-//         throw error;
-//     }
-// };
+function getByteLength(str) {
+    // Blob을 이용하여 문자열의 byte 길이 계산
+    const blob = new Blob([str]);
+    return blob.size;
+}
+
+function truncateTextByByte(text, maxByteLength) {
+    let truncatedText = '';
+    let currentByteLength = 0;
+
+    for (const char of text) {
+        const charByteLength = getByteLength(char);
+
+        if (currentByteLength + charByteLength <= maxByteLength) {
+            truncatedText += char;
+            currentByteLength += charByteLength;
+        } else {
+            break;
+        }
+    }
+
+    return truncatedText;
+}
+
 
 function NoteListItem({ note, title , options, currentPage, setCurrentPage, showSender, showReceiver }) {
 
@@ -27,8 +39,6 @@ function NoteListItem({ note, title , options, currentPage, setCurrentPage, show
     const [searchResults, setSearchResults] = useState([]);
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
-    const [selectedNotes, setSelectedNotes] = useState([]);
-    const [confirmDeleteModal, setConfirmDeleteModal] = useState(false);
     const dispatch = useDispatch();
     const { noteCode } = useParams();
 
@@ -43,30 +53,12 @@ function NoteListItem({ note, title , options, currentPage, setCurrentPage, show
 
     const handleSearch = (e) => {
 
+        console.log(e.target.value);
+
         setSearchValue({
             ...searchValue,
             [e.target.name]: e.target.value
         })
-
-    };
-
-    const onClickDeleteNotes = () => {};
-
-    /* 받은 쪽지 삭제 */
-    const onClickDeleteReceivedNoteHandler = () => {
-       dispatch(callNoteReceivedRemoveAPI({ noteCode }));
-    };
-
-    const onClickMoveNotes = () => {
-
-    };
-
-    const handleNoteSelect = (noteCode) => {
-        if (selectedNotes.includes(noteCode)) {
-            setSelectedNotes(selectedNotes.filter((code) => code != noteCode));
-        } else {
-            setSelectedNotes([...selectedNotes, noteCode]);
-        }
 
     };
 
@@ -98,34 +90,32 @@ function NoteListItem({ note, title , options, currentPage, setCurrentPage, show
     //         console.error("Error fetching search results", error);
     //     }
     // };
-
-    React.useEffect(() => {
-        // 여기서 API 호출 또는 검색 결과 업데이트 로직을 작성
-        // 예를 들어, callSearchAPI 함수를 사용하여 서버에서 검색 결과를 받아오는 것으로 가정
-        const callSearchAPI = async () => {
-            try {
-                const apiUrl = `/cg-api/v1/note/received/search?searchCondition=${ selectedOption }&searchValue=${ searchValue }`;
-                console.log('API URL:', apiUrl);
-
-                const response = await fetch(apiUrl);
-                const data = await response.json();
-                console.log('API Response:', data);
-
-                setSearchResults(data);
-
-                if (data.length === 0) {
-                    toast.error("일치하는 검색 결과가 없습니다.");
-                }
-            } catch (error) {
-                console.error("Error fetching search results", error);
-            }
-        };
-
-        // 검색어 또는 옵션 값이 변경될 때마다 API 호출
-        callSearchAPI();
-    }, [selectedOption, searchValue]);
-
-
+    //
+    // React.useEffect(() => {
+    //     // 여기서 API 호출 또는 검색 결과 업데이트 로직을 작성
+    //     // 예를 들어, callSearchAPI 함수를 사용하여 서버에서 검색 결과를 받아오는 것으로 가정
+    //     const callSearchAPI = async () => {
+    //         try {
+    //             const apiUrl = `/cg-api/v1/note/received/search?searchCondition=${ selectedOption }&searchValue=${ searchValue }`;
+    //             console.log('API URL:', apiUrl);
+    //
+    //             const response = await fetch(apiUrl);
+    //             const data = await response.json();
+    //             console.log('API Response:', data);
+    //
+    //             setSearchResults(data);
+    //
+    //             if (data.length === 0) {
+    //                 toast.error("일치하는 검색 결과가 없습니다.");
+    //             }
+    //         } catch (error) {
+    //             console.error("Error fetching search results", error);
+    //         }
+    //     };
+    //
+    //     // 검색어 또는 옵션 값이 변경될 때마다 API 호출
+    //     callSearchAPI();
+    // }, [selectedOption, searchValue]);
 
     /* 컴포넌트 하나당 목록을 보여주는 쪽지 하나를 표현하기 위해 선언 - 쪽지 정보 */
     return (
@@ -137,7 +127,7 @@ function NoteListItem({ note, title , options, currentPage, setCurrentPage, show
             </div>
 
             { note &&
-                <div className="note-search-div">
+                <div className="note-body">
                     <div className="note-date-container" style={{ maxWidth: 360 }}>
                         <DatePicker
                             value={ startDate }
@@ -159,34 +149,6 @@ function NoteListItem({ note, title , options, currentPage, setCurrentPage, show
                             endDate={ endDate }
                         />
                     </div>
-
-
-                        {/*<LocalizationProvider dateAdapter={AdapterDateFns}>*/}
-                        {/*<DesktopDatePicker*/}
-                        {/*    locale={ ko }*/}
-                        {/*    dateFormat="yyyy-MM-dd"*/}
-                        {/*    selected={ startDate }*/}
-                        {/*    onChange={ (newValue) => {*/}
-                        {/*        setStartDate(newValue)*/}
-                        {/*    }}*/}
-                        {/*    selectsStart*/}
-                        {/*    startDate={ startDate }*/}
-                        {/*    endDate={ endDate }*/}
-                        {/*    showPopperArrow={ true }*/}
-                        {/*    renderInput={(params) => <TextField {...params} />}*/}
-                        {/*/>*/}
-                        {/*<div style={{ margin: '0 10px' }}>~</div>*/}
-                        {/*<DesktopDatePicker*/}
-                        {/*locale={ ko }*/}
-                        {/*dateFormat="yyyy-MM-dd"*/}
-                        {/*selected={ endDate }*/}
-                        {/*onChange={ (data: Date) => setEndDate(data) }*/}
-                        {/*selectsEnd*/}
-                        {/*minDate={ startDate }*/}
-                        {/*startDate={ startDate }*/}
-                        {/*endDate={ endDate }*/}
-                        {/*showPopperArrow={ true }*/}
-                        {/*/>*/}
 
                     <div className="note-search">
                         <select
@@ -214,103 +176,40 @@ function NoteListItem({ note, title , options, currentPage, setCurrentPage, show
                             >
                                 검색
                             </button>
-
-                            {/*{ title === "받은 쪽지함" && (*/}
-                            {/*    <>*/}
-                            {/*        <button*/}
-                            {/*            onClick={ onClickMoveNotes }*/}
-                            {/*            className="note-important-button"*/}
-                            {/*        >*/}
-                            {/*            보관*/}
-                            {/*        </button>*/}
-                            {/*        <button*/}
-                            {/*            onClick={ () => onClickDeleteReceivedNoteHandler(selectedNotes) }*/}
-                            {/*            className="note-delete-button"*/}
-                            {/*        >*/}
-                            {/*            삭제*/}
-                            {/*        </button>*/}
-                            {/*    </>*/}
-                            {/*)}*/}
-
-                            {/*{ title === "보낸 쪽지함" && (*/}
-                            {/*    <button*/}
-                            {/*        onClick={ onClickDeleteNotes }*/}
-                            {/*        className="sent-delete-button"*/}
-                            {/*    >*/}
-                            {/*        삭제*/}
-                            {/*    </button>*/}
-                            {/*)}*/}
-
-                            {/*{ title === "중요 쪽지함" && (*/}
-                            {/*    <>*/}
-                            {/*        <button*/}
-                            {/*            onClick={ onClickMoveNotes }*/}
-                            {/*            className="note-important-button"*/}
-                            {/*        >*/}
-                            {/*            보관 취소*/}
-                            {/*        </button>*/}
-
-                            {/*        <button*/}
-                            {/*            onClick={ onClickDeleteNotes }*/}
-                            {/*            className="note-delete-button"*/}
-                            {/*        >*/}
-                            {/*            삭제*/}
-                            {/*        </button>*/}
-                            {/*    </>*/}
-                            {/*)}*/}
                         </div>
                     </div>
 
-                    {/*<div className="note-checkbox">*/}
-                    {/*    <input*/}
-                    {/*        type="checkbox"*/}
-                    {/*        value={ note.noteCode }*/}
-                    {/*        checked={ selectedNotes.includes(note.noteCode) }*/}
-                    {/*        onChange={ () => handleNoteSelect(note.noteCode) }*/}
-
-
-
-                    {/*        // onChange={ () => {*/}
-                    {/*        //     // 모든 쪽지를 선택 또는 해제합니다.*/}
-                    {/*        //     if (selectedNotes.length === note.length) {*/}
-                    {/*        //         // 이미 모두 선택된 경우 모두 해제*/}
-                    {/*        //         setSelectedNotes([]);*/}
-                    {/*        //     } else {*/}
-                    {/*        //         // 아닌 경우 모두 선택*/}
-                    {/*        //         setSelectedNotes(note.map((item) => item.noteCode));*/}
-                    {/*        //     }*/}
-                    {/*        // }}*/}
-                    {/*        // checked={selectedNotes.length === note.length}*/}
-                    {/*    />*/}
-                    {/*</div>*/}
-
                     {/* 쪽지 body 카테고리 */}
-                    <div className="note-title-body">
-                        { showSender && <div className="title">보낸 사람</div> }
+                    <div className="note-title-body" style={{ paddingBottom: '20px' }}>
+                        { showSender &&
+                            <div className="title"
+                                 style={{ border: '1px solid #8A2BE2', borderRadius: '50px' }}
+                        >
+                            보낸 사람
+                        </div> }
                         { showReceiver && <div className="title">받는 사람</div> }
-                        <div className="title">내용</div>
+                        <div className="title"><p>내용</p></div>
                         <div className="title">날짜</div>
                     </div>
 
                     { note.map((note) => (
-                            <div className="note-item" key={ note.noteCode }>
-                                {/*<div className="content">*/}
-                                {/*    <input*/}
-                                {/*        type="checkbox"*/}
-                                {/*        value={ note.noteCode }*/}
-                                {/*        checked={ selectedNotes.includes(note.noteCode) }*/}
-                                {/*        onChange={ () => handleNoteSelect(note.noteCode) }*/}
-                                {/*    />*/}
-                                {/*</div>*/}
-
-                                <div className="content">{ note.noteSender }</div>
-                                <div className="content" onClick={ () => onClickNoteHandler(note) }>
-                                    { note.noteBody }
-                                </div>
-                                <div className="content">{ note.noteSentDate }</div>
+                        <div className="note-item" key={ note.noteCode }>
+                            <div className="noteMember"
+                                 style={{ width:'700px', marginLeft: '300px' }}>
+                                { title === "보낸 쪽지함" ? note.noteReceiver
+                                    : title === "받은 쪽지함" ? note.noteSender :
+                                        title === "중요 쪽지함" ? note.noteSender : "" }
                             </div>
-                        ))
-                    }
+                            <div className="noteBody"
+                                 onClick={ () => onClickNoteHandler(note) }
+                                 style={{ whiteSpace: 'nowrap', width:'50px' }}>
+                                { truncateTextByByte(note.noteBody, 90) }
+                            </div>
+                            <div className="noteDate"
+                                 style={{ width:'600px', marginLeft: '463px' }}>
+                                { note.noteSentDate }</div>
+                        </div>
+                    ))}
                 </div>
             }
         </>

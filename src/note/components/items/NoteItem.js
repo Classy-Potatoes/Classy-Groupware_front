@@ -1,27 +1,48 @@
 import {useNavigate} from "react-router-dom";
-import {useState} from "react";
+import * as React from "react";
 
-function NoteItem({ note, isSent }) {
+function NoteItem({ note, titleName, titleTime }) {
 
     const navigate = useNavigate();
-    const [amount, setAmount] = useState(1);
+
+    const onClickBack = () => {}
+
+    const onClickSent =() => {}
 
     return (
         <>
-            <div className="note-container">
-                <div className="note-info">{ isSent ? "받는 사람" : "보낸 사람" }</div>
-                <div className="note-info">날짜</div>
-                <div className="note-info">내용</div>
+            <div className="note-detail-div">
+                <div className="note-detail-title" style={{ fontSize: "30px", marginTop: "55px", marginLeft: "40px" }}>
+                    <img src="/note/fi-rs-comment.png" style={{ marginRight: "20px" }}/>
+                    쪽지 읽기
+                </div>
             </div>
 
-            <div className="note-body">
-                <div className="note-body-container">
-                    <div className="note-body">{isSent ? note.noteReceiver : note.noteSender}</div>
-                    <div className="note-body">{ note.noteSentDate }</div>
-                    <div className="note-body">{ note.noteBody }</div>
+            <div className="note-body-container">
+                <div className="note-detail">{ titleName }</div>
+                <div className="note-detail">{ titleTime }</div>
+                {/*<div className="note-body">{ note.note }</div>*/}
+                <div className="note-detail">{ note.noteBody }</div>
+
+
+                <div class="note-button">
+                    <button
+                        onClick={ onClickSent }
+                        className="note-sent"
+                    >
+                        답장
+                    </button>
+                    <buttton
+                        onClick={ onClickBack }
+                        className="note-back"
+                        >
+                        취소
+                    </buttton>
                 </div>
             </div>
         </>
     );
 
 }
+
+export default NoteItem;

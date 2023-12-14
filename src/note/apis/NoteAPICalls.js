@@ -1,5 +1,6 @@
 import {authRequest} from "../../common/apis/Api";
 import {getNotes} from "../modules/NoteModule";
+import {getNote} from "../modules/NoteModule";
 import {toast} from "react-toastify";
 
 export const callNoteReceivedListAPI = ({ currentPage }) => {
@@ -63,15 +64,32 @@ export const callNoteReceivedRemoveAPI = ({ noteCode }) => {
 
 }
 
-export const callNoteReceivedAPI = ({ currentPage }) => {
+export const callNoteSearchListAPI = ({ searchCondition, searchValue, currentPage }) => {
 
     return async (dispatch, getState) => {
 
-        const result = await authRequest.get(`/cg-api/v1/note/received?page=${ currentPage }`);
-        console.log('callNoteListAPI result : ', result)
+        const result = await authRequest('GET', `/cg-api/v1/note/received/search?searchCondition=${searchCondition}&searchValue=${searchValue}&page=${currentPage}`);
+        console.log('callNoteSearchListAPI result: ', result);
 
         if (result.status === 200) {
-            dispatch(getNotes(result))
+            dispatch(getNotes(result));
+        }
+
+    };
+
+};
+
+
+
+export const callNoteReceivedAPI = ({ noteCode }) => {
+
+    return async (dispatch, getState) => {
+
+        const result = await authRequest.get(`/cg-api/v1/note/received/${ noteCode }`);
+        console.log('callNoteReceivedAPI result : ', result)
+
+        if (result.status === 200) {
+            dispatch(getNote(result))
         }
 
     }
