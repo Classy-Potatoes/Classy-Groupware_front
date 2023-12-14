@@ -2,8 +2,8 @@ import {getWriterInfo, postExpenseSuccess, postLetterSuccess, postVacationSucces
 import {authRequest} from "./approvalAPI";
 import {toast} from "react-toastify";
 
-export const callWriterInfoAPI = () => {
 
+export const callWriterInfoAPI = () => {
     return async (dispatch, getState) => {
 
         const result = await authRequest.get("/cg-api/v1/approval/letter");
@@ -14,7 +14,7 @@ export const callWriterInfoAPI = () => {
     }
 }
 
-export const callRegistLetterAPI = ({letterRequest}) => {
+export const callRegistLetterAPI = ({letterRequest, navigate}) => {
 
     return async (dispatch, getState) => {
         const result = await authRequest.post('/cg-api/v1/approval/letter', letterRequest);
@@ -24,16 +24,15 @@ export const callRegistLetterAPI = ({letterRequest}) => {
             dispatch(postLetterSuccess());
             toast.success('품의서 작성이 완료 되었습니다.', {
                 onClose: () => {
-                    /* 상신함을 만들고 작성완료되면 상신함으로 이동 예정 */
-                    window.location.reload(); // 임시코드
 
+                    navigate('/approval/report-waiting');
                 },
             });
         }
     };
 };
 
-export const callRegistVacationAPI = ({vacationRequest}) => {
+export const callRegistVacationAPI = ({vacationRequest, navigate}) => {
 
     return async (dispatch, getState) => {
         const result = await authRequest.post('/cg-api/v1/approval/vacation', vacationRequest);
@@ -43,8 +42,7 @@ export const callRegistVacationAPI = ({vacationRequest}) => {
             dispatch(postVacationSuccess());
             toast.success('휴가신청서 작성이 완료 되었습니다.', {
                 onClose: () => {
-                    /* 상신함을 만들고 작성완료되면 상신함으로 이동 예정 */
-                    window.location.reload(); // 임시코드
+                    navigate('/approval/report-waiting');
 
                 },
             });
@@ -52,7 +50,7 @@ export const callRegistVacationAPI = ({vacationRequest}) => {
     };
 };
 
-export const callRegistExpenseAPI = ({expenseRequest}) => {
+export const callRegistExpenseAPI = ({expenseRequest, navigate}) => {
 
     return async (dispatch, getState) => {
         const result = await authRequest.post('/cg-api/v1/approval/expense', expenseRequest);
@@ -62,11 +60,11 @@ export const callRegistExpenseAPI = ({expenseRequest}) => {
             dispatch(postExpenseSuccess());
             toast.success('지출결의서 작성이 완료 되었습니다.', {
                 onClose: () => {
-                    /* 상신함을 만들고 작성완료되면 상신함으로 이동 예정 */
-                    window.location.reload(); // 임시코드
+                    navigate('/approval/report-waiting');
 
                 },
             });
         }
     };
 };
+
