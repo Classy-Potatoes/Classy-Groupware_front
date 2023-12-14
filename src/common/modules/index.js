@@ -5,6 +5,7 @@ import approvalReducer from "../../appreval/modules/ApprovalModule";
 import projectReducer from "../../project/modules/ProjectModule";
 import secondProjectReducer from "../../project/modules/SecondProjectModule";
 import adminReducer from "../../member/modules/AdminModule";
+import projectPostReducer from "../../project/modules/ProjectPostMedule";
 
 const rootReducer = combineReducers({
     scheduleReducer,
@@ -12,6 +13,7 @@ const rootReducer = combineReducers({
     adminReducer,
     approvalReducer,
     projectReducer,
+    projectPostReducer,
     secondProjectReducer
 });
 

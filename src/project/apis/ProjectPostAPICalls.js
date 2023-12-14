@@ -1,7 +1,7 @@
 import {authRequest} from "../../common/apis/Api";
-import {getProjectPost, postSuccess, putSuccess} from "../modules/ProjectModule";
 import async from "async";
 import {toast} from "react-toastify";
+import {getProjectPost, postSuccess, putSuccess} from "../modules/ProjectPostMedule";
 
 
 
@@ -98,4 +98,19 @@ export const callPeojectPostReplyModifyAPI = ({replyCode, replyRequest }) => {
 };
 
 /* 프로젝트 글 댓글 삭제 */
+export const callProjectPostReplyDeleteAPI = ({ replyCode })=> {
+
+    return async (dispatch, getState) => {
+
+        const result = await authRequest.delete(`/cg-api/v1/reply/${replyCode}`);
+
+        console.log('callProjectPostReplyDeleteAPI result : ', result);
+
+        if(result?.status === 204) {
+            window.location.reload();
+            toast.info("댓글 삭제가 완료 되었습니다.");
+        }
+
+    }
+}
 

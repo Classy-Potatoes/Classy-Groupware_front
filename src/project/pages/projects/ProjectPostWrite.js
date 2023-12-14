@@ -1,12 +1,11 @@
-import React, { useEffect, useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { callProjectPostRegistAPI } from "../../apis/ProjectPostAPICalls";
-import ProjectPostList from "../../components/lists/ProjectPostList";
+import React, {useEffect, useRef, useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {callProjectPostRegistAPI} from "../../apis/ProjectPostAPICalls";
 
 function ProjectPostWrite({projectCode}) {
 
     const dispatch = useDispatch();
-    const { postSuccess } = useSelector((state) => state.projectReducer);
+    const {postSuccess} = useSelector((state) => state.projectPostReducer);
     const [fileUrl, setFileUrl] = useState('');
     const [attachedFiles, setAttachedFiles] = useState([]); // 첨부 파일 목록 추가
     const fileInput = useRef();
@@ -45,11 +44,11 @@ function ProjectPostWrite({projectCode}) {
     const onChangeFileUpload = () => {
         const fileReader = new FileReader();
         fileReader.onload = (e) => {
-            const { result } = e.target;
+            const {result} = e.target;
             if (result) {
                 const newFileList = [
                     ...attachedFiles,
-                    { name: fileInput.current.files[0].name, url: result },
+                    {name: fileInput.current.files[0].name, url: result},
                 ];
                 setAttachedFiles(newFileList);
             }
@@ -72,9 +71,9 @@ function ProjectPostWrite({projectCode}) {
         formData.append("attachment", fileInput.current.files[0]);
         formData.append(
             "projectPostRequest",
-            new Blob([JSON.stringify(form)], { type: "application/json" })
+            new Blob([JSON.stringify(form)], {type: "application/json"})
         );
-        dispatch(callProjectPostRegistAPI({ projectPostRequest: formData }));
+        dispatch(callProjectPostRegistAPI({projectPostRequest: formData}));
         console.log("formData", form);
     };
 
@@ -112,37 +111,37 @@ function ProjectPostWrite({projectCode}) {
             </div>
 
             <div className="project-post-button">
-                    <div>
-                        {attachedFiles.length > 0 && (
-                            <div>
-                                첨부 파일:
-                                {attachedFiles.map((file, index) => (
-                                    <span key={index}>
+                <div>
+                    {attachedFiles.length > 0 && (
+                        <div>
+                            첨부 파일:
+                            {attachedFiles.map((file, index) => (
+                                <span key={index}>
                     {file.name}
-                                        <button
-                                            className="attachment-cencel"
-                                            onClick={() => cancelAttachment(index)}
-                                        >X</button>
-                                        &nbsp;
+                                    <button
+                                        className="attachment-cencel"
+                                        onClick={() => cancelAttachment(index)}
+                                    >X</button>
+                                    &nbsp;
                 </span>
-                                ))}
-                            </div>
-                        )}
-                        <input
-                            style={{ display: 'none' }}
-                            type="file"
-                            name="attachment"
-                            ref={fileInput}
-                            onChange={onChangeFileUpload}
-                            multiple
-                        />
-                        <button
-                            className="project-post-button"
-                            onClick={onClickFileUpload}
-                        >
-                            <img src="/project/attem.png" alt="attach" />
-                        </button>
-                    </div>
+                            ))}
+                        </div>
+                    )}
+                    <input
+                        style={{display: 'none'}}
+                        type="file"
+                        name="attachment"
+                        ref={fileInput}
+                        onChange={onChangeFileUpload}
+                        multiple
+                    />
+                    <button
+                        className="project-post-button"
+                        onClick={onClickFileUpload}
+                    >
+                        <img src="/project/attem.png" alt="attach"/>
+                    </button>
+                </div>
                 <button
                     className="project-postregist-button"
                     onClick={onClickPostRegistrationHandler}

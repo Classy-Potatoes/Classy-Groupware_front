@@ -1,28 +1,22 @@
 import {useDispatch, useSelector} from "react-redux";
 import React, {useCallback, useEffect, useState} from "react";
 import {
-    callPeojectPostReplyModifyAPI,
     callProjectPostDeleteAPI,
-    callProjectPostListAPI,
     callProjectPostModifyAPI, callProjectPostReplyRegistAPI
 } from "../../apis/ProjectPostAPICalls";
 import {callProjectModifyAPI, callProjectRemoveAPI} from "../../apis/ProjectAPICalls";
 import {useNavigate, useParams} from "react-router-dom";
-import {postSuccess, resetSuccess} from "../../modules/ProjectModule";
+import ProjectPostReplyList from "../lists/ProjectPostReplyList";
+import {postSuccess} from "../../modules/ProjectPostMedule";
 
 function ProjectPostItem({ projectPost }) {
 
     const dispatch = useDispatch();
     const [form, setForm] = useState({});
     const [modifyMode, setModifyMode] = useState(false);
-    const [replyModifyMode, setReplyModifyMode] = useState(false);
-    const { putSuccess } = useSelector(state => state.projectReducer);
     const navigate = useNavigate();
     const [confirmDeleteModal, setConfirmDeleteModal] = useState(false);
 
-    /* 댓글 동시 작성 되는거 수정 */
-    const [mainPostForm, setMainPostForm] = useState({});
-    const [replyForms, setReplyForms] = useState([]);
 
     const { postCode } = projectPost;
 
@@ -33,14 +27,6 @@ function ProjectPostItem({ projectPost }) {
             [e.target.name]: e.target.value,
         });
     };
-
-    /* 수정 성공시 */
-    // useEffect(() => {
-    //     if (putSuccess === true) {
-    //         navigate(`/projects`, { replace : true });
-    //         // dispatch(resetSuccess(putSuccess));
-    //     }
-    // }, []);
 
     /* 파일 다운로드 */
     const onClickImgLink = useCallback((srcUrl: string, name: string) => {
@@ -79,7 +65,7 @@ function ProjectPostItem({ projectPost }) {
 
     const inputStyle = !modifyMode ? { border: 0 } : null;
 
-    /* 프로젝트 삭제 */
+    /* 프로젝트 게시글 삭제 */
     const onClickPostDeleteHandler = () => {
         setConfirmDeleteModal(true);
     };
@@ -105,30 +91,6 @@ function ProjectPostItem({ projectPost }) {
 
     };
 
-    /* 댓글 수정 모드로 변환하는 이벤트 */
-    const onClickReplyModifyModeHandler = (index) => {
-        // 특정 댓글의 수정 모드를 활성화
-        const updatedForms = [...replyForms];
-        updatedForms[index] = {
-            ...updatedForms[index],
-            replyModifyMode: !updatedForms[index]?.replyModifyMode, // 토글
-        };
-        setReplyForms(updatedForms);
-    };
-
-
-
-    /* 댓글 수정 요청하는 이벤트 */
-    const onClickRepleyProjectPostUpdateHandler = () => {
-
-        const newForm = {
-            ...form
-        };
-        const { replyCode } = projectPost;
-
-        dispatch(callPeojectPostReplyModifyAPI({ replyCode, replyRequest: newForm }));
-
-    };
 
     /* 댓글 작성 성공시 */
     useEffect(() => {
@@ -137,9 +99,7 @@ function ProjectPostItem({ projectPost }) {
         }
     }, [postSuccess]);
 
-    const replyInputStyle = !replyModifyMode
-        ? { background: '#E7E2E2', border: 0, fontSize: '18px', fontFamily: 'Noto Sans' }
-        : {  };
+
 
     return (
         <>
@@ -184,7 +144,7 @@ function ProjectPostItem({ projectPost }) {
                         name="postTitle"
                         placeholder="게시글 제목"
                         value={modifyMode ? form.postTitle : projectPost.postTitle}
-                        readOnly={!modifyMode}
+                        disabled={!modifyMode}
                         style={inputStyle}
                         onChange={onChangeHandler}
                     />
@@ -211,47 +171,8 @@ function ProjectPostItem({ projectPost }) {
                         </div>
                     ))}
                 </div>
-
-                <div className="project-post-reply">
-                    {projectPost.replies &&
-                        projectPost.replies.map((reply, index) => (
-                            <div key={index} className="reply-item">
-                                <div className="reply-info">
-                                    <img src="/project/담당자.png" alt="Profile" />
-                                    {reply.memberName}
-                                </div>
-                                <div className="reply-body">
-                                    <input
-                                        name="replyBody"
-                                        placeholder="댓글 내용"
-                                        value={replyModifyMode && replyForms[index] ? replyForms[index].replyBody : reply.replyBody}
-                                        readOnly={!replyModifyMode}
-                                        style={replyInputStyle}
-                                        onChange={(e) => onChangeHandler(e, index)}
-                                    />
-                                </div>
-                                <div className="reply-date">{reply.replyCreatedDate}</div>
-
-                                {reply.memberCode === projectPost.customUser.infoCode && (
-                                    <div className="reply-actions">
-                                        {!replyModifyMode &&
-                                            <button
-                                                onClick={ onClickReplyModifyModeHandler }
-                                            >수정
-                                            </button>
-                                        }
-                                        { replyModifyMode &&
-                                            <button
-                                                onClick={ onClickRepleyProjectPostUpdateHandler }
-                                            >
-                                                수정완료
-                                            </button>
-                                        }
-                                        <button>삭제</button>
-                                    </div>
-                                )}
-                            </div>
-                        ))}
+                <div>
+                    <ProjectPostReplyList projectPost={projectPost} reply={projectPost.replies}/>
                 </div>
 
                 <div className="reply-regist">
