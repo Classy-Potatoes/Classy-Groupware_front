@@ -104,35 +104,35 @@ function ProjectModifyModal({ setProjectModifyModal }) {
                                                     </tr>
                                             <tr className="newProject-date">
                                                     <td className="newProject-date-label">
-                                                            <label>시작 날짜  </label>
-                                                            <DatePicker
-                                                                dateFormat='yyyy-MM-dd'
-                                                                name="projectStartDate"
-                                                                value={form.projectStartDate}
-                                                                selected={startDate}
-                                                                onChange={(date: Date) => setStartDate(date)}
-                                                                selecetsStart
-                                                                startDate={startDate}
-                                                                endDate={endDate}
-                                                                minDate={new Date()}
-                                                                locale={ko}
-                                                            />
-                                                    </td>
+                                                    {/*        <label>시작 날짜  </label>*/}
+                                                    {/*        <DatePicker*/}
+                                                    {/*            dateFormat='yyyy-MM-dd'*/}
+                                                    {/*            name="projectStartDate"*/}
+                                                    {/*            value={form.projectStartDate}*/}
+                                                    {/*            selected={startDate}*/}
+                                                    {/*            onChange={(date: Date) => setStartDate(date)}*/}
+                                                    {/*            selecetsStart*/}
+                                                    {/*            startDate={startDate}*/}
+                                                    {/*            endDate={endDate}*/}
+                                                    {/*            minDate={new Date()}*/}
+                                                    {/*            locale={ko}*/}
+                                                    {/*        />*/}
+                                                    {/*</td>*/}
 
-                                                    <td className="newProject-date-label">
-                                                            <label>마감 날짜  </label>
-                                                            <DatePicker
-                                                                dateFormat='yyyy-MM-dd'
-                                                                name="projectEndDate"
-                                                                value={form.projectEndDate}
-                                                                selected={endDate}
-                                                                onChange={(date: Date) => setEndDate(date)}
-                                                                selecetsStart
-                                                                startDate={startDate}
-                                                                endDate={endDate}
-                                                                minDate={startDate}
-                                                                locale={ko}
-                                                            />
+                                                    {/*<td className="newProject-date-label">*/}
+                                                    {/*        <label>마감 날짜  </label>*/}
+                                                    {/*        <DatePicker*/}
+                                                    {/*            dateFormat='yyyy-MM-dd'*/}
+                                                    {/*            name="projectEndDate"*/}
+                                                    {/*            value={form.projectEndDate}*/}
+                                                    {/*            selected={endDate}*/}
+                                                    {/*            onChange={(date: Date) => setEndDate(date)}*/}
+                                                    {/*            selecetsStart*/}
+                                                    {/*            startDate={startDate}*/}
+                                                    {/*            endDate={endDate}*/}
+                                                    {/*            minDate={startDate}*/}
+                                                    {/*            locale={ko}*/}
+                                                    {/*        />*/}
                                                     </td>
                                             </tr>
                                             <tr>

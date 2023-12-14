@@ -260,6 +260,7 @@
     white-space: nowrap; /* 글자가 넘칠 때 줄 바꿈을 막습니다 */
     overflow: hidden; /* 요소 밖으로 넘치는 부분을 숨깁니다 */
     text-overflow: ellipsis; /* 넘치는 부분을 생략 부호(…)로 표시합니다 */
+    width: 95%;
 }
 
 .cal-form-group {
@@ -310,10 +311,18 @@
 }
 
 /* fullcalendar */
+.fc-day-sun a {
+    color: lightcoral;
+}
+
+/* 토요일 날짜: 파란색 */
+.fc-day-sat a {
+    color: cornflowerblue;
+}
 
 /* datepicker */
 .react-datepicker__input-container input {
-    width: 115px;
+    width: 120px;
     height: 30px;
     border: 1px solid black;
     font-size: 15px;
@@ -396,4 +405,347 @@
 .react-datepicker__tab-loop {
     background-color: royalblue;
     position: absolute;
+}
+
+/* 프로젝트 일정 */
+/* 일정 입력 */
+.sch-regist-box {
+    display: flex;
+    flex-direction: column;
+    padding-left: 25px;
+    padding-right: 25px;
+}
+
+
+.sch-title {
+    display: flex;
+    font-size: 30px;
+    padding: 10px;
+    padding-left: 15px;
+    border-bottom: 1px solid black;
+    align-items: center;
+}
+
+.sch-date-box {
+    display: flex;
+    height: 60px;
+    align-items: center;
+    gap: 15px;
+    border-bottom: 1px solid black;
+    padding: 10px;
+    padding-left: 15px;
+}
+
+.sch-add-manager {
+    display: flex;
+    height: 60px;
+    padding: 10px;
+    padding-left: 15px;
+    gap: 15px;
+    align-items: center;
+    border-bottom: 1px solid black;
+}
+
+.sch-manager-img {
+    width: 30px;
+    height: 30px;
+}
+
+.sch-manager-selected {
+    width: 130px;
+    padding: 4px;
+    font-size: 15px;
+    height: 35px;
+}
+
+.sch-added-manager {
+    display: flex;
+    height: 60px;
+    padding: 10px;
+    padding-left: 15px;
+    gap: 20px;
+    align-items: center;
+}
+
+.sch-added-box {
+    display: flex;
+    align-items: center;
+    width: 130px;
+    justify-content: space-between;
+    border: 1px solid black;
+    padding: 4px;
+    height: 35px;
+}
+
+.sch-body {
+    width: 100%;
+    height: 150px;
+    font-size: 20px;
+    padding: 15px;
+    /*width: 548px;*/
+    font-size: 1.05rem;
+    /*padding-bottom: 55px;*/
+    resize: none;
+    border: none;
+    border-bottom: 1px solid black;
+}
+
+.sch-regist-btn-box {
+    height: 55px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 15px;
+    border-bottom: 1px solid black;
+}
+
+.sch-regist-btn {
+    width: 117px;
+    height: 40px;
+    border: 1px solid black;
+    color: white;
+    background: #333333;
+    border-radius: 5px;
+    font-size: 20px;
+}
+
+/* 일정 리스트 */
+.sch-project-list {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+}
+
+.sch-list-header {
+    height: 62px;
+    padding: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+}
+
+.sch-list-first {
+    display: flex;
+    justify-content: space-between;
+    font-size: 20px;
+}
+
+.sch-list-bottom {
+    display: flex;
+    gap: 10px;
+}
+
+.sch-list-modify, .sch-list-delete {
+    width: 40px;
+    height: 30px;
+    border: 1px solid black;
+}
+
+.sch-list-delete {
+    color: white;
+    background: #333333;
+}
+
+.sch-title {
+    font-size: 22px;
+    border-top: 1px solid black;
+}
+
+.sch-managers-area {
+    padding: 10px;
+    padding-left: 15px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.sch-managers-box {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.sch-body-box {
+    height: 150px;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+}
+
+.sch-unmodi {
+    font-size: 1.5rem;
+    width: 40px;
+    height: 25px;
+    color: black;
+}
+
+/* 일정 리뷰 */
+.sch-review-box {
+    display: flex;
+    height: 40px;
+    padding: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
+    gap: 10px;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #E7E2E2;
+}
+
+#sch-review-img {
+    width: 15px;
+    height: 15px;
+}
+
+.sch-rev-body {
+    width: 70%;
+    margin-left: 10px;
+    display: flex;
+    padding-right: 15px;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.sch-rev-stat-box {
+    display: flex;
+    gap: 5px;
+}
+
+.sch-rev-modify-box, .sch-rev-deleted-box {
+    border: 1px solid black;
+    width: 40px;
+    display: flex;
+    justify-content: center;
+}
+
+#sch-rev-modi-box {
+    border: none;
+}
+
+.sch-rev-deleted-box {
+    background: #333333;
+}
+
+.sch-rev-deleted-box button{
+    color: white;
+}
+
+.sch-write-box {
+    display: flex;
+    height: 40px;
+    padding: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    justify-content: space-between;
+    gap: 20px;
+    align-items: center;
+    background-color: #E7E2E2;
+}
+
+.sch-write-area {
+    width: 85%;
+}
+
+.sch-review-regist {
+    display: flex;
+    align-items: center;
+}
+
+.sch-review-btn {
+    border: 1px solid black;
+    width: 40px;
+    height: 22px;
+    background: #333333;
+    color: white;
+}
+
+.sch-review-body, .sch-review-regist-area {
+    width: 100%;
+    border: none;
+}
+
+.sch-review-regist-area {
+    background: #D9D9D9;
+}
+
+.sch-return {
+    font-weight: bolder;
+}
+
+/* 할일 등록 */
+.td-box {
+    display: flex;
+    height: 60px;
+    gap: 15px;
+    padding: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
+    justify-content: space-between;
+    border-bottom: 1px solid black;
+}
+
+.td-left-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.td-left {
+    display: flex;
+    gap: 15px;
+}
+
+#td-regist-header {
+    border: 1px solid black;
+    height: 28px;
+    width: 150px;
+}
+
+.td-circle {
+    background-color: black;
+    width: 28px;
+    height: 28px;
+    border-radius: 50px;
+    cursor: pointer;
+}
+
+.td-right-box {
+    display: flex;
+    border: none;
+    align-items: center;
+    gap: 20px;
+}
+
+.td-date-box {
+    display: flex;
+}
+
+.td-add-manager {
+    display: flex;
+}
+
+#td-manager-selected {
+    height: 30px;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.add-td-box {
+    display: flex;
+    height: 60px;
+    gap: 15px;
+    padding: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
+    justify-content: space-between;
+    border-bottom: 1px solid black;
+}
+
+.td-add-left-box {
+
 }

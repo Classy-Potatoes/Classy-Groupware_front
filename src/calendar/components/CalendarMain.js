@@ -5,7 +5,6 @@ import CalendarDetailModal from "../modals/CalendarDetailModal";
 import {ko} from "date-fns/esm/locale";
 
 export function CalendarMain({allSchedule}) {
-    console.log(allSchedule)
 
     const [scheduleDetailModal, setScheduleDetailModal] = useState(false);
     const [schedule, setSchedule] = useState({});

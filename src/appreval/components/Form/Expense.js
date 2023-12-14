@@ -22,6 +22,7 @@ import BasicModal from "../mui/approvalLineModal";
 import SendIcon from "@mui/icons-material/Send";
 import {callRegistExpenseAPI, callWriterInfoAPI} from "../../apis/RegistDocumentAPICalls";
 import FormControl from "@mui/material/FormControl";
+import {useNavigate} from "react-router-dom";
 
 
 function Expense() {
@@ -42,6 +43,8 @@ function Expense() {
     const dispatch = useDispatch();
     /* 로그인 정보 가져오기 */
     const {writer} = useSelector(state => state.approvalReducer);
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         dispatch(callWriterInfoAPI())
@@ -78,7 +81,7 @@ function Expense() {
                         // 새 파일 정보로 selectedFiles 업데이트
                         setSelectedFiles((prevFiles) => [
                             ...prevFiles,
-                            {name: file.name, data: result},
+                            {name: file.name, file: file},
                         ]);
                     }
                 };
@@ -99,16 +102,6 @@ function Expense() {
         }
     };
 
-    /* 파일 첨부시 파일 이름 출력 핸들러 */
-    const handleFileChange = (event) => {
-        const files = event.target.files;
-        setSelectedFiles(files ? Array.from(files) : []);
-    };
-    /* onChange 핸들러를 두개 동시에 써야하기때문에 캡슐화해서 호출한다*/
-    const combinedFileChange = (event) => {
-        handleFileChange(event);
-        onChangefileUpload();
-    };
 
     /* 테이블(expenseDetail) 데이터 가져오기 */
     const expenseDetails = data.map(row => ({
@@ -145,10 +138,6 @@ function Expense() {
 
         /* 서버로 전달한 FormData 형태의 객체 설정 */
         const formData = new FormData();
-        // 다중파일 처리
-        for (let i = 0; i < attachmentInput.current.files.length; i++) {
-            formData.append("attachment", attachmentInput.current.files[i]);
-        }
 
         formData.append("expenseRequest", new Blob([JSON.stringify({
             documentTitle: form.documentTitle,
@@ -164,7 +153,12 @@ function Expense() {
 
         })], {type: 'application/json'}));
 
-        dispatch(callRegistExpenseAPI({expenseRequest: formData}));
+        // 다중파일 처리
+        for (let i = 0; i < selectedFiles.length; i++) {
+            formData.append("attachment",  selectedFiles[i].file);
+        }
+
+        dispatch(callRegistExpenseAPI({expenseRequest: formData , navigate}));
     }
 
 
@@ -309,7 +303,7 @@ function Expense() {
                                 <Button component="label" variant="contained" startIcon={<CloudUploadIcon/>}
                                         style={{width: 90, height: 43, marginLeft: 3}}>
                                     파일 첨부
-                                    <VisuallyHiddenInput multiple type="file" onChange={combinedFileChange}
+                                    <VisuallyHiddenInput multiple type="file" formEncType="multipart/form-data" onChange={onChangefileUpload}
                                                          ref={attachmentInput}/>
                                 </Button>
                                 {selectedFiles.length > 0 && (
