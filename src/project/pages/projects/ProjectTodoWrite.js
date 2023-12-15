@@ -9,6 +9,7 @@ import PagingBar from "../../../dashBoard/components/common/PagingBar";
 import ProjectTodoRegist from "../../components/items/ProjectTodoRegist";
 import ProjectTodoList from "../../components/lists/ProjectTodoList";
 import ProjectTodoReviews from "../../components/items/ProjectTodoReviews";
+import {ToastContainer} from "react-toastify";
 
 function ProjectTodoWrite() {
 
@@ -20,25 +21,27 @@ function ProjectTodoWrite() {
 
     useEffect(() => {
         dispatch(callTodoListAPI({projectCode, currentPage}));
-    }, [projectCode, currentPage]);
+    }, [currentPage]);
 
     return (
         <>
+            <ToastContainer hideProgressBar={true} position="top-center"/>
             <div className="sch-regist-box">
                 <ProjectTodoRegist projectCode={projectCode}/>
-                {allTodoList && allTodoList.data.map(todo => (
+            </div>
+            {allTodoList && allTodoList.data.map(todo => (
+                    <div className="sch-list-box">
                         <div className="sch-project-list" key={todo.todoCode}>
                             <ProjectTodoList projectCode={projectCode} todo={todo} memberId={memberId}/>
                             <ProjectTodoReviews projectCode={projectCode} todo={todo} memberId={memberId}/>
                         </div>
-                    )
+                    </div>
                 )
-                }
-                {allTodoList &&
-                    <PagingBar pageInfo={allTodoList.pageInfo} setCurrentPage={setCurrentPage}/>
-                }
-            </div>
-
+            )
+            }
+            {allTodoList &&
+                <PagingBar pageInfo={allTodoList.pageInfo} setCurrentPage={setCurrentPage}/>
+            }
         </>
     )
         ;

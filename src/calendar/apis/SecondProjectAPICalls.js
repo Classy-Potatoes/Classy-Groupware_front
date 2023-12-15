@@ -1,6 +1,6 @@
 import {authRequest, request} from "./Apis";
 import {toast} from "react-toastify";
-import {getScheduleList, getTodoList} from "../../project/modules/SecondProjectModule";
+import {getScheduleList, getTodoList, postSuccess} from "../../project/modules/SecondProjectModule";
 
 /* 일정 APIS */
 export const callProjectScheduleRegistAPI = ({ registRequest, projectCode }) => {
@@ -8,7 +8,12 @@ export const callProjectScheduleRegistAPI = ({ registRequest, projectCode }) => 
     return async (dispatch, getState) => {
 
         const result = await authRequest.post(`/cg-api/v1/projects/${projectCode}/schedule`,
-            registRequest)
+            JSON.stringify(registRequest),
+            {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
             .catch(res => {
                 if (res.response.data.code === 9000) {
                     toast.error("제목을 입력해주세요.");
@@ -23,9 +28,10 @@ export const callProjectScheduleRegistAPI = ({ registRequest, projectCode }) => 
         if (result != undefined) {
             if (result.status === 201) {
                 toast.info("일정 등록이 완료 되었습니다.");
-                setTimeout(() => {
-                    window.location.reload();
-                }, 2000);
+                dispatch(postSuccess());
+                // setTimeout(() => {
+                //     window.location.reload();
+                // }, 2000);
             }
         }
     }
@@ -64,9 +70,10 @@ export const callProjectScheduleModifyAPI = ({ registRequest, projectCode, sched
         if (result != undefined) {
             if (result.status === 201) {
                 toast.info("일정 수정이 완료 되었습니다.");
-                setTimeout(() => {
-                    window.location.reload();
-                }, 2000);
+                // setTimeout(() => {
+                //     window.location.reload();
+                // }, 2000);
+                dispatch(postSuccess());
             }
         }
     }
@@ -106,7 +113,7 @@ export const callProjectScheduleReplyRegistAPI = ({ registRequest, projectCode, 
                 toast.info("댓글 등록이 완료 되었습니다.");
                 setTimeout(() => {
                     window.location.reload();
-                }, 20000000);
+                }, 2000);
             }
         }
     }
@@ -174,5 +181,37 @@ export const callTodoListAPI = ({ projectCode, currentPage = 1 }) => {
             dispatch(getTodoList(result));
         }
 
+    }
+};
+
+export const callProjectTodoRegistAPI = ({ registRequest, projectCode }) => {
+
+    return async (dispatch, getState) => {
+
+        const result = await authRequest.post(`/cg-api/v1/projects/${projectCode}/todo`,
+            JSON.stringify(registRequest),
+            {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .catch(res => {
+                if (res.response.data.code === 9000) {
+                    toast.error("제목을 입력해주세요.");
+                } else if (res.response.data.code === 4006) {
+                    toast.error("시작일을 입력해주세요.");
+                }
+            })
+
+        console.log('callProjectTodoRegistAPI result : ', result);
+        if (result != undefined) {
+            if (result.status === 201) {
+                toast.info("일정 등록이 완료 되었습니다.");
+                dispatch(postSuccess());
+                // setTimeout(() => {
+                //     window.location.reload();
+                // }, 2000000);
+            }
+        }
     }
 };
