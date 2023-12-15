@@ -1,19 +1,13 @@
 import {useNavigate} from "react-router-dom";
 import {useEffect, useRef, useState} from "react";
 import Modal from "react-modal";
-import {
-    callDuplicateIdAPI,
-    callEmailSearchPwdAPI,
-    callSearchInfoCodeAPI,
-    callSignupAPI
-} from "../../apis/MemberAPICalls";
 import {useDispatch, useSelector} from "react-redux";
 import DaumPostcode from "react-daum-postcode";
 import {toast} from "react-toastify";
-import {signupInputChecks} from "../../utils/SignupInputChecks";
+import {callMyProfileUpdateAPI} from "../../apis/MemberAPICalls";
 
 
-// 모달 스타일 설정
+// 주소 모달 스타일 설정
 const customStyles = {
     overlay: {
         backgroundColor: 'rgba(0, 0, 0, 0.5)',
@@ -30,58 +24,27 @@ const customStyles = {
 };
 
 
-function MypageForm() {
+function MypageForm( { data } ) {
 
-    const navigate = useNavigate();
     const dispatch = useDispatch();
     const imageInput = useRef();
     const [ modalIsOpen, setModalIsOpen ] = useState(false );
+    const [ modifyMode, setModifyMode ] = useState( false );
     const [ imageUrl, setImageUrl ] = useState('');
-    const { searchInfoCodeResult, duplicateIdResult, signupResult } = useSelector( state => state.memberReducer );
     const [ form, setForm ] = useState({
         infoCode : "",
         memberId : "",
-        memberPassword : "",
-        memberPasswordCheck : "",
         infoPhone : "",
         infoEmail : "",
-        emailUrl: "@gmail.com",
+        emailUrl: "",
+        infoName: "",
+        deptCode: "",
+        jobCode: "",
         infoZipcode : "",
         infoAddress : "",
         infoAddressAdd : "",
+        memberStatus : "",
     });
-
-    useEffect(() => {
-        // 중복확인
-        if( duplicateIdResult?.isCheck === true ) {
-            toast.dismiss();
-            toast.error('다른 아이디를 사용해주세요.', {
-                autoClose : 1000
-            });
-
-        } else if( duplicateIdResult?.isCheck === false ) {
-
-            if( form.memberId === "" ) {
-                toast.dismiss();
-                toast.warning('값을 입력해주세요.', {
-                    autoClose : 1000
-                });
-            } else if( !/^[a-zA-Z0-9]+$/.test( form.memberId ) ) {
-                toast.dismiss();
-                toast.error('한글을 제외한 다른 문자로 아이디를 입력해주세요.', {
-                    autoClose: 1000
-                });
-            } else {
-                toast.dismiss();
-                toast.success('사용 가능한 아이디 입니다.', {
-                    autoClose : 1000
-                });
-            }
-        }
-
-    }, [ duplicateIdResult ]);
-
-
 
 
     const onChangeHandler = e => {
@@ -112,23 +75,39 @@ function MypageForm() {
         }
     }
 
-    // 가입하기 버튼 이벤트
-    const onClickSignupHandler = () => {
 
-        // const selectedFile = imageInput.current.files[0];
-        //
-        // // input 검증 메서드
-        // const checkedForm = signupInputChecks( form, imageInput );
-        //
-        // if ( checkedForm ) {
-        //     const profileImgFile = imageInput.current.files[0];
-        //
-        //     dispatch( callSignupAPI({ signupRequest : checkedForm, signupImgRequest : profileImgFile } ));
-        // }
+    // save 버튼 이벤트
+    const onClickSaveHandler = () => {
 
+        let profileImgFile = "";
+
+        console.log(form);
+        setModifyMode( false );
+
+        if ( imageInput.current.files[0] ) {
+            profileImgFile = imageInput.current.files[0];
+        }
+
+        dispatch( callMyProfileUpdateAPI( { updateRequest : form, updateImgRequest : profileImgFile } ) )
     }
 
+    /* ----------------------- 수정 모드 관련 -----------------------*/
+    // 수정모드가 아닐때 회색 관련 스타일
+    const inputStyle = !modifyMode ? { color : 'white' } : { color : 'black' };
+    const inputStyleWhite = { color : 'white' };
 
+    // 수정 모드로 변환하는 이벤트
+    const onClickModifyModeHandler = () => {
+
+        setModifyMode( true );
+        setForm({
+            ...data,
+            infoEmail: data.infoEmail.split('@')[0],
+            emailUrl: '@' + data.infoEmail.split('@')[1]
+        });
+    }
+
+    /* ----------------------- 수정 모드 관련 -----------------------*/
 
     /* ----------------------- 주소,모달 관련 -----------------------*/
     // 모달 토글
@@ -161,7 +140,6 @@ function MypageForm() {
             }
         }
 
-
         const selectedFile = imageInput.current.files[0];
 
         if( selectedFile ) {
@@ -187,160 +165,226 @@ function MypageForm() {
                     <DaumPostcode onComplete={ handleComplete } style={{ height: '450px'}}/>
                 </Modal>
             ) }
-
-            <div></div>
-            <div></div>
-
-            <div className="signup-div-profile">
-
-                <div onClick={ onClickImageUpload } >
-                    { imageUrl && (
-                        <img src={ imageUrl }
-                             alt='profileImg'
-                             className="signup-div-profile-img"/>
-                    )}
-                </div>
-                <div className="signup-div-profile-title">프로필 사진</div>
-                <input
-                    style={ { display: 'none' }}
-                    type="file"
-                    name='profileImage'
-                    accept='image/jpg,image/png,image/jpeg,image/gif'
-                    ref={ imageInput }
-                    onChange={ onChangeImageUpload }
-                />
-            </div>
-
-            <div className="signup-div-form">
-                <div className="signup-div-left">
-                    <div className="signup-div-left-address">
-                        <input
-                            type="text"
-                            name="infoCode"
-                            className="width130-input"
-                            placeholder="* 사원번호"
-                            onChange={ onChangeHandler }
-                        />
-                    </div>
-                    <div className="signup-div-left-address">
-                        <input
-                            type="text"
-                            name="memberId"
-                            className="width130-input"
-                            placeholder="* 아이디"
-                            onChange={ onChangeHandler }
-                            disabled={ !searchInfoCodeResult ? true : false }
-                        />
-                    </div>
-                    <input
-                        type="text"
-                        name="infoPhone"
-                        placeholder="* 휴대번호"
-                        value={ form.infoPhone }
-                        onChange={ onChangeHandler }
-                        disabled={ !searchInfoCodeResult ? true : false }
-                    />
-                    <div className="signup-div-left-email">
-                        <input
-                            type="text"
-                            className="email-input"
-                            name="infoEmail"
-                            placeholder="* 이메일"
-                            onChange={ onChangeHandler }
-                            disabled={ !searchInfoCodeResult ? true : false }
-                        />
-                        <select
-                            name="emailUrl"
-                            onChange={ onChangeHandler }
-                            disabled={ !searchInfoCodeResult ? true : false }
-                        >
-                            <option value="@gmail.com">@gmail.com</option>
-                            <option value="@naver.com">@naver.com</option>
-                        </select>
-                    </div>
-
-                </div>
-
-                <div className="signup-div-right">
-                    {
-                        searchInfoCodeResult &&
-                        <>
-                            <input
-                                type="text"
-                                className="disabledInput"
-                                placeholder="이름"
-                                value={ searchInfoCodeResult?.infoName }
-                                disabled={ true }
-                            />
-                            <input
-                                type="text"
-                                className="disabledInput"
-                                placeholder="부서"
-                                value={ searchInfoCodeResult?.deptName }
-                                disabled={ true }
-                            />
-                            <input
-                                type="text"
-                                className="disabledInput"
-                                placeholder="직급"
-                                value={ searchInfoCodeResult?.jobName }
-                                disabled={ true }
-                            />
-                        </>
-                    }
-
-                    <div className="signup-div-left-address">
-                        <input
-                            type="text"
-                            name="infoZipcode"
-                            className="width130-input"
-                            placeholder="* 우편번호"
-                            value={ form.infoZipcode }
-                            onChange={ onChangeHandler }
-                            disabled={ !searchInfoCodeResult ? true : false }
-                        />
+            <div className='profile-top'>
+                <div  className='profile-top-btn'>
+                    {   modifyMode &&
                         <button
-                            className="small-search-btn"
-                            onClick={ onToggleModal }
-                            disabled={ !searchInfoCodeResult ? true : false }
+                            onClick={ onClickSaveHandler }
                         >
-                            주소찾기
+                            SAVE
                         </button>
-                    </div>
-
-                    <input
-                        type="text"
-                        name="infoAddress"
-                        placeholder="* 주소"
-                        value={ form.infoAddress }
-                        onChange={ onChangeHandler }
-                        disabled={ !searchInfoCodeResult ? true : false }
-                    />
-                    <input
-                        type="text"
-                        name="infoAddressAdd"
-                        placeholder="* 상세주소"
-                        onChange={ onChangeHandler }
-                        disabled={ !searchInfoCodeResult ? true : false }
-                    />
+                    }
+                    {   !modifyMode &&
+                        <button
+                            onClick={ onClickModifyModeHandler }
+                        >
+                            EDIT
+                        </button>
+                    }
                 </div>
             </div>
-            <div className="signup-div-button">
-                {/*<button*/}
-                {/*    onClick={ onClickBackHandler }*/}
-                {/*>*/}
-                {/*    메인으로*/}
-                {/*</button>*/}
-                {/*<button*/}
-                {/*    onClick={ onClickSignupHandler }*/}
-                {/*    // disabled={ isInput() ? true : false }*/}
-                {/*>*/}
-                {/*    가입하기*/}
-                {/*</button>*/}
-            </div>
+                {
+                    data &&
+                    <div className='profile-mid'>
+                        <div className='profile-mid-left'>
+                            <div className='profile-mid-left-div'>
+                                <div className='profile-mid-left-row'>
+                                    <div className='profile-mid-left-title'>사원번호</div>
+                                    <input
+                                        type="text"
+                                        name="infoCode"
+                                        placeholder="사원번호"
+                                        onChange={ onChangeHandler }
+                                        value={ data.infoCode }
+                                        disabled={ true }
+                                        style={ inputStyleWhite }
+                                    />
+                                </div>
+                                <div className='profile-mid-left-row'>
+                                    <div className='profile-mid-left-title'>아이디</div>
+                                    <input
+                                        type="text"
+                                        name="memberId"
+                                        placeholder="아이디"
+                                        onChange={ onChangeHandler }
+                                        value={ data.memberId }
+                                        disabled={ true }
+                                        style={ inputStyleWhite }
+                                    />
+                                </div>
+                                <div className='profile-mid-left-row'>
+                                    <div className='profile-mid-left-title'>휴대번호</div>
+                                    <input
+                                        type="text"
+                                        name="infoPhone"
+                                        placeholder="휴대번호"
+                                        onChange={ onChangeHandler }
+                                        value={ !modifyMode ? data.infoPhone : form.infoPhone }
+                                        disabled={ !modifyMode ? true : false }
+                                        style={ inputStyle }
+                                    />
+                                </div>
+                                <div className='profile-mid-left-row'>
+                                    <div className='profile-mid-left-title'>이메일</div>
+                                    <div className="signup-div-left-email">
+                                        <input
+                                            type="text"
+                                            className="profile-email-input"
+                                            name="infoEmail"
+                                            placeholder="이메일"
+                                            onChange={ onChangeHandler }
+                                            value={ !modifyMode ? data.infoEmail.split('@')[0] : form.infoEmail }
+                                            disabled={ !modifyMode ? true : false }
+                                            style={ inputStyle }
+                                        />
+                                        <select
+                                            name="emailUrl"
+                                            onChange={ onChangeHandler }
+                                            value={ !modifyMode ? '@' + data.infoEmail.split('@')[1] : form.emailUrl }
+                                            disabled={ !modifyMode ? true : false }
+                                        >
+                                            <option value="@gmail.com">@gmail.com</option>
+                                            <option value="@naver.com">@naver.com</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div className='profile-mid-left-row'>
+                                    <div className='profile-mid-left-title'>이름</div>
+                                    <input
+                                        type="text"
+                                        className="disabledInput"
+                                        name='infoName'
+                                        onChange={ onChangeHandler }
+                                        placeholder="이름"
+                                        value={ data.infoName }
+                                        style={ inputStyleWhite }
+                                        disabled={ true }
+                                    />
+                                </div>
+                                <div className='profile-mid-left-row'>
+                                    <div className='profile-mid-left-title'>부서</div>
+                                    <select
+                                        className='profile-selectBox'
+                                        name="deptCode"
+                                        onChange={ onChangeHandler }
+                                        value={ !modifyMode ? data.deptCode : form.deptCode }
+                                        // disabled={ !modifyMode ? true : false }
+                                        disabled={ true }
+                                    >
+                                        { data.dept.map( dept => (
+                                            <option key={ dept.deptCode } value={ dept.deptCode }>
+                                                { dept.deptName }
+                                            </option>
+                                        )) }
+                                    </select>
+                                </div>
+                                <div className='profile-mid-left-row'>
+                                    <div className='profile-mid-left-title'>직급</div>
+                                    <select
+                                        className='profile-selectBox'
+                                        name="jobCode"
+                                        onChange={ onChangeHandler }
+                                        value={ !modifyMode ? data.jobCode : form.jobCode }
+                                        // disabled={ !modifyMode ? true : false }
+                                        disabled={ true }
+                                    >
+                                        { data.job.map( job => (
+                                            <option key={ job.jobCode } value={ job.jobCode }>
+                                                { job.jobName }
+                                            </option>
+                                        )) }
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
 
+                        <div className='profile-mid-right'>
+                            <div className='profile-mid-img-div'>
+                                <div style={{ cursor: "pointer"}}
+                                     onClick={ onClickImageUpload }
+                                >
+                                    <img src={ !imageUrl ? data.getFilePathName : imageUrl }
+                                         alt='profileImg'
+                                         className="signup-div-profile-img"/>
+                                </div>
+                                <div className="signup-div-profile-title">프로필 사진</div>
+                                <input
+                                    style={ { display: 'none' }}
+                                    type="file"
+                                    name='profileImage'
+                                    accept='image/jpg,image/png,image/jpeg,image/gif'
+                                    ref={ imageInput }
+                                    onChange={ onChangeImageUpload }
+                                    disabled={ !modifyMode ? true : false }
+                                />
+                            </div>
+                            <div className='profile-mid-input-div'>
+                                <div className='profile-mid-right-div'>
+                                    <div className='profile-mid-left-title'>우편번호</div>
+                                    <div className="signup-div-left-address">
+                                        <input
+                                            type="text"
+                                            name="infoZipcode"
+                                            className="width130-input"
+                                            placeholder="우편번호"
+                                            onChange={ onChangeHandler }
+                                            value={ !modifyMode ? data.infoZipcode : form.infoZipcode }
+                                            disabled={ !modifyMode ? true : false }
+                                            style={ inputStyle }
+                                        />
+                                        <button
+                                            className="small-search-btn"
+                                            onClick={ onToggleModal }
+                                            disabled={ !modifyMode ? true : false }
+                                        >
+                                            주소찾기
+                                        </button>
+                                    </div>
+                                </div>
+                                <div className='profile-mid-right-div'>
+                                    <div className='profile-mid-left-title'>주소</div>
+                                    <input
+                                        type="text"
+                                        name="infoAddress"
+                                        placeholder="주소"
+                                        onChange={ onChangeHandler }
+                                        value={ !modifyMode ? data.infoAddress : form.infoAddress }
+                                        disabled={ !modifyMode ? true : false }
+                                        style={ inputStyle }
+                                    />
+                                </div>
+                                <div className='profile-mid-right-div'>
+                                    <div className='profile-mid-left-title'>상세주소</div>
+                                    <input
+                                        type="text"
+                                        name="infoAddressAdd"
+                                        placeholder="상세주소"
+                                        onChange={ onChangeHandler }
+                                        value={ !modifyMode ? data.infoAddressAdd : form.infoAddressAdd }
+                                        disabled={ !modifyMode ? true : false }
+                                        style={ inputStyle }
+                                    />
+                                </div>
+                                <div className='profile-mid-right-div'>
+                                    <div className='profile-mid-left-title'>회원상태</div>
+                                    <select
+                                        className='profile-selectBox'
+                                        name="memberStatus"
+                                        onChange={ onChangeHandler }
+                                        value={ !modifyMode ? data.memberStatus : form.memberStatus }
+                                        // disabled={ !modifyMode ? true : false }
+                                        disabled={ true }
+                                    >
+                                        <option value='ACTIVE'>ACTIVE</option>
+                                        <option value='NONACTIVE'>NONACTIVE</option>
+                                        <option value='DELETE'>DELETE</option>
+                                    </select>
+                                </div>
+                            </div>
 
-
+                        </div>
+                    </div>
+                }
         </>
     );
 

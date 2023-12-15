@@ -177,7 +177,7 @@
 .navbar-overlay {
     height: 100%;
     position: fixed;
-    top: 138px;
+    top: 137px;
     left: 0;
     z-index: 1001; /* Navbar가 ProjectNavBar 위에 나타나도록 더 높은 z-index를 설정합니다. */
     background-color: #333333; /* 슬라이딩된 부분을 채울 색상을 설정하세요. */

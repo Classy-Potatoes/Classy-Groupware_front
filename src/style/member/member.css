@@ -160,15 +160,222 @@
     border-radius: 10px;
 }
 
+.profile-top {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    margin-bottom: 40px;
+}
 
-.disabledInput {
+.profile-top-btn {
+    width: 150px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.profile-top-btn button {
+    height: 25px;
+    width: 100px;
+    border-radius: 10px;
+    background-color: #333333;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+}
+
+.profile-mid {
+    width: 700px;
+    height: 250px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    margin-bottom: 50px;
+}
+
+.profile-mid-left {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile-mid-right {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile-mid-left-div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile-mid-left-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile-mid-left-title {
+    width: 80px;
+    text-align: center;
+    color: white;
+    font-size: 15px;
+    margin-top: 7px;
+    margin-bottom: 7px;
+}
+
+.profile-email-input {
+    width: 120px !important;
+}
+
+.profile-mid-left-row input{
+    margin-top: 5px;
+    margin-bottom: 5px;
+    height: 30px;
+    width: 220px;
+    border-radius: 10px;
+    text-indent: 10px;
+    font-size: 12px;
+}
+
+.profile-mid-img-div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile-mid-input-div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile-mid-right-div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile-mid-input-div input {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    height: 30px;
+    width: 220px;
+    border-radius: 10px;
+    text-indent: 10px;
+    font-size: 12px;
+}
+
+.profile-mid-input-div .width130-input {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    height: 30px;
+    width: 130px;
+    border-radius: 10px;
+    text-indent: 10px;
+    font-size: 12px;
+}
+
+.profile-mid-input-div .small-search-btn {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    height: 30px;
+    width: 80px;
+    margin-left: 10px;
+    border-radius: 10px;
+    background-color: #333333;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+}
+
+.profile-selectBox {
+    width: 220px;
+    height: 27px;
+    border: solid 1px #bfbfbf;
+    border-radius: 10px;
+    font-size: 12px;
+    text-indent: 10px;
+    padding: 3px 0px;
+    margin-bottom: 5px;
+    -webkit-appearance: button;
+    -moz-appearance: button-arrow-down;
+}
+
+
+.myHistory-div {
+    width: 700px;
+    height: 250px;
+    background-color: white;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+/*-----------------------------------------*/
+
+.history-div{
+    margin-top: 30px;
+}
+
+.history-table{
+    width: 650px;
+    min-height: 75px;
+    border-collapse: collapse;
+    table-layout: fixed;
+    /*border-top: 1px solid black;*/
+    border-bottom: 1px solid black;
+    text-align: center;
+}
+
+.history-table th {
+    padding: 10px;
+    height: 20px;
+    text-align: center;
+    word-break:break-all;
+    table-layout:fixed;
+    border-bottom: 1px solid black;
+    background-color: #2B456D;
     color: white;
 }
 
-.signup-div .disabledInput::placeholder {
-    color: white;
+.history-table tr{
+    height: 20px;
 }
 
+.history-table td {
+    height: 20px;
+    text-align: center;
+    vertical-align: middle;
+    word-break:break-all;
+    table-layout:fixed;
+    /*font-size: 10px;*/
+}
+
+.history-table-img-div {
+    width: 18px;
+    height: 18px;
+    margin-left: 10px;
+}
+
+.history-table-img {
+    width: 100%;
+    height: 100%;
+}
+/*-----------------------------------------*/
 
 
 .pwdChange-div {
@@ -300,8 +507,6 @@
     height: 15px;
 }
 
-
-/*--------------------------------*/
 
 .return-div-items-title {
     color: orangered;
