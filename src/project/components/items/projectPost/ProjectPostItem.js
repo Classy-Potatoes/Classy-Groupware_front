@@ -3,11 +3,10 @@ import React, {useCallback, useEffect, useState} from "react";
 import {
     callProjectPostDeleteAPI,
     callProjectPostModifyAPI, callProjectPostReplyRegistAPI
-} from "../../apis/ProjectPostAPICalls";
-import {callProjectModifyAPI, callProjectRemoveAPI} from "../../apis/ProjectAPICalls";
+} from "../../../apis/ProjectPostAPICalls";
 import {useNavigate, useParams} from "react-router-dom";
-import ProjectPostReplyList from "../lists/ProjectPostReplyList";
-import {postSuccess} from "../../modules/ProjectPostMedule";
+import ProjectPostReplyList from "../../lists/ProjectPost/ProjectPostReplyList";
+import {postSuccess} from "../../../modules/ProjectPostModule";
 
 function ProjectPostItem({ projectPost }) {
 
@@ -19,7 +18,7 @@ function ProjectPostItem({ projectPost }) {
 
 
     const { postCode } = projectPost;
-
+    const { projectCode } = projectPost;
 
     const onChangeHandler = (e) => {
         setForm({
@@ -63,7 +62,8 @@ function ProjectPostItem({ projectPost }) {
 
     };
 
-    const inputStyle = !modifyMode ? { border: 0 } : null;
+    const inputStyle = !modifyMode ? { border: 0, background: 'none', color: 'black' } : null;
+
 
     /* 프로젝트 게시글 삭제 */
     const onClickPostDeleteHandler = () => {
@@ -72,7 +72,7 @@ function ProjectPostItem({ projectPost }) {
 
     const confirmDelete = () => {
 
-        dispatch(callProjectPostDeleteAPI({ postCode }));
+        dispatch(callProjectPostDeleteAPI({ postCode, projectCode }));
         setConfirmDeleteModal(false);
     };
 
@@ -154,7 +154,7 @@ function ProjectPostItem({ projectPost }) {
                         name="postBody"
                         placeholder="게시글 내용"
                         value={ modifyMode ? form.postBody : projectPost.postBody }
-                        readOnly={ !modifyMode }
+                        disabled={ !modifyMode }
                         style={ inputStyle }
                         onChange={onChangeHandler}
                     />

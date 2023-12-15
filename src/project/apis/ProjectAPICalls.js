@@ -135,7 +135,6 @@ export const callProjectModifyAPI = ({projectCode, projectModifyRequest}) => {
 
         if(result.status === 201) {
             disPatch(putSuccess());
-            toast.info("프로젝트 수정이 완료 되었습니다.");
         }
     }
 }
@@ -151,35 +150,33 @@ export const callProjectRemoveAPI =({projectCode}) => {
 
         if(result.status === 204) {
             window.location.replace("/projects");
-            toast.info("프로젝트 삭제가 완료 되었습니다.");
         }
 
     }
 }
 
 /* 부서별 회원 조회 */
-export const callMyDeptMemberAPI = ({ deptCode }) =>{
+export const callMyDeptMemberAPI = ({ deptCode, projectCode }) => {
+    return async (dispatch, getState) => {
+        try {
+            const result = await authRequest.get(`/cg-api/v1/dept/${deptCode}/project/${projectCode}/member`);
 
-    return async (disPatch, getState) => {
-
-        const result = await authRequest.get(`/cg-api/v1/dept/${deptCode}/member`);
-
-        console.log('callMyDeptMemberAPI :', result);
-
-        console.log('callMyDeptMemberAPI - deptCode:', deptCode);
-
-        if(result?.status === 200) {
-            disPatch(getMydeptmember(result));
+            if (result?.status === 200) {
+                dispatch(getMydeptmember(result));
+            }
+        } catch (error) {
+            // 에러 처리 로직 추가
+            console.error("Error calling MyDeptMemberAPI:", error);
         }
-    }
+    };
 };
 
 /* 부서별 회원 검색하기 */
-export const callDeptMemberSearchAPI = ({ deptCode,infoName }) => {
+export const callDeptMemberSearchAPI = ({ deptCode,infoName, projectCode}) => {
 
     return async (disPatch, getState) => {
 
-        const result = await authRequest.get(`/cg-api/v1/dept/${deptCode}/search?infoName=${infoName}`);
+        const result = await authRequest.get(`/cg-api/v1/dept/${deptCode}/project/${projectCode}/search?infoName=${infoName}`);
 
         console.log('callDeptMemberAPI :', result);
 
@@ -202,6 +199,21 @@ export const callInviteMemberAPI = ({ projectInviteMemberRequests }) => {
             disPatch(postSuccess());
         }
 
+    }
+}
+
+/* 프로젝트 업무 작성 */
+export const callProjectTaskRegistAPI = ({ projecttaskRequest }) => {
+
+    return async (disPatch, getState ) => {
+
+        const result = await authRequest.post(`/cg-api/v1/task`, projecttaskRequest);
+
+        console.log('callProjectTaskRegistAPI :', result);
+
+        if(result?.status === 201) {
+            disPatch(postSuccess());
+        }
     }
 }
 

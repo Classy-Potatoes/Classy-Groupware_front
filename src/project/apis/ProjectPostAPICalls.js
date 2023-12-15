@@ -1,7 +1,7 @@
 import {authRequest} from "../../common/apis/Api";
 import async from "async";
 import {toast} from "react-toastify";
-import {getProjectPost, postSuccess, putSuccess} from "../modules/ProjectPostMedule";
+import {getProjectPost, postSuccess, putSuccess} from "../modules/ProjectPostModule";
 
 
 
@@ -44,13 +44,12 @@ export const callProjectPostModifyAPI = ({postCode, postUpdateRequest}) => {
 
         if(result.status === 201) {
             disPatch(putSuccess());
-            toast.info("게시글 수정이 완료 되었습니다.");
         }
     }
 }
 
 /* 프로젝트 글 삭제 */
-export const callProjectPostDeleteAPI = ({ postCode })=> {
+export const callProjectPostDeleteAPI = ({ postCode, projectCode })=> {
 
     return async (dispatch, getState) => {
 
@@ -59,10 +58,8 @@ export const callProjectPostDeleteAPI = ({ postCode })=> {
         console.log('callProjectPostDeleteAPI result : ', result);
 
         if(result.status === 204) {
-            window.location.reload();
-            toast.info("게시글 삭제가 완료 되었습니다.");
+            window.location.replace(`/projects/${projectCode}`);
         }
-
     }
 }
 
@@ -81,9 +78,7 @@ export const callProjectPostReplyRegistAPI = ({ replyCreateRequest }) => {
     }
 };
 
-
 /* 프로젝트 글 댓글 수정 */
-
 export const callPeojectPostReplyModifyAPI = ({replyCode, replyRequest }) => {
 
     return async (disPatch, getState) => {
@@ -92,13 +87,13 @@ export const callPeojectPostReplyModifyAPI = ({replyCode, replyRequest }) => {
 
         if(result.status === 201) {
             disPatch(putSuccess());
-            toast.info("댓글 수정이 완료 되었습니다.");
         }
     }
 };
 
+
 /* 프로젝트 글 댓글 삭제 */
-export const callProjectPostReplyDeleteAPI = ({ replyCode })=> {
+export const callProjectPostReplyDeleteAPI = ({ replyCode, projectCode })=> {
 
     return async (dispatch, getState) => {
 
@@ -107,10 +102,8 @@ export const callProjectPostReplyDeleteAPI = ({ replyCode })=> {
         console.log('callProjectPostReplyDeleteAPI result : ', result);
 
         if(result?.status === 204) {
-            window.location.reload();
-            toast.info("댓글 삭제가 완료 되었습니다.");
+            window.location.replace(`/projects/${projectCode}`);
         }
-
     }
 }
 

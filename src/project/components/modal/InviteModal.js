@@ -6,7 +6,7 @@ import {
     callMyDeptMemberAPI,
     callProjectInviteAPI, callProjectRegistAPI,
 } from "../../apis/ProjectAPICalls";
-import ProjectInviteItem from "../items/ProjectInviteItem";
+import ProjectInviteItem from "../items/project/ProjectInviteItem";
 
 function InviteModal({ setInviteModal, deptCode, projectCode }) {
     const dispatch = useDispatch();
@@ -21,18 +21,18 @@ function InviteModal({ setInviteModal, deptCode, projectCode }) {
 
     /* 부서별 회원 조회 */
     useEffect(() => {
-        dispatch(callMyDeptMemberAPI({ deptCode }));
-    }, [dispatch, deptCode]);
+        dispatch(callMyDeptMemberAPI({ deptCode, projectCode}));
+    }, [dispatch, deptCode, projectCode]);
 
     /* 부서별 회원 검색 */
     useEffect(() => {
         const timer = setTimeout(() => {
             // 검색 요청 보내기
-            dispatch(callDeptMemberSearchAPI({ deptCode, infoName }));
+            dispatch(callDeptMemberSearchAPI({ deptCode, infoName, projectCode }));
         }, 300); //
 
         return () => clearTimeout(timer); // 타이머 클리어
-    }, [infoName, deptCode, dispatch]);
+    }, [infoName, deptCode, dispatch, projectCode]);
 
     // 프로젝트 멤버 선택이 변경될 때 처리할 콜백 함수
     const handleMemberSelect = (infoCodes) => {

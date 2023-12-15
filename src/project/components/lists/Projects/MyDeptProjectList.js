@@ -1,4 +1,4 @@
-import ProjectListItem from "../items/ProjectListItem";
+import ProjectListItem from "../../items/project/ProjectListItem";
 
 
 function MyDeptProjectList({ data }) {
