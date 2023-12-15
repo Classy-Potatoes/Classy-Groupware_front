@@ -2,7 +2,7 @@ import ProjectNavList from "../components/common/ProjectNavList";
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useState} from "react";
 import {callMyProjectListAPI, callProjectMyTasktListAPI, callProjectPostListAPI} from "../apis/ProjectAPICalls";
-import MyProjectTaskList from "../components/lists/MyProjectTaskList";
+import MyProjectTaskList from "../components/lists/Projects/MyProjectTaskList";
 import MyProjectTodoList from "../components/lists/MyProjectTodoList";
 
 function ProjectDashBoard() {

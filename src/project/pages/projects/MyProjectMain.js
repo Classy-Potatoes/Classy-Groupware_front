@@ -1,7 +1,7 @@
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useState} from "react";
 import {callMyProjectListAPI} from "../../apis/ProjectAPICalls";
-import MyProjectList from "../../components/lists/MyProjectList";
+import MyProjectList from "../../components/lists/Projects/MyProjectList";
 import PagingBar from "../../../dashBoard/components/common/PagingBar";
 
 function MyProjectMain() {

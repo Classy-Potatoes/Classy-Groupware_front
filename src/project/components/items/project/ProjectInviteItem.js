@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
+import {toast} from "react-toastify";
 
 function ProjectInviteItem({ myDeptMember, onMemberSelect }) {
+
     const [selectedMembers, setSelectedMembers] = useState([]);
 
     const handleMemberSelect = (infoCode) => {
+
         if (selectedMembers.includes(infoCode)) {
             setSelectedMembers(selectedMembers.filter((id) => id !== infoCode));
         } else {
@@ -33,7 +36,7 @@ function ProjectInviteItem({ myDeptMember, onMemberSelect }) {
                                     />
                                     <img
                                         src="/project/invite.png"
-                                        alt={`Invite ${member.infoName}`}
+                                        alt={`Invite ${member.infoName}님 초대`}
                                     />
                                     <span>{member.infoName}</span>
                                 </label>

@@ -1,10 +1,7 @@
 import {NavLink} from "react-router-dom";
-import {useState} from "react";
+import React, {useState} from "react";
 import Navbar from "../../../dashBoard/components/common/Navbar";
 import NewProjectWriteModal from "../modal/NewProjectWriteModal";
-import {ToastContainer} from "react-toastify";
-import {authRequest} from "../../../common/apis/Api";
-import {isHeader, isLogin} from "../../../member/utils/TokenUtils";
 
 
 function ProjectNavBar() {
@@ -24,7 +21,6 @@ function ProjectNavBar() {
 
     return (
         <>
-            <ToastContainer hideProgressBar={true} position="top-center"/>
             {
                 newProjectWriteModal &&
                 <NewProjectWriteModal

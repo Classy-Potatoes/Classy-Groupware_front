@@ -83,7 +83,8 @@ function App() {
                         <div className="project-post-div">
                             <ProjectDashBoard/>
                         </div>
-                    }/>
+                    }>
+                    </Route>
                       <Route path="myTask" element={<ProtectedRoute loginCheck={ true }><ProjectDashBoard /></ProtectedRoute>} />
                   </Route>
 

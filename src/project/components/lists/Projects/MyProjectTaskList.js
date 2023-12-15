@@ -1,5 +1,5 @@
-import MyProjectTaskListItem from "../items/MyProjectTaskListItem";
-import ProjectListItem from "../items/ProjectListItem";
+import MyProjectTaskListItem from "../../items/projectTask/MyProjectTaskListItem";
+import ProjectListItem from "../../items/project/ProjectListItem";
 
 function MyProjectTaskList ({ data }) {
 

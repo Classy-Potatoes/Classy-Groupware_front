@@ -21,7 +21,7 @@ export const { projectPost : { postSuccess, putSuccess,getProjectPost  }} = crea
 const projectPostReducer = handleActions({
     [POST_SUCCESS] : (state, { payload }) => ({ ...state, ...payload }),
     [PUT_SUCCESS] : (state, {payload}) => payload,
-    [GET_PROJECT_POST] : (state, { payload }) => ({ ...state, ...payload }),
+    [GET_PROJECT_POST] : (state, { payload }) => payload,
 
 }, initialState);
 
