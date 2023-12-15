@@ -1,23 +1,24 @@
 import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {callProjectInviteAPI} from "../../apis/ProjectAPICalls";
-import DatePicker from "react-datepicker";
-import {ko} from "date-fns/esm/locale";
+import ProjectTodoListItem from "../items/ProjectTodoListItem";
 
 function ProjectTodoList({todo, projectCode, memberId}) {
+
+    console.log(todo, "todddddd");
+    // todo.todoList
 
     const [modifyMode, setModifyMode] = useState(false);
     const [startDate, setStartDate] = useState(null);
     const [endDate, setEndDate] = useState(null);
     const [startTime, setStartTime] = useState(null);
     const [endTime, setEndTime] = useState(null);
-    const [attendants, setAttendants] = useState([]);
+    const [checked, setCheckec] = useState(null);
     const [attendantsCode, setAttendantsCode] = useState([]);
     const [form, setForm] = useState({});
+    const [listForm, setListForm] = useState({})
     const dispatch = useDispatch();
     const {projectMember} = useSelector(state => state.projectReducer);
-
-    // const createdDate = todo.modifiedDate.split('T')[0];
 
     useEffect(() => {
         dispatch(callProjectInviteAPI({projectCode}));
@@ -44,13 +45,6 @@ function ProjectTodoList({todo, projectCode, memberId}) {
 
     const clickedDelete = () => {
         // dispatch(callProjectScheduleDeleteAPI({projectCode: projectCode, scheduleCode: todo.scheduleCode}))
-    }
-
-    const clickedDeleteManager = (index) => {
-        const newAttendants = attendants.filter((_, i) => i !== index);
-        const newAttendantsCode = attendantsCode.filter((_, i) => i !== index);
-        setAttendants(newAttendants);
-        setAttendantsCode(newAttendantsCode);
     }
 
     const addOneDay = (date) => {
@@ -94,7 +88,7 @@ function ProjectTodoList({todo, projectCode, memberId}) {
                             </div>
                         }
                     </div>
-                    {/*<div className="sch-list-created">{createdDate}</div>*/}
+                    <div className="sch-list-created">{todo.createdDate}</div>
                 </div>
             }
             <div className="sch-title">
@@ -114,120 +108,21 @@ function ProjectTodoList({todo, projectCode, memberId}) {
                 {modifyMode &&
                     <button className="sch-unmodi" onClick={() => setModifyMode(false)}>X</button>
                 }
+                <div className="td-finished-box">
+                    <div className="td-cnt-finished">
+                        완료
+                    </div>
+                    <div className="td-cnt-finished">
+                        전체 {todo.todoList.length}
+                    </div>
+                </div>
             </div>
-            <div className="sch-date-box">
-                <img src="/project/calender-icon2.png"/>
-                <DatePicker
-                    // placeholderText={
-                    //     todo && todo.todoStartDate.split('T')[0]
-                    // }
-                    showIcon
-                    locale={ko}
-                    icon="fa fa-calendar"
-                    closeOnScroll={(e) => e.target === document}
-                    selected={modifyMode && startDate}
-                    onChange={(date) => setStartDate(date)}
-                    dateFormat="yyyy-MM-dd"
-                    readOnly={!modifyMode}
-                />
-                <DatePicker
-                    // placeholderText={
-                    //     todo && todo.todoStartDate.split('T')[1]
-                    // }
-                    selected={modifyMode && startTime}
-                    onChange={(time) => setStartTime(time)}
-                    showTimeSelect
-                    showTimeSelectOnly
-                    timeIntervals={15}
-                    timeCaption="Time"
-                    dateFormat="h:mm aa"
-                    readOnly={!modifyMode}
-                />
-                <div>ㅡ</div>
-                <DatePicker
-                    // placeholderText={
-                    //     todo && todo.todoEndDate.split('T')[0]
-                    // }
-                    showIcon
-                    locale={ko}
-                    icon="fa fa-calendar"
-                    closeOnScroll={(e) => e.target === document}
-                    selected={modifyMode && endDate}
-                    onChange={(date) => setEndDate(date)}
-                    dateFormat="yyyy-MM-dd"
-                    readOnly={!modifyMode}
-                />
-                <DatePicker
-                    // placeholderText={
-                    //     todo && todo.todoEndDate.split('T')[1]
-                    // }
-                    selected={modifyMode && endTime}
-                    onChange={(time) => setEndTime(time)}
-                    showTimeSelect
-                    showTimeSelectOnly
-                    timeIntervals={15}
-                    timeCaption="Time"
-                    dateFormat="h:mm aa"
-                    readOnly={!modifyMode}
-                />
-            </div>
-            {/*{modifyMode &&*/}
-            {/*    <div className="sch-add-manager">*/}
-            {/*        {projectMember && projectMember.map(*/}
-            {/*            member => (*/}
-            {/*                <>*/}
-            {/*                    <img className="sch-manager-img" src="/project/담당자.png"/>*/}
-            {/*                    <select className="sch-manager-selected" key={projectMember.infoCode}*/}
-            {/*                            onChange={(e) => {*/}
-            {/*                                const selected = e.target.value;*/}
-            {/*                                if (selected !== '참석자추가' && !attendants.includes(selected) && !attendantsCode.includes(e.target.name)) {*/}
-            {/*                                    setAttendants([...attendants, e.target.value]);*/}
-            {/*                                    setAttendantsCode([...attendantsCode, member.infoCode]);*/}
-            {/*                                }*/}
-            {/*                            }*/}
-            {/*                            }>*/}
-            {/*                        <option name={member.infoCode}*/}
-            {/*                                value={member.memberName}>{member.memberName}</option>*/}
-            {/*                        <option value="참석자추가"*/}
-            {/*                                selected="selected"*/}
-            {/*                        >참석자추가*/}
-            {/*                        </option>*/}
-            {/*                    </select>*/}
-            {/*                </>*/}
-            {/*            ))*/}
-            {/*        }*/}
-            {/*        {attendants.map((attendant, index) => (*/}
-            {/*            <div className="sch-added-manager">*/}
-            {/*                <div className="sch-added-box">*/}
-            {/*                    <div className="sch-manager-name" key={index}>*/}
-            {/*                        {attendant}*/}
-            {/*                    </div>*/}
-            {/*                    <button onClick={() => clickedDeleteManager(index)} className="sch-x-button">*/}
-            {/*                        X*/}
-            {/*                    </button>*/}
-            {/*                </div>*/}
-            {/*            </div>*/}
-            {/*        ))}*/}
-            {/*    </div>*/}
-            {/*}*/}
-            {/*{!modifyMode &&*/}
-            {/*    <div className="sch-managers-area">*/}
-            {/*        <img className="sch-manager-img" src="/project/담당자.png"/>*/}
-            {/*        <div className="sch-managers-box">*/}
-            {/*            <div className="sch-managers-cnt">*/}
-            {/*                참석자 {todo.managers.length} 명*/}
-            {/*            </div>*/}
-            {/*            <div className="sch-managers-name-area">*/}
-            {/*                {todo && todo.managers.map(*/}
-            {/*                    manager => <div className="sch-managers-name">*/}
-            {/*                        {manager.memberName}&nbsp;*/}
-            {/*                    </div>*/}
-            {/*                )*/}
-            {/*                }*/}
-            {/*            </div>*/}
-            {/*        </div>*/}
-            {/*    </div>*/}
-            {/*}*/}
+            {todo && todo.todoList.map(todoItems => (
+                    <div className="td-list-box" key={todoItems.todoListCode}>
+                        <ProjectTodoListItem setListForm={setListForm} todoItems={todoItems}/>
+                    </div>
+                )
+            )}
             <div className="sch-body-box">
                 <label htmlFor="sch-body" className="col-form-label"></label>
                 <textarea type="text"

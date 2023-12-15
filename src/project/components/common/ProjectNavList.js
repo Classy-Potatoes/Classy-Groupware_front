@@ -20,7 +20,7 @@ function ProjectNavList() {
 
     return (
         <>
-            <div className="project-write-div">
+            <div className={(currentComponent === 'calendar' || currentComponent === 'todo'  ? "project-second-write-div" : "project-write-div")}>
 
                 <div className="project-Nav-List-border">
                     <div className="project-Nav-List">

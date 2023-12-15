@@ -7,8 +7,9 @@ import {
     callProjectScheduleDeleteAPI,
     callProjectScheduleModifyAPI
 } from "../../../calendar/apis/SecondProjectAPICalls";
+import Select from "react-select";
 
-function ProjectScheduleList({projectCode, schedule, memberId}) {
+function ProjectScheduleList({postSuccess, projectCode, schedule, memberId}) {
 
     const [modifyMode, setModifyMode] = useState(false);
     const [startDate, setStartDate] = useState(null);
@@ -25,7 +26,21 @@ function ProjectScheduleList({projectCode, schedule, memberId}) {
 
     useEffect(() => {
         dispatch(callProjectInviteAPI({projectCode}));
-    }, [schedule]);
+        if (postSuccess) {
+            setStartDate(null);
+            setEndDate(null);
+            setStartTime(null);
+            setEndTime(null);
+            setAttendants([]);
+            setAttendantsCode([]);
+            setForm({
+                scheduleTitle: "",
+                scheduleContent: ""
+            });
+            setModifyMode(false);
+        }
+    }, [schedule, postSuccess])
+    ;
     const formatDate = (date) => {
         return date.toISOString().split('T')[0];
     }
@@ -50,13 +65,6 @@ function ProjectScheduleList({projectCode, schedule, memberId}) {
         dispatch(callProjectScheduleDeleteAPI({projectCode: projectCode, scheduleCode: schedule.scheduleCode}))
     }
 
-    const clickedDeleteManager = (index) => {
-        const newAttendants = attendants.filter((_, i) => i !== index);
-        const newAttendantsCode = attendantsCode.filter((_, i) => i !== index);
-        setAttendants(newAttendants);
-        setAttendantsCode(newAttendantsCode);
-    }
-
     const addOneDay = (date) => {
         const newDate = new Date(date);
         newDate.setDate(newDate.getDate() + 1);
@@ -72,10 +80,13 @@ function ProjectScheduleList({projectCode, schedule, memberId}) {
         // schedule?.start.split('T')[1].slice(0, 5);
         const formattedEndTime = endTime ? formatTime(endTime) : "";
         // schedule?.end.split('T')[1].slice(0, 5);
+        const members = attendants.map((attendMem) =>
+            attendMem.value
+        )
 
         const newData = {
             ...form,
-            attendants: attendantsCode,
+            attendants: members,
             scheduleStartedDate: formattedStartDate,
             scheduleEndDate: formattedEndDate,
             scheduleStartedTime: formattedStartTime,
@@ -177,41 +188,22 @@ function ProjectScheduleList({projectCode, schedule, memberId}) {
             </div>
             {modifyMode &&
                 <div className="sch-add-manager">
-                    {projectMember && projectMember.map(
-                        member => (
-                            <>
-                                <img className="sch-manager-img" src="/project/담당자.png"/>
-                                <select className="sch-manager-selected" key={projectMember.infoCode}
-                                        onChange={(e) => {
-                                            const selected = e.target.value;
-                                            if (selected !== '참석자추가' && !attendants.includes(selected) && !attendantsCode.includes(e.target.name)) {
-                                                setAttendants([...attendants, e.target.value]);
-                                                setAttendantsCode([...attendantsCode, member.infoCode]);
-                                            }
-                                        }
-                                        }>
-                                    <option name={member.infoCode}
-                                            value={member.memberName}>{member.memberName}</option>
-                                    <option value="참석자추가"
-                                            selected="selected"
-                                    >참석자추가
-                                    </option>
-                                </select>
-                            </>
-                        ))
-                    }
-                    {attendants.map((attendant, index) => (
-                        <div className="sch-added-manager">
-                            <div className="sch-added-box">
-                                <div className="sch-manager-name" key={index}>
-                                    {attendant}
-                                </div>
-                                <button onClick={() => clickedDeleteManager(index)} className="sch-x-button">
-                                    X
-                                </button>
-                            </div>
-                        </div>
-                    ))}
+                    {/* 담당자 이미지 */}
+                    <img src="/project/담당자.png" />
+
+                    {/* react-select을 사용한 다중 선택 셀렉트 박스 */}
+                    <Select
+                        placeholder="담당자 추가"
+                        isMulti
+                        options={projectMember.map((member) => ({
+                            value: member.infoCode,
+                            label: member.memberName,
+                        }))}
+                        value={attendants}
+                        onChange={(selectedOptions) => {
+                            setAttendants(selectedOptions);
+                        }}
+                    />
                 </div>
             }
             {!modifyMode &&
