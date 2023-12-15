@@ -3,9 +3,12 @@ import {toast} from "react-toastify";
 import {
     loginResult, searchIdResult,
     signupResult, duplicateIdResult, searchInfoCodeResult,
+    pwdChangeResult, memberReturnResult, getProfile, updateProfile,
 } from "../modules/MemberModule";
 import {saveToken} from "../utils/TokenUtils";
+import {getAdminMembers} from "../modules/AdminModule";
 
+// 회원가입
 export const callSignupAPI = ( { signupRequest, signupImgRequest } ) => {
 
     const modifiedRequest = {
@@ -222,3 +225,144 @@ export const callEmailSearchPwdAPI = ( { searchPwdRequest } ) => {
     }
 
 };
+
+
+// 비밀번호 번경(마이페이지)
+export const callPwdChangeAPI = (  { memberPwdRequest } ) => {
+
+    return async (dispatch, getState) => {
+
+        const result =
+            await authRequest.put(`/cg-api/v1/member/pwdUpdate`, memberPwdRequest, {
+                    headers : {
+                        'Content-Type' : 'application/json'
+                    }
+            }).catch(e => {
+                console.log(e);
+            });
+
+        console.log('callPwdChangeAPI result : ', result);
+
+        if( result?.status === 200 ) {
+            if ( result.data === true ) {
+                dispatch( pwdChangeResult( result ) );
+            } else {
+                toast.error('현재 비밀번호 불일치',
+                    {
+                        autoClose : 1000,
+                    }
+                );
+            }
+        }
+
+    }
+
+};
+
+
+// 회원 반납(마이페이지)
+export const callMemberReturnAPI = ( ) => {
+
+    return async (dispatch, getState) => {
+
+        const result =
+            await authRequest.put(`/cg-api/v1/member/returnUser`, {
+                headers : {
+                    'Content-Type' : 'application/json'
+                }
+            }).catch(e => {
+                console.log(e);
+            });
+
+        console.log('callMemberReturnAPI result : ', result);
+
+        if( result?.status === 201 ) {
+            dispatch( memberReturnResult( true ) );
+        }
+
+    }
+
+};
+
+
+
+// 회원 조회(마이페이지)
+export const callMyProfileAPI = () => {
+
+    return async (dispatch, getState) => {
+
+        const result =
+            await authRequest.get(`/cg-api/v1/member/myProfile`,
+                {
+                    headers : {
+                        'Content-Type' : 'application/json'
+                    }
+                }).catch(e => {
+                console.log(e);
+            });
+
+        console.log('callMyProfileAPI result : ', result);
+
+        if( result?.status === 200 ) {
+            dispatch( getProfile( result ) );
+        }
+
+    }
+
+};
+
+
+// 회원 수정(마이페이지)
+export const callMyProfileUpdateAPI = ( { updateRequest, updateImgRequest } ) => {
+
+    const modifiedRequest = {
+        ...updateRequest,
+        infoEmail: updateRequest.infoEmail + updateRequest.emailUrl
+    };
+
+    // 필요없는 필드 삭제
+    delete modifiedRequest.emailUrl;
+
+
+    // 폼과 파일 합치는 부분
+    const formData = new FormData();
+
+    if ( updateImgRequest ) {
+        formData.append("profileImage", updateImgRequest );
+        formData.append("memberUpdateRequest", new Blob([ JSON.stringify( modifiedRequest ) ], { type : 'application/json' }));
+    } else {
+        formData.append("memberUpdateRequest", new Blob([ JSON.stringify( modifiedRequest ) ], { type : 'application/json' }));
+    }
+
+
+    return async (dispatch, getState) => {
+
+        const result =
+            await authRequest.put(`/cg-api/v1/member/myProfileUpdate`, formData).catch(e => {
+                console.log(e);
+            });
+
+        console.log('callMyProfileUpdateAPI result : ', result);
+
+
+        if( result?.status === 201 ) {
+
+            toast.success('회원 정보가 수정되었습니다.', {
+                autoClose : 1000,
+                onClose : () => {
+                    dispatch( updateProfile( true ) );
+                }
+            });
+        } else {
+            toast.success('수정 실패', {
+                autoClose : 1000
+            });
+        }
+
+
+    }
+
+};
+
+
+

@@ -27,7 +27,7 @@ import ProjectDetailLayout from "./project/layouts/ProjectDetailLayout";
 import ProjectDashBoard from "./project/layouts/ProjectDashBoard";
 import Profile from "./member/pages/mypage/Profile";
 import MyPageLayout from "./member/layouts/MyPageLayout";
-import PasswordChange from "./member/pages/mypage/PasswordChange";
+import PwdChange from "./member/pages/mypage/PwdChange";
 import MemberReturn from "./member/pages/mypage/MemberReturn";
 import AdminPageLayout from "./member/layouts/AdminPageLayout";
 import AdminMemberMain from "./member/pages/admin/AdminMemberMain";
@@ -66,7 +66,7 @@ function App() {
                   <Route path="mypage" element={ <ProtectedRoute loginCheck={ true }><MyPageLayout/></ProtectedRoute> }>
                       <Route index element={ <Navigate to="/member/mypage/profile" replace/>}/>
                       <Route path="profile" element={  <Profile/> }/>
-                      <Route path="passwordChange" element={  <PasswordChange/> }/>
+                      <Route path="passwordChange" element={  <PwdChange/> }/>
                       <Route path="memberReturn" element={  <MemberReturn/> }/>
                   </Route>
               </Route>

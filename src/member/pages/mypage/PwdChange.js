@@ -1,14 +1,14 @@
 import {ToastContainer} from "react-toastify";
-import ReturnItem from "../../components/items/ReturnItem";
+import PwdChangeForm from "../../components/form/PwdChangeForm";
 
-function MemberReturn() {
+function PwdChange() {
 
     return (
         <>
             <ToastContainer hideProgressBar={ true } position="top-center" />
             <div className="profile-background-div">
-                <div className='memberReturn-div'>
-                    <ReturnItem />
+                <div className='pwdChange-div'>
+                    <PwdChangeForm />
                 </div>
             </div>
         </>
@@ -16,4 +16,4 @@ function MemberReturn() {
 
 }
 
-export default MemberReturn;
+export default PwdChange;
