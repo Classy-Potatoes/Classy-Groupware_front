@@ -5,9 +5,9 @@ import tdPlus from "../../../calendar/images/todoPlus.png"
 import tdMinus from "../../../calendar/images/todoMinus.png";
 import DatePicker from "react-datepicker";
 import {ko} from "date-fns/esm/locale";
-import {callProjectTodoRegistAPI} from "../../../calendar/apis/SecondProjectAPICalls";
+import {callProjectTodoRegistAPI, callTodoListAPI} from "../../../calendar/apis/SecondProjectAPICalls";
 
-function ProjectTodoRegist({projectCode}) {
+function ProjectTodoRegist({projectCode, postSuccess, currentPage}) {
 
     const [todos, setTodos] = useState([
         {id: 0, todoBody: "", endDate: "", attendant: ""}
@@ -19,7 +19,18 @@ function ProjectTodoRegist({projectCode}) {
 
     useEffect(() => {
         dispatch(callProjectInviteAPI({projectCode}));
-    }, []);
+        if (postSuccess) {
+            setForm({
+                todoTitle: "",
+                projectTodolistCreateRequestList: todos.map(todo => ({
+                    todoBody: "",
+                    endDates: "",
+                    attendant: ""
+                }))
+            })
+        }
+
+    }, [projectCode, postSuccess]);
 
     const removeTodo = (e) => {
         const targetId = parseInt(e.target.id);
@@ -44,9 +55,10 @@ function ProjectTodoRegist({projectCode}) {
             if (todo.id === id) {
                 switch (type) {
                     case 'todoBody':
-                        return { ...todo, todoBody: value };
+                        return {...todo, todoBody: value};
                     case 'endDate':
-                        return { ...todo, endDate: value
+                        return {
+                            ...todo, endDate: value
                         };
                     case 'attendant':
                         return {...todo, attendant: value}
@@ -68,7 +80,7 @@ function ProjectTodoRegist({projectCode}) {
     }
 
     const clickedAddGuest = () => {
-        const newTodos = { id: nextId };
+        const newTodos = {id: nextId};
         const updatedTodos = [...todos, newTodos];
         setTodos(updatedTodos);
         setNextId(prevId => prevId + 1);
@@ -113,7 +125,7 @@ function ProjectTodoRegist({projectCode}) {
                             <div className="td-circle"
                                  id={todo.id}
                                  onClick={removeTodo}
-                                 ><img src={tdMinus}/></div>
+                            ><img src={tdMinus}/></div>
                             <div className="td-regist">
                                 <label htmlFor="td-regist-header" className="col-form-label"></label>
                                 <input type="text"

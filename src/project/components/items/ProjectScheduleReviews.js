@@ -7,7 +7,7 @@ import {
     callProjectScheduleReplyRegistAPI
 } from "../../../calendar/apis/SecondProjectAPICalls";
 
-function ProjectScheduleReviews({projectCode, schedule, memberId}) {
+function ProjectScheduleReviews({postSuccess, projectCode, schedule, memberId}) {
 
     const [modifyMode, setModifyMode] = useState(false);
     const [form, setForm] = useState({});
@@ -19,7 +19,18 @@ function ProjectScheduleReviews({projectCode, schedule, memberId}) {
 
     useEffect(() => {
         dispatch(callProjectInviteAPI({projectCode}));
-    }, [schedule]);
+        setModifyForm({
+            replyBody: ""
+        })
+        setModifyMode(false)
+    }, [schedule, postSuccess]);
+
+    useEffect(() => {
+        setForm({
+            replyBody: ""
+        })
+        setModifyMode(false)
+    }, [schedule, postSuccess]);
 
     const onModifyChangeHandler = (e, replyCode) => {
         const {name, value} = e.target;

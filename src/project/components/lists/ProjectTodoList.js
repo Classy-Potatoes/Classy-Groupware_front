@@ -1,50 +1,31 @@
 import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {callProjectInviteAPI} from "../../apis/ProjectAPICalls";
-import ProjectTodoListItem from "../items/ProjectTodoListItem";
+import ProjectTodoRegist from "../items/ProjectTodoRegist";
+import checkStat from "../../../calendar/images/checked.png"
+import {callCheckedTodoAPI, callProjectTodoDeleteAPI} from "../../../calendar/apis/SecondProjectAPICalls";
 
-function ProjectTodoList({todo, projectCode, memberId}) {
+function ProjectTodoList({todo, projectCode, postSuccess, memberId}) {
 
-    console.log(todo, "todddddd");
-    // todo.todoList
+    console.log(todo, "Toddd")
+    const cnt = todo.todoList.filter(item => item.todoStatus === "finished").length;
 
     const [modifyMode, setModifyMode] = useState(false);
-    const [startDate, setStartDate] = useState(null);
-    const [endDate, setEndDate] = useState(null);
-    const [startTime, setStartTime] = useState(null);
-    const [endTime, setEndTime] = useState(null);
-    const [checked, setCheckec] = useState(null);
-    const [attendantsCode, setAttendantsCode] = useState([]);
+    const [isChecked, setIsChecked] = useState([]);
     const [form, setForm] = useState({});
-    const [listForm, setListForm] = useState({})
     const dispatch = useDispatch();
     const {projectMember} = useSelector(state => state.projectReducer);
 
     useEffect(() => {
         dispatch(callProjectInviteAPI({projectCode}));
+
     }, [todo]);
+
+    useEffect(() => {
+        console.log("변경 색상", isChecked)
+    }, [isChecked]);
     const formatDate = (date) => {
         return date.toISOString().split('T')[0];
-    }
-
-    const formatTime = (time) => {
-        return time.toISOString().split('T')[1].slice(0, 5);
-    };
-
-    const onChangeHandler = (e) => {
-        setForm({
-            ...form,
-            [e.target.name]: e.target.value
-        })
-    }
-
-    /* 수정 모드로 변환하는 이벤트 */
-    const clickModifyMode = () => {
-        setModifyMode(true);
-    }
-
-    const clickedDelete = () => {
-        // dispatch(callProjectScheduleDeleteAPI({projectCode: projectCode, scheduleCode: todo.scheduleCode}))
     }
 
     const addOneDay = (date) => {
@@ -53,28 +34,53 @@ function ProjectTodoList({todo, projectCode, memberId}) {
         return newDate;
     }
 
-    const clickedRegist = () => {
-        const formattedStartDate = startDate ? formatDate(addOneDay(startDate)) : "";
-        // schedule?.start.split('T')[0];
-        const formattedEndDate = endDate ? formatDate(addOneDay(endDate)) : "";
-        // schedule?.end.split('T')[0];
-        const formattedStartTime = startTime ? formatTime(startTime) : "";
-        // schedule?.start.split('T')[1].slice(0, 5);
-        const formattedEndTime = endTime ? formatTime(endTime) : "";
-        // schedule?.end.split('T')[1].slice(0, 5);
-
-        const newData = {
+    const onChangeHandler = (e) => {
+        setForm({
             ...form,
-            attendants: attendantsCode,
-            scheduleStartedDate: formattedStartDate,
-            scheduleEndDate: formattedEndDate,
-            scheduleStartedTime: formattedStartTime,
-            scheduleEndTime: formattedEndTime
-        };
-
-        // dispatch(callProjectScheduleModifyAPI({registRequest: newData, projectCode: projectCode, scheduleCode: schedule.scheduleCode}));
+            [e.target.name]: e.target.value
+        })
     }
 
+    const clickedCheck = (e) => {
+        const newVal = e.currentTarget.value;
+
+        console.log(newVal, "newwwww")
+        setIsChecked(prevState => ({
+            ...prevState,
+            [newVal]: !prevState[newVal] // 특정 todoListCode의 상태를 토글
+        }));
+
+        // const todoItem = todo.todoList.find(item => item.todoListCode == newVal);
+        // console.log(todoItem, "itemmmmmm")
+        // const stat = todoItem.todoStatus;
+        // console.log(stat, "stat")
+        dispatch(callCheckedTodoAPI({projectCode: projectCode, todoCode: todo.todoCode, todoListCode: newVal}))
+
+    }
+
+    /* 수정 모드로 변환하는 이벤트 */
+    const clickModifyMode = () => {
+        setModifyMode(true);
+    }
+
+    const clickedDelete = () => {
+        dispatch(callProjectTodoDeleteAPI({projectCode: projectCode, todoCode: todo.todoCode}))
+    }
+
+    const clickedRegist = () => {
+
+        // const newData = {
+        //     ...form,
+        //     projectTodolistCreateRequestList: todos.map(todo => ({
+        //         todoBody: todo.todoBody,
+        //         endDates: formatDate(addOneDay(todo.endDate)).toLocaleString('ko-KR'),
+        //         attendant: todo.attendant
+        //     }))
+        //
+        // };
+        //
+        // dispatch(callProjectTodoRegistAPI({registRequest: newData, projectCode: projectCode}));
+    }
     return (
         <>
             {!modifyMode &&
@@ -108,39 +114,39 @@ function ProjectTodoList({todo, projectCode, memberId}) {
                 {modifyMode &&
                     <button className="sch-unmodi" onClick={() => setModifyMode(false)}>X</button>
                 }
-                <div className="td-finished-box">
-                    <div className="td-cnt-finished">
-                        완료
+                {!modifyMode &&
+                    <div className="td-finished-box">
+                        <div className="td-cnt-finished">
+                            완료 {cnt}
+                        </div>
+                        <div className="td-cnt-finished">
+                            전체 {todo.todoList.length}
+                        </div>
                     </div>
-                    <div className="td-cnt-finished">
-                        전체 {todo.todoList.length}
-                    </div>
-                </div>
+                }
             </div>
-            {todo && todo.todoList.map(todoItems => (
-                    <div className="td-list-box" key={todoItems.todoListCode}>
-                        <ProjectTodoListItem setListForm={setListForm} todoItems={todoItems}/>
+            {!modifyMode &&
+                todo.todoList.map(todoItem => (
+                    <div className="td-list-box">
+                        <div className="td-list-left-box">
+                            <button
+                                style={{ backgroundColor: todoItem.todoStatus === 'finished' ? 'blue' : 'none' }}
+                                className="td-left-fir-div" value={todoItem.todoListCode} onClick={clickedCheck}>
+                                <img
+                                    src={checkStat}
+                                />
+                            </button>
+                            <div className="td-left-sec-div">{todoItem.todoListBody}</div>
+                        </div>
+                        <div className="td-list-right-box">
+                            <div>{todoItem.todoListEndDate}</div>
+                            <div>{todoItem.managerName}</div>
+                        </div>
                     </div>
-                )
-            )}
-            <div className="sch-body-box">
-                <label htmlFor="sch-body" className="col-form-label"></label>
-                <textarea type="text"
-                          className="sch-body"
-                          id="sch-body"
-                          name="scheduleContent"
-                          onChange={onChangeHandler}
-                          placeholder={
-                              todo && todo.todoBody
-                          }
-                          value={modifyMode ? form.todoBody : todo.todoBody}
-                          readOnly={!modifyMode}
-                />
-            </div>
+                ))
+            }
             {modifyMode &&
-                <div className="sch-regist-btn-box">
-                    <button onClick={clickedRegist} className="sch-regist-btn">등록</button>
-                </div>
+                <ProjectTodoRegist/>
             }
         </>
     );

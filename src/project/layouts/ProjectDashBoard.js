@@ -4,16 +4,25 @@ import {useEffect, useState} from "react";
 import {callMyProjectListAPI, callProjectMyTasktListAPI, callProjectPostListAPI} from "../apis/ProjectAPICalls";
 import MyProjectTaskList from "../components/lists/Projects/MyProjectTaskList";
 import MyProjectTodoList from "../components/lists/MyProjectTodoList";
+import {useParams} from "react-router-dom";
+import {callProjectMyTodoListAPI} from "../../calendar/apis/SecondProjectAPICalls";
 
 function ProjectDashBoard() {
 
     const dispatch = useDispatch();
     const [currentPage, setCurrentPage] = useState(1);
     const { myTask } = useSelector(state => state.projectReducer);
+    const { myTodoList } = useSelector(state => state.secondProjectReducer);
+    const {projectCode} = useParams();
 
     useEffect(() => {
         /* 내가 참여한 프로젝트 정보 요청 */
         dispatch(callProjectMyTasktListAPI({currentPage}));
+    }, [currentPage]);
+
+    useEffect(() => {
+        /* 내가 참여한 프로젝트 정보 요청 */
+        dispatch(callProjectMyTodoListAPI({projectCode}));
     }, [currentPage]);
 
     return (
@@ -25,7 +34,10 @@ function ProjectDashBoard() {
                                     &&
                                     <MyProjectTaskList data={myTask.data}/>
                                 }
-                                <MyProjectTodoList/>
+                                {   myTodoList
+                                    &&
+                                    <MyProjectTodoList data={myTodoList}/>
+                                }
                             </div>
                         </div>
                             <ProjectNavList/>

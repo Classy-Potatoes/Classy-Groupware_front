@@ -1,6 +1,6 @@
 import MyProjectTodoListItem from "../items/MyProjectTodoListItem";
 
-function MyProjectTodoList () {
+function MyProjectTodoList ({data}) {
 
     return (
         <>
@@ -14,12 +14,14 @@ function MyProjectTodoList () {
                         <tr>
                             <th>번호</th>
                             <th>글제목</th>
-                            <th>작성날짜</th>
+                            <th>마감일</th>
                         </tr>
                         </thead>
                     </table>
-                </div>
-               <MyProjectTodoListItem/>
+                </div>{data &&
+                data.map((todo, index) => (
+                    <MyProjectTodoListItem key={todo.todoListCode || index} todo={todo} />
+                ))}
             </div>
         </>
     );
