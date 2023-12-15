@@ -23,14 +23,16 @@ function ProjectModifyModal({ setProjectModifyModal }) {
 
         useEffect(() => {
                 // project에 필요한 속성들이 있을 것으로 가정합니다.
-                setForm({
-                        projectTitle: project.projectTitle || '',
-                        projectBody: project.projectBody || '',
-                        projectStartDate: project?.projectStartDate,
-                        projectEndDate: project?.projectEndDate,
-                        deptCode: project?.deptCode ,
-                });
-        }, [project]);                  /* 선생님한테 질문하기 !! */
+                if (project) {
+                        setForm({
+                                projectTitle: project.projectTitle || '',
+                                projectBody: project.projectBody || '',
+                                projectStartDate: project?.projectStartDate,
+                                projectEndDate: project?.projectEndDate,
+                                deptCode: project?.deptCode,
+                        });
+                }
+        }, [project]);               /* 선생님한테 질문하기 !! */
 
         /* 수정 성공시 */
         useEffect(() => {
@@ -102,35 +104,35 @@ function ProjectModifyModal({ setProjectModifyModal }) {
                                                     </tr>
                                             <tr className="newProject-date">
                                                     <td className="newProject-date-label">
-                                                            <label>시작 날짜  </label>
-                                                            <DatePicker
-                                                                dateFormat='yyyy-MM-dd'
-                                                                name="projectStartDate"
-                                                                value={form.projectStartDate}
-                                                                selected={startDate}
-                                                                onChange={(date: Date) => setStartDate(date)}
-                                                                selecetsStart
-                                                                startDate={startDate}
-                                                                endDate={endDate}
-                                                                minDate={new Date()}
-                                                                locale={ko}
-                                                            />
-                                                    </td>
+                                                    {/*        <label>시작 날짜  </label>*/}
+                                                    {/*        <DatePicker*/}
+                                                    {/*            dateFormat='yyyy-MM-dd'*/}
+                                                    {/*            name="projectStartDate"*/}
+                                                    {/*            value={form.projectStartDate}*/}
+                                                    {/*            selected={startDate}*/}
+                                                    {/*            onChange={(date: Date) => setStartDate(date)}*/}
+                                                    {/*            selecetsStart*/}
+                                                    {/*            startDate={startDate}*/}
+                                                    {/*            endDate={endDate}*/}
+                                                    {/*            minDate={new Date()}*/}
+                                                    {/*            locale={ko}*/}
+                                                    {/*        />*/}
+                                                    {/*</td>*/}
 
-                                                    <td className="newProject-date-label">
-                                                            <label>마감 날짜  </label>
-                                                            <DatePicker
-                                                                dateFormat='yyyy-MM-dd'
-                                                                name="projectEndDate"
-                                                                value={form.projectEndDate}
-                                                                selected={endDate}
-                                                                onChange={(date: Date) => setEndDate(date)}
-                                                                selecetsStart
-                                                                startDate={startDate}
-                                                                endDate={endDate}
-                                                                minDate={startDate}
-                                                                locale={ko}
-                                                            />
+                                                    {/*<td className="newProject-date-label">*/}
+                                                    {/*        <label>마감 날짜  </label>*/}
+                                                    {/*        <DatePicker*/}
+                                                    {/*            dateFormat='yyyy-MM-dd'*/}
+                                                    {/*            name="projectEndDate"*/}
+                                                    {/*            value={form.projectEndDate}*/}
+                                                    {/*            selected={endDate}*/}
+                                                    {/*            onChange={(date: Date) => setEndDate(date)}*/}
+                                                    {/*            selecetsStart*/}
+                                                    {/*            startDate={startDate}*/}
+                                                    {/*            endDate={endDate}*/}
+                                                    {/*            minDate={startDate}*/}
+                                                    {/*            locale={ko}*/}
+                                                    {/*        />*/}
                                                     </td>
                                             </tr>
                                             <tr>

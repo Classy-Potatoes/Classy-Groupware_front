@@ -7,12 +7,10 @@ import {callCalendarListAPI, callPersonalListAPI, callProjectListAPI} from "../a
 import CalendarRegistModal from "../modals/CalendarRegistModal";
 import {ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
-import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { ko } from "date-fns/esm/locale";
+import Navbar from "../../dashBoard/components/common/Navbar";
 
 function CalendarLayout() {
-
 
     const [scheduleRegistModal, setScheduleRegistModal] = useState(false);
     const dispatch = useDispatch();

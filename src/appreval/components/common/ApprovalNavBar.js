@@ -1,6 +1,5 @@
 import * as React from "react";
 import {useState} from "react";
-import Navbar from "../../dashBoard/components/common/Navbar";
 import List from '@mui/material/List';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
@@ -8,6 +7,7 @@ import Collapse from '@mui/material/Collapse';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import {NavLink, useLocation} from "react-router-dom";
+import Navbar from "../../../dashBoard/components/common/Navbar";
 
 function ApprovalNavBar() {
 
@@ -17,6 +17,11 @@ function ApprovalNavBar() {
     const [letterLink, setLetterLink] = useState("/approval/letter");
     const [expenseLink , setExpenseLink] = useState("approval/expense");
     const [vacationLink , setVacationLink] = useState("approval/vacation");
+    const [reportWaitingLink , SetReportWaitingLink] = useState("approval/report-waiting");
+    const [reportPayingLink , SetReportPayingLink] = useState("approval/report-paying");
+    const [reportApproveLink , SetReportApproveLink] = useState("approval/report-approve");
+    const [reportTurnbackLink , SetReportTurnbackLink] = useState("approval/report-turnback");
+    const [reportRecallLink , SetReportRecallLink] = useState("approval/report-recall");
     /* nav 버튼 클릭시 메뉴 슬라이드 state */
     const [registReportBox,setRegistReportBox] = useState(false);
     const [reportBox,setReportBox] = useState(false);
@@ -103,19 +108,49 @@ function ApprovalNavBar() {
                         <Collapse in={reportBox} timeout="auto" unmountOnExit>
                             <List component="div" disablePadding>
                                 <ListItemButton sx={{ pl: 4 }}>
+                                    <NavLink
+                                        to="/approval/report-waiting"
+                                        className={location.pathname === "/approval/report-waiting" ? "active-link" : "" }
+                                        onClick={() => SetReportWaitingLink("/approval/report-waiting")}
+                                    >
                                     <ListItemText primary="결재대기" />
+                                    </NavLink>
                                 </ListItemButton>
                                 <ListItemButton sx={{ pl: 4}}>
+                                    <NavLink
+                                        to="/approval/report-paying"
+                                        className={location.pathname === "/approval/report-paying" ? "active-link" : "" }
+                                        onClick={() => SetReportPayingLink("/approval/paying")}
+                                    >
                                     <ListItemText primary="결재중" />
+                                    </NavLink>
                                 </ListItemButton>
                                 <ListItemButton sx={{ pl: 4}}>
+                                    <NavLink
+                                        to="/approval/report-approve"
+                                        className={location.pathname === "/approval/report-approve" ? "active-link" : "" }
+                                        onClick={() => SetReportApproveLink("/approval/approve")}
+                                    >
                                     <ListItemText primary="승인" />
+                                    </NavLink>
                                 </ListItemButton>
                                 <ListItemButton sx={{ pl: 4}}>
+                                    <NavLink
+                                        to="/approval/report-turnback"
+                                        className={location.pathname === "/approval/report-turnback" ? "active-link" : "" }
+                                        onClick={() => SetReportTurnbackLink("/approval/turnback")}
+                                    >
                                     <ListItemText primary="반려" />
+                                    </NavLink>
                                 </ListItemButton>
                                 <ListItemButton sx={{ pl: 4}}>
+                                    <NavLink
+                                        to="/approval/report-recall"
+                                        className={location.pathname === "/approval/report-recall" ? "active-link" : "" }
+                                        onClick={() => SetReportRecallLink("/approval/recall")}
+                                    >
                                     <ListItemText primary="회수보관함" />
+                                    </NavLink>
                                 </ListItemButton>
                             </List>
                         </Collapse>

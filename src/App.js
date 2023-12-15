@@ -36,6 +36,19 @@ import MemberNetwork from "./member/pages/network/MemberNetwork";
 import NetworkPageLayout from "./member/layouts/NetworkPageLayout";
 import NonMemberSearchMain from "./member/pages/admin/NonMemberSearchMain";
 import AdminMemberSearchMain from "./member/pages/admin/AdminMemberSearchMain";
+import ReportWaiting from "./appreval/components/ReportLists/ReportWaiting";
+import ReportApprove from "./appreval/components/ReportLists/ReprotApprove";
+import ReportTurnback from "./appreval/components/ReportLists/ReprotTurnback";
+import ReportRecall from "./appreval/components/ReportLists/ReprotRecall";
+import ReportPaying from "./appreval/components/ReportLists/ReprotPaying";
+import ReportWaitingSearch from "./appreval/components/ReportLists/ReportWaitingSearch";
+import ReportPayingSearch from "./appreval/components/ReportLists/ReportPayingSearch";
+import ReportApproveSearch from "./appreval/components/ReportLists/ReportApproveSearch";
+import ReportTurnbackSearch from "./appreval/components/ReportLists/ReportTurnbackSearch";
+import ReportRecallSearch from "./appreval/components/ReportLists/ReportRecallSearch";
+import LetterDetail from "./appreval/components/ReportLists/reportDetail/ReprotLetterDetail";
+import VacationDetail from "./appreval/components/ReportLists/reportDetail/ReportVacationDetail";
+import ExpenseDetail from "./appreval/components/ReportLists/reportDetail/ReprotExpenseDetail";
 
 function App() {
   return (
@@ -79,9 +92,25 @@ function App() {
               <Route path="calendar" element={ <ProtectedRoute loginCheck={ true }><CalendarLayout/></ProtectedRoute> }/>
 
               <Route path="approval" element={<ApprovalLayOut/>}>
-                  <Route path="letter" element={<ProtectedRoute loginCheck={ true }><Letter/></ProtectedRoute>} />
+                  <Route path="letter" element={<ProtectedRoute loginCheck={ true }> <Letter/></ProtectedRoute>} />
                   <Route path="expense" element={<ProtectedRoute loginCheck={ true }> <Expense/> </ProtectedRoute>} />
                   <Route path="vacation" element={<ProtectedRoute loginCheck={true }> <Vacation/></ProtectedRoute>} />
+                  <Route path="report-waiting" element={<ProtectedRoute loginCheck={true }> <ReportWaiting/></ProtectedRoute>} />
+                  <Route path="report-paying" element={<ProtectedRoute loginCheck={true }> <ReportPaying/></ProtectedRoute>} />
+                  <Route path="report-approve" element={<ProtectedRoute loginCheck={true }> <ReportApprove/></ProtectedRoute>} />
+                  <Route path="report-turnback" element={<ProtectedRoute loginCheck={true }> <ReportTurnback/></ProtectedRoute>} />
+                  <Route path="report-recall" element={<ProtectedRoute loginCheck={true }> <ReportRecall/></ProtectedRoute>} />
+                  <Route path="report/search-waiting" element={<ProtectedRoute loginCheck={true}> <ReportWaitingSearch/> </ProtectedRoute> }/>
+                  <Route path="report/search-paying" element={<ProtectedRoute loginCheck={true}> <ReportPayingSearch/> </ProtectedRoute> }/>
+                  <Route path="report/search-approve" element={<ProtectedRoute loginCheck={true}> <ReportApproveSearch/> </ProtectedRoute> }/>
+                  <Route path="report/search-turnback" element={<ProtectedRoute loginCheck={true}> <ReportTurnbackSearch/> </ProtectedRoute> }/>
+                  <Route path="report/search-recall" element={<ProtectedRoute loginCheck={true}> <ReportRecallSearch/> </ProtectedRoute> }/>
+                  <Route path="report/letter/:approvalCode" element={<ProtectedRoute loginCheck={true}> <LetterDetail/> </ProtectedRoute> }/>
+                  <Route path="report/expense/:approvalCode" element={<ProtectedRoute loginCheck={true}> <ExpenseDetail/> </ProtectedRoute> }/>
+                  <Route path="report/vacation/:approvalCode" element={<ProtectedRoute loginCheck={true}> <VacationDetail/> </ProtectedRoute> }/>
+
+
+
               </Route>
 
               {/* 연락망 */}

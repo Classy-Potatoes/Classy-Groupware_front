@@ -198,6 +198,14 @@
     left: 90px;
 }
 
+.expense-status-detail-page{
+    display: flex;
+    flex-direction: row;
+    width: 500px;
+    height: 51px;
+    border-bottom: 1px solid black;
+}
+
 .expense-status {
     display: flex;
     flex-direction: row;
@@ -288,6 +296,133 @@
     font-family: Noto Sans;
     font-size: 17px;
     font-weight: bolder;
+}
+
+.expenseDetailStatus-div{
+    display: flex;
+    flex-direction: row;
+    width: 490px;
+    height: 51px;
+    border-bottom: 1px solid black;
+    border-left: 1px solid black;
+
+}
+
+.expenseDetailStatus-title {
+    width: 139px;
+border-right: 1px solid black;
+    text-align: center;
+    line-height: 51px;
+    font-weight: bold;
+    font-family: Noto Sans;
+
+}
+
+.expenseDetail-radio {
+    width: 334px;
+    line-height: 51px;
+    padding-left: 0;
+    text-align: center;
+}
+
+.expenseDetail-mainTitle{
+    display: grid;
+    grid-template-columns: 80px 439px;
+    height: 50px;
+    text-align: center;
+    line-height: 50px;
+    font-family: Noto Sans;
+}
+
+.expenseDetail-mainTitle p {
+    border-bottom: solid black 1px;
+    border-right: 1px solid black;
+    font-family: Noto Sans;
+    font-weight: bolder;
+}
+
+.expenseDetailTable-div {
+    width: 970px;
+    border-right: 1px black solid;
+    border-left: 1px black solid;
+    border-top: 1px black solid;
+    height: 300px;
+    margin-left: 2.7%;
+    overflow: auto;
+}
+
+
+
+.expenseDetailTable-head {
+    font-weight: bold;
+    font-family: Noto Sans;
+    font-size: 20px;
+    border-bottom: 1px solid black;
+}
+
+.expenseDetail-th{
+    width: 242px;
+    padding: 10px;
+    font-family: Noto Sans;
+}
+
+.expenseDetail-td {
+    font-family: Noto Sans;
+    text-align: center;
+    border-bottom: 1px solid black;
+    padding: 15px;
+}
+
+.expenseDetail-totalAmount {
+  font-weight: bolder;
+    font-size: 17px;
+    width: 970px;
+    margin-left: 2.7%;
+    height: 20px;
+    border-right: 1px solid black;
+    border-left: 1px solid black;
+    text-align: center;
+    border-bottom: 1px solid black;
+    font-family: Noto Sans;
+}
+
+.expense-note-detail-page {
+    margin-left: 2.7%;
+    width: 970px;
+    height: 70px;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    border-bottom: 1px solid black;
+    font-family: Noto Sans;
+    overflow: auto;
+}
+
+.expenseDetail-note-p{
+    font-weight: bolder;
+    font-size: 13px;
+    color: #b65858;
+    padding: 5px;
+}
+
+.expense-note-detail-page-p {
+    width: 960px;
+    text-align: center;
+}
+
+.expenseDetail-guide{
+ width: 1000px;
+    font-size: 20px;
+    font-weight: bolder;
+    font-family: Noto Sans;
+    text-align: center;
+    margin-top: 1%;
+}
+
+.expenseRegistDate-detail-page{
+    width: 1000px;
+    font-size: 17px;
+    text-align: center;
+    margin-top: 2%;
 }
 
 

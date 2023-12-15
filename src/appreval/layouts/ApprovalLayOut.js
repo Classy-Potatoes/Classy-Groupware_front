@@ -1,7 +1,6 @@
 import Header from "../../dashBoard/components/common/Header";
-import ApprovalNavBar from "../components/ApprovalNavBar";
+import ApprovalNavBar from "../components/common/ApprovalNavBar";
 import {Outlet} from "react-router-dom";
-import {ToastContainer} from "react-toastify";
 
 
 function ApprovalLayOut() {

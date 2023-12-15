@@ -1,7 +1,7 @@
 import MyProjectTaskListItem from "../items/MyProjectTaskListItem";
 import ProjectListItem from "../items/ProjectListItem";
 
-function MyProjectTaskList ({ data}) {
+function MyProjectTaskList ({ data }) {
 
     return (
         <>

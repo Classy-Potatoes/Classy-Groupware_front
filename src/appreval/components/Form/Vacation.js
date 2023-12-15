@@ -11,6 +11,7 @@ import ReferenceLineModal from "../mui/ReferenceLineModal";
 import BasicModal from "../mui/approvalLineModal";
 import Button from "@mui/material/Button";
 import SendIcon from "@mui/icons-material/Send";
+import {useNavigate} from "react-router-dom";
 
 
 function Vacation() {
@@ -19,6 +20,7 @@ function Vacation() {
     const [form, setForm] = useState({});
     const [selectedMembers, setSelectedMembers] = useState([]);
     const [ReferenceSelectedMembers, setReferenceSelectedMembers] = useState([]);
+    const navigate = useNavigate();
 
     /* 로그인 정보, 맴버전체 가져오기 */
      const {writer} = useSelector(state => state.approvalReducer);
@@ -89,7 +91,7 @@ function Vacation() {
             vacationEmergencyPhone : phoneNumber
         };
         /* 서버로 전달 */
-            dispatch(callRegistVacationAPI({ vacationRequest: resultData }));
+            dispatch(callRegistVacationAPI({ vacationRequest: resultData, navigate }));
     }
 
 

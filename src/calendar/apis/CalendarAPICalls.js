@@ -5,8 +5,8 @@ import {
     getProjectSchedule,
     getScheduleDetail, postSuccess
 } from "../modules/CalendarModule";
-import {authRequest, request} from "./Apis";
-import {toast} from "react-toastify";
+    import {authRequest, request} from "./Apis";
+    import {toast} from "react-toastify";
 
 export const callCalendarListAPI = () => {
 
@@ -83,7 +83,7 @@ export const callScheduleRegistAPI = ({ registRequest }) => {
 
     return async (dispatch, getState) => {
 
-        const result = await authRequest.post('/cg-api/v1/calendar',
+        const result = await authRequest.post(`/cg-api/v1/calendar`,
             // {
             //     'Content-Type': 'application/json'
             // },
@@ -142,88 +142,3 @@ export const callScheduleModifyAPI = ({ calendarCode, modifyRequest }) => {
         }
     }
 }
-
-// export const callProductCategoryListAPI = ({ categoryCode, currentPage = 1 }) => {
-//
-//     return async (dispatch, getState) => {
-//
-//         const result = await request('GET', `/api/v1/products/categories/${categoryCode}?page=${currentPage}`);
-//         console.log('callProductCategoryListAPI result : ', result);
-//
-//         if(result.status === 200) {
-//             dispatch(getProducts(result));
-//         }
-//
-//     }
-// };
-//
-// export const callProductSearchListAPI = ({ productName, currentPage = 1 }) => {
-//
-//     return async (dispatch, getState) => {
-//
-//         const result = await request('GET', `/api/v1/products/search?productName=${productName}&page=${currentPage}`);
-//         console.log('callProductSearchListAPI result : ', result);
-//
-//         if(result.status === 200) {
-//             dispatch(getProducts(result));
-//         }
-//
-//     }
-// };
-//
-// export const callProductDetailAPI = ({ productCode }) => {
-//
-//     return async (dispatch, getState) => {
-//
-//         const result = await request('GET', `/api/v1/products/${productCode}`);
-//         console.log('callProductDetailAPI result : ', result);
-//
-//         if(result.status === 200) {
-//             dispatch(getProduct(result));
-//         }
-//
-//     }
-// };
-//
-// export const callAdminProductListAPI = ({ currentPage = 1 }) => {
-//
-//     return async (dispatch, getState) => {
-//
-//         const result
-//             = await authRequest.get(`/api/v1/products-management?page=${currentPage}`);
-//
-//         console.log('callAdminProductListAPI result : ', result);
-//
-//         if(result.status === 200) {
-//             dispatch(getAdminProducts(result));
-//         }
-//
-//     }
-// };
-//
-//
-// export const callAdminProductAPI = ({ productCode }) => {
-//
-//     return async (dispatch, getState) => {
-//
-//         const result = await authRequest.get(`/api/v1/products-management/${productCode}`);
-//         console.log('callAdminProductAPI result : ', result);
-//
-//         if(result.status === 200) {
-//             dispatch(getAdminProduct(result));
-//         }
-//
-//     }
-// }
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
