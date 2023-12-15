@@ -48,6 +48,22 @@ export const callNoteImportantListAPI = ({ currentPage }) => {
 
 };
 
+export const callNoteReceivedSearchAPI = ({ searchCondition, searchValue, currentPage }) => {
+
+    return async (dispatch, getState) => {
+
+        const result = await authRequest.get(`/cg-api/v1/note/received/search?searchCondition=${searchCondition}&searchValue=${searchValue}&page=${currentPage}`);
+
+        console.log('callNoteReceivedSearchAPI result: ', result);
+
+        if (result.status === 200) {
+            dispatch(getNotes(result));
+        }
+
+    };
+
+};
+
 /* 받은 쪽지 삭제 */
 export const callNoteReceivedRemoveAPI = ({ noteCode }) => {
 
@@ -63,23 +79,6 @@ export const callNoteReceivedRemoveAPI = ({ noteCode }) => {
     }
 
 }
-
-export const callNoteSearchListAPI = ({ searchCondition, searchValue, currentPage }) => {
-
-    return async (dispatch, getState) => {
-
-        const result = await authRequest('GET', `/cg-api/v1/note/received/search?searchCondition=${searchCondition}&searchValue=${searchValue}&page=${currentPage}`);
-        console.log('callNoteSearchListAPI result: ', result);
-
-        if (result.status === 200) {
-            dispatch(getNotes(result));
-        }
-
-    };
-
-};
-
-
 
 export const callNoteReceivedAPI = ({ noteCode }) => {
 

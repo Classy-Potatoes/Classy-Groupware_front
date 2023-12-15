@@ -35,10 +35,10 @@ const NoteSearchSelectOption = ({ messageType, searchCondition, onChangeHandler,
     return (
         <select
             name="note-search-options"
-            value={options}
-            onChange={(e) => onChangeHandler({name: e.target.value})}
+            value={ options }
+            onChange={ (e) => onChangeHandler({ name: e.target.value }) }
         >
-            {getOptionsForMessageType(messageType)}
+            { getOptionsForMessageType(messageType) }
         </select>
     );
 

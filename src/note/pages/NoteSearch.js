@@ -14,9 +14,9 @@ function NoteSearch() {
     const { notes } = useSelector(state => state.noteReducer);
     const [currentPage, setCurrentPage] = useState(1);
 
-    useEffect(() => {
-        dispatch(callNoteSearchListAPI({ searchCondition, searchValue, currentPage }));
-    }, [searchCondition, searchValue, currentPage]);
+    // useEffect(() => {
+    //     dispatch(callNoteSearchListAPI({ searchCondition, searchValue, currentPage }));
+    // }, [searchCondition, searchValue, currentPage]);
 
     return (
         <>

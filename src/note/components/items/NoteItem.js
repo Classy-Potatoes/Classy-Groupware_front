@@ -19,9 +19,8 @@ function NoteItem({ note, titleName, titleTime }) {
             </div>
 
             <div className="note-body-container">
-                <div className="note-detail">{ titleName }</div>
-                <div className="note-detail">{ titleTime }</div>
-                {/*<div className="note-body">{ note.note }</div>*/}
+                <div className="note-detail">{ titleName }{ note.noteSender }</div>
+                <div className="note-detail">{ titleTime }{ note.noteSentDate}</div>
                 <div className="note-detail">{ note.noteBody }</div>
 
 
