@@ -161,14 +161,14 @@
     font-size: 15px;
     font-family: Noto Sans;
     font-weight: 700;
-    margin-right: 60px;
+    margin-right: 105px;
     margin-top: 20px;
     margin-bottom: 20px;
     cursor: pointer;
 }
 
 .total-nav img {
-    margin-right: 5px; /* 이미지와 텍스트 사이의 간격을 조절 */
+    margin-right: 7px; /* 이미지와 텍스트 사이의 간격을 조절 */
 }
 
 .nav-bar {
@@ -219,8 +219,84 @@
     transform: translateX(0);
 }
 
+/* 주희 ---------------------------------------------------------------------- */
+/* 쪽지 네비바 --------------------------------------------------------------------------------- */
+/* 카테고리 간격 설정 */
+.note-nav-bar p {
+    line-height: 2.5;
+    font-family: Noto Sans;
+}
 
+/* CG 로고 설정 */
+.note-navbar-title {
+    display: flex;
+    align-items: center;
+    width: 200px;
+    height: 60px;
+    background: #161616;
+    border-radius: 10px;
+    margin-top: 27px;
+}
 
+/* CG로고 글자 설정 */
+.note-navbar-title p {
+    color: #C0A3FF;
+    font-size: 22px;
+    font-family: Noto Sans;
+    margin-left: 20px;
+}
+
+/*전체 카테고리에 대한 이미지와 글자 간격 설정*/
+.note-total-nav img {
+    margin-right: 7px;
+}
+
+.note-nav-bar {
+    width: 200px;
+    height: 600px;
+    background: #161616;
+    border-radius: 10px;
+    display: flex; /* 가로 가운데 정렬을 위해 flex 사용 */
+    flex-direction: column; /* 세로로 나열하기 위해 추가 */
+    color: white;
+}
+
+/* 쪽지 메인 글자 위치 설정 */
+.note-nav-main {
+    padding-right: 40px;
+    padding-top: 30px;
+    justify-content: center;
+    display: flex;
+    font-size: 25px;
+}
+
+/* 쪽지 하위 글자 글자 위치 설정 */
+.note-nav-category {
+    padding-left: 30px;
+    padding-top: 15px;
+    font-size: 20px;
+}
+
+.note-img {
+    display: flex;
+    gap: 10px;
+    margin-right: 15px;
+    align-items: center;
+    border-bottom: 1px solid #fff;
+    width: 150px;
+    margin-left: 50px;
+    padding-left: 10px;
+}
+
+.note-nav-category p:hover {
+    color: #C0A3FF;
+}
+
+/* 검은 div 설정 */
+.notes-container{
+    display: flex;
+    height: 85%;
+}
 
 /* 전자결재 네비바 (준홍)--------------------------------------------------------------------------------- */
 
@@ -303,8 +379,6 @@
     align-items: center; /* 세로로 가운데 정렬 */
     transition: transform 0.3s ease;
 }
-
-
 
 
 /* 형수 ---------------------------------------------------------------------- */

@@ -1,18 +1,22 @@
+import './style/main.css';
 import './style/nav.css';
 import './calendar/calendarStyle/Calendar.css'
-import './style/main.css';
 import './style/member/admin.css';
 import './style/member/login.css';
+import './style/note/note.css'
 import './style/member/member.css';
 import './style/project/Project.css';
 import './style/dashBoard/dashBoard.css';
 import 'react-toastify/dist/ReactToastify.css';
 import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
+
 import Layout from "./dashBoard/layouts/Layout";
 import ProjectLayout from "./project/layouts/ProjectLayout";
 import CalendarLayout from "./calendar/layouts/CalendarLayout";
 import ProtectedRoute from "./common/components/router/ProtectedRoute";
 import Login from "./common/pages/Login";
+import NoteReceivedMain from "./note/pages/NoteReceivedMain";
+import NoteLayout from "./note/layouts/NoteLayout";
 import Vacation from "./appreval/components/Form/Vacation";
 import Expense from "./appreval/components/Form/Expense";
 import Letter from "./appreval/components/Form/Letter";
@@ -24,6 +28,8 @@ import Signup from "./member/pages/Signup";
 import SearchPwd from "./member/pages/SearchPwd";
 import SearchId from "./member/pages/SearchId";
 import ResultSearchId from "./member/pages/ResultSearchId";
+import NoteSentMain from "./note/pages/NoteSentMain";
+import NoteImportantMain from "./note/pages/NoteImportantMain";
 import ProjectDetailLayout from "./project/layouts/ProjectDetailLayout";
 import ProjectDashBoard from "./project/layouts/ProjectDashBoard";
 import Profile from "./member/pages/mypage/Profile";
@@ -35,6 +41,8 @@ import AdminMemberMain from "./member/pages/admin/AdminMemberMain";
 import NonMemberMain from "./member/pages/admin/NonMemberMain";
 import MemberNetwork from "./member/pages/network/MemberNetwork";
 import NetworkPageLayout from "./member/layouts/NetworkPageLayout";
+import NoteSearch from "./note/pages/NoteSearch";
+import NoteReceived from "./note/pages/NoteReceived";
 import NonMemberSearchMain from "./member/pages/admin/NonMemberSearchMain";
 import AdminMemberSearchMain from "./member/pages/admin/AdminMemberSearchMain";
 import ReportWaiting from "./appreval/components/ReportLists/ReportWaiting";
@@ -50,6 +58,7 @@ import ReportRecallSearch from "./appreval/components/ReportLists/ReportRecallSe
 import LetterDetail from "./appreval/components/ReportLists/reportDetail/ReprotLetterDetail";
 import VacationDetail from "./appreval/components/ReportLists/reportDetail/ReportVacationDetail";
 import ExpenseDetail from "./appreval/components/ReportLists/reportDetail/ReprotExpenseDetail";
+import NoteSave from "./note/pages/NoteSave";
 import DashBoard from "./dashBoard/page/DashBoard";
 
 function App() {
@@ -74,6 +83,19 @@ function App() {
                       <Route path="memberReturn" element={  <MemberReturn/> }/>
                   </Route>
               </Route>
+
+                <Route path="note" element={ <ProtectedRoute loginCheck={ true }><NoteLayout/></ProtectedRoute> }>
+                    <Route index element={ <NoteReceivedMain/> }/>
+                    <Route path="received/:noteCode" element={< NoteReceived/> }/>
+                    <Route path="sent" element={ <NoteSentMain/> }>
+                        <Route path=":noteCode" element={ <NoteReceived/> }/>
+                    </Route>
+                    <Route path="important" element={ <NoteImportantMain/> }>
+                        <Route path=":noteCode" element={<NoteReceived/>} />
+                    </Route>
+                    <Route path="search" element={ <NoteSearch/> }/>
+                    <Route path="save" element={ <NoteSave/> }/>
+                </Route>
 
               <Route path="projects" element={ <ProtectedRoute loginCheck={ true }><ProjectLayout /></ProtectedRoute> } >
                   <Route index element={
@@ -137,7 +159,10 @@ function App() {
 
               {/* 정한 것 외에는 모두 에러 페이지로 이동 */}
               <Route path="*" element={ <Error /> } />
+
+
           </Routes>
+
       </BrowserRouter>
   );
 }
