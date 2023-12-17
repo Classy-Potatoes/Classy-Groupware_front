@@ -2,7 +2,7 @@ import {useState} from "react";
 import {useNavigate} from "react-router-dom";
 
 
-function AdminMemberTop() {
+function NetworkMemberTop() {
 
     const navigate = useNavigate();
     const [ search, setSearch ] = useState('');
@@ -18,7 +18,7 @@ function AdminMemberTop() {
     const onEnterkeyHandler = e => {
 
         if (e.key === 'Enter') {
-            navigate(`/admin/member/search?value=${search}`)
+            navigate(`/network/members/search?value=${search}`)
         }
 
     }
@@ -26,7 +26,7 @@ function AdminMemberTop() {
     return(
         <>
             <div className="member-top">
-                <div className="member-top-title-ad">회원 관리</div>
+                <div className="member-top-title-ad">연락망</div>
                 <div className="member-top-search">
                     <input
                         className="input-style"
@@ -41,4 +41,4 @@ function AdminMemberTop() {
     );
 }
 
-export default AdminMemberTop;
+export default NetworkMemberTop;
