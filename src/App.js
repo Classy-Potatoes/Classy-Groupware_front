@@ -58,6 +58,7 @@ import ReportRecallSearch from "./appreval/components/ReportLists/ReportRecallSe
 import LetterDetail from "./appreval/components/ReportLists/reportDetail/ReprotLetterDetail";
 import VacationDetail from "./appreval/components/ReportLists/reportDetail/ReportVacationDetail";
 import ExpenseDetail from "./appreval/components/ReportLists/reportDetail/ReprotExpenseDetail";
+import NoteSave from "./note/pages/NoteSave";
 import DashBoard from "./dashBoard/page/DashBoard";
 
 function App() {
@@ -93,6 +94,7 @@ function App() {
                         <Route path=":noteCode" element={<NoteReceived/>} />
                     </Route>
                     <Route path="search" element={ <NoteSearch/> }/>
+                    <Route path="save" element={ <NoteSave/> }/>
                 </Route>
 
               <Route path="projects" element={ <ProtectedRoute loginCheck={ true }><ProjectLayout /></ProtectedRoute> } >

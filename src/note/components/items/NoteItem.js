@@ -5,8 +5,6 @@ function NoteItem({ note, titleName, titleTime }) {
 
     const navigate = useNavigate();
 
-    const onClickBack = () => {}
-
     const onClickSent =() => {}
 
     return (
@@ -32,7 +30,7 @@ function NoteItem({ note, titleName, titleTime }) {
                         답장
                     </button>
                     <buttton
-                        onClick={ onClickBack }
+                        onClick={ () => navigate(-1) }
                         className="note-back"
                         >
                         취소

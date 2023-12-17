@@ -1,5 +1,5 @@
 import {authRequest} from "../../common/apis/Api";
-import {getNotes} from "../modules/NoteModule";
+import {getNotes, postSuccess} from "../modules/NoteModule";
 import {getNote} from "../modules/NoteModule";
 import {toast} from "react-toastify";
 
@@ -95,18 +95,20 @@ export const callNoteReceivedAPI = ({ noteCode }) => {
 
 };
 
-export const callNoteReceivedBodyAPI = ({ searchCondition, searchValue }) => {
+export const callNoteSendAPI = ({ saveRequest }) => {
 
     return async (dispatch, getState) => {
 
-        const result =
-            await authRequest.get(`/cg-api/v1/note/received/search?searchCondition=${ searchCondition }&searchValue=${ searchValue }`);
-        console.log('callNoteReceivedBodyAPI result : ', result)
+        const result = await authRequest.post('/cg-api/v1/note/sent', saveRequest);
+        console.log('callNoteSendAPI result : ', result);
 
-        if (result.status === 200) {
-            dispatch(getNotes(result))
+        if (result.state === 201) {
+            dispatch(postSuccess());
+            toast.info("💌쪽지 전송 완료!");
         }
 
     }
 
 }
+
+// export const callNote
