@@ -11,29 +11,42 @@ function ProjectModifyModal({setProjectModifyModal}) {
 
     const [form, setForm] = useState({});
     const dispatch = useDispatch();
-    const [startDate, setStartDate] = useState(new Date());
-    const [endDate, setEndDate] = useState(new Date());
     const {putSuccess, project} = useSelector(state => state.projectReducer);
+    const [startDate, setStartDate] = useState(new Date(project.projectStartDate));
+    const [endDate, setEndDate] = useState(new Date(project.projectEndDate));
     const navigate = useNavigate();
     const {projectCode} = useParams();
+
 
     /* 최초 랜더링 시 상품 상세 정보 조회 */
     useEffect(() => {
         dispatch(callProjectDetailAPI({projectCode}));
     }, [dispatch, projectCode]);
 
+    // useEffect(() => {
+    //     // project에 필요한 속성들이 있을 것으로 가정합니다.
+    //     if (project) {
+    //         setForm({
+    //             projectTitle: project.projectTitle || '',
+    //             projectBody: project.projectBody || '',
+    //             projectStartDate: project?.projectStartDate,
+    //             projectEndDate: project?.projectEndDate,
+    //             deptCode: project?.deptCode,
+    //         });
+    //     }
+    // }, [project]);               /* 선생님한테 질문하기 !! */
+
     useEffect(() => {
-        // project에 필요한 속성들이 있을 것으로 가정합니다.
         if (project) {
             setForm({
                 projectTitle: project.projectTitle || '',
                 projectBody: project.projectBody || '',
-                projectStartDate: project?.projectStartDate,
-                projectEndDate: project?.projectEndDate,
-                deptCode: project?.deptCode,
+                projectStartDate: project.projectStartDate ? new Date(project.projectStartDate) : null,
+                projectEndDate: project.projectEndDate ? new Date(project.projectEndDate) : null,
+                deptCode: project.deptCode || '',
             });
         }
-    }, [project]);               /* 선생님한테 질문하기 !! */
+    }, [project]);
 
     /* 수정 성공시 */
     useEffect(() => {
@@ -109,7 +122,6 @@ function ProjectModifyModal({setProjectModifyModal}) {
                                 <DatePicker
                                     dateFormat='yyyy-MM-dd'
                                     name="projectStartDate"
-                                    value={form.projectStartDate}
                                     selected={startDate}
                                     onChange={(date: Date) => setStartDate(date)}
                                     selecetsStart
@@ -125,7 +137,6 @@ function ProjectModifyModal({setProjectModifyModal}) {
                                 <DatePicker
                                     dateFormat='yyyy-MM-dd'
                                     name="projectEndDate"
-                                    value={form.projectEndDate}
                                     selected={endDate}
                                     onChange={(date: Date) => setEndDate(date)}
                                     selecetsStart

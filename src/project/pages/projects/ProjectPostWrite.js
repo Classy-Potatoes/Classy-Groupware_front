@@ -108,11 +108,8 @@ function ProjectPostWrite({projectCode}) {
     return (
         <>
             <div>
-                <table>
-
-                    <tbody>
-                    <tr>
-                        <td>
+            <div>
+                <div>
                             <input
                                 type="text"
                                 name="postTitle"
@@ -120,10 +117,8 @@ function ProjectPostWrite({projectCode}) {
                                 className="project-postTitle-input"
                                 onChange={onChangeHandler}
                             />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
+                </div>
+                <div>
                             <input
                                 type="text"
                                 name="postBody"
@@ -131,10 +126,7 @@ function ProjectPostWrite({projectCode}) {
                                 className="project-postBody-input"
                                 onChange={onChangeHandler}
                             />
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
+                </div>
             </div>
 
             <div className="project-post-button">
@@ -176,7 +168,7 @@ function ProjectPostWrite({projectCode}) {
                     등록
                 </button>
             </div>
-
+            </div>
         </>
     );
 }

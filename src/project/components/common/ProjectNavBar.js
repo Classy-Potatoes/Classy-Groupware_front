@@ -51,7 +51,6 @@ function ProjectNavBar() {
                 <div className="nav-bar">
 
                     <div className="nav-bar-p">
-
                         <NavLink to="/projects"><p><img src="/project.png"/>프로젝트</p></NavLink>
                         <NavLink to="/projects/myTask"><p><img src="/calender.png"/>내 업무</p></NavLink>
                         <NavLink to="/projects/myTodo"><p><img src="/work.png"/>내 할일</p></NavLink>

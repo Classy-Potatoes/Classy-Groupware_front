@@ -50,7 +50,7 @@ function ProjectInvite() {
     return (
         <>
             {projectModifyModal && (
-                <ProjectModifyModal setProjectModifyModal={setProjectModifyModal} />
+                <ProjectModifyModal setProjectModifyModal={setProjectModifyModal}/>
             )}
             {confirmDeleteModal && (
                 <div className="confirm-delete-modal">
