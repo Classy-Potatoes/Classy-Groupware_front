@@ -64,3 +64,60 @@
 .DashBoard-List-bottom {
     display: flex;
 }
+
+/* 날씨 */
+.today-weather-div {
+    font-size: 13px;
+    font-family: Noto Sans;
+    font-weight: 500;
+    padding: 5px;
+    border-bottom: 1px solid #BAB5B5;
+    width: 90%;
+    margin-left: 5px;
+    margin-top: 10px;
+}
+
+.today {
+    font-size: 10px;
+    font-family: Noto Sans;
+    font-weight: 600;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.weather-cityname {
+    font-size: 10px;
+    font-family: Noto Sans;
+    font-weight: 400;
+    text-align: center;
+    margin-top: 15px;
+}
+
+.today-weather{
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.today-weather div img {
+    width: 70px;
+    height: 75px;
+}
+
+.weather-temp-div {
+    margin-right: 10px;
+}
+
+.weather-temp {
+    margin-bottom: 10px;
+    font-size: 14px;
+    font-family: Noto Sans;
+    font-weight: 800;
+    text-align: center;
+}
+
+.weather-description {
+    font-size: 15px;
+    font-family: Noto Sans;
+    font-weight: 400;
+}
