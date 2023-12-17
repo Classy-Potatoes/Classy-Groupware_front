@@ -1,8 +1,12 @@
 import Modal from "react-modal";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import MemberProfileModal from "../form/MemberProfileModal";
 import {useDispatch, useSelector} from "react-redux";
 import {callAdminMemberProfileAPI} from "../../apis/AdminAPICalls";
+import {getProfileNetwork} from "../../modules/MemberModule";
+import {useNavigate} from "react-router-dom";
+import {callNetworkMemberProfileAPI} from "../../apis/MemberAPICalls";
+import NetworkProfileModal from "../form/NetworkProfileModal";
 
 
 // 모달 스타일 설정
@@ -22,19 +26,18 @@ const customStyles = {
     },
 };
 
-function AdminMemberList( { data } ) {
+function NetworkMemberList( { data } ) {
 
     const [ modalIsOpen, setModalIsOpen ] = useState(false );
     const [ selectMemberCode, setSelectMemberCode ] = useState();
     const dispatch = useDispatch();
-    const { getProfileAdmin } = useSelector( state => state.adminReducer );
-
+    const { getProfileNetwork } = useSelector( state => state.memberReducer );
 
 
     const onClickRowHandler = ( memberCode ) => {
 
         setSelectMemberCode( memberCode );
-        dispatch( callAdminMemberProfileAPI( memberCode ) )
+        dispatch( callNetworkMemberProfileAPI( memberCode ) )
         onToggleModal();
     };
 
@@ -46,16 +49,15 @@ function AdminMemberList( { data } ) {
 
     return (
         <>
-        { modalIsOpen && getProfileAdmin && (
+        { modalIsOpen && getProfileNetwork && (
             <Modal
                 isOpen={ modalIsOpen }
                 onRequestClose={ onToggleModal }
-                shouldCloseOnOverlayClick={false}
                 style={ customStyles }
             >
-                <MemberProfileModal
+                <NetworkProfileModal
                     setModalIsOpen = { setModalIsOpen }
-                    data = { getProfileAdmin }
+                    data = { getProfileNetwork }
                     selectMemberCode = { selectMemberCode }
                 />
             </Modal>
@@ -68,11 +70,10 @@ function AdminMemberList( { data } ) {
                         <col width="5%" />
                         <col width="15%" />
                         <col width="15%" />
-                        <col width="10%" />
-                        <col width="10%" />
                         <col width="15%" />
                         <col width="15%" />
                         <col width="15%" />
+                        <col width="20%" />
                     </colgroup>
                     <thead>
                     <tr>
@@ -83,7 +84,6 @@ function AdminMemberList( { data } ) {
                         <th>부서</th>
                         <th>휴대폰</th>
                         <th>이메일</th>
-                        <th>회원 등록 상태</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -103,9 +103,6 @@ function AdminMemberList( { data } ) {
                             <td>{ members.deptName }</td>
                             <td>{ members.infoPhone }</td>
                             <td>{ members.infoEmail }</td>
-                            <td>
-                                { members.memberStatus === "ACTIVE" ?
-                                    "활동" : members.memberStatus === "NONACTIVE" ? "비활동" : "반납(탈퇴)" }</td>
                         </tr>
                     ))
                     }
@@ -118,4 +115,4 @@ function AdminMemberList( { data } ) {
 
 }
 
-export default AdminMemberList;
+export default NetworkMemberList;

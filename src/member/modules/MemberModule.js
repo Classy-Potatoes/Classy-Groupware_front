@@ -14,13 +14,16 @@ const PWD_CHANGE_RESULT = 'member/PWD_CHANGE_RESULT';
 const MEMBER_RETURN_RESULT = 'member/MEMBER_RETURN_RESULT';
 const GET_PROFILE = 'member/GET_PROFILE';
 const UPDATE_PROFILE = 'member/UPDATE_PROFILE';
+const GET_NETWORK_MEMBERS = 'member/GET_NETWORK_MEMBERS';
+const GET_PROFILE_NETWORK = 'member/GET_PROFILE_NETWORK';
 
 
 
 /* 액션 함수 */
 export const { member : { signupResult, loginResult, searchIdResult,
                             duplicateIdResult, searchInfoCodeResult, pwdChangeResult,
-                           memberReturnResult, getProfile, updateProfile,
+                           memberReturnResult, getProfile, updateProfile, getNetworkMembers,
+                           getProfileNetwork,
                             } } = createActions({
 
    [ SIGNUP_RESULT ] : isSignUpResult => ({ signupResult : isSignUpResult }),
@@ -32,6 +35,8 @@ export const { member : { signupResult, loginResult, searchIdResult,
    [ MEMBER_RETURN_RESULT ] : isReturnResult => ({ memberReturnResult : isReturnResult  }),
    [ GET_PROFILE ] : result => ({ getProfile : result.data  }),
    [ UPDATE_PROFILE ] : isUpdateResult => ({ updateProfile : isUpdateResult  }),
+   [ GET_NETWORK_MEMBERS ] : result => ({ getNetworkMembers : result.data  }),
+   [ GET_PROFILE_NETWORK ] : result => ({ getProfileNetwork : result.data  }),
 
 });
 
@@ -48,6 +53,8 @@ const memberReducer = handleActions({
    [ MEMBER_RETURN_RESULT ] : ( state, { payload } ) => payload,
    [ GET_PROFILE ] : ( state, { payload } ) => payload,
    [ UPDATE_PROFILE ] : ( state, { payload } ) => payload,
+   [ GET_NETWORK_MEMBERS ] : ( state, { payload } ) => ({...state, ...payload}),
+   [ GET_PROFILE_NETWORK ] : ( state, { payload } ) => ({...state, ...payload}),
 
 }, initialState);
 

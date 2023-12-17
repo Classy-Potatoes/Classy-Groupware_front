@@ -4,6 +4,7 @@ import {
     loginResult, searchIdResult,
     signupResult, duplicateIdResult, searchInfoCodeResult,
     pwdChangeResult, memberReturnResult, getProfile, updateProfile,
+    getNetworkMembers, getProfileNetwork,
 } from "../modules/MemberModule";
 import {saveToken} from "../utils/TokenUtils";
 import {getAdminMembers} from "../modules/AdminModule";
@@ -359,6 +360,85 @@ export const callMyProfileUpdateAPI = ( { updateRequest, updateImgRequest } ) =>
             });
         }
 
+
+    }
+
+};
+
+
+
+// 회원 목록 조회(연락망)
+export const callNetworkMembersAPI = ( { currentPage } ) => {
+
+    return async (dispatch, getState) => {
+
+        const result =
+            await authRequest.get(`/cg-api/v1/members/list?page=${currentPage}`,
+                {
+                    headers : {
+                        'Content-Type' : 'application/json'
+                    }
+                }).catch(e => {
+                console.log(e);
+            });
+
+        console.log('callNetworkMembersAPI result : ', result);
+
+        if(result?.status === 200) {
+            dispatch( getNetworkMembers( result ) );
+        }
+
+    }
+
+};
+
+
+// 회원 목록 조회(연락망, search)
+export const callNetworkMembersSearchAPI = ( { infoName, currentPage } ) => {
+
+    return async (dispatch, getState) => {
+
+        const result =
+            await authRequest.get(`/cg-api/v1/members/list/search?infoName=${infoName}&page=${currentPage}`,
+                {
+                    headers : {
+                        'Content-Type' : 'application/json'
+                    }
+                }).catch(e => {
+                console.log(e);
+            });
+
+        console.log('callNetworkMembersSearchAPI result : ', result);
+
+        if(result?.status === 200) {
+            dispatch( getNetworkMembers( result ) );
+        }
+
+    }
+
+};
+
+
+// 회원 상세 조회(연락망)
+export const callNetworkMemberProfileAPI = ( memberCode ) => {
+
+    return async (dispatch, getState) => {
+
+        const result =
+            await authRequest.get(`/cg-api/v1/members/list/${ memberCode }`,
+                {
+                    headers : {
+                        'Content-Type' : 'application/json'
+                    }
+                }).catch(e => {
+                console.log(e);
+            });
+
+        console.log('callNetworkMemberProfileAPI result : ', result);
+
+        if( result?.status === 200 ) {
+            dispatch( getProfileNetwork( result ) );
+        }
 
     }
 
