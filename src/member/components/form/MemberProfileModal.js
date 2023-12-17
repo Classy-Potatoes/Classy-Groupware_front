@@ -3,10 +3,10 @@ import {useDispatch, useSelector} from "react-redux";
 import {callMyProfileUpdateAPI} from "../../apis/MemberAPICalls";
 import Modal from "react-modal";
 import DaumPostcode from "react-daum-postcode";
-import MyHistoryList from "../lists/MyHistoryList";
 import {callAdminProfileUpdateAPI} from "../../apis/AdminAPICalls";
 import {useNavigate} from "react-router-dom";
 import {adminUpdateProfile} from "../../modules/AdminModule";
+import AdminMyHistoryList from "../lists/AdminMyHistoryList";
 
 // 주소 모달 스타일 설정
 const customAddressStyles = {
@@ -416,7 +416,7 @@ function MemberProfileModal( { setModalIsOpen, data, selectMemberCode } ) {
 
                     </div>
                 </div>
-                <MyHistoryList data={ data } />
+                <AdminMyHistoryList data={ data } />
                 </>
             }
             </div>

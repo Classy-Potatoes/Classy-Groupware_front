@@ -28,11 +28,11 @@ function MyPageNavBar() {
                 </div>
 
                 <div className="nav-bar">
-
+                    <div className='member-nav-title'>| 마이페이지 |</div>
                     <div className="nav-bar-p">
-                        <NavLink to="/member/mypage/profile"><p>회원정보</p></NavLink>
-                        <NavLink to="/member/mypage/passwordChange"><p>비밀번호 변경</p></NavLink>
-                        <NavLink to="/member/mypage/memberReturn"><p>회원반납(탈퇴)</p></NavLink>
+                        <NavLink to="/member/mypage/profile"><p className='member-nav-link'>회원정보</p></NavLink>
+                        <NavLink to="/member/mypage/passwordChange"><p className='member-nav-link'>비밀번호 변경</p></NavLink>
+                        <NavLink to="/member/mypage/memberReturn"><p className='member-nav-link'>회원반납(탈퇴)</p></NavLink>
                     </div>
                 </div>
             </div>

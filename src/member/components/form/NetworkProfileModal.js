@@ -240,20 +240,6 @@ function NetworkProfileModal( { setModalIsOpen, data, selectMemberCode } ) {
                                     style={ inputStyleWhite }
                                 />
                             </div>
-                            {/*<div className='profile-mid-right-div'>*/}
-                            {/*    <div className='profile-mid-left-title'>회원상태</div>*/}
-                            {/*    <select*/}
-                            {/*        className='profile-selectBox'*/}
-                            {/*        name="memberStatus"*/}
-                            {/*        style={ selectBoxStyle }*/}
-                            {/*        value={ !modifyMode ? data.memberStatus : form.memberStatus }*/}
-                            {/*        disabled={ true }*/}
-                            {/*    >*/}
-                            {/*        <option value='ACTIVE'>ACTIVE</option>*/}
-                            {/*        <option value='NONACTIVE'>NONACTIVE</option>*/}
-                            {/*        <option value='DELETE'>DELETE</option>*/}
-                            {/*    </select>*/}
-                            {/*</div>*/}
                         </div>
 
                     </div>

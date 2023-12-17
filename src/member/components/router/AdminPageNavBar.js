@@ -28,10 +28,10 @@ function AdminPageNavBar() {
                 </div>
 
                 <div className="nav-bar">
-
+                    <div className='member-nav-title'>| 관리기능 |</div>
                     <div className="nav-bar-p">
-                        <NavLink to="/admin/member/main"><p>회원관리</p></NavLink>
-                        <NavLink to="/admin/nonMember/main"><p>미분류 회원 관리</p></NavLink>
+                        <NavLink to="/admin/member/main"><p className='member-nav-link'>회원관리</p></NavLink>
+                        <NavLink to="/admin/nonMember/main"><p className='member-nav-link'>미분류 회원 관리</p></NavLink>
                     </div>
                 </div>
             </div>

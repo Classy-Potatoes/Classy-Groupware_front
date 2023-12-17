@@ -13,13 +13,14 @@ const INFO_REGIST_RESULT = 'admin/INFO_REGIST_RESULT';
 const INFO_DELETE_RESULT = 'admin/INFO_DELETE_RESULT';
 const GET_PROFILE_ADMIN = 'admin/GET_PROFILE_ADMIN';
 const ADMIN_UPDATE_PROFILE = 'admin/ADMIN_UPDATE_PROFILE';
+const HISTORY_DELETE_RESULT = 'admin/HISTORY_DELETE_RESULT';
 
 
 
 /* 액션 함수 */
 export const { admin : {
    getNonMembers, getAdminMembers, getJobs, getDepts, infoRegistResult,
-   infoDeleteResult, getProfileAdmin, adminUpdateProfile,
+   infoDeleteResult, getProfileAdmin, adminUpdateProfile, historyDeleteResult,
 } } = createActions({
 
    [ GET_NON_MEMBERS ] : result => ({ getNonMembers : result.data }),
@@ -30,6 +31,7 @@ export const { admin : {
    [ INFO_DELETE_RESULT ] : isDeleteResult => ({ infoDeleteResult : isDeleteResult }),
    [ GET_PROFILE_ADMIN ] : result => ({ getProfileAdmin : result.data }),
    [ ADMIN_UPDATE_PROFILE ] : isUpdateResult => ({ adminUpdateProfile : isUpdateResult }),
+   [ HISTORY_DELETE_RESULT ] : isHistoryDeleteResult => ({ historyDeleteResult : isHistoryDeleteResult }),
 
 });
 
@@ -45,6 +47,7 @@ const adminReducer = handleActions({
    [ INFO_DELETE_RESULT ] : ( state, { payload } ) => ({...state, ...payload}),
    [ GET_PROFILE_ADMIN ] : ( state, { payload } ) => ({...state, ...payload}),
    [ ADMIN_UPDATE_PROFILE ] : ( state, { payload } ) => ({...state, ...payload}),
+   [ HISTORY_DELETE_RESULT ] : ( state, { payload } ) => ({...state, ...payload}),
 
 }, initialState);
 

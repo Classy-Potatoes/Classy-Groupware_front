@@ -2,7 +2,7 @@ import {authRequest } from "../../common/apis/Api";
 import {toast} from "react-toastify";
 import {
     getNonMembers, getAdminMembers, adminUpdateProfile,
-    getJobs, getDepts, infoRegistResult, infoDeleteResult, getProfileAdmin,
+    getJobs, getDepts, infoRegistResult, infoDeleteResult, getProfileAdmin, historyDeleteResult,
 } from "../modules/AdminModule";
 
 
@@ -278,6 +278,33 @@ export const callInfoDeleteAPI = ( infoCode ) => {
             dispatch( infoDeleteResult( true ) );
         } else {
             toast.error('회원 삭제 실패', {
+                autoClose : 1000
+            });
+        }
+
+    }
+}
+
+// 히스토리 삭제
+export const callDeleteHistoryAPI = ( historyCode ) => {
+
+    return async (dispatch, getState) => {
+
+        const result
+            = await authRequest.delete(`/cg-api/v1/ad/history/delete?historyCode=${historyCode}`);
+
+        console.log('onClickDeleteHistory result : ', result);
+
+        if( result.status === 204 ) {
+            toast.success('히스토리 삭제 완료', {
+                autoClose : 1000,
+                onClose: () => {
+                    dispatch( historyDeleteResult( true ) )
+                }
+            });
+
+        } else {
+            toast.error('히스토리 삭제 실패', {
                 autoClose : 1000
             });
         }

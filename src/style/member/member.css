@@ -552,3 +552,12 @@
     color: white;
     cursor: pointer;
 }
+
+.member-nav-link {
+    text-decoration: none;
+}
+
+.member-nav-link:hover {
+    color: #CEC35E;
+}
+
