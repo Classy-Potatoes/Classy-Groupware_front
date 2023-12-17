@@ -16,8 +16,9 @@ function ProjectTodoWrite() {
     const {projectCode} = useParams();
     const dispatch = useDispatch();
     const [currentPage, setCurrentPage] = useState(1);
-    const {allTodoList} = useSelector(state => state.secondProjectReducer);
+    const {allTodoList, postSuccess, allMyTodoList} = useSelector(state => state.secondProjectReducer);
     const memberId = getMemberId();
+    console.log(allMyTodoList, "Sssss")
 
     useEffect(() => {
         dispatch(callTodoListAPI({projectCode, currentPage}));
@@ -27,13 +28,13 @@ function ProjectTodoWrite() {
         <>
             <ToastContainer hideProgressBar={true} position="top-center"/>
             <div className="sch-regist-box">
-                <ProjectTodoRegist projectCode={projectCode}/>
+                <ProjectTodoRegist projectCode={projectCode} postSuccess={postSuccess}/>
             </div>
             {allTodoList && allTodoList.data.map(todo => (
                     <div className="sch-list-box">
                         <div className="sch-project-list" key={todo.todoCode}>
-                            <ProjectTodoList projectCode={projectCode} todo={todo} memberId={memberId}/>
-                            <ProjectTodoReviews projectCode={projectCode} todo={todo} memberId={memberId}/>
+                            <ProjectTodoList projectCode={projectCode} postSuccess={postSuccess} todo={todo} memberId={memberId}/>
+                            <ProjectTodoReviews projectCode={projectCode} postSuccess={postSuccess} todo={todo} memberId={memberId}/>
                         </div>
                     </div>
                 )

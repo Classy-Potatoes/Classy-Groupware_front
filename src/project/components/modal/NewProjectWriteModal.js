@@ -5,7 +5,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import {ko} from 'date-fns/esm/locale';
 import {useNavigate} from "react-router-dom";
-import {toast} from "react-toastify";
+
 
 function NewProjectWriteModal({setNewProjectWriteModal}) {
 
@@ -18,8 +18,17 @@ function NewProjectWriteModal({setNewProjectWriteModal}) {
 
     useEffect(() => {
         if (postSuccess === true) {
+            // Toast 창 표시
+            toast.info('프로젝트 생성이 완료되었습니다.', {
+                autoClose: 3000, // 3초 동안 표시
+                onClose: () => {
+                    // Toast 창이 닫힌 후에 페이지 새로고침
+                    window.location.reload();
+                },
+            });
+
+            // Modal 닫기
             setNewProjectWriteModal(false);
-            window.location.reload();
         }
     }, [postSuccess, setNewProjectWriteModal]);
 
@@ -33,6 +42,7 @@ function NewProjectWriteModal({setNewProjectWriteModal}) {
 
     /* 프로젝트 생성 버튼 클릭 시 이벤트 */
     const onClickProjectRegistHandler = () => {
+
         const newForm = {
             ...form,
             projectStartDate: startDate.toISOString(),
@@ -40,7 +50,6 @@ function NewProjectWriteModal({setNewProjectWriteModal}) {
         };
 
         dispatch(callProjectRegistAPI({projectRegistRequest: newForm}));
-        console.log('Form 담겼니? : ', newForm);
 
     };
 

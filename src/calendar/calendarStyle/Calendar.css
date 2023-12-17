@@ -846,7 +846,7 @@
     gap: 15px;
 }
 
-.td-list-left-box > div {
+.td-left-sec-div {
     font-size: 20px;
 }
 
@@ -857,8 +857,22 @@
     font-size: 20px;
 }
 
-.td-list-left-box > img {
+.td-left-fir-div {
+    cursor: pointer;
+    border-radius: 20px;
+}
+
+.td-left-fir-div > img {
     width: 28px;
     height: 28px;
-    cursor: pointer;
+}
+
+/* 할일 수정 */
+.td-modify-box {
+    display: flex;
+    height: 60px;
+    gap: 15px;
+    border-bottom: 1px solid black;
+    padding: 10px;
+    padding-left: 15px;
 }

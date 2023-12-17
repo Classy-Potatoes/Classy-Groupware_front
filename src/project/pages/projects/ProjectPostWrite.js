@@ -1,6 +1,7 @@
 import React, {useEffect, useRef, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {callProjectPostRegistAPI} from "../../apis/ProjectPostAPICalls";
+import {toast} from "react-toastify";
 
 function ProjectPostWrite({projectCode}) {
 
@@ -65,7 +66,15 @@ function ProjectPostWrite({projectCode}) {
         setAttachedFiles(newAttachedFiles);
     };
 
+    /* 글 작성 버튼 핸들러 */
     const onClickPostRegistrationHandler = () => {
+
+        // 필수 필드가 입력되었는지 확인
+        if (!form.postTitle || !form.postBody) {
+            // 불완전한 양식에 대한 토스트 메시지 표시
+            toast.info("제목과 내용을 모두 입력해주세요.");
+            return;
+        }
 
         const formData = new FormData();
         formData.append("attachment", fileInput.current.files[0]);
@@ -74,18 +83,33 @@ function ProjectPostWrite({projectCode}) {
             new Blob([JSON.stringify(form)], {type: "application/json"})
         );
         dispatch(callProjectPostRegistAPI({projectPostRequest: formData}));
-        console.log("formData", form);
+
+        toast.success("게시글 등록이 완료되었습니다.")
     };
+
+    // useEffect를 사용하여 한 번만 등록하도록 함
+    useEffect(() => {
+        // fileInput이 정의되어 있고 onChangeFileUpload 함수가 등록되어 있지 않으면 등록
+        const handleFileChange = () => onChangeFileUpload();
+
+        if (fileInput.current && !fileInput.current.onchange) {
+            fileInput.current.onchange = handleFileChange;
+        }
+
+        // 컴포넌트가 언마운트될 때 이벤트 리스너 정리
+        return () => {
+            if (fileInput.current && fileInput.current.onchange) {
+                fileInput.current.onchange = null;
+            }
+        };
+    }, [fileInput]);
 
 
     return (
         <>
             <div>
-                <table>
-
-                    <tbody>
-                    <tr>
-                        <td>
+            <div>
+                <div>
                             <input
                                 type="text"
                                 name="postTitle"
@@ -93,10 +117,8 @@ function ProjectPostWrite({projectCode}) {
                                 className="project-postTitle-input"
                                 onChange={onChangeHandler}
                             />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
+                </div>
+                <div>
                             <input
                                 type="text"
                                 name="postBody"
@@ -104,10 +126,7 @@ function ProjectPostWrite({projectCode}) {
                                 className="project-postBody-input"
                                 onChange={onChangeHandler}
                             />
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
+                </div>
             </div>
 
             <div className="project-post-button">
@@ -149,7 +168,7 @@ function ProjectPostWrite({projectCode}) {
                     등록
                 </button>
             </div>
-
+            </div>
         </>
     );
 }

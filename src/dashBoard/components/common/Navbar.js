@@ -3,6 +3,7 @@ import {isAdmin, removeToken} from "../../../member/utils/TokenUtils";
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect} from "react";
 import {callMyProfileAPI} from "../../../member/apis/MemberAPICalls";
+import TodayWeather from "../Weather/TodayWeather";
 
 
 function Navbar() {
@@ -46,13 +47,12 @@ function Navbar() {
                     <NavLink to="/approval"><p><img src="/approval.png"/>전자결재</p></NavLink>
                     <NavLink to="/projects"><p><img src="/project.png"/>프로젝트</p></NavLink>
                     <NavLink to="/calendar"><p><img src="/calender.png"/>캘린더</p></NavLink>
-                    <p><img src="/work.png"/>업무</p>
                     <p><img src="/board.png"/>공지게시판</p>
                     <NavLink to="/network"><p><img src="/phone.png"/>연락망</p></NavLink>
                     { isAdmin() && <NavLink to="/admin/member/main"><p><img src="/Vector.png"/>관리기능</p></NavLink> }
 
                     <div className="weather">
-                        날씨 영역
+                        <TodayWeather/>
                     </div>
                 </div>
             </div>

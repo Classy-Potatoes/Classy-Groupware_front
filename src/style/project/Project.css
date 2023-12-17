@@ -468,8 +468,8 @@
 /* 프로젝트 초대하기 모달 */
 .invite-modal-overlay {
     position: fixed;
-    top: 25%;
-    left: 60%;
+    top: 40%;
+    left: 58%;
     right: 0;
     bottom: 0;
     display: flex;
@@ -611,7 +611,7 @@
     border: none;
     border-bottom: 1px solid black;
     margin-left: 30px;
-    width: 270%;
+    width: 95%;
     padding: 10px;
     font-size: 30px;
 }
@@ -620,7 +620,7 @@
     border: none;
     border-bottom: 1px solid black;
     margin-left: 30px;
-    width: 270%;
+    width: 95%;
     height: 150px;
     padding: 15px;
     font-size: 20px;
@@ -882,28 +882,29 @@
 .project-post-reply {
     background: #E7E2E2;
     padding: 10px;
-    height: 300px;
-    overflow-y: auto;
+    height: auto;
+    /*overflow-y: auto;*/
 }
 
 .reply-item {
     display: flex;
     align-items: center;
     margin-top: 10px;
-    margin-left: 20px;
-    margin-right: 20px;
+    margin-left: 35px;
+    margin-right: 35px;
 }
 
 .reply-info {
     display: flex;
     align-items: center;
-    font-size: 18px;
+    font-size: 15px;
     font-family: Noto Sans;
     font-weight: 700;
+
 }
 
 .reply-info img {
-    margin-right: 10px;
+    margin-right: 5px;
 }
 
 .reply-body {
@@ -972,3 +973,118 @@
 .fileNameButton {
     cursor: pointer;
 }
+
+/* 프로젝트 업무 --------------------------------------------- */
+
+/* 제목 */
+.project-task-title {
+    font-size: 25px;
+    font-family: Noto Sans;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    border-bottom: 2px solid black;
+    padding: 10px;
+}
+
+.project-task-title input {
+    font-size: 28px;
+    font-family: Noto Sans;
+    font-weight: 700;
+    margin-left: 10px;
+    flex: 1;
+}
+
+/* 이름, 날짜, 버튼 */
+
+.project-task-name span{
+    font-size: 18px;
+    font-family: Noto Sans;
+    font-weight: 600;
+    margin-left: 20px;
+}
+
+.project-task-name {
+    font-size: 18px;
+    font-family: Noto Sans;
+    font-weight: 600;
+    margin-right: 10px;
+}
+
+/* 요청 */
+.project-task-request {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid black;
+}
+
+.project-task-request img {
+    margin-right: 10px;
+}
+
+.project-task-request span {
+    background: #333333;
+    border: 1px black solid;
+    color: white;
+    font-size: 20px;
+    font-family: Noto Sans;
+    font-weight: 400;
+    text-align: center;
+    width: 80px;
+    padding: 5px;
+}
+
+.project-task-request button {
+    border: 1px black solid;
+    font-size: 15px;
+    font-family: Noto Sans;
+    font-weight: 300;
+    margin-left: 20px;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.project-task-request button:hover {
+   background-color: #E09FF6;
+    border-radius: 50px;
+}
+
+/* 업무 정보 */
+.project-task-info {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid black;
+    padding: 10px;
+}
+.project-task-info img{
+    margin-right: 10px;
+}
+
+.project-task-info span {
+    color: #808080;
+    font-size: 25px;
+    font-family: Noto Sans;
+    font-weight: 400;
+}
+
+/* 업무 내용 */
+.project-task-Body {
+    display: flex;
+    align-items: center;
+    border-top: 1px solid black;
+    border-bottom: 2px solid black;
+    padding: 10px;
+}
+.project-task-Body textarea {
+    color: #808080;
+    font-size: 25px;
+    font-family: Noto Sans;
+    font-weight: 400;
+    height: 350px;
+    width: 1200px;
+    resize: none;
+    overflow-y: scroll;
+}
+
+

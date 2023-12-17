@@ -1,29 +1,26 @@
-import { useDispatch, useSelector } from "react-redux";
-import React, { useEffect, useRef, useState } from "react";
-import { callProjectPostRegistAPI } from "../../apis/ProjectPostAPICalls";
+import {useDispatch, useSelector} from "react-redux";
+import React, {useEffect, useRef, useState} from "react";
 import DatePicker from "react-datepicker";
 import {ko} from "date-fns/esm/locale";
 import Select from 'react-select';
-import {callProjectTaskRegistAPI} from "../../apis/ProjectTaskAPICalls";
+import {callProjectTaskRegistAPI} from "../../apis/ProjectAPICalls";
+import {callProjectTaskListAPI} from "../../apis/ProjectTaskAPICalls";
+import {toast} from "react-toastify";
 
-function ProjectTaskWrite({ projectCode }) {
+function ProjectTaskWrite({projectCode}) {
 
     const dispatch = useDispatch();
-    const { postSuccess, projectMember } = useSelector((state) => state.projectReducer);
-    const [fileUrl, setFileUrl] = useState('');
+    const {postSuccess, projectMember} = useSelector((state) => state.projectReducer);
     const [attachedFiles, setAttachedFiles] = useState([]); // 첨부 파일 목록 추가
     const fileInput = useRef();
-    const [form, setForm] = useState({
-        projectCode
-    });
-
-    const [selectedMembers, setSelectedMembers] = useState([]);
+    const [form, setForm] = useState({});
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
     const [priorityOptions, setPriorityOptions] = useState(['낮음', '보통', '높음']);
     const [selectedPriority, setSelectedPriority] = useState('');
     // 참석자추가
     const [attendants, setAttendants] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
 
 
     useEffect(() => {
@@ -31,14 +28,39 @@ function ProjectTaskWrite({ projectCode }) {
         setForm((prevForm) => ({
             ...prevForm,
             projectCode,
+            taskTitle: '',
+            taskBody: '',
         }));
+        setAttendants([]); // 담당자 초기화
+        setStartDate(new Date()); // 시작 일시 초기화
+        setEndDate(new Date()); // 마감 일시 초기화
+        setSelectedPriority('');
+        setAttachedFiles([]);
+
     }, [projectCode]);
 
+    /* 작성 성공시 */
+
     useEffect(() => {
-        if (postSuccess === true) {
-            window.location.reload();
+        console.log("useEffect is running with postSuccess:", postSuccess);
+        if (postSuccess) {
+
+            dispatch(callProjectTaskListAPI({projectCode, currentPage}));
+            // 폼의 값 초기화
+            setForm({
+                projectCode: form.projectCode,
+                taskTitle: '',
+                taskBody: '',
+
+            });
+            setAttendants([]); // 담당자 초기화
+            setStartDate(new Date()); // 시작 일시 초기화
+            setEndDate(new Date()); // 마감 일시 초기화
+            setSelectedPriority('');
+            setAttachedFiles([]);
         }
-    }, [postSuccess]);
+    }, [postSuccess, dispatch]);
+
 
     const onChangeHandler = (e) => {
         setForm({
@@ -55,11 +77,11 @@ function ProjectTaskWrite({ projectCode }) {
     const onChangeFileUpload = () => {
         const fileReader = new FileReader();
         fileReader.onload = (e) => {
-            const { result } = e.target;
+            const {result} = e.target;
             if (result) {
                 const newFileList = [
                     ...attachedFiles,
-                    { name: fileInput.current.files[0].name, url: result },
+                    {name: fileInput.current.files[0].name, url: result},
                 ];
                 setAttachedFiles(newFileList);
             }
@@ -78,13 +100,20 @@ function ProjectTaskWrite({ projectCode }) {
 
     /* 등록 눌렀을때 핸들러 */
     const onClickTaskRegistrationHandler = async () => {
+
+        if (!form.taskTitle || !form.taskBody || !selectedPriority) {
+            // 불완전한 양식에 대한 토스트 메시지 표시
+            toast.info("내용을 모두 채워주세요.");
+            return;
+        }
+
         const formData = new FormData();
 
         // 첨부 파일 추가
-        // formData.append("attachment", fileInput.current.files[0]);
-        attachedFiles.forEach((file, index) => {
-            formData.append('attachment[]', file); // 'attachment[]'로 수정
-        });
+        formData.append("attachment", fileInput.current.files[0]);
+        // attachedFiles.forEach((file, index) => {
+        //     formData.append('attachment[]', file); // 'attachment[]'로 수정
+        // });
 
         const taskRequest = {
             taskTitle: form.taskTitle,
@@ -100,19 +129,13 @@ function ProjectTaskWrite({ projectCode }) {
 
         formData.append(
             "projecttaskRequest",
-            new Blob([JSON.stringify(taskRequest)], { type: "application/json" })
+            new Blob([JSON.stringify(taskRequest)], {type: "application/json"})
         );
 
-        try {
-            // API 호출 시에는 FormData 전송
-            await dispatch(callProjectTaskRegistAPI({ projecttaskRequest: formData }));
+        dispatch(callProjectTaskRegistAPI({projecttaskRequest: formData}));
 
-            // 등록 후 선택한 멤버 및 파일 초기화
-            setSelectedMembers([]);
-            setAttachedFiles([]);
-        } catch (error) {
-            console.error("API 호출 중 오류:", error);
-        }
+        // 등록 후 선택한 멤버 및 파일 초기화
+        toast.success("등록이 완료되었습니다.");
     };
 
 
@@ -125,53 +148,55 @@ function ProjectTaskWrite({ projectCode }) {
         <>
             <div>
                 <div>
-                            <input
-                                type="text"
-                                name="taskTitle"
-                                placeholder="제목을 입력하세요."
-                                className="project-taskTitle-input"
-                                onChange={onChangeHandler}
-                            />
+                    <input
+                        type="text"
+                        name="taskTitle"
+                        placeholder="제목을 입력하세요."
+                        className="project-taskTitle-input"
+                        onChange={onChangeHandler}
+                        value={form.taskTitle}
+                    />
                 </div>
                 <div>
-                            <input
-                                type="text"
-                                name="taskBody"
-                                placeholder="내용을 입력하세요."
-                                className="project-taskBody-input"
-                                onChange={onChangeHandler}
-                            />
+                    <textarea
+                        type="text"
+                        name="taskBody"
+                        placeholder="내용을 입력하세요."
+                        className="project-taskBody-input"
+                        onChange={onChangeHandler}
+                        value={form.taskBody}
+                    />
                 </div>
 
                 <div className="task-middle">
                     <div className="task-request">
-                         <img src="/project/요청.png" />
-                         <p>요청</p>
+                        <img src="/project/요청.png"/>
+                        <p>요청</p>
                     </div>
 
                     <div className="task-manager">
-                            {/* 담당자 이미지 */}
-                            <img src="/project/담당자.png" />
+                        {/* 담당자 이미지 */}
+                        <img src="/project/담당자.png"/>
 
-                            {/* react-select을 사용한 다중 선택 셀렉트 박스 */}
-                            <Select
-                                placeholder="담당자 추가"
-                                isMulti
-                                options={projectMember.map((member) => ({
-                                    value: member.infoCode,
-                                    label: member.memberName,
-                                }))}
-                                value={attendants}
-                                onChange={(selectedOptions) => {
-                                    setAttendants(selectedOptions);
-                                }}
-                            />
+                        {/* react-select을 사용한 다중 선택 셀렉트 박스 */}
+                        <Select
+                            placeholder="담당자 추가"
+                            isMulti
+                            options={projectMember.map((member) => ({
+                                value: member.infoCode,
+                                label: member.memberName,
+                            }))}
+                            value={attendants}
+                            onChange={(selectedOptions) => {
+                                setAttendants(selectedOptions);
+                            }}
+                        />
                     </div>
 
                     <div>
                         <div className="task-date-label">
-                            <img src="/project/calender-icon2.png" />
-                            <label>시작 일시  </label>
+                            <img src="/project/calender-icon2.png"/>
+                            <label>시작 일시 </label>
                             <DatePicker
                                 dateFormat='yyyy-MM-dd'
                                 name="taskStartDate"
@@ -186,8 +211,8 @@ function ProjectTaskWrite({ projectCode }) {
                         </div>
 
                         <div className="task-date-label">
-                            <img src="/project/calender-icon2.png" />
-                            <label>마감 일시  </label>
+                            <img src="/project/calender-icon2.png"/>
+                            <label>마감 일시 </label>
                             <DatePicker
                                 dateFormat='yyyy-MM-dd'
                                 name="taskEndDate"
@@ -203,7 +228,7 @@ function ProjectTaskWrite({ projectCode }) {
                     </div>
 
                     <div className="task-priority">
-                        <img src="/project/우선순위.png" />
+                        <img src="/project/우선순위.png"/>
                         <select
                             name="taskPriority"
                             onChange={handlePriorityChange}
@@ -241,7 +266,7 @@ function ProjectTaskWrite({ projectCode }) {
                         </div>
                     )}
                     <input
-                        style={{ display: 'none' }}
+                        style={{display: 'none'}}
                         type="file"
                         name="attachment"
                         accept="image/jpg,image/png,image/jpeg,image/gif, txt"
@@ -252,7 +277,7 @@ function ProjectTaskWrite({ projectCode }) {
                         className="project-post-button"
                         onClick={onClickFileUpload}
                     >
-                        <img src="/project/attem.png" alt="attach" />
+                        <img src="/project/attem.png" alt="attach"/>
                     </button>
                 </div>
 
