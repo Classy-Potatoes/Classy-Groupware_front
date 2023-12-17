@@ -144,6 +144,7 @@ function ProjectScheduleList({postSuccess, projectCode, schedule, memberId}) {
                     onChange={(date) => setStartDate(date)}
                     dateFormat="yyyy-MM-dd"
                     readOnly={!modifyMode}
+                    minDate={new Date()}
                 />
                 <DatePicker
                     placeholderText={
@@ -171,6 +172,7 @@ function ProjectScheduleList({postSuccess, projectCode, schedule, memberId}) {
                     onChange={(date) => setEndDate(date)}
                     dateFormat="yyyy-MM-dd"
                     readOnly={!modifyMode}
+                    minDate={new Date()}
                 />
                 <DatePicker
                     placeholderText={

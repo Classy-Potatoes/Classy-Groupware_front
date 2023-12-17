@@ -11,7 +11,7 @@ function ProjectTodoList({todo, projectCode, postSuccess, memberId}) {
     const cnt = todo.todoList.filter(item => item.todoStatus === "finished").length;
 
     const [modifyMode, setModifyMode] = useState(false);
-    const [isChecked, setIsChecked] = useState([]);
+    const [isChecked, setIsChecked] = useState({});
     const [form, setForm] = useState({});
     const dispatch = useDispatch();
     const {projectMember} = useSelector(state => state.projectReducer);
@@ -22,8 +22,12 @@ function ProjectTodoList({todo, projectCode, postSuccess, memberId}) {
     }, [todo]);
 
     useEffect(() => {
-        console.log("변경 색상", isChecked)
-    }, [isChecked]);
+        const initialCheckState = {};
+        todo.todoList.forEach(item => {
+            initialCheckState[item.todoListCode] = item.todoStatus === 'finished';
+        });
+        setIsChecked(initialCheckState);
+    }, [todo]);
     const formatDate = (date) => {
         return date.toISOString().split('T')[0];
     }
@@ -55,7 +59,6 @@ function ProjectTodoList({todo, projectCode, postSuccess, memberId}) {
         // const stat = todoItem.todoStatus;
         // console.log(stat, "stat")
         dispatch(callCheckedTodoAPI({projectCode: projectCode, todoCode: todo.todoCode, todoListCode: newVal}))
-
     }
 
     /* 수정 모드로 변환하는 이벤트 */
@@ -130,7 +133,7 @@ function ProjectTodoList({todo, projectCode, postSuccess, memberId}) {
                     <div className="td-list-box">
                         <div className="td-list-left-box">
                             <button
-                                style={{ backgroundColor: todoItem.todoStatus === 'finished' ? 'blue' : 'none' }}
+                                style={{ backgroundColor: isChecked[todoItem.todoListCode] ? 'blue' : 'white' }}
                                 className="td-left-fir-div" value={todoItem.todoListCode} onClick={clickedCheck}>
                                 <img
                                     src={checkStat}

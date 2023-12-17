@@ -4,7 +4,7 @@ import {callProjectInviteAPI} from "../../apis/ProjectAPICalls";
 import {
     callProjectReplyDeleteAPI,
     callProjectReplyUpdateAPI,
-    callProjectScheduleReplyRegistAPI
+    callProjectScheduleReplyRegistAPI, callProjectTodoReplyRegistAPI
 } from "../../../calendar/apis/SecondProjectAPICalls";
 
 function ProjectTodoReviews({projectCode, todo, memberId}) {
@@ -14,15 +14,14 @@ function ProjectTodoReviews({projectCode, todo, memberId}) {
     const [modifyForm, setModifyForm] = useState({});
     const dispatch = useDispatch();
 
-    console.log(memberId,"idddd")
-    console.log(todo.memberId,"iwwwwwwwdddd")
+    console.log(todo.todoList, "sssssss")
 
     useEffect(() => {
         dispatch(callProjectInviteAPI({projectCode}));
     }, [todo]);
 
     const onModifyChangeHandler = (e, replyCode) => {
-        const { name, value } = e.target;
+        const {name, value} = e.target;
 
         setModifyForm(prevState => ({
             ...prevState,
@@ -61,7 +60,7 @@ function ProjectTodoReviews({projectCode, todo, memberId}) {
 
     const clickedRegist = () => {
 
-        dispatch(callProjectScheduleReplyRegistAPI({
+        dispatch(callProjectTodoReplyRegistAPI({
             registRequest: form,
             projectCode: projectCode,
             todoCode: todo.todoCode
@@ -89,21 +88,25 @@ function ProjectTodoReviews({projectCode, todo, memberId}) {
                                    maxLength={20}
                                    readOnly={!modifyMode}
                             />
-                            {todo.memberId === memberId && !modifyMode &&
-                                <button className="sch-return" onClick={() => setModifyMode(true)}>O</button>
-                            }
-                            {todo.memberId == memberId && modifyMode &&
-                                <button className="sch-return" onClick={() => setModifyMode(false)}>X</button>
-                            }
                         </div>
                         <div className="sch-rev-created">{reply.replyModifyDate.split('T')[0]}</div>
                         {todo.memberId === memberId &&
                             <div className="sch-rev-stat-box">
                                 <div className="sch-rev-modify-box">
-                                    <button value={reply.replyCode} onClick={clickedModiSender}>수정</button>
+                                    {todo.memberId === memberId && !modifyMode &&
+                                        <button value={reply.replyCode} onClick={() => setModifyMode(true)}>수정</button>
+                                    }
+                                    {todo.memberId == memberId && modifyMode &&
+                                        <button value={reply.replyCode} onClick={clickedModiSender}>등록</button>
+                                    }
                                 </div>
                                 <div className="sch-rev-deleted-box">
-                                    <button value={reply.replyCode} onClick={clickedDelete}>삭제</button>
+                                    {todo.memberId === memberId && !modifyMode &&
+                                        <button value={reply.replyCode} onClick={clickedDelete}>삭제</button>
+                                    }
+                                    {todo.memberId == memberId && modifyMode &&
+                                        <button value={reply.replyCode} onClick={() => setModifyMode(false)}>취소</button>
+                                    }
                                 </div>
                             </div>
                         }

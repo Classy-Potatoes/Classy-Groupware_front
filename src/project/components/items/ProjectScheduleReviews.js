@@ -100,12 +100,6 @@ function ProjectScheduleReviews({postSuccess, projectCode, schedule, memberId}) 
                                    maxLength={20}
                                    readOnly={!modifyMode}
                             />
-                            {/*{schedule.memberId === memberId && !modifyMode &&*/}
-                            {/*    <button className="sch-return" onClick={() => setModifyMode(true)}>O</button>*/}
-                            {/*}*/}
-                            {/*{schedule.memberId == memberId && modifyMode &&*/}
-                            {/*    <button className="sch-return" onClick={() => setModifyMode(false)}>X</button>*/}
-                            {/*}*/}
                         </div>
                         <div className="sch-rev-created">{reply.replyModifyDate.split('T')[0]}</div>
                         {schedule.memberId === memberId &&
