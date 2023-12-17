@@ -7,7 +7,7 @@ import {
     callProjectScheduleReplyRegistAPI
 } from "../../../calendar/apis/SecondProjectAPICalls";
 
-function ProjectScheduleReviews({projectCode, schedule, memberId}) {
+function ProjectScheduleReviews({postSuccess, projectCode, schedule, memberId}) {
 
     const [modifyMode, setModifyMode] = useState(false);
     const [form, setForm] = useState({});
@@ -19,7 +19,18 @@ function ProjectScheduleReviews({projectCode, schedule, memberId}) {
 
     useEffect(() => {
         dispatch(callProjectInviteAPI({projectCode}));
-    }, [schedule]);
+        setModifyForm({
+            replyBody: ""
+        })
+        setModifyMode(false)
+    }, [schedule, postSuccess]);
+
+    useEffect(() => {
+        setForm({
+            replyBody: ""
+        })
+        setModifyMode(false)
+    }, [schedule, postSuccess]);
 
     const onModifyChangeHandler = (e, replyCode) => {
         const {name, value} = e.target;
@@ -89,12 +100,6 @@ function ProjectScheduleReviews({projectCode, schedule, memberId}) {
                                    maxLength={20}
                                    readOnly={!modifyMode}
                             />
-                            {/*{schedule.memberId === memberId && !modifyMode &&*/}
-                            {/*    <button className="sch-return" onClick={() => setModifyMode(true)}>O</button>*/}
-                            {/*}*/}
-                            {/*{schedule.memberId == memberId && modifyMode &&*/}
-                            {/*    <button className="sch-return" onClick={() => setModifyMode(false)}>X</button>*/}
-                            {/*}*/}
                         </div>
                         <div className="sch-rev-created">{reply.replyModifyDate.split('T')[0]}</div>
                         {schedule.memberId === memberId &&

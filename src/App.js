@@ -6,6 +6,7 @@ import './style/member/login.css';
 import './style/note/note.css'
 import './style/member/member.css';
 import './style/project/Project.css';
+import './style/dashBoard/dashBoard.css';
 import 'react-toastify/dist/ReactToastify.css';
 import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
 
@@ -33,7 +34,7 @@ import ProjectDetailLayout from "./project/layouts/ProjectDetailLayout";
 import ProjectDashBoard from "./project/layouts/ProjectDashBoard";
 import Profile from "./member/pages/mypage/Profile";
 import MyPageLayout from "./member/layouts/MyPageLayout";
-import PasswordChange from "./member/pages/mypage/PasswordChange";
+import PwdChange from "./member/pages/mypage/PwdChange";
 import MemberReturn from "./member/pages/mypage/MemberReturn";
 import AdminPageLayout from "./member/layouts/AdminPageLayout";
 import AdminMemberMain from "./member/pages/admin/AdminMemberMain";
@@ -57,13 +58,16 @@ import ReportRecallSearch from "./appreval/components/ReportLists/ReportRecallSe
 import LetterDetail from "./appreval/components/ReportLists/reportDetail/ReprotLetterDetail";
 import VacationDetail from "./appreval/components/ReportLists/reportDetail/ReportVacationDetail";
 import ExpenseDetail from "./appreval/components/ReportLists/reportDetail/ReprotExpenseDetail";
+import DashBoard from "./dashBoard/page/DashBoard";
 
 function App() {
   return (
       <BrowserRouter>
           <Routes>
               <Route path="/" element={ <Navigate to="/dashBoard" /> } />
-              <Route path="/dashBoard" element={ <ProtectedRoute loginCheck={ true }><Layout/></ProtectedRoute> }/>
+              <Route path="/dashBoard" element={ <ProtectedRoute loginCheck={ true }><Layout/></ProtectedRoute> }>
+                  <Route index element={<ProtectedRoute loginCheck={ true }><DashBoard /></ProtectedRoute>}/>
+              </Route>
 
               <Route path="/member">
                   <Route path="login" element={ <ProtectedRoute loginCheck={ false }><Login /></ProtectedRoute> } />
@@ -74,7 +78,7 @@ function App() {
                   <Route path="mypage" element={ <ProtectedRoute loginCheck={ true }><MyPageLayout/></ProtectedRoute> }>
                       <Route index element={ <Navigate to="/member/mypage/profile" replace/>}/>
                       <Route path="profile" element={  <Profile/> }/>
-                      <Route path="passwordChange" element={  <PasswordChange/> }/>
+                      <Route path="passwordChange" element={  <PwdChange/> }/>
                       <Route path="memberReturn" element={  <MemberReturn/> }/>
                   </Route>
               </Route>
@@ -103,10 +107,10 @@ function App() {
                         <div className="project-post-div">
                             <ProjectDashBoard/>
                         </div>
-                    }/>
-                      <Route path="myTask" element={<ProtectedRoute loginCheck={ true }><ProjectDashBoard /></ProtectedRoute>} />
+                    }>
+                    </Route>
                   </Route>
-
+                  <Route path="myTask" element={<ProtectedRoute loginCheck={ true }><ProjectDashBoard /></ProtectedRoute>} />
               </Route>
 
               <Route path="calendar" element={ <ProtectedRoute loginCheck={ true }><CalendarLayout/></ProtectedRoute> }/>

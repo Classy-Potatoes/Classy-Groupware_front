@@ -409,6 +409,15 @@
     position: absolute;
 }
 
+/* 프로젝트 */
+.project-second-write-div {
+    border: 1px solid black;
+    border-top: 0;
+    width: 90%;
+    margin-left: 60px;
+    border: none;
+}
+
 /* 프로젝트 일정 */
 /* 일정 입력 */
 .sch-regist-box {
@@ -416,6 +425,18 @@
     flex-direction: column;
     padding-left: 25px;
     padding-right: 25px;
+    border-right: 1px solid black;
+    border-left: 1px solid black;
+    border-bottom: 1px solid black;
+}
+
+.sch-list-box {
+    display: flex;
+    flex-direction: column;
+    padding-left: 25px;
+    padding-right: 25px;
+    margin-top: 50px;
+    border: 1px solid black;
 }
 
 .sch-title {
@@ -444,7 +465,6 @@
     padding-left: 15px;
     gap: 15px;
     align-items: center;
-    border-bottom: 1px solid black;
 }
 
 .sch-manager-img {
@@ -497,7 +517,6 @@
     align-items: center;
     justify-content: flex-end;
     padding-right: 15px;
-    border-bottom: 1px solid black;
 }
 
 .sch-regist-btn {
@@ -512,7 +531,6 @@
 
 /* 일정 리스트 */
 .sch-project-list {
-    margin-top: 50px;
     display: flex;
     flex-direction: column;
 }
@@ -522,7 +540,6 @@
     padding: 10px;
     padding-left: 15px;
     padding-right: 15px;
-    border-top: 1px solid black;
     border-bottom: 1px solid black;
 }
 
@@ -550,7 +567,6 @@
 
 .sch-title {
     font-size: 22px;
-    border-top: 1px solid black;
 }
 
 .sch-managers-area {
@@ -566,6 +582,10 @@
     display: flex;
     flex-direction: column;
     gap: 2px;
+}
+
+.sch-managers-name-area {
+    display: flex;
 }
 
 .sch-body-box {
@@ -639,7 +659,6 @@
     padding-left: 15px;
     padding-right: 15px;
     border-top: 1px solid black;
-    border-bottom: 1px solid black;
     justify-content: space-between;
     gap: 20px;
     align-items: center;
@@ -711,6 +730,14 @@
     height: 28px;
     border-radius: 50px;
     cursor: pointer;
+    position: relative;
+}
+
+.td-circle > img {
+    width: 20px;
+    position: absolute;
+    top: 14px;
+    left: 3px;
 }
 
 .td-right-box {
@@ -748,5 +775,104 @@
 }
 
 .td-add-left-box {
+    display: flex;
+    align-items: center;
+}
 
+.td-add-left {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.td-add-circle {
+    width: 28px;
+    height: 28px;
+    border-radius: 50px;
+    border: 1px solid black;
+    cursor: pointer;
+    position: relative;
+}
+
+.td-add-circle > img {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    top: 3px;
+    left: 3px;
+}
+
+.td-regist {
+    font-size: 18px;
+}
+
+.td-regist-btn-box {
+    height: 75px;
+    display: flex;
+    align-items: end;
+    justify-content: flex-end;
+    padding-right: 15px;
+}
+
+.td-regist-btn-box > button {
+    margin-bottom: 5px;
+}
+
+.td-finished-box {
+    display: flex;
+    width: 200px;
+    justify-content: flex-end;
+    gap: 15px;
+}
+
+.td-cnt-finished {
+    display: flex;
+}
+
+/* 할일 리스트 */
+.td-list-box {
+    display: flex;
+    height: 60px;
+    justify-content: space-between;
+    gap: 15px;
+    border-bottom: 1px solid black;
+    padding: 10px;
+    padding-left: 15px;
+}
+
+.td-list-left-box {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.td-left-sec-div {
+    font-size: 20px;
+}
+
+.td-list-right-box {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-size: 20px;
+}
+
+.td-left-fir-div {
+    cursor: pointer;
+    border-radius: 20px;
+}
+
+.td-left-fir-div > img {
+    width: 28px;
+    height: 28px;
+}
+
+/* 할일 수정 */
+.td-modify-box {
+    display: flex;
+    height: 60px;
+    gap: 15px;
+    border-bottom: 1px solid black;
+    padding: 10px;
+    padding-left: 15px;
 }

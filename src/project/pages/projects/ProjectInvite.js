@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import ProjectInvitedItem from "../../components/items/ProjectInvitedItem";
+import ProjectInvitedItem from "../../components/items/project/ProjectInvitedItem";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams  } from "react-router-dom";
 import { useEffect } from "react";
 import { callProjectInviteAPI, callProjectRemoveAPI } from "../../apis/ProjectAPICalls";
 import { ToastContainer } from "react-toastify";
@@ -9,6 +9,7 @@ import ProjectModifyModal from "../../components/modal/ProjectModifyModal";
 import InviteModal from "../../components/modal/InviteModal";
 
 function ProjectInvite() {
+
     const dispatch = useDispatch();
     const { projectCode } = useParams();
     const { projectMember, project } = useSelector((state) => state.projectReducer);
@@ -45,11 +46,11 @@ function ProjectInvite() {
         setInviteModal(true);
     };
 
+
     return (
         <>
-            <ToastContainer hideProgressBar={true} position="top-center" />
             {projectModifyModal && (
-                <ProjectModifyModal setProjectModifyModal={setProjectModifyModal} />
+                <ProjectModifyModal setProjectModifyModal={setProjectModifyModal}/>
             )}
             {confirmDeleteModal && (
                 <div className="confirm-delete-modal">

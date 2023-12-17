@@ -72,9 +72,7 @@ export const callScheduleRemoveAPI = ({ personalCode }) => {
 
         if(result.status === 204) {
             toast.info("일정 삭제가 완료 되었습니다.");
-            setTimeout(() => {
-                window.location.reload();
-            }, 2000);
+            dispatch(postSuccess())
         }
     }
 }
@@ -103,6 +101,7 @@ export const callScheduleRegistAPI = ({ registRequest }) => {
         if (result != undefined) {
             if (result.status === 201) {
                 toast.info("일정 등록이 완료 되었습니다.");
+                dispatch(postSuccess())
                 setTimeout(() => {
                     window.location.reload();
                 }, 2000);
@@ -135,9 +134,7 @@ export const callScheduleModifyAPI = ({ calendarCode, modifyRequest }) => {
         if (result != undefined) {
             if (result.status === 201) {
                 toast.info("일정 수정이 완료 되었습니다.");
-                setTimeout(() => {
-                    window.location.reload();
-                }, 2000);
+                dispatch(postSuccess())
             }
         }
     }

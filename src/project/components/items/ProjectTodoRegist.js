@@ -1,33 +1,46 @@
 import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {callProjectInviteAPI} from "../../apis/ProjectAPICalls";
+import tdPlus from "../../../calendar/images/todoPlus.png"
+import tdMinus from "../../../calendar/images/todoMinus.png";
 import DatePicker from "react-datepicker";
 import {ko} from "date-fns/esm/locale";
-import tdMinus from "../../../calendar/images/todoMinus.png"
-import tdPlus from "../../../calendar/images/todoPlus.png"
+import {callProjectTodoRegistAPI, callTodoListAPI} from "../../../calendar/apis/SecondProjectAPICalls";
 
-function ProjectTodoRegist({projectCode}) {
+function ProjectTodoRegist({projectCode, postSuccess, currentPage}) {
 
-    const [startDate, setStartDate] = useState(null);
-    const [endDate, setEndDate] = useState(null);
-    const [startTime, setStartTime] = useState(null);
-    const [endTime, setEndTime] = useState(null);
-    const [attendants, setAttendants] = useState([]);
-    const [attendantsCode, setAttendantsCode] = useState([]);
+    const [todos, setTodos] = useState([
+        {id: 0, todoBody: "", endDate: "", attendant: ""}
+    ]);
+    const [nextId, setNextId] = useState(1);
     const [form, setForm] = useState({});
     const dispatch = useDispatch();
     const {projectMember} = useSelector(state => state.projectReducer);
 
     useEffect(() => {
         dispatch(callProjectInviteAPI({projectCode}));
-    }, []);
+        if (postSuccess) {
+            setForm({
+                todoTitle: "",
+                projectTodolistCreateRequestList: todos.map(todo => ({
+                    todoBody: "",
+                    endDates: "",
+                    attendant: ""
+                }))
+            })
+        }
+
+    }, [projectCode, postSuccess]);
+
+    const removeTodo = (e) => {
+        const targetId = parseInt(e.target.id);
+        const updatedTodos = todos.filter(todo => todo.id !== targetId);
+        setTodos(updatedTodos);
+    };
+
     const formatDate = (date) => {
         return date.toISOString().split('T')[0];
     }
-
-    const formatTime = (time) => {
-        return time.toISOString().split('T')[1].slice(0, 5);
-    };
 
     const onChangeHandler = (e) => {
         setForm({
@@ -36,12 +49,29 @@ function ProjectTodoRegist({projectCode}) {
         })
     }
 
-    const clickedDeleteManager = (index) => {
-        const newAttendants = attendants.filter((_, i) => i !== index);
-        const newAttendantsCode = attendantsCode.filter((_, i) => i !== index);
-        setAttendants(newAttendants);
-        setAttendantsCode(newAttendantsCode);
-    }
+    const changeTodos = (id, value, type) => {
+
+        const updatedTodos = todos.map(todo => {
+            if (todo.id === id) {
+                switch (type) {
+                    case 'todoBody':
+                        return {...todo, todoBody: value};
+                    case 'endDate':
+                        return {
+                            ...todo, endDate: value
+                        };
+                    case 'attendant':
+                        return {...todo, attendant: value}
+                    default:
+                        return todo;
+
+                }
+            } else {
+                return todo;
+            }
+        });
+        setTodos(updatedTodos);
+    };
 
     const addOneDay = (date) => {
         const newDate = new Date(date);
@@ -49,26 +79,27 @@ function ProjectTodoRegist({projectCode}) {
         return newDate;
     }
 
+    const clickedAddGuest = () => {
+        const newTodos = {id: nextId};
+        const updatedTodos = [...todos, newTodos];
+        setTodos(updatedTodos);
+        setNextId(prevId => prevId + 1);
+
+    }
+
     const clickedRegist = () => {
-        const formattedStartDate = startDate ? formatDate(addOneDay(startDate)) : "";
-        // schedule?.start.split('T')[0];
-        const formattedEndDate = endDate ? formatDate(addOneDay(endDate)) : "";
-        // schedule?.end.split('T')[0];
-        const formattedStartTime = startTime ? formatTime(startTime) : "";
-        // schedule?.start.split('T')[1].slice(0, 5);
-        const formattedEndTime = endTime ? formatTime(endTime) : "";
-        // schedule?.end.split('T')[1].slice(0, 5);
 
         const newData = {
             ...form,
-            attendants: attendantsCode,
-            scheduleStartedDate: formattedStartDate,
-            scheduleEndDate: formattedEndDate,
-            scheduleStartedTime: formattedStartTime,
-            scheduleEndTime: formattedEndTime
+            projectTodolistCreateRequestList: todos.map(todo => ({
+                todoBody: todo.todoBody,
+                endDates: formatDate(addOneDay(todo.endDate)).toLocaleString('ko-KR'),
+                attendant: todo.attendant
+            }))
+
         };
 
-        // dispatch(callProjectScheduleRegistAPI({registRequest: newData, projectCode: projectCode}));
+        dispatch(callProjectTodoRegistAPI({registRequest: newData, projectCode: projectCode}));
     }
 
     return (
@@ -78,201 +109,94 @@ function ProjectTodoRegist({projectCode}) {
                 <input type="text"
                        className="cal-form-title"
                        id="sch-regist-header"
-                       name="scheduleTitle"
+                       name="todoTitle"
                        onChange={onChangeHandler}
                        placeholder={
                            // schedule ? schedule.title :
                            '제목을 입력하세요(15자 이내)'}
-                       value={form.scheduleTitle}
+                       value={form.todoTitle}
                        maxLength={15}
                 />
             </div>
-            <div className="td-box">
-                <div className="td-left-box">
-                    <div className="td-left">
-                        <div className="td-circle"><img src={tdMinus}/></div>
-                        <div className="td-regist">
-                            <label htmlFor="td-regist-header" className="col-form-label"></label>
-                            <input type="text"
-                                   className="cal-form-title"
-                                   id="td-regist-header"
-                                   name="todoBody"
-                                   onChange={onChangeHandler}
-                                   placeholder={
-                                       // schedule ? schedule.title :
-                                       '할일 입력'}
-                                   value={form.todoBody}
-                                   maxLength={8}
+            {todos.map((todo) => (
+                <div className="td-box" key={todo.id}>
+                    <div className="td-left-box">
+                        <div className="td-left">
+                            <div className="td-circle"
+                                 id={todo.id}
+                                 onClick={removeTodo}
+                            ><img src={tdMinus}/></div>
+                            <div className="td-regist">
+                                <label htmlFor="td-regist-header" className="col-form-label"></label>
+                                <input type="text"
+                                       className="cal-form-title"
+                                       id={todo.id}
+                                       name="todoBody"
+                                       onChange={(e) => changeTodos(todo.id, e.target.value, 'todoBody')}
+                                       placeholder={
+                                           // schedule ? schedule.title :
+                                           '할일 입력'}
+                                       value={todo.todoBody}
+                                       maxLength={10}
+                                />
+                            </div>
+                        </div>
+                    </div>
+                    <div className="td-right-box">
+                        <div className="td-date-box">
+                            <DatePicker
+                                placeholderText={
+                                    // schedule ? schedule.start.split('T')[0] :
+                                    "마감일"}
+                                showIcon
+                                locale={ko}
+                                icon="fa fa-calendar"
+                                closeOnScroll={(e) => e.target === document}
+                                selected={todo.endDate}
+                                onChange={(date) => changeTodos(todo.id, date, 'endDate')}
+                                dateFormat="yyyy-MM-dd"
+                                minDate={new Date()}
                             />
+                        </div>
+                        <div className="td-add-manager">
+                            <select
+                                id="td-manager-selected"
+                                className="sch-manager-selected"
+                                onChange={(e) => changeTodos(todo.id, e.target.value, 'attendant')}
+                            >
+                                {projectMember && projectMember.map(member => (
+                                    <option
+                                        key={member.infoCode}
+                                        value={member.infoCode}
+                                    >
+                                        {member.memberName}
+                                    </option>
+                                ))}
+                                <option value="이름 조회" selected>
+                                    이름 조회
+                                </option>
+                            </select>
                         </div>
                     </div>
                 </div>
-                <div className="td-right-box">
-                    <div className="td-date-box">
-                        <DatePicker
-                            placeholderText={
-                                // schedule ? schedule.start.split('T')[0] :
-                                "YYYY.MM.DD"}
-                            showIcon
-                            locale={ko}
-                            icon="fa fa-calendar"
-                            closeOnScroll={(e) => e.target === document}
-                            selected={startDate}
-                            onChange={(date) => setStartDate(date)}
-                            dateFormat="yyyy-MM-dd"
-                        />
-                    </div>
-                    <div className="td-add-manager">
-                        {projectMember && projectMember.map(
-                            member => (
-                                <>
-                                    <select id="td-manager-selected" className="sch-manager-selected"
-                                            key={projectMember.infoCode}
-                                            onChange={(e) => {
-
-                                            }
-                                            }>
-                                        <option name={member.infoCode}
-                                                value={member.memberName}>{member.memberName}</option>
-                                        <option value="이름 입력"
-                                                selected="selected"
-                                        >이름 조회
-                                        </option>
-                                    </select>
-                                </>
-                            ))
-                        }
-                    </div>
-                </div>
-            </div>
+            ))}
             <div className="add-td-box">
                 <div className="td-add-left-box">
                     <div className="td-add-left">
-                        <div className="td-add-circle"><img src={tdPlus}/></div>
+                        <div onClick={clickedAddGuest} className="td-add-circle"><img src={tdPlus}/></div>
                         <div className="td-regist">
-                            <label htmlFor="td-regist-header" className="col-form-label"></label>
-                            <input type="text"
-                                   className="cal-form-title"
-                                   id="td-regist-header"
-                                   name="todoBody"
-                                   onChange={onChangeHandler}
-                                   placeholder={
-                                       // schedule ? schedule.title :
-                                       '할일 입력'}
-                                   value={form.todoBody}
-                                   maxLength={8}
-                            />
+                            할일 추가
                         </div>
                     </div>
                 </div>
             </div>
-            {/*<div className="sch-date-box">*/}
-            {/*    <img src="/project/calender-icon2.png"/>*/}
-            {/*    <DatePicker*/}
-            {/*        placeholderText={*/}
-            {/*            // schedule ? schedule.start.split('T')[0] :*/}
-            {/*            "YYYY.MM.DD"}*/}
-            {/*        showIcon*/}
-            {/*        locale={ko}*/}
-            {/*        icon="fa fa-calendar"*/}
-            {/*        closeOnScroll={(e) => e.target === document}*/}
-            {/*        selected={startDate}*/}
-            {/*        onChange={(date) => setStartDate(date)}*/}
-            {/*        dateFormat="yyyy-MM-dd"*/}
-            {/*    />*/}
-            {/*    <DatePicker*/}
-            {/*        placeholderText={*/}
-            {/*            // schedule ? schedule.start.split('T')[1] :*/}
-            {/*            "HH:MM"}*/}
-            {/*        selected={startTime}*/}
-            {/*        onChange={(time) => setStartTime(time)}*/}
-            {/*        showTimeSelect*/}
-            {/*        showTimeSelectOnly*/}
-            {/*        timeIntervals={15}*/}
-            {/*        timeCaption="Time"*/}
-            {/*        dateFormat="h:mm aa"*/}
-            {/*    />*/}
-            {/*    <div className="sch-space">-</div>*/}
-            {/*    <DatePicker*/}
-            {/*        placeholderText={*/}
-            {/*            // schedule ? schedule.end.split('T')[0] :*/}
-            {/*            "YYYY.MM.DD"}*/}
-            {/*        showIcon*/}
-            {/*        locale={ko}*/}
-            {/*        icon="fa fa-calendar"*/}
-            {/*        closeOnScroll={(e) => e.target === document}*/}
-            {/*        selected={endDate}*/}
-            {/*        onChange={(date) => setEndDate(date)}*/}
-            {/*        dateFormat="yyyy-MM-dd"*/}
-            {/*    />*/}
-            {/*    <DatePicker*/}
-            {/*        placeholderText={*/}
-            {/*            // schedule ? schedule.end.split('T')[1] :*/}
-            {/*            "HH:MM"}*/}
-            {/*        selected={endTime}*/}
-            {/*        onChange={(time) => setEndTime(time)}*/}
-            {/*        showTimeSelect*/}
-            {/*        showTimeSelectOnly*/}
-            {/*        timeIntervals={15}*/}
-            {/*        timeCaption="Time"*/}
-            {/*        dateFormat="h:mm aa"*/}
-            {/*    />*/}
-            {/*</div>*/}
-            {/*<div className="sch-add-manager">*/}
-            {/*    {projectMember && projectMember.map(*/}
-            {/*        member => (*/}
-            {/*            <>*/}
-            {/*                <img className="sch-manager-img" src="/project/담당자.png"/>*/}
-            {/*                <select className="sch-manager-selected" key={projectMember.infoCode}*/}
-            {/*                        onChange={(e) => {*/}
-            {/*                            const selected = e.target.value;*/}
-            {/*                            if (selected !== '참석자추가' && !attendants.includes(selected) && !attendantsCode.includes(e.target.name)) {*/}
-            {/*                                setAttendants([...attendants, e.target.value]);*/}
-            {/*                                setAttendantsCode([...attendantsCode, member.infoCode]);*/}
-            {/*                            }*/}
-            {/*                        }*/}
-            {/*                        }>*/}
-            {/*                    <option name={member.infoCode} value={member.memberName}>{member.memberName}</option>*/}
-            {/*                    <option value="참석자추가"*/}
-            {/*                            selected="selected"*/}
-            {/*                    >참석자추가*/}
-            {/*                    </option>*/}
-            {/*                </select>*/}
-            {/*            </>*/}
-            {/*        ))*/}
-            {/*    }*/}
-            {/*    {attendants.map((attendant, index) => (*/}
-            {/*        <div className="sch-added-manager">*/}
-            {/*            <div className="sch-added-box">*/}
-            {/*                <div className="sch-manager-name" key={index}>*/}
-            {/*                    {attendant}*/}
-            {/*                </div>*/}
-            {/*                <button onClick={() => clickedDeleteManager(index)} className="sch-x-button">*/}
-            {/*                    X*/}
-            {/*                </button>*/}
-            {/*            </div>*/}
-            {/*        </div>*/}
-            {/*    ))}*/}
-            {/*</div>*/}
-            {/*<div className="sch-body-box">*/}
-            {/*    <label htmlFor="sch-body" className="col-form-label"></label>*/}
-            {/*    <textarea type="text"*/}
-            {/*              className="sch-body"*/}
-            {/*              id="sch-body"*/}
-            {/*              name="scheduleContent"*/}
-            {/*              onChange={onChangeHandler}*/}
-            {/*              placeholder={*/}
-            {/*                  // schedule ? schedule.title :*/}
-            {/*                  '내용을 입력하세요.'}*/}
-            {/*              value={form.scheduleContent}*/}
-            {/*    />*/}
-            {/*</div>*/}
-            <div className="sch-regist-btn-box">
+            <div className="td-regist-btn-box">
                 <button onClick={clickedRegist} className="sch-regist-btn">등록</button>
             </div>
 
         </>
-    );
+    )
+        ;
 }
 
 export default ProjectTodoRegist;

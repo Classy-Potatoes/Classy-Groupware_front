@@ -13,29 +13,31 @@ function ProjectCalendarWrite() {
     const {projectCode} = useParams();
     const dispatch = useDispatch();
     const [currentPage, setCurrentPage] = useState(1);
-    const {allSchedules} = useSelector(state => state.secondProjectReducer);
+    const {allSchedules, postSuccess} = useSelector(state => state.secondProjectReducer);
     const memberId = getMemberId();
 
     useEffect(() => {
         dispatch(callScheduleListAPI({projectCode, currentPage}));
-    }, [projectCode, currentPage]);
+    }, [currentPage, postSuccess]);
 
     return (
         <>
             <div className="sch-regist-box">
-                <ProjectScheduleRegist projectCode={projectCode}/>
-                {allSchedules && allSchedules.data.map(schedule => (
-                        <div className="sch-project-list" key={schedule.scheduleCode}>
-                            <ProjectScheduleList projectCode={projectCode} schedule={schedule} memberId={memberId}/>
-                            <ProjectScheduleReviews projectCode={projectCode} schedule={schedule} memberId={memberId}/>
-                        </div>
-                    )
-                )
-                }
-                {allSchedules &&
-                    <PagingBar pageInfo={allSchedules.pageInfo} setCurrentPage={setCurrentPage}/>
-                }
+                <ProjectScheduleRegist postSuccess={postSuccess} projectCode={projectCode}/>
             </div>
+            {allSchedules && allSchedules.data.map(schedule => (
+                <div className="sch-list-box">
+                    <div className="sch-project-list" key={schedule.scheduleCode}>
+                        <ProjectScheduleList postSuccess={postSuccess} projectCode={projectCode} schedule={schedule} memberId={memberId}/>
+                        <ProjectScheduleReviews postSuccess={postSuccess} projectCode={projectCode} schedule={schedule} memberId={memberId}/>
+                    </div>
+                </div>
+                )
+            )}
+
+            {allSchedules &&
+                <PagingBar pageInfo={allSchedules.pageInfo} setCurrentPage={setCurrentPage}/>
+            }
 
         </>
     )

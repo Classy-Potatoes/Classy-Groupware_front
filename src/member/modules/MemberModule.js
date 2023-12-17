@@ -10,12 +10,17 @@ const LOGIN_RESULT = 'member/LOGIN_RESULT';
 const SEARCH_ID_RESULT = 'member/SEARCH_ID_RESULT';
 const DUPLICATE_ID_RESULT = 'member/DUPLICATE_ID_RESULT';
 const SEARCH_INFO_CODE_RESULT = 'member/SEARCH_INFO_CODE_RESULT';
+const PWD_CHANGE_RESULT = 'member/PWD_CHANGE_RESULT';
+const MEMBER_RETURN_RESULT = 'member/MEMBER_RETURN_RESULT';
+const GET_PROFILE = 'member/GET_PROFILE';
+const UPDATE_PROFILE = 'member/UPDATE_PROFILE';
 
 
 
 /* 액션 함수 */
 export const { member : { signupResult, loginResult, searchIdResult,
-                            duplicateIdResult, searchInfoCodeResult,
+                            duplicateIdResult, searchInfoCodeResult, pwdChangeResult,
+                           memberReturnResult, getProfile, updateProfile,
                             } } = createActions({
 
    [ SIGNUP_RESULT ] : isSignUpResult => ({ signupResult : isSignUpResult }),
@@ -23,6 +28,10 @@ export const { member : { signupResult, loginResult, searchIdResult,
    [ SEARCH_ID_RESULT ] : result => ({ searchIdResult : result.data }),
    [ DUPLICATE_ID_RESULT ] : result => ({ duplicateIdResult : { isCheck : result.data } }),
    [ SEARCH_INFO_CODE_RESULT ] : result => ({ searchInfoCodeResult : result.data }),
+   [ PWD_CHANGE_RESULT ] : result => ({ pwdChangeResult : result.data  }),
+   [ MEMBER_RETURN_RESULT ] : isReturnResult => ({ memberReturnResult : isReturnResult  }),
+   [ GET_PROFILE ] : result => ({ getProfile : result.data  }),
+   [ UPDATE_PROFILE ] : isUpdateResult => ({ updateProfile : isUpdateResult  }),
 
 });
 
@@ -35,6 +44,10 @@ const memberReducer = handleActions({
    [ SEARCH_ID_RESULT ] : ( state, { payload } ) => payload,
    [ DUPLICATE_ID_RESULT ] : ( state, { payload } ) => ({...state, ...payload}),
    [ SEARCH_INFO_CODE_RESULT ] : ( state, { payload } ) => payload,
+   [ PWD_CHANGE_RESULT ] : ( state, { payload } ) => payload,
+   [ MEMBER_RETURN_RESULT ] : ( state, { payload } ) => payload,
+   [ GET_PROFILE ] : ( state, { payload } ) => payload,
+   [ UPDATE_PROFILE ] : ( state, { payload } ) => payload,
 
 }, initialState);
 

@@ -85,16 +85,6 @@ function SignupForm() {
     }, [ duplicateIdResult ]);
 
 
-    useEffect(() => {
-
-        if( signupResult === true ) {
-            // { replace : true } 히스토리를 지워버리겠다. 뒤로가기 불가
-            navigate('/product-management', { replace : true });
-        }
-
-    }, [ signupResult ]);
-
-
     const onChangeHandler = e => {
 
         const { name, value } = e.target;

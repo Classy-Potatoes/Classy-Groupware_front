@@ -1,56 +1,35 @@
 import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {callProjectInviteAPI} from "../../apis/ProjectAPICalls";
-import DatePicker from "react-datepicker";
-import {ko} from "date-fns/esm/locale";
+import ProjectTodoRegist from "../items/ProjectTodoRegist";
+import checkStat from "../../../calendar/images/checked.png"
+import {callCheckedTodoAPI, callProjectTodoDeleteAPI} from "../../../calendar/apis/SecondProjectAPICalls";
 
-function ProjectTodoList({todo, projectCode, memberId}) {
+function ProjectTodoList({todo, projectCode, postSuccess, memberId}) {
+
+    console.log(todo, "Toddd")
+    const cnt = todo.todoList.filter(item => item.todoStatus === "finished").length;
 
     const [modifyMode, setModifyMode] = useState(false);
-    const [startDate, setStartDate] = useState(null);
-    const [endDate, setEndDate] = useState(null);
-    const [startTime, setStartTime] = useState(null);
-    const [endTime, setEndTime] = useState(null);
-    const [attendants, setAttendants] = useState([]);
-    const [attendantsCode, setAttendantsCode] = useState([]);
+    const [isChecked, setIsChecked] = useState({});
     const [form, setForm] = useState({});
     const dispatch = useDispatch();
     const {projectMember} = useSelector(state => state.projectReducer);
 
-    // const createdDate = todo.modifiedDate.split('T')[0];
-
     useEffect(() => {
         dispatch(callProjectInviteAPI({projectCode}));
+
+    }, [todo]);
+
+    useEffect(() => {
+        const initialCheckState = {};
+        todo.todoList.forEach(item => {
+            initialCheckState[item.todoListCode] = item.todoStatus === 'finished';
+        });
+        setIsChecked(initialCheckState);
     }, [todo]);
     const formatDate = (date) => {
         return date.toISOString().split('T')[0];
-    }
-
-    const formatTime = (time) => {
-        return time.toISOString().split('T')[1].slice(0, 5);
-    };
-
-    const onChangeHandler = (e) => {
-        setForm({
-            ...form,
-            [e.target.name]: e.target.value
-        })
-    }
-
-    /* 수정 모드로 변환하는 이벤트 */
-    const clickModifyMode = () => {
-        setModifyMode(true);
-    }
-
-    const clickedDelete = () => {
-        // dispatch(callProjectScheduleDeleteAPI({projectCode: projectCode, scheduleCode: todo.scheduleCode}))
-    }
-
-    const clickedDeleteManager = (index) => {
-        const newAttendants = attendants.filter((_, i) => i !== index);
-        const newAttendantsCode = attendantsCode.filter((_, i) => i !== index);
-        setAttendants(newAttendants);
-        setAttendantsCode(newAttendantsCode);
     }
 
     const addOneDay = (date) => {
@@ -59,28 +38,52 @@ function ProjectTodoList({todo, projectCode, memberId}) {
         return newDate;
     }
 
-    const clickedRegist = () => {
-        const formattedStartDate = startDate ? formatDate(addOneDay(startDate)) : "";
-        // schedule?.start.split('T')[0];
-        const formattedEndDate = endDate ? formatDate(addOneDay(endDate)) : "";
-        // schedule?.end.split('T')[0];
-        const formattedStartTime = startTime ? formatTime(startTime) : "";
-        // schedule?.start.split('T')[1].slice(0, 5);
-        const formattedEndTime = endTime ? formatTime(endTime) : "";
-        // schedule?.end.split('T')[1].slice(0, 5);
-
-        const newData = {
+    const onChangeHandler = (e) => {
+        setForm({
             ...form,
-            attendants: attendantsCode,
-            scheduleStartedDate: formattedStartDate,
-            scheduleEndDate: formattedEndDate,
-            scheduleStartedTime: formattedStartTime,
-            scheduleEndTime: formattedEndTime
-        };
-
-        // dispatch(callProjectScheduleModifyAPI({registRequest: newData, projectCode: projectCode, scheduleCode: schedule.scheduleCode}));
+            [e.target.name]: e.target.value
+        })
     }
 
+    const clickedCheck = (e) => {
+        const newVal = e.currentTarget.value;
+
+        console.log(newVal, "newwwww")
+        setIsChecked(prevState => ({
+            ...prevState,
+            [newVal]: !prevState[newVal] // 특정 todoListCode의 상태를 토글
+        }));
+
+        // const todoItem = todo.todoList.find(item => item.todoListCode == newVal);
+        // console.log(todoItem, "itemmmmmm")
+        // const stat = todoItem.todoStatus;
+        // console.log(stat, "stat")
+        dispatch(callCheckedTodoAPI({projectCode: projectCode, todoCode: todo.todoCode, todoListCode: newVal}))
+    }
+
+    /* 수정 모드로 변환하는 이벤트 */
+    const clickModifyMode = () => {
+        setModifyMode(true);
+    }
+
+    const clickedDelete = () => {
+        dispatch(callProjectTodoDeleteAPI({projectCode: projectCode, todoCode: todo.todoCode}))
+    }
+
+    const clickedRegist = () => {
+
+        // const newData = {
+        //     ...form,
+        //     projectTodolistCreateRequestList: todos.map(todo => ({
+        //         todoBody: todo.todoBody,
+        //         endDates: formatDate(addOneDay(todo.endDate)).toLocaleString('ko-KR'),
+        //         attendant: todo.attendant
+        //     }))
+        //
+        // };
+        //
+        // dispatch(callProjectTodoRegistAPI({registRequest: newData, projectCode: projectCode}));
+    }
     return (
         <>
             {!modifyMode &&
@@ -94,7 +97,7 @@ function ProjectTodoList({todo, projectCode, memberId}) {
                             </div>
                         }
                     </div>
-                    {/*<div className="sch-list-created">{createdDate}</div>*/}
+                    <div className="sch-list-created">{todo.createdDate}</div>
                 </div>
             }
             <div className="sch-title">
@@ -114,138 +117,39 @@ function ProjectTodoList({todo, projectCode, memberId}) {
                 {modifyMode &&
                     <button className="sch-unmodi" onClick={() => setModifyMode(false)}>X</button>
                 }
+                {!modifyMode &&
+                    <div className="td-finished-box">
+                        <div className="td-cnt-finished">
+                            완료 {cnt}
+                        </div>
+                        <div className="td-cnt-finished">
+                            전체 {todo.todoList.length}
+                        </div>
+                    </div>
+                }
             </div>
-            <div className="sch-date-box">
-                <img src="/project/calender-icon2.png"/>
-                <DatePicker
-                    // placeholderText={
-                    //     todo && todo.todoStartDate.split('T')[0]
-                    // }
-                    showIcon
-                    locale={ko}
-                    icon="fa fa-calendar"
-                    closeOnScroll={(e) => e.target === document}
-                    selected={modifyMode && startDate}
-                    onChange={(date) => setStartDate(date)}
-                    dateFormat="yyyy-MM-dd"
-                    readOnly={!modifyMode}
-                />
-                <DatePicker
-                    // placeholderText={
-                    //     todo && todo.todoStartDate.split('T')[1]
-                    // }
-                    selected={modifyMode && startTime}
-                    onChange={(time) => setStartTime(time)}
-                    showTimeSelect
-                    showTimeSelectOnly
-                    timeIntervals={15}
-                    timeCaption="Time"
-                    dateFormat="h:mm aa"
-                    readOnly={!modifyMode}
-                />
-                <div>ㅡ</div>
-                <DatePicker
-                    // placeholderText={
-                    //     todo && todo.todoEndDate.split('T')[0]
-                    // }
-                    showIcon
-                    locale={ko}
-                    icon="fa fa-calendar"
-                    closeOnScroll={(e) => e.target === document}
-                    selected={modifyMode && endDate}
-                    onChange={(date) => setEndDate(date)}
-                    dateFormat="yyyy-MM-dd"
-                    readOnly={!modifyMode}
-                />
-                <DatePicker
-                    // placeholderText={
-                    //     todo && todo.todoEndDate.split('T')[1]
-                    // }
-                    selected={modifyMode && endTime}
-                    onChange={(time) => setEndTime(time)}
-                    showTimeSelect
-                    showTimeSelectOnly
-                    timeIntervals={15}
-                    timeCaption="Time"
-                    dateFormat="h:mm aa"
-                    readOnly={!modifyMode}
-                />
-            </div>
-            {/*{modifyMode &&*/}
-            {/*    <div className="sch-add-manager">*/}
-            {/*        {projectMember && projectMember.map(*/}
-            {/*            member => (*/}
-            {/*                <>*/}
-            {/*                    <img className="sch-manager-img" src="/project/담당자.png"/>*/}
-            {/*                    <select className="sch-manager-selected" key={projectMember.infoCode}*/}
-            {/*                            onChange={(e) => {*/}
-            {/*                                const selected = e.target.value;*/}
-            {/*                                if (selected !== '참석자추가' && !attendants.includes(selected) && !attendantsCode.includes(e.target.name)) {*/}
-            {/*                                    setAttendants([...attendants, e.target.value]);*/}
-            {/*                                    setAttendantsCode([...attendantsCode, member.infoCode]);*/}
-            {/*                                }*/}
-            {/*                            }*/}
-            {/*                            }>*/}
-            {/*                        <option name={member.infoCode}*/}
-            {/*                                value={member.memberName}>{member.memberName}</option>*/}
-            {/*                        <option value="참석자추가"*/}
-            {/*                                selected="selected"*/}
-            {/*                        >참석자추가*/}
-            {/*                        </option>*/}
-            {/*                    </select>*/}
-            {/*                </>*/}
-            {/*            ))*/}
-            {/*        }*/}
-            {/*        {attendants.map((attendant, index) => (*/}
-            {/*            <div className="sch-added-manager">*/}
-            {/*                <div className="sch-added-box">*/}
-            {/*                    <div className="sch-manager-name" key={index}>*/}
-            {/*                        {attendant}*/}
-            {/*                    </div>*/}
-            {/*                    <button onClick={() => clickedDeleteManager(index)} className="sch-x-button">*/}
-            {/*                        X*/}
-            {/*                    </button>*/}
-            {/*                </div>*/}
-            {/*            </div>*/}
-            {/*        ))}*/}
-            {/*    </div>*/}
-            {/*}*/}
-            {/*{!modifyMode &&*/}
-            {/*    <div className="sch-managers-area">*/}
-            {/*        <img className="sch-manager-img" src="/project/담당자.png"/>*/}
-            {/*        <div className="sch-managers-box">*/}
-            {/*            <div className="sch-managers-cnt">*/}
-            {/*                참석자 {todo.managers.length} 명*/}
-            {/*            </div>*/}
-            {/*            <div className="sch-managers-name-area">*/}
-            {/*                {todo && todo.managers.map(*/}
-            {/*                    manager => <div className="sch-managers-name">*/}
-            {/*                        {manager.memberName}&nbsp;*/}
-            {/*                    </div>*/}
-            {/*                )*/}
-            {/*                }*/}
-            {/*            </div>*/}
-            {/*        </div>*/}
-            {/*    </div>*/}
-            {/*}*/}
-            <div className="sch-body-box">
-                <label htmlFor="sch-body" className="col-form-label"></label>
-                <textarea type="text"
-                          className="sch-body"
-                          id="sch-body"
-                          name="scheduleContent"
-                          onChange={onChangeHandler}
-                          placeholder={
-                              todo && todo.todoBody
-                          }
-                          value={modifyMode ? form.todoBody : todo.todoBody}
-                          readOnly={!modifyMode}
-                />
-            </div>
+            {!modifyMode &&
+                todo.todoList.map(todoItem => (
+                    <div className="td-list-box">
+                        <div className="td-list-left-box">
+                            <button
+                                style={{ backgroundColor: isChecked[todoItem.todoListCode] ? 'blue' : 'white' }}
+                                className="td-left-fir-div" value={todoItem.todoListCode} onClick={clickedCheck}>
+                                <img
+                                    src={checkStat}
+                                />
+                            </button>
+                            <div className="td-left-sec-div">{todoItem.todoListBody}</div>
+                        </div>
+                        <div className="td-list-right-box">
+                            <div>{todoItem.todoListEndDate}</div>
+                            <div>{todoItem.managerName}</div>
+                        </div>
+                    </div>
+                ))
+            }
             {modifyMode &&
-                <div className="sch-regist-btn-box">
-                    <button onClick={clickedRegist} className="sch-regist-btn">등록</button>
-                </div>
+                <ProjectTodoRegist/>
             }
         </>
     );

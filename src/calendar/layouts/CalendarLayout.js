@@ -8,9 +8,9 @@ import CalendarRegistModal from "../modals/CalendarRegistModal";
 import {ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import "react-datepicker/dist/react-datepicker.css";
+import Navbar from "../../dashBoard/components/common/Navbar";
 
 function CalendarLayout() {
-
 
     const [scheduleRegistModal, setScheduleRegistModal] = useState(false);
     const dispatch = useDispatch();

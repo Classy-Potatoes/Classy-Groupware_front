@@ -1,13 +1,24 @@
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from '@fullcalendar/daygrid'
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import CalendarDetailModal from "../modals/CalendarDetailModal";
 import {ko} from "date-fns/esm/locale";
+import {useDispatch, useSelector} from "react-redux";
+import {callCalendarListAPI} from "../apis/CalendarAPICalls";
 
 export function CalendarMain({allSchedule}) {
 
+    const dispatch = useDispatch();
     const [scheduleDetailModal, setScheduleDetailModal] = useState(false);
     const [schedule, setSchedule] = useState({});
+    const {postSuccess} = useSelector(state => state.scheduleReducer);
+
+    useEffect(() => {
+        if (postSuccess) {
+            dispatch(callCalendarListAPI());
+            setScheduleDetailModal(false);
+        }
+    }, [postSuccess]);
 
     const clickedEvent = (e) => {
 
@@ -61,6 +72,7 @@ export function CalendarMain({allSchedule}) {
                     allSchedule={allSchedule}
                     schedule={schedule}
                     setScheduleDetailModal={setScheduleDetailModal}
+                    postSuccess={postSuccess}
                 />
             }
         </>
