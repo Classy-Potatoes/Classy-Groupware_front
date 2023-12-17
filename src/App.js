@@ -65,9 +65,9 @@ function App() {
                   <Route path="pwdSearch" element={ <ProtectedRoute loginCheck={ false }><SearchPwd /></ProtectedRoute> } />
                   <Route path="mypage" element={ <ProtectedRoute loginCheck={ true }><MyPageLayout/></ProtectedRoute> }>
                       <Route index element={ <Navigate to="/member/mypage/profile" replace/>}/>
-                      <Route path="profile" element={  <Profile/> }/>
-                      <Route path="passwordChange" element={  <PwdChange/> }/>
-                      <Route path="memberReturn" element={  <MemberReturn/> }/>
+                      <Route path="profile" element={  <ProtectedRoute loginCheck={ true }><Profile/></ProtectedRoute> }/>
+                      <Route path="passwordChange" element={  <ProtectedRoute loginCheck={ true }><PwdChange/></ProtectedRoute> }/>
+                      <Route path="memberReturn" element={  <ProtectedRoute loginCheck={ true }><MemberReturn/></ProtectedRoute> }/>
                   </Route>
               </Route>
 
@@ -115,19 +115,19 @@ function App() {
 
               {/* 연락망 */}
               <Route path="/network" element={ <ProtectedRoute loginCheck={ true }><NetworkPageLayout/></ProtectedRoute> }>
-                  <Route index element={ <MemberNetwork /> }/>
+                  <Route index element={ <ProtectedRoute loginCheck={ true }><MemberNetwork /></ProtectedRoute> }/>
               </Route>
 
               {/* 관리기능 */}
               <Route path="/admin" element={ <ProtectedRoute loginCheck={ true }><AdminPageLayout/></ProtectedRoute> }>
                   <Route index element={ <Navigate to="/admin/managementMember" replace/>}/>
                   <Route path="member">
-                      <Route path="main" element={  <AdminMemberMain/> }/>
-                      <Route path="search" element={  <AdminMemberSearchMain/> }/>
+                      <Route path="main" element={  <ProtectedRoute loginCheck={ true }><AdminMemberMain/></ProtectedRoute> }/>
+                      <Route path="search" element={  <ProtectedRoute loginCheck={ true }><AdminMemberSearchMain/></ProtectedRoute> }/>
                   </Route>
                   <Route path="nonMember">
-                      <Route path="main" element={  <NonMemberMain/> }/>
-                      <Route path="search" element={  <NonMemberSearchMain/> }/>
+                      <Route path="main" element={  <ProtectedRoute loginCheck={ true }><NonMemberMain/></ProtectedRoute> }/>
+                      <Route path="search" element={  <ProtectedRoute loginCheck={ true }><NonMemberSearchMain/></ProtectedRoute> }/>
                   </Route>
               </Route>
 

@@ -10,18 +10,26 @@ const GET_ADMIN_MEMBERS = 'admin/GET_ADMIN_MEMBERS';
 const GET_JOBS = 'admin/GET_JOBS';
 const GET_DEPTS = 'admin/GET_DEPTS';
 const INFO_REGIST_RESULT = 'admin/INFO_REGIST_RESULT';
+const INFO_DELETE_RESULT = 'admin/INFO_DELETE_RESULT';
+const GET_PROFILE_ADMIN = 'admin/GET_PROFILE_ADMIN';
+const ADMIN_UPDATE_PROFILE = 'admin/ADMIN_UPDATE_PROFILE';
 
 
 
 /* 액션 함수 */
 export const { admin : {
-   getNonMembers, getAdminMembers, getJobs, getDepts, infoRegistResult, } } = createActions({
+   getNonMembers, getAdminMembers, getJobs, getDepts, infoRegistResult,
+   infoDeleteResult, getProfileAdmin, adminUpdateProfile,
+} } = createActions({
 
    [ GET_NON_MEMBERS ] : result => ({ getNonMembers : result.data }),
    [ GET_ADMIN_MEMBERS ] : result => ({ getAdminMembers : result.data }),
    [ GET_JOBS ] : result => ({ getJobs : result.data }),
    [ GET_DEPTS ] : result => ({ getDepts : result.data }),
    [ INFO_REGIST_RESULT ] : isRegiResult => ({ infoRegistResult : isRegiResult }),
+   [ INFO_DELETE_RESULT ] : isDeleteResult => ({ infoDeleteResult : isDeleteResult }),
+   [ GET_PROFILE_ADMIN ] : result => ({ getProfileAdmin : result.data }),
+   [ ADMIN_UPDATE_PROFILE ] : isUpdateResult => ({ adminUpdateProfile : isUpdateResult }),
 
 });
 
@@ -34,6 +42,9 @@ const adminReducer = handleActions({
    [ GET_JOBS ] : ( state, { payload } ) => ({...state, ...payload}),
    [ GET_DEPTS ] : ( state, { payload } ) => ({...state, ...payload}),
    [ INFO_REGIST_RESULT ] : ( state, { payload } ) => ({...state, ...payload}),
+   [ INFO_DELETE_RESULT ] : ( state, { payload } ) => ({...state, ...payload}),
+   [ GET_PROFILE_ADMIN ] : ( state, { payload } ) => ({...state, ...payload}),
+   [ ADMIN_UPDATE_PROFILE ] : ( state, { payload } ) => ({...state, ...payload}),
 
 }, initialState);
 
