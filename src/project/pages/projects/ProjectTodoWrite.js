@@ -16,8 +16,9 @@ function ProjectTodoWrite() {
     const {projectCode} = useParams();
     const dispatch = useDispatch();
     const [currentPage, setCurrentPage] = useState(1);
-    const {allTodoList, postSuccess} = useSelector(state => state.secondProjectReducer);
+    const {allTodoList, postSuccess, allMyTodoList} = useSelector(state => state.secondProjectReducer);
     const memberId = getMemberId();
+    console.log(allMyTodoList, "Sssss")
 
     useEffect(() => {
         dispatch(callTodoListAPI({projectCode, currentPage}));

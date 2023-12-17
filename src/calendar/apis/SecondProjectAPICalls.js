@@ -1,6 +1,7 @@
 import {authRequest, request} from "./Apis";
 import {toast} from "react-toastify";
 import {
+    getAllTodoList,
     getMyTodoList,
     getScheduleList,
     getTodoList,
@@ -277,6 +278,20 @@ export const callProjectTodoReplyRegistAPI = ({ registRequest, projectCode, todo
                 dispatch(postSuccess())
             }
         }
+    }
+};
+
+export const todoListForDashboard = () => {
+
+    return async (dispatch, getState) => {
+
+        const result = await authRequest.get(`/cg-api/v1/projects/myTodoList`);
+        console.log('todoListForDashboard result : ', result);
+
+        if(result.status === 200) {
+            dispatch(getAllTodoList(result));
+        }
+
     }
 };
 
