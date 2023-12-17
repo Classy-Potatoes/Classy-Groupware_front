@@ -77,8 +77,8 @@ function NoteSave() {
                     memberList &&
                     <MemberListModal
                         recipient={recipientSelect} // Fix: 'memberList' -> 'recipient'
-                        onClickMember={handleClickMember}
-                        onClose={memberListClose}
+                        // onClickMember={handleClickMember}
+                        // onClose={memberListClose}
                     />
                 }
                 {/*<div>*/}
