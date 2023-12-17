@@ -86,3 +86,16 @@ export const callProjectTaskReplyDeleteAPI = ({ replyCode })=> {
         }
     }
 }
+
+/* 업무 체크 */
+export const callProjectTaskCheckAPI = ({ taskCode, taskCheckRequest }) => {
+
+    return async (dispatch, getState) => {
+
+        const result = await authRequest.put(`/cg-api/v1/task/${taskCode}/check`, taskCheckRequest)
+
+        if(result.status === 201) {
+            dispatch(putSuccess());
+        }
+    }
+}

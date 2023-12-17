@@ -1,0 +1,66 @@
+/* 내가 참여한 프로젝트 */
+
+.DashBoard-List {
+    background: #EBEBEB;
+    border-radius: 10px;
+    width: 500px;
+    height: 291px;
+    margin-top: 53px;
+    margin-left: 70px;
+    margin-right: 20px;
+
+}
+.dashBoard-project {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 3px black solid;
+    width: 95%;
+    margin-left: 10px;
+    margin-top: 10px;
+}
+
+.dashBoard-project p {
+    font-size: 20px;
+    font-family: Noto Sans;
+    font-weight: 800;
+    margin-left: 5px;
+    flex: 1;
+}
+.project-and-calender {
+    display: flex;
+    margin-top: 20px;
+}
+
+.goProjects {
+    cursor: pointer;
+}
+
+.dashBoard-project-item {
+    display: flex;
+    border-bottom: 1px solid black;
+    color: black;
+    font-size: 15px;
+    font-family: Noto Sans;
+    font-weight: 500;
+    width: 95%;
+    margin-left: 10px;
+    padding: 10px;
+}
+
+.dashBoard-project-Title{
+    cursor: pointer;
+    flex: 1;
+    margin-left: 5px;
+}
+
+/* 캘린더 */
+.dashBoard-calendar {
+    margin-top: 53px;
+    margin-left: 80px;
+}
+
+/* 대시보드 밑줄 */
+.DashBoard-List-bottom {
+    display: flex;
+}

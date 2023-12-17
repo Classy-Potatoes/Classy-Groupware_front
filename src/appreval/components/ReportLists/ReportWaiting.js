@@ -185,7 +185,7 @@ function ReportWaiting() {
                                 <th className="report-table-th">결재상태</th>
                             </tr>
                             </thead>
-                            <tbody className="report-table-tbody">
+                            <tbody className="ainreport-table-tbody">
 
                             {reportWaiting.data.map(report => (
                                 <tr

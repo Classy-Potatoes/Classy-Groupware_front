@@ -5,6 +5,7 @@ import './style/member/admin.css';
 import './style/member/login.css';
 import './style/member/member.css';
 import './style/project/Project.css';
+import './style/dashBoard/dashBoard.css';
 import 'react-toastify/dist/ReactToastify.css';
 import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
 import Layout from "./dashBoard/layouts/Layout";
@@ -49,13 +50,16 @@ import ReportRecallSearch from "./appreval/components/ReportLists/ReportRecallSe
 import LetterDetail from "./appreval/components/ReportLists/reportDetail/ReprotLetterDetail";
 import VacationDetail from "./appreval/components/ReportLists/reportDetail/ReportVacationDetail";
 import ExpenseDetail from "./appreval/components/ReportLists/reportDetail/ReprotExpenseDetail";
+import DashBoard from "./dashBoard/page/DashBoard";
 
 function App() {
   return (
       <BrowserRouter>
           <Routes>
               <Route path="/" element={ <Navigate to="/dashBoard" /> } />
-              <Route path="/dashBoard" element={ <ProtectedRoute loginCheck={ true }><Layout/></ProtectedRoute> }/>
+              <Route path="/dashBoard" element={ <ProtectedRoute loginCheck={ true }><Layout/></ProtectedRoute> }>
+                  <Route index element={<ProtectedRoute loginCheck={ true }><DashBoard /></ProtectedRoute>}/>
+              </Route>
 
               <Route path="/member">
                   <Route path="login" element={ <ProtectedRoute loginCheck={ false }><Login /></ProtectedRoute> } />
@@ -85,9 +89,8 @@ function App() {
                         </div>
                     }>
                     </Route>
-                      <Route path="myTask" element={<ProtectedRoute loginCheck={ true }><ProjectDashBoard /></ProtectedRoute>} />
                   </Route>
-
+                  <Route path="myTask" element={<ProtectedRoute loginCheck={ true }><ProjectDashBoard /></ProtectedRoute>} />
               </Route>
 
               <Route path="calendar" element={ <ProtectedRoute loginCheck={ true }><CalendarLayout/></ProtectedRoute> }/>

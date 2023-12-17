@@ -3,7 +3,7 @@ import {authRequest, request} from "../../common/apis/Api";
 import {toast} from "react-toastify";
 import {
     getMydeptmember,
-    getMydeptprojects, getMytask,
+    getMydeptprojects, getMytask, getMyTodo,
     getProject,
     getProjectmember,
     getProjects,
@@ -125,6 +125,22 @@ export const callProjectMyTasktListAPI = ({currentPage = 1}) => {
         }
     }
 }
+
+/* 내 할일 조회 */
+export const callDashBoardMyTodoListAPI = ({currentPage = 1}) => {
+
+    return async (disPatch, getState) => {
+
+        const result = await authRequest.get(`/cg-api/v1/todolist/myTodo?page=${currentPage}`);
+
+        console.log('callProjectMyTodoListAPI :' , result);
+
+        if(result?.status === 200) {
+            disPatch(getMyTodo(result));
+        }
+    }
+}
+
 
 /* 프로젝트 수정 */
 export const callProjectModifyAPI = ({projectCode, projectModifyRequest}) => {
