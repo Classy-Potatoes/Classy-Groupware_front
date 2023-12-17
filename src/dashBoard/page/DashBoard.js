@@ -2,6 +2,7 @@ import SideCalendar from "../../calendar/pages/SideCalendar";
 import DashBoardMyproject from "./DashBoardMyproject";
 import DashBoardMyTask from "./DashBoardMyTask";
 import DashBoardMyTodo from "./DashBoardMyTodo";
+import DashBoardMyAppreval from "./DashBoardMyAppreval";
 
 function DashBoard() {
 
@@ -13,7 +14,7 @@ function DashBoard() {
                     <DashBoardMyproject/>
                 </div>
                 <div className= "DashBoard-List">
-
+                    <DashBoardMyAppreval/>
                 </div>
                 <div className="dashBoard-calendar">
                     <SideCalendar/>
