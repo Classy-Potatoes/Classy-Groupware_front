@@ -3,6 +3,7 @@ import {isAdmin, removeToken} from "../../../member/utils/TokenUtils";
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect} from "react";
 import {callMyProfileAPI} from "../../../member/apis/MemberAPICalls";
+import TodayWeather from "../Weather/TodayWeather";
 
 
 function Navbar() {
@@ -51,7 +52,7 @@ function Navbar() {
                     { isAdmin() && <NavLink to="/admin/member/main"><p><img src="/Vector.png"/>관리기능</p></NavLink> }
 
                     <div className="weather">
-                        날씨 영역
+                        <TodayWeather/>
                     </div>
                 </div>
             </div>
