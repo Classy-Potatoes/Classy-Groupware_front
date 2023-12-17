@@ -1,9 +1,9 @@
-import {useDispatch} from "react-redux";
-import {callScheduleRemoveAPI} from "../apis/CalendarAPICalls";
+import {useDispatch, useSelector} from "react-redux";
+import {callCalendarListAPI, callScheduleRemoveAPI} from "../apis/CalendarAPICalls";
 import CalendarRegistModal from "./CalendarRegistModal";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 
-function CalendarDetailModal({schedule, setScheduleDetailModal}) {
+function CalendarDetailModal({schedule, setScheduleDetailModal, postSuccess}) {
 
     const personalCode = schedule.scheduleCode;
     const dispatch = useDispatch();
@@ -22,7 +22,7 @@ function CalendarDetailModal({schedule, setScheduleDetailModal}) {
     return (
         <>
             {isModifyModalOpen ? (
-                <CalendarRegistModal schedule={schedule} setScheduleRegist={setIsModifyModalOpen}/>
+                <CalendarRegistModal schedule={schedule} setScheduleRegist={setIsModifyModalOpen} postSuccess={postSuccess}/>
             ) : (
                 schedule && (
                     <div className="cal-detail-modal">

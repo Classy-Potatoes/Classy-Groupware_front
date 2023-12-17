@@ -155,6 +155,7 @@ function ProjectTodoRegist({projectCode, postSuccess, currentPage}) {
                                 selected={todo.endDate}
                                 onChange={(date) => changeTodos(todo.id, date, 'endDate')}
                                 dateFormat="yyyy-MM-dd"
+                                minDate={new Date()}
                             />
                         </div>
                         <div className="td-add-manager">

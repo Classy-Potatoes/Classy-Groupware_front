@@ -15,14 +15,14 @@ function CalendarNavbar() {
                         <div className="cal-title">캘린더</div>
                     </div>
                     <div className="cal-menu-box">
-                            <img src="/ph_list-light.png" alt="전체" />
-                            <p>전체</p>
-                        </div>
+                        <img src="/ph_list-light.png" alt="전체"/>
+                        <p>전체</p>
                     </div>
                 </div>
                 <div className="cal-box">
                     <SideCalendar/>
                 </div>
+            </div>
         </>
     );
 }

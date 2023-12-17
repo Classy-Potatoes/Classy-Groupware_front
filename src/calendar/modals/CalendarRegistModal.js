@@ -1,10 +1,11 @@
-import {useDispatch} from "react-redux";
-import React, {useState} from "react";
-import {callScheduleModifyAPI, callScheduleRegistAPI} from "../apis/CalendarAPICalls";
+import {useDispatch, useSelector} from "react-redux";
+import React, {useEffect, useState} from "react";
+import {callCalendarListAPI, callScheduleModifyAPI, callScheduleRegistAPI} from "../apis/CalendarAPICalls";
 import DatePicker from "react-datepicker";
 import {ko} from "date-fns/esm/locale";
+import scheduleReducer from "../modules/CalendarModule";
 
-function CalendarRegistModal({setScheduleRegist, schedule}) {
+function CalendarRegistModal({setScheduleRegist, schedule, postSuccess}) {
 
     const initTitle = schedule ? schedule.title : '';
     const initContent = schedule ? schedule.content : '';
@@ -46,7 +47,7 @@ function CalendarRegistModal({setScheduleRegist, schedule}) {
         const formattedEndDate = endDate ? formatDate(addOneDay(endDate)) : schedule?.end.split('T')[0];
         const formattedStartTime = startTime ? formatTime(startTime) : schedule?.start.split('T')[1].slice(0, 5);
         const formattedEndTime = endTime ? formatTime(endTime) : schedule?.end.split('T')[1].slice(0, 5);
-        console.log(formattedStartDate, "1231231232131313")
+
         const newData = {
             ...form,
             calendarStartedDate: formattedStartDate,
@@ -94,6 +95,7 @@ function CalendarRegistModal({setScheduleRegist, schedule}) {
                                     selected={startDate}
                                     onChange={(date) => setStartDate(date)}
                                     dateFormat="yyyy-MM-dd"
+                                    minDate={new Date()}
                                 />
                                 <DatePicker
                                     placeholderText={schedule ? schedule.start.split('T')[1] : "HH:MM"}
@@ -119,6 +121,7 @@ function CalendarRegistModal({setScheduleRegist, schedule}) {
                                             selected={endDate}
                                             onChange={(date) => setEndDate(date)}
                                             dateFormat="yyyy-MM-dd"
+                                            minDate={new Date()}
                                         />
                                         <DatePicker
                                             placeholderText={schedule ? schedule.end.split('T')[1] : "HH:MM"}

@@ -120,6 +120,7 @@ function ProjectScheduleRegist({projectCode, postSuccess}) {
                     selected={startDate}
                     onChange={(date) => setStartDate(date)}
                     dateFormat="yyyy-MM-dd"
+                    minDate={new Date()}
                 />
                 <DatePicker
                     placeholderText={
@@ -145,6 +146,7 @@ function ProjectScheduleRegist({projectCode, postSuccess}) {
                     selected={endDate}
                     onChange={(date) => setEndDate(date)}
                     dateFormat="yyyy-MM-dd"
+                    minDate={new Date()}
                 />
                 <DatePicker
                     placeholderText={
@@ -176,40 +178,6 @@ function ProjectScheduleRegist({projectCode, postSuccess}) {
                         setAttendants(selectedOptions);
                     }}
                 />
-                {/*{projectMember && projectMember.map(*/}
-                {/*    member => (*/}
-                {/*        <>*/}
-                {/*            <img className="sch-manager-img" src="/project/담당자.png"/>*/}
-                {/*            <select className="sch-manager-selected" key={projectMember.infoCode}*/}
-                {/*                    onChange={(e) => {*/}
-                {/*                        const selected = e.target.value;*/}
-                {/*                        if (selected !== '참석자추가' && !attendants.includes(selected) && !attendantsCode.includes(e.target.name)) {*/}
-                {/*                            setAttendants([...attendants, e.target.value]);*/}
-                {/*                            setAttendantsCode([...attendantsCode, member.infoCode]);*/}
-                {/*                        }*/}
-                {/*                    }*/}
-                {/*                    }>*/}
-                {/*                <option name={member.infoCode} value={member.memberName}>{member.memberName}</option>*/}
-                {/*                <option value="참석자추가"*/}
-                {/*                        selected="selected"*/}
-                {/*                >참석자추가*/}
-                {/*                </option>*/}
-                {/*            </select>*/}
-                {/*        </>*/}
-                {/*    ))*/}
-                {/*}*/}
-                {/*{attendants.map((attendant, index) => (*/}
-                {/*    <div className="sch-added-manager">*/}
-                {/*        <div className="sch-added-box">*/}
-                {/*            <div className="sch-manager-name" key={index}>*/}
-                {/*                {attendant}*/}
-                {/*            </div>*/}
-                {/*            <button onClick={() => clickedDeleteManager(index)} className="sch-x-button">*/}
-                {/*                X*/}
-                {/*            </button>*/}
-                {/*        </div>*/}
-                {/*    </div>*/}
-                {/*))}*/}
             </div>
             <div className="sch-body-box">
                 <label htmlFor="sch-body" className="col-form-label"></label>

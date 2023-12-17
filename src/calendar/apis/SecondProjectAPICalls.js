@@ -258,4 +258,25 @@ export const callProjectMyTodoListAPI = ({ projectCode }) => {
     }
 };
 
+export const callProjectTodoReplyRegistAPI = ({ registRequest, projectCode, todoCode }) => {
+
+    return async (dispatch, getState) => {
+
+        const result = await authRequest.post(`/cg-api/v1/projects/${projectCode}/todo/${todoCode}/reply`,
+            registRequest)
+            .catch(res => {
+                if (res.response.data.code === 4013) {
+                    toast.error("작성된 댓글 내용이 없습니다.");
+                }
+            })
+
+        console.log('callProjectTodoReplyRegistAPI result : ', result);
+        if (result != undefined) {
+            if (result.status === 201) {
+                toast.info("댓글 등록이 완료 되었습니다.");
+                dispatch(postSuccess())
+            }
+        }
+    }
+};
 
