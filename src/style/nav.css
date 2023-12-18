@@ -240,7 +240,7 @@
 
 /* CG로고 글자 설정 */
 .note-navbar-title p {
-    color: #C0A3FF;
+    color: #CEC35E;
     font-size: 22px;
     font-family: Noto Sans;
     margin-left: 20px;
@@ -289,7 +289,7 @@
 }
 
 .note-nav-category p:hover {
-    color: #C0A3FF;
+    color: #CEC35E;
 }
 
 /* 검은 div 설정 */

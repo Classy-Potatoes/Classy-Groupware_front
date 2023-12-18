@@ -10,15 +10,17 @@ const GET_NOTE = 'note/GET_NOTE';
 const GET_NOTE_MEMBER = 'note/GET_NOTE_MEMBER';
 const SET_RECIPIENT_MEMBER = 'note/SET_RECIPIENT_MEMBER';
 const GET_NOTE_LIST_MEMBERS = 'note/GET_NOTE_LIST_MEMBERS';
+const SET_NOTE_RECEIVER = 'note/SET_NOTE_RECEIVER';
 
 /* 액션 함수 */
-export const { note : { postSuccess, getNotes, getNote, getNoteMember, setRecipientMember, getNoteListMembers } } = createActions({
+export const { note : { postSuccess, getNotes, getNote, getNoteMember, setRecipientMember, getNoteListMembers, setNoteReceiver } } = createActions({
     [POST_SUCCESS] : () => ({ postSuccess : true }),
     [GET_NOTES] : result => ({ notes : result.data }), /*data 속성이 사용하려고 하는 정보가 담긴 속성 */
     [GET_NOTE] : result => ({ note : result.data }), /*data 속성이 사용하려고 하는 정보가 담긴 속성 */
     [GET_NOTE_MEMBER]: result => ({ note : result.data }),
     [SET_RECIPIENT_MEMBER]: member => ({ recipientMember : member }),
     [GET_NOTE_LIST_MEMBERS] : result => ({ getNoteListMembers : result.data }),
+    [SET_NOTE_RECEIVER] : noteReceiver =>({ noteReceiver: noteReceiver }),
 });
 
 /* 리듀서 */
@@ -29,6 +31,7 @@ const noteReducer = handleActions({
     [GET_NOTE_MEMBER] : (state, { payload }) => ({ ...state, ...payload }),
     [SET_RECIPIENT_MEMBER] : (state, { payload }) => ({ ...state, ...payload }),
     [GET_NOTE_LIST_MEMBERS] : (state, { payload }) => ({ ...state, ...payload }),
+    [SET_NOTE_RECEIVER] : (state, { payload }) => ({ ...state, ...payload }),
 
 }, initialState);
 

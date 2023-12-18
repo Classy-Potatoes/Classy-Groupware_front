@@ -43,7 +43,7 @@
     height: 40px;
     padding: 0 30px 0 20px;
     border-radius: 192px;
-    border: 2px solid #C0A3FF;
+    border: 2px solid #CEC35E;
 }
 
 .note-search button {
@@ -114,4 +114,9 @@
     padding: 15px;
     background: ghostwhite;
 
+}
+
+/* 쪽지 삭제 버튼 */
+.note-delete-btn {
+    margin-left: 1250px;
 }

@@ -2,7 +2,6 @@ import {authRequest} from "../../common/apis/Api";
 import {getNoteListMembers, getNoteMember, getNotes, postSuccess} from "../modules/NoteModule";
 import {getNote} from "../modules/NoteModule";
 import {toast} from "react-toastify";
-import {getAdminMembers} from "../../member/modules/AdminModule";
 
 export const callNoteReceivedListAPI = ({ currentPage }) => {
 
@@ -73,8 +72,24 @@ export const callNoteReceivedRemoveAPI = ({ noteCode }) => {
         const result = await authRequest.delete(`/cg-api/v1/note/received/${ noteCode }`);
         console.log('callNoteReceivedRemoveAPI result:', result);
 
-        if (result && result.status === 204) {
-            toast.info("🗑️쪽지가 삭제되었습니다.");
+        if(result.status === 204) {
+            window.location.replace("/note/received");
+        }
+
+    }
+
+}
+
+/* 보낸 쪽지 삭제 */
+export const callNoteSentRemoveAPI = ({ noteCode }) => {
+
+    return async (dispatch, getState) => {
+
+        const result = await authRequest.delete(`/cg-api/v1/note/sent/${ noteCode }`);
+        console.log('callNoteSentRemoveAPI result:', result);
+
+        if(result.status === 204) {
+            window.location.replace("/note/sent");
         }
 
     }
@@ -96,6 +111,7 @@ export const callNoteReceivedAPI = ({ noteCode }) => {
 
 };
 
+/* 쪽지 전송 */
 export const callNoteSendAPI = ({ sendRequest }) => {
 
     return async (dispatch, getState) => {
@@ -119,6 +135,7 @@ export const callNoteSendAPI = ({ sendRequest }) => {
 
 }
 
+
 export const callNoteRecipientAPI = ({ currentPage = 1, infoName }) => {
 
     return async (dispatch, getState) => {
@@ -137,7 +154,7 @@ export const callNoteRecipientAPI = ({ currentPage = 1, infoName }) => {
 
 }
 
-// 회원 목록 조회
+/* 쪽지 작성 시 회원 목록 조회 */
 export const callNoteListMembersAPI = ({ currentPage })  => {
 
     return async (dispatch, getState) => {

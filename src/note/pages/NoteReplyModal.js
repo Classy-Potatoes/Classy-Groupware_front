@@ -1,14 +1,42 @@
 import {useState} from "react";
+import axios from "axios";
+import {useSelector} from "react-redux";
+import {toast} from "react-toastify";
 
-function NoteReplyModal({ onClose, onSaveReply }) {
+function NoteReplyModal({ onClose }) {
 
     const [replyBody, setReplyBody] = useState('');
     const onChangeBody = (e) => {
       setReplyBody(e.target.value);
     };
-    const noteReplySend = () => {
-        onSaveReply(replyBody);
-    }
+    const {noteReceiver} = useSelector(state => state.noteReducer);
+    // const noteReplySend = () => {
+    //     onSaveReply(replyBody);
+    // }
+
+    const onSaveReply = async (replyBody) => {
+        try {
+            if (!noteReceiver) {
+                console.error('noteReceiver가 없음');
+                return;
+            }
+            // API 호출을 통해 쪽지 저장
+            const response = await axios.post('/cg-api/v1/note/send', {
+                sendRequest: {
+                    noteReceiver: noteReceiver,
+                    noteBody: replyBody,
+                },
+            });
+
+            console.log('Saved reply:', response.data);
+            onClose();
+            toast.success("💌 답장이 전송되었습니다!");
+        } catch (error) {
+            console.error('Error saving reply:', error);
+            toast.error("❌ 답장 전송에 실패했습니다.");
+        }
+    };
+
 
     return (
       <>
@@ -21,7 +49,7 @@ function NoteReplyModal({ onClose, onSaveReply }) {
                       cols="50"
                   />
                   <button onClick={ onClose }>취소</button>
-                  <button onClick={ noteReplySend }>보내기</button>
+                  <button onClick={() => onSaveReply(replyBody)}>보내기</button>
               </div>
           </div>
       </>

@@ -4,6 +4,7 @@ import {callNoteSendAPI} from "../apis/NoteAPICalls";
 import {useDispatch, useSelector} from "react-redux";
 import * as React from "react";
 import MemberListModal from "./MemberListModal";
+import {toast} from "react-toastify";
 
 function NoteSave() {
 
@@ -12,7 +13,7 @@ function NoteSave() {
     const [memberList, setMemberList] = useState(false);
     const dispatch = useDispatch();
 
-   const { recipientSelect } = useSelector(state => state.noteReducer);
+    const { recipientSelect } = useSelector(state => state.noteReducer);
     const { postSuccess } = useSelector(state => state.noteReducer);
 
     useEffect(() => {
@@ -28,12 +29,27 @@ function NoteSave() {
         });
     };
 
-    const onClickNoteSendHandler = () => {
+    const onClickNoteSendHandler = async () => {
         const noteReceiver = recipientMember.memberCode;
         console.log(noteReceiver);
         console.log(form);
-        dispatch(callNoteSendAPI({ sendRequest : {...form, noteReceiver : recipientMember.memberCode }}));
-    }
+        // dispatch(ccallNoteSendAPI({ sendRequest : { ...form, noteReceiver : recipientMember.memberCode }}));
+
+        try {
+            // API 호출 및 성공 여부에 따라 토스트 메시지 표시
+            const response = await dispatch(callNoteSendAPI({ sendRequest: { ...form, noteReceiver: recipientMember.memberCode }}));
+            console.log('API 호출', response);
+            toast.success('쪽지가 성공적으로 전송되었습니다.');
+
+            // 상태 초기화
+            setForm('');
+            setMemberList(false);
+        } catch (error) {
+            console.error('API 호출 실패:', error);
+        }
+
+};
+
 
     const {recipientMember} = useSelector(state => state.noteReducer);
 
