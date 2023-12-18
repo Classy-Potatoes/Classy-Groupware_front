@@ -1,13 +1,19 @@
 import {NavLink} from "react-router-dom";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import Navbar from "../../../dashBoard/components/common/Navbar";
 import NewProjectWriteModal from "../modal/NewProjectWriteModal";
+import {useDispatch, useSelector} from "react-redux";
+import {callLoginInfoAPI} from "../../apis/ProjectAPICalls";
 
 
 function ProjectNavBar() {
 
     const [isNavOpen, setIsNavOpen] = useState(false);
     const [newProjectWriteModal,setNewProjectWriteModal ] = useState(false);
+    const dispatch = useDispatch();
+    const {loginInfo} =useSelector(state => state.projectReducer);
+
+    console.log("lo", loginInfo);
 
     const handleNavToggle = () => {
         setIsNavOpen(!isNavOpen);
@@ -17,6 +23,15 @@ function ProjectNavBar() {
     const onClickNewProjectHandler = () => {
         setNewProjectWriteModal(true);
     }
+
+    useEffect(() => {
+        const fetchLoginInfo = async () => {
+            // You need to call the function to get the thunk
+            await dispatch(callLoginInfoAPI());
+        };
+
+        fetchLoginInfo();
+    }, [dispatch]);
 
 
     return (
@@ -29,18 +44,18 @@ function ProjectNavBar() {
             }
             <div className={`navbar-div ${isNavOpen ? "nav-open" : ""}`}>
                 <div>
-                    {/*{ isHeader() ? (*/}
+                    { loginInfo && loginInfo.jobCode <= 4 ? (
                         <button className="add-project" onClick={onClickNewProjectHandler}>
                             <p>+새프로젝트</p>
                         </button>
-                    {/*) : (*/}
-                    {/*    <div  className="project-Classy">*/}
-                    {/*        <p>*/}
-                    {/*            Classy<br/>*/}
-                    {/*            Groupware*/}
-                    {/*        </p>*/}
-                    {/*    </div>*/}
-                    {/*)}*/}
+                    ) : (
+                        <div  className="project-Classy">
+                            <p>
+                                Classy<br/>
+                                Groupware
+                            </p>
+                        </div>
+                    )}
                 </div>
 
                 <div className="total-nav" onClick={handleNavToggle}>

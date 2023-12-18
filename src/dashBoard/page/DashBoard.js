@@ -3,6 +3,7 @@ import DashBoardMyproject from "./DashBoardMyproject";
 import DashBoardMyTask from "./DashBoardMyTask";
 import DashBoardMyTodo from "./DashBoardMyTodo";
 import DashBoardMyAppreval from "./DashBoardMyAppreval";
+import DashBoardMyNote from "./DashBoardMyNote";
 
 function DashBoard() {
 
@@ -28,7 +29,7 @@ function DashBoard() {
                     <DashBoardMyTodo/>
                 </div>
                 <div className="DashBoard-List">
-                    e
+                    <DashBoardMyNote/>
                 </div>
 
             </div>

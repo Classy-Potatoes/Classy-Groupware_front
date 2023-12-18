@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams  } from "react-router-dom";
 import { useEffect } from "react";
 import { callProjectInviteAPI, callProjectRemoveAPI } from "../../apis/ProjectAPICalls";
-import { ToastContainer } from "react-toastify";
 import ProjectModifyModal from "../../components/modal/ProjectModifyModal";
 import InviteModal from "../../components/modal/InviteModal";
 
@@ -12,7 +11,7 @@ function ProjectInvite() {
 
     const dispatch = useDispatch();
     const { projectCode } = useParams();
-    const { projectMember, project } = useSelector((state) => state.projectReducer);
+    const { projectMember, project, loginInfo } = useSelector((state) => state.projectReducer);
     const [projectModifyModal, setProjectModifyModal] = useState(false);
     const [confirmDeleteModal, setConfirmDeleteModal] = useState(false);
     const [inviteModal, setInviteModal] = useState(false);
@@ -73,8 +72,12 @@ function ProjectInvite() {
                         </button>
                         <ProjectInvitedItem projectMember={projectMember} />
                         <div className="project-button">
-                            <button onClick={onClickProjectModifyHandler}>수정</button>
-                            <button onClick={onClickProjectDeleteHandler}>삭제</button>
+                            {loginInfo && loginInfo.jobCode <= 4 && (
+                                <>
+                                    <button onClick={onClickProjectModifyHandler}>수정</button>
+                                    <button onClick={onClickProjectDeleteHandler}>삭제</button>
+                                </>
+                            )}
                         </div>
                     </div>
                 </div>

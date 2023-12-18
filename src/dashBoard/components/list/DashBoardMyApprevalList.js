@@ -1,7 +1,15 @@
-import DashBoardMyProjectTodoListItem from "../item/DashBoardMyProjectTodoListItem";
 import DashBoardMyApprevalListItem from "../item/DashBoardMyApprevalListItem";
+import {useNavigate} from "react-router-dom";
 
 function DashBoardMyApprevalList({data}) {
+
+
+    const navigate = useNavigate();
+
+    const onClickmoveApprevalsHandler = () => {
+        navigate('/approval/report-waiting');
+    }
+
 
     return (
         <>
@@ -11,6 +19,7 @@ function DashBoardMyApprevalList({data}) {
                     <p>내 기안서</p>
                     <img
                         className="goProjects"
+                        onClick={ onClickmoveApprevalsHandler }
                         src="/project/eva_arrow-left-fill.png"/>
                 </div>
                 {data &&

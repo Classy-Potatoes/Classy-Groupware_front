@@ -1,7 +1,8 @@
 
-import {authRequest, request} from "../../common/apis/Api";
+import {authRequest} from "../../common/apis/Api";
 import {toast} from "react-toastify";
 import {
+    getLoginInfo,
     getMydeptmember,
     getMydeptprojects, getMytask, getMyTodo,
     getProject,
@@ -9,7 +10,6 @@ import {
     getProjects,
     postSuccess, putSuccess
 } from "../modules/ProjectModule";
-import async from "async";
 
 /* 프로젝트 생성 */
 export const callProjectRegistAPI = ({ projectRegistRequest }) => {
@@ -229,6 +229,21 @@ export const callProjectTaskRegistAPI = ({ projecttaskRequest }) => {
 
         if(result?.status === 201) {
             disPatch(postSuccess());
+        }
+    }
+}
+
+/* 로그인 정보 조회 */
+export const callLoginInfoAPI = () => {
+
+    return async (disPatch, getState) => {
+
+        const result = await authRequest.get('/cg-api/v1/loginInfo');
+
+        console.log('callLoginInfoAPI' , result);
+
+        if(result.status === 200) {
+            disPatch(getLoginInfo(result));
         }
     }
 }

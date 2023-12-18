@@ -5,7 +5,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import {ko} from 'date-fns/esm/locale';
 import {useNavigate} from "react-router-dom";
-
+import {toast} from "react-toastify";
 
 function NewProjectWriteModal({setNewProjectWriteModal}) {
 
@@ -14,7 +14,6 @@ function NewProjectWriteModal({setNewProjectWriteModal}) {
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
     const {postSuccess} = useSelector(state => state.projectReducer);
-    const navigate = useNavigate();
 
     useEffect(() => {
         if (postSuccess === true) {
