@@ -47,10 +47,10 @@ import NoteReceived from "./note/pages/NoteReceived";
 import NonMemberSearchMain from "./member/pages/admin/NonMemberSearchMain";
 import AdminMemberSearchMain from "./member/pages/admin/AdminMemberSearchMain";
 import ReportWaiting from "./appreval/components/ReportLists/ReportWaiting";
-import ReportApprove from "./appreval/components/ReportLists/ReprotApprove";
-import ReportTurnback from "./appreval/components/ReportLists/ReprotTurnback";
-import ReportRecall from "./appreval/components/ReportLists/ReprotRecall";
-import ReportPaying from "./appreval/components/ReportLists/ReprotPaying";
+import ReportApprove from "./appreval/components/ReportLists/ReportApprove";
+import ReportTurnback from "./appreval/components/ReportLists/ReportTurnback";
+import ReportRecall from "./appreval/components/ReportLists/ReportRecall";
+import ReportPaying from "./appreval/components/ReportLists/ReportPaying";
 import ReportWaitingSearch from "./appreval/components/ReportLists/ReportWaitingSearch";
 import ReportPayingSearch from "./appreval/components/ReportLists/ReportPayingSearch";
 import ReportApproveSearch from "./appreval/components/ReportLists/ReportApproveSearch";
@@ -63,6 +63,16 @@ import NoteSave from "./note/pages/NoteSave";
 import DashBoard from "./dashBoard/page/DashBoard";
 import ProjectMyTask from "./project/pages/projects/ProjectMyTask";
 
+import SignWaiting from "./appreval/components/ReportLists/sign/SignWaiting";
+import SignPaying from "./appreval/components/ReportLists/sign/SignPaying";
+import SignApprove from "./appreval/components/ReportLists/sign/SignApprove";
+import SignTurnback from "./appreval/components/ReportLists/sign/SignTurnback";
+import SignPayingSearch from "./appreval/components/ReportLists/sign/SignPayingSearch";
+import SignApproveSearch from "./appreval/components/ReportLists/sign/SignApproveSearch";
+import SignTurnbackSearch from "./appreval/components/ReportLists/sign/SignTurnbackSearch";
+import SignWaitingSearch from "./appreval/components/ReportLists/sign/SignWaitingSearch";
+import ReferenceReport from "./appreval/components/ReportLists/ReferenceReport";
+import ReferenceReportSearch from "./appreval/components/ReportLists/ReferenceReportSearch";
 
 function App() {
   return (
@@ -135,6 +145,17 @@ function App() {
                   <Route path="report/letter/:approvalCode" element={<ProtectedRoute loginCheck={true}> <LetterDetail/> </ProtectedRoute> }/>
                   <Route path="report/expense/:approvalCode" element={<ProtectedRoute loginCheck={true}> <ExpenseDetail/> </ProtectedRoute> }/>
                   <Route path="report/vacation/:approvalCode" element={<ProtectedRoute loginCheck={true}> <VacationDetail/> </ProtectedRoute> }/>
+                  <Route path="sign-waiting" element={<ProtectedRoute loginCheck={true }> <SignWaiting/></ProtectedRoute>} />
+                  <Route path="sign-paying" element={<ProtectedRoute loginCheck={true }> <SignPaying/></ProtectedRoute>} />
+                  <Route path="sign-approve" element={<ProtectedRoute loginCheck={true }> <SignApprove/></ProtectedRoute>} />
+                  <Route path="sign-turnback" element={<ProtectedRoute loginCheck={true }> <SignTurnback/></ProtectedRoute>} />
+                  <Route path="sign/search-waiting" element={<ProtectedRoute loginCheck={true}> <SignWaitingSearch/> </ProtectedRoute> }/>
+                  <Route path="sign/search-paying" element={<ProtectedRoute loginCheck={true}> <SignPayingSearch/> </ProtectedRoute> }/>
+                  <Route path="sign/search-approve" element={<ProtectedRoute loginCheck={true}> <SignApproveSearch/> </ProtectedRoute> }/>
+                  <Route path="sign/search-turnback" element={<ProtectedRoute loginCheck={true}> <SignTurnbackSearch/> </ProtectedRoute> }/>
+                  <Route path="report/search-reference" element={<ProtectedRoute loginCheck={true}> <ReferenceReportSearch/> </ProtectedRoute> }/>
+                  <Route path="report/reference" element={<ProtectedRoute loginCheck={true}> <ReferenceReport/> </ProtectedRoute> }/>
+
 
 
               </Route>

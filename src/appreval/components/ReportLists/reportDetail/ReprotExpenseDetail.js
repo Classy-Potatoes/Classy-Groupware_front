@@ -6,6 +6,8 @@ import Button from "@mui/material/Button";
 import SendIcon from "@mui/icons-material/Send";
 import {callReportDetailAPI} from "../../../apis/ReportAPICalls";
 import {useNavigate, useParams} from "react-router-dom";
+import SignUpCheckModal from "../../mui/SignUpCheckModal";
+import {ToastContainer} from "react-toastify";
 
 
 function ExpenseDetail() {
@@ -19,9 +21,6 @@ function ExpenseDetail() {
     useEffect(() => {
         dispatch(callReportDetailAPI({approvalCode}));
     }, []);
-
-
-
 
 
     // 숫자에 콤마를 추가하는 함수
@@ -61,7 +60,18 @@ function ExpenseDetail() {
             </div>
 
             <div className="expenseContainer">
-
+                <ToastContainer
+                    position="top-center"
+                    autoClose={500}
+                    hideProgressBar={true}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss={false}
+                    draggable
+                    pauseOnHover={false}
+                    theme="dark"
+                />
                 <div className="expense-left">
                     <p
                         className="expenseTitle"
@@ -76,8 +86,8 @@ function ExpenseDetail() {
                             <p>수신 참조자</p>
                         </div>
                         <div className="referenceMember">
-                            {reportDetail && reportDetail.referenceLine.map((selectedMember, index) =>(
-                                <div key={index} className="referenceLine-pickMemberInfo-div" >
+                            {reportDetail && reportDetail.referenceLine.map((selectedMember, index) => (
+                                <div key={index} className="referenceLine-pickMemberInfo-div">
                                     {selectedMember && selectedMember.infoName}
                                 </div>
                             ))}
@@ -104,14 +114,15 @@ function ExpenseDetail() {
                     <div className="expense-maintitle-status">
                         <div className="expenseDetail-mainTitle">
                             <p>제목</p>
-                            <span className="documentTitle-Reportdetail-page">{reportDetail && reportDetail.documentTitle}</span>
+                            <span
+                                className="documentTitle-Reportdetail-page">{reportDetail && reportDetail.documentTitle}</span>
                         </div>
                         <div className="expenseDetailStatus-div">
                             <div className="expenseDetailStatus-title">
                                 <>결제 구분</>
                             </div>
                             <div className="expenseDetail-radio">
-                               <span>{reportDetail && reportDetail.expenseStatus}</span>
+                                <span>{reportDetail && reportDetail.expenseStatus}</span>
                             </div>
                         </div>
 
@@ -148,12 +159,9 @@ function ExpenseDetail() {
                         ) : null}
 
                     </div>
-                        <div className="expenseDetail-totalAmount">
-                            총 금액 : {addCommas(TotalAmount(reportDetail?.expenseDetails))} 원
-                        </div>
-
-
-
+                    <div className="expenseDetail-totalAmount">
+                        총 금액 : {addCommas(TotalAmount(reportDetail?.expenseDetails))} 원
+                    </div>
 
 
                     <div className="expense-note-detail-page">
@@ -163,7 +171,8 @@ function ExpenseDetail() {
 
                     <div className="expenseDetail-guide"> 위 금액을 청구하오니 결재 바랍니다.</div>
 
-                    <div className="expenseRegistDate-detail-page">작성 일자 : {reportDetail && formatDate(reportDetail.approvalRegistDate)}</div>
+                    <div className="expenseRegistDate-detail-page">작성 일자
+                        : {reportDetail && formatDate(reportDetail.approvalRegistDate)}</div>
 
 
                 </div>
@@ -171,33 +180,51 @@ function ExpenseDetail() {
                 <div className="approvalLineDiv">
                     <p>결재선</p>
                 </div>
-                <div className="approvalLine">
-                    {reportDetail && reportDetail.approvalLine.map((selectedMember, index) =>(
-                        <div key={index} className="approvalLine-selectMember-div">
-                            {selectedMember && selectedMember.infoName}<br/>
-                            {selectedMember && (
-                                <>
-                                    {selectedMember.approvalLineReuslt === '승인' && (
-                                        <img src="/approval/승인%20이미지.png" alt="승인" className="approveImg"/>
-                                    )}
-                                    {selectedMember.approvalLineReuslt === '반려' && (
-                                        <img src="/approval/반려%20이미지.png" alt="반려" className="turnbackImg"/>
-                                    )}
-                                    <span className={`${selectedMember.approvalLineWaitingStatus === '결재요청' ? 'blink' : ''}`}>
+
+                {reportDetail && reportDetail.approvalLine && (
+                    <div className="approvalLine">
+                        {reportDetail && reportDetail.approvalLine.map((selectedMember, index) => (
+                            <div key={index} className="approvalLine-selectMember-div">
+                                {selectedMember && selectedMember.infoName}<br/>
+                                {selectedMember && (
+                                    <>
+                                    <span
+                                        className={`${selectedMember.approvalLineWaitingStatus === '결재요청' ? 'blink' : ''}`}>
                                                  {selectedMember.approvalLineWaitingStatus}
                                     </span>
-                                    {selectedMember.approvalLineDate}
-                                </>
-                            )}
-                        </div>
-                    ))}
-                </div>
-
+                                        {selectedMember.approvalLineDate !== null && (
+                                            <div className="approvalSignTime">
+                                                {formatDate(selectedMember.approvalLineDate)}
+                                                <div>{selectedMember.approvalLineResult === 'TURNBACK' ? '반려' :
+                                                selectedMember.approvalLineResult === 'APPROVE' ? '승인' : ''}
+                                                </div>
+                                            </div>
+                                        )}
+                                    </>
+                                )}
+                            </div>
+                        ))}
+                    </div>
+                )}
             </div>
             <div className="approval-completeBtn">
-                <Button variant="contained" endIcon={<SendIcon/>} onClick={ () => navigate(-1)}>
+                <Button variant="contained" endIcon={<SendIcon/>} onClick={() => navigate(-1)}>
                     이전 페이지
                 </Button>
+            </div>
+            <div className="approval-signUp">
+                {reportDetail &&
+                    reportDetail.approvalLine &&
+                    reportDetail.approvalLine.map((member, index) => {
+                        if (member.memberCode === reportDetail.loginMember &&
+                            member.approvalLineWaitingStatus === '결재요청') {
+                            return (
+                                <SignUpCheckModal key={index} approvalCode={approvalCode}/>
+                            );
+                        } else {
+                            return null;
+                        }
+                    })}
             </div>
 
 

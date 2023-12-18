@@ -1,5 +1,7 @@
 import {authRequest} from "./approvalAPI";
 import {
+    getReferenceReport,
+    getReferenceReportSearch,
     getReportApprove, getReportApproveSearch, getReportDetail,
     getReportPaying, getReportPayingSearch,
     getReportRecall, getReportRecallSearch,
@@ -147,6 +149,31 @@ export const callReportRecallSearchAPI = ({ documentTitle , startDate, endDate, 
 
         if(result.status === 200) {
             dispatch(getReportRecallSearch(result));
+        }
+    }
+}
+
+export const callReportReferenceSearchAPI = ({ documentTitle , startDate, endDate, currentPage = 1}) =>{
+    return async  (dispatch, getState) => {
+        const result = await authRequest.get( `/cg-api/v1/approval/report/search-reference?documentTitle=${documentTitle}&startDate=${startDate}&endDate=${endDate}&page=${currentPage}`);
+
+
+        if(result.status === 200) {
+            dispatch(getReferenceReportSearch(result));
+        }
+    }
+}
+
+export const callReportReferenceAPI = ({ currentPage = 1}) => {
+    return async (dispatch, getState) => {
+        const result = await authRequest.get(`/cg-api/v1/approval/report/reference?page=${currentPage}`,
+            {
+                headers : {
+                    'Content-Type' : 'application/json'
+                },
+            })
+        if(result.status === 200) {
+            dispatch(getReferenceReport(result));
         }
     }
 }

@@ -6,11 +6,7 @@ import ReportDatePiker from "../mui/ReprotDatePiker";
 import Button from "@mui/material/Button";
 import SendIcon from "@mui/icons-material/Send";
 import {useDispatch, useSelector} from "react-redux";
-import {
-    callApprovalStatusUpdateAPI,
-    callReportApproveSearchAPI,
-    callReportWaitingSearchAPI
-} from "../../apis/ReportAPICalls";
+import {callApprovalStatusUpdateAPI, callReportApproveSearchAPI} from "../../apis/ReportAPICalls";
 import ApprovalPagingBar from "../common/ApprovalPagingBar";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AttachmentIcon from "@mui/icons-material/Attachment";
@@ -135,7 +131,7 @@ function ReportApproveSearch() {
             </div>
 
 
-            <div className="reportContainer">
+            <div className="reportContainer-noRecall">
                 <ToastContainer
                     position="top-center"
                     autoClose={500}
@@ -166,21 +162,10 @@ function ReportApproveSearch() {
 
                 {searchData &&
                     <div className="reportTable">
-                        <Button variant="outlined" startIcon={<DeleteIcon/>}
-                                sx={{width: '120px', marginBottom: '10px'}}
-                                onClick={handleRecall}
-                        >
-                            회수
-                        </Button>
+
                         <table className="Report-table">
                             <thead>
                             <tr>
-                                <th className="report-table-th"><input type="checkbox"
-                                                                       className="report-table-th-ck"
-                                                                       checked={selectAll}
-                                                                       onChange={handleSelectAll}
-                                />
-                                </th>
                                 <th className="report-table-th">문서 번호</th>
                                 <th className="report-table-th">제목</th>
                                 <th className="report-table-th">문서 종류</th>
@@ -197,11 +182,7 @@ function ReportApproveSearch() {
                                     key={searchData.approvalCode}
                                     onClick={() => onClickDetailPageHandler(report.documentType, report.approvalCode)}
                                 >
-                                    <td className="report-table-td"><input type="checkbox"
-                                                                           value={report.approvalCode}
-                                                                           className="report-table-td-ck"
-                                    />
-                                    </td>
+
                                     <td className="report-table-td">{report.approvalCode}</td>
                                     <td className="report-table-td">{report.documentTitle}</td>
                                     <td className="report-table-td">{report.documentType}</td>

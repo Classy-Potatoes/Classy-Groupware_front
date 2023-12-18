@@ -161,21 +161,51 @@ function ApprovalNavBar() {
                         <Collapse in={approvalBox} timeout="auto" unmountOnExit>
                             <List component="div" disablePadding>
                                 <ListItemButton sx={{ pl: 4 }}>
-                                    <ListItemText primary="결재대기" />
+                                    <NavLink
+                                        to="/approval/sign-waiting"
+                                        className={location.pathname === "/approval/sign-waiting" ? "active-link" : "" }
+                                        onClick={() => SetReportTurnbackLink("/approval/sign-waiting")}
+                                    >
+                                    <ListItemText primary="결재 할 문서" />
+                                    </NavLink>
                                 </ListItemButton>
                                 <ListItemButton sx={{ pl: 4}}>
+                                    <NavLink
+                                        to="/approval/sign-paying"
+                                        className={location.pathname === "/approval/sign-paying" ? "active-link" : "" }
+                                        onClick={() => SetReportTurnbackLink("/approval/sign-paying")}
+                                    >
                                     <ListItemText primary="결재중" />
+                                    </NavLink>
                                 </ListItemButton>
                                 <ListItemButton sx={{ pl: 4}}>
+                                    <NavLink
+                                        to="/approval/sign-approve"
+                                        className={location.pathname === "/approval/sign-approve" ? "active-link" : "" }
+                                        onClick={() => SetReportTurnbackLink("/approval/sign-approve")}
+                                    >
                                     <ListItemText primary="승인" />
+                                    </NavLink>
                                 </ListItemButton>
                                 <ListItemButton sx={{ pl: 4}}>
+                                    <NavLink
+                                        to="/approval/sign-turnback"
+                                        className={location.pathname === "/approval/sign-turnback" ? "active-link" : "" }
+                                        onClick={() => SetReportTurnbackLink("/approval/sign-turnback")}
+                                    >
                                     <ListItemText primary="반려" />
+                                    </NavLink>
                                 </ListItemButton>
                             </List>
                         </Collapse>
                         <ListItemButton>
+                            <NavLink
+                                to="/approval/report/reference"
+                                className={location.pathname === "/approval/report/reference" ? "active-link" : "" }
+                                onClick={() => SetReportTurnbackLink("/approval/report/reference")}
+                            >
                             <ListItemText primary="참조보관함" />
+                            </NavLink>
                         </ListItemButton>
                     </List>
                 </div>
