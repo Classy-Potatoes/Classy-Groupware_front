@@ -21,7 +21,6 @@ function ProjectTodoWrite() {
 
     useEffect(() => {
         dispatch(callTodoListAPI({projectCode, currentPage}));
-        dispatch(todoListForDashboard())
     }, [currentPage, postSuccess]);
 
     return (

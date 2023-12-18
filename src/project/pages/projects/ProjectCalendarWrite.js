@@ -15,10 +15,11 @@ function ProjectCalendarWrite() {
     const [currentPage, setCurrentPage] = useState(1);
     const {allSchedules, postSuccess} = useSelector(state => state.secondProjectReducer);
     const memberId = getMemberId();
-    console.log(memberId, "all")
+
     useEffect(() => {
         dispatch(callScheduleListAPI({projectCode, currentPage}));
     }, [currentPage, postSuccess]);
+    console.log(allSchedules, "sdsdsd")
 
     return (
         <>
@@ -36,7 +37,6 @@ function ProjectCalendarWrite() {
                     </div>
                 )
             )}
-
             {allSchedules &&
                 <div className="project-post-paging">
                     <PagingBar pageInfo={allSchedules.pageInfo} setCurrentPage={setCurrentPage}/>
