@@ -22,6 +22,7 @@ function ProjectTaskWrite({projectCode}) {
     const [attendants, setAttendants] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
 
+    console.log("d?????",projectCode);
 
     useEffect(() => {
         // Update projectCode in form when the prop changes
