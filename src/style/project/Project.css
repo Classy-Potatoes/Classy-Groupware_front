@@ -851,7 +851,6 @@
     font-size: 30px;
     font-family: Noto Sans;
     font-weight: 500;
-    width: 1000px;
 }
 
 .project-postList-Body{
@@ -861,14 +860,10 @@
     overflow-y: auto;
 }
 
-.project-postList-Body textarea {
+.project-postList-Body input {
     font-size: 20px;
     font-family: Noto Sans;
     font-weight: 400;
-    width: 100%;
-    overflow-y: auto;
-    resize: none;
-
 }
 
 .project-post-file {

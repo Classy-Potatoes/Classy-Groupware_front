@@ -10,8 +10,6 @@ import {callProjectTaskListAPI} from "../../apis/ProjectTaskAPICalls";
 
 function ProjectScheduleReviews({postSuccess, projectCode, schedule, memberId}) {
 
-
-    console.log(schedule , "111")
     const [modifyMode, setModifyMode] = useState(false);
     const [form, setForm] = useState({});
     const [modifyForm, setModifyForm] = useState({});
