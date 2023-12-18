@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useState, useRef} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {callProjectInviteAPI} from "../../apis/ProjectAPICalls";
 import tdPlus from "../../../calendar/images/todoPlus.png"
@@ -40,6 +40,9 @@ function ProjectTodoRegist({projectCode, postSuccess, currentPage}) {
             ];
             setTodos(initialTodos);
         }
+
+        document.getElementById("td-manager-selected").value = "";
+
     }, [postSuccess]);
 
     const removeTodo = (e) => {
@@ -171,7 +174,11 @@ function ProjectTodoRegist({projectCode, postSuccess, currentPage}) {
                                 id="td-manager-selected"
                                 className="sch-manager-selected"
                                 onChange={(e) => changeTodos(todo.id, e.target.value, 'attendant')}
+                                value={todos.attendant}
                             >
+                                <option value="">
+                                    이름 조회
+                                </option>
                                 {projectMember && projectMember.map(member => (
                                     <option
                                         key={member.infoCode}
@@ -180,9 +187,6 @@ function ProjectTodoRegist({projectCode, postSuccess, currentPage}) {
                                         {member.memberName}
                                     </option>
                                 ))}
-                                <option value="이름 조회" selected>
-                                    이름 조회
-                                </option>
                             </select>
                         </div>
                     </div>

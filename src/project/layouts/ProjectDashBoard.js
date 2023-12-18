@@ -12,7 +12,7 @@ function ProjectDashBoard() {
     const dispatch = useDispatch();
     const [currentPage, setCurrentPage] = useState(1);
     const { myTask } = useSelector(state => state.projectReducer);
-    const { myTodoList } = useSelector(state => state.secondProjectReducer);
+    const { myTodoList, allTodoList, allSchedules } = useSelector(state => state.secondProjectReducer);
     const {projectCode} = useParams();
 
     useEffect(() => {
@@ -23,7 +23,7 @@ function ProjectDashBoard() {
     useEffect(() => {
         /* 내가 참여한 프로젝트 정보 요청 */
         dispatch(callProjectMyTodoListAPI({projectCode}));
-    }, [currentPage]);
+    }, [allTodoList, allSchedules]);
 
     return (
             <>
