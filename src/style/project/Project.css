@@ -1087,4 +1087,8 @@
     overflow-y: scroll;
 }
 
+/* 내업무 */
+.myTask-List {
+    padding: 5%;
+}
 

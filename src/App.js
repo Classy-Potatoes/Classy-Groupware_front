@@ -61,6 +61,7 @@ import VacationDetail from "./appreval/components/ReportLists/reportDetail/Repor
 import ExpenseDetail from "./appreval/components/ReportLists/reportDetail/ReprotExpenseDetail";
 import NoteSave from "./note/pages/NoteSave";
 import DashBoard from "./dashBoard/page/DashBoard";
+import ProjectMyTask from "./project/pages/projects/ProjectMyTask";
 
 
 function App() {
@@ -99,6 +100,7 @@ function App() {
                     <Route path="save" element={ <NoteSave/> }/>
                 </Route>
 
+              {/* 프로젝트 */}
               <Route path="projects" element={ <ProtectedRoute loginCheck={ true }><ProjectLayout /></ProtectedRoute> } >
                   <Route index element={
                       <div>
@@ -108,13 +110,10 @@ function App() {
                   }/>
                   <Route path=":projectCode" element={<ProtectedRoute loginCheck={ true }><ProjectDetailLayout /></ProtectedRoute>} >
                     <Route index element={
-                        <div className="project-post-div">
-                            <ProjectDashBoard/>
-                        </div>
-                    }>
+                        <div className="project-post-div"><ProjectDashBoard/></div>}>
                     </Route>
                   </Route>
-                  <Route path="myTask" element={<ProtectedRoute loginCheck={ true }><ProjectDashBoard /></ProtectedRoute>} />
+                  <Route path="myTask" element={<ProtectedRoute loginCheck={true}><ProjectMyTask /></ProtectedRoute>}></Route>
               </Route>
 
               <Route path="calendar" element={ <ProtectedRoute loginCheck={ true }><CalendarLayout/></ProtectedRoute> }/>

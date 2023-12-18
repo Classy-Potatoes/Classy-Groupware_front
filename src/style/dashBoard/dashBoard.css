@@ -6,9 +6,7 @@
     width: 500px;
     height: 291px;
     margin-top: 53px;
-    margin-left: 70px;
-    margin-right: 20px;
-
+    margin-left: 2%;
 }
 .dashBoard-project {
     display: flex;
@@ -57,7 +55,7 @@
 /* 캘린더 */
 .dashBoard-calendar {
     margin-top: 53px;
-    margin-left: 80px;
+    margin-left: 40px;
 }
 
 /* 대시보드 밑줄 */

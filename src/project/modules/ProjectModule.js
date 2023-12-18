@@ -13,14 +13,14 @@ const GET_MYTASK = 'project/GET_MYTASK';
 const PUT_SUCCESS = 'project/PUT_SUCCESS';
 const GET_MYDEPTMEMBER = 'project/GET_MYDEPTMEMBER';
 const GET_MY_TODO = 'project/GET_MY_TODO';
-
+const GET_LOGIN_INFO = 'project/GET_LOGIN_INFO';
 
 
 
 /* 액션 함수 */ /* 액션 객체를 만들어서 반환 */
 export const { project :  { postSuccess, getProjects, getMydeptprojects, getProject,
                 getProjectmember, getMytask, putSuccess, getMydeptmember,
-                 getMyTodo } } = createActions({
+                 getMyTodo, getLoginInfo } } = createActions({
     [POST_SUCCESS] : () => ({ postSuccess: true}),
     [GET_PROJECTS] : result => ({ projects : result.data }),
     [GET_MYDEPTPROJECTS] : result => ({ myDeptProjects : result.data }),
@@ -30,6 +30,7 @@ export const { project :  { postSuccess, getProjects, getMydeptprojects, getProj
     [PUT_SUCCESS] :() => ({ putSuccess : true }),
     [GET_MYDEPTMEMBER] : result => ({ myDeptMember : result.data }),
     [GET_MY_TODO] : result => ({ myTodoList : result.data }),
+    [GET_LOGIN_INFO] : result => ({ loginInfo: result.data }),
 });
 
 /* 리듀서 */ /* 액션을 받아서 어떻게 실행할것인지. */
@@ -43,6 +44,7 @@ const projectReducer = handleActions({
     [PUT_SUCCESS] : (state, {payload}) => payload,
     [GET_MYDEPTMEMBER] : (state, { payload }) => ({ ...state, ...payload }),
     [GET_MY_TODO] : (state, { payload }) => ({ ...state, ...payload }),
+    [GET_LOGIN_INFO] : (state, { payload }) => ({ ...state, ...payload }),
 }, initialState);
 
 /* (state, { payload }) => payload 가  projectReducer에 저장되는 값 */

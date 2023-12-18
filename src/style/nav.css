@@ -84,6 +84,10 @@
     /*margin-bottom: 15px;*/
 }
 
+.main-nav-bar p:hover {
+    color: #81BFDA;
+}
+
 .main-nav-bar img {
     margin-right: 10px;
 }
@@ -182,6 +186,10 @@
 
 .nav-bar-p {
     margin-top: 20px;
+}
+
+.nav-bar-p p:hover{
+    color: #CEC35E;
 }
 
 .nav-bar-p p {
