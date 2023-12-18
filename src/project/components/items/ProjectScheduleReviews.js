@@ -6,31 +6,38 @@ import {
     callProjectReplyUpdateAPI,
     callProjectScheduleReplyRegistAPI
 } from "../../../calendar/apis/SecondProjectAPICalls";
+import {callProjectTaskListAPI} from "../../apis/ProjectTaskAPICalls";
 
 function ProjectScheduleReviews({postSuccess, projectCode, schedule, memberId}) {
 
+
+    console.log(schedule , "111")
     const [modifyMode, setModifyMode] = useState(false);
     const [form, setForm] = useState({});
     const [modifyForm, setModifyForm] = useState({});
     const dispatch = useDispatch();
 
-    console.log(memberId, "idddd")
-    console.log(schedule.memberId, "iwwwwwwwdddd")
+    useEffect(() => {
+        setModifyForm(prevState => {
+            const updatedForm = { ...prevState };
+            schedule.replies.forEach(reply => {
+                if (!updatedForm[reply.replyCode]) {
+                    updatedForm[reply.replyCode] = {
+                        replyBody: reply.replyBody || ""
+                    };
+                }
+            });
+            return updatedForm;
+        });
+    }, [postSuccess]);
 
     useEffect(() => {
-        dispatch(callProjectInviteAPI({projectCode}));
-        setModifyForm({
-            replyBody: ""
-        })
-        setModifyMode(false)
-    }, [schedule, postSuccess]);
-
-    useEffect(() => {
-        setForm({
-            replyBody: ""
-        })
-        setModifyMode(false)
-    }, [schedule, postSuccess]);
+        if (postSuccess) {
+            setForm({
+                replyBody: ""
+            })
+        }
+    }, [postSuccess]);
 
     const onModifyChangeHandler = (e, replyCode) => {
         const {name, value} = e.target;
@@ -93,35 +100,35 @@ function ProjectScheduleReviews({postSuccess, projectCode, schedule, memberId}) 
                                    id={`sch-reivew-write-${reply.replyCode}`}
                                    name="replyBody"
                                    onChange={(e) => onModifyChangeHandler(e, reply.replyCode)}
-                                   placeholder={
-                                       reply.replyBody
-                                   }
+                                   // placeholder={
+                                   //     reply.replyBody
+                                   // }
                                    value={modifyMode ? (modifyForm[reply.replyCode] ? modifyForm[reply.replyCode].replyBody : reply.replyBody) : reply.replyBody}
                                    maxLength={20}
                                    readOnly={!modifyMode}
                             />
                         </div>
                         <div className="sch-rev-created">{reply.replyModifyDate.split('T')[0]}</div>
-                        {schedule.memberId === memberId &&
+                        {schedule.infoCode === reply.infoCode && (
                             <div className="sch-rev-stat-box">
                                 <div className="sch-rev-modify-box">
-                                    {schedule.memberId === memberId && !modifyMode &&
+                                    {!modifyMode &&
                                         <button value={reply.replyCode} onClick={() => setModifyMode(true)}>수정</button>
                                     }
-                                    {schedule.memberId == memberId && modifyMode &&
+                                    {modifyMode &&
                                         <button value={reply.replyCode} onClick={clickedModiSender}>등록</button>
                                     }
                                 </div>
                                 <div className="sch-rev-deleted-box">
-                                    {schedule.memberId === memberId && !modifyMode &&
+                                    {!modifyMode &&
                                         <button value={reply.replyCode} onClick={clickedDelete}>삭제</button>
                                     }
-                                    {schedule.memberId == memberId && modifyMode &&
+                                    {modifyMode &&
                                         <button value={reply.replyCode} onClick={() => setModifyMode(false)}>취소</button>
                                     }
                                 </div>
                             </div>
-                        }
+                        )}
                     </div>
                 </>
             ))

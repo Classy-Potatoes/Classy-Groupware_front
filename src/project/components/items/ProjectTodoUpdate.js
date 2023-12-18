@@ -5,42 +5,53 @@ import tdPlus from "../../../calendar/images/todoPlus.png"
 import tdMinus from "../../../calendar/images/todoMinus.png";
 import DatePicker from "react-datepicker";
 import {ko} from "date-fns/esm/locale";
-import {callProjectTodoRegistAPI, callTodoListAPI} from "../../../calendar/apis/SecondProjectAPICalls";
-import {toast} from "react-toastify";
+import {
+    callProjectTodoRegistAPI,
+    callProjectTodoUpdateAPI,
+    callTodoListAPI
+} from "../../../calendar/apis/SecondProjectAPICalls";
 
-function ProjectTodoRegist({projectCode, postSuccess, currentPage}) {
-
+function ProjectTodoUpdate({projectCode, postSuccess, init, todoTitle, todoCode}) {
+    console.log(init, "sds")
     const [todos, setTodos] = useState([
         {id: 0, todoBody: "", endDate: "", attendant: ""}
     ]);
     const [nextId, setNextId] = useState(1);
-    const [form, setForm] = useState({});
+    const [form, setForm] = useState({
+        todoTitle: todoTitle
+    });
     const dispatch = useDispatch();
     const {projectMember} = useSelector(state => state.projectReducer);
-
+    const [readMode, setReadMode] = useState(false);
     useEffect(() => {
         dispatch(callProjectInviteAPI({projectCode}));
         if (postSuccess) {
             setForm({
                 todoTitle: "",
-                projectTodolistCreateRequestList: todos.map(todo => ({
+                projectTodolistUpdateRequestList: todos.map(todo => ({
                     todoBody: "",
                     endDates: "",
                     attendant: ""
                 }))
-            });
+            })
         }
-    }, [postSuccess]);
+
+    }, [projectCode, postSuccess]);
 
     useEffect(() => {
-
-        if (postSuccess) {
-            const initialTodos = [
-                {id: 0, todoBody: "", endDate: "", attendant: ""}
-            ];
-            setTodos(initialTodos);
+        // ... 이전 코드
+        if (init && init.length > 0) {
+            // init 배열이 존재하고 비어있지 않을 때 초기값 설정
+            setTodos(
+                init.map((item) => ({
+                    id: item.id,
+                    todoBody: item.todoBody || "",
+                    endDate: item.endDate || "",
+                    attendant: item.infoCode || ""
+                }))
+            );
         }
-    }, [postSuccess]);
+    }, [init]);
 
     const removeTodo = (e) => {
         const targetId = parseInt(e.target.id);
@@ -67,7 +78,9 @@ function ProjectTodoRegist({projectCode, postSuccess, currentPage}) {
                     case 'todoBody':
                         return {...todo, todoBody: value};
                     case 'endDate':
-                        return {...todo, endDate: value};
+                        return {
+                            ...todo, endDate: value
+                        };
                     case 'attendant':
                         return {...todo, attendant: value}
                     default:
@@ -99,33 +112,18 @@ function ProjectTodoRegist({projectCode, postSuccess, currentPage}) {
 
         const newData = {
             ...form,
-            projectTodolistCreateRequestList: todos.map(todo => ({
+            projectTodolistUpdateRequestList: todos.map(todo => ({
                 todoBody: todo.todoBody,
-                endDates: todo.endDate ? formatDate(addOneDay(todo.endDate)).toLocaleString('ko-KR') : toast.error("마감일이 비었습니다."),
-                attendant: todo.attendant ? todo.attendant : toast.error("담당자가 비었습니다.")
+                endDates: formatDate(addOneDay(todo.endDate)).toLocaleString('ko-KR'),
+                attendant: todo.attendant
             }))
 
         };
-
-        dispatch(callProjectTodoRegistAPI({registRequest: newData, projectCode: projectCode}));
+        dispatch(callProjectTodoUpdateAPI({registRequest: newData, projectCode: projectCode, todoCode: todoCode}));
     }
 
     return (
         <>
-            <div className="sch-title">
-                <label htmlFor="sch-regist-header" className="col-form-label"></label>
-                <input type="text"
-                       className="cal-form-title"
-                       id="sch-regist-header"
-                       name="todoTitle"
-                       onChange={onChangeHandler}
-                       placeholder={
-                           // schedule ? schedule.title :
-                           '제목을 입력하세요(15자 이내)'}
-                       value={form.todoTitle}
-                       maxLength={15}
-                />
-            </div>
             {todos.map((todo) => (
                 <div className="td-box" key={todo.id}>
                     <div className="td-left-box">
@@ -142,8 +140,7 @@ function ProjectTodoRegist({projectCode, postSuccess, currentPage}) {
                                        name="todoBody"
                                        onChange={(e) => changeTodos(todo.id, e.target.value, 'todoBody')}
                                        placeholder={
-                                           // schedule ? schedule.title :
-                                           '할일 입력'}
+                                               '할일 입력'}
                                        value={todo.todoBody}
                                        maxLength={10}
                                 />
@@ -181,7 +178,7 @@ function ProjectTodoRegist({projectCode, postSuccess, currentPage}) {
                                     </option>
                                 ))}
                                 <option value="이름 조회" selected>
-                                    이름 조회
+                                    {todo.attendant}
                                 </option>
                             </select>
                         </div>
@@ -207,4 +204,4 @@ function ProjectTodoRegist({projectCode, postSuccess, currentPage}) {
         ;
 }
 
-export default ProjectTodoRegist;
+export default ProjectTodoUpdate;

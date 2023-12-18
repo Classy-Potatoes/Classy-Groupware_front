@@ -34,7 +34,7 @@ function ProjectDashBoard() {
                                     &&
                                     <MyProjectTaskList data={myTask.data}/>
                                 }
-                                {   myTodoList
+                                {   myTask
                                     &&
                                     <MyProjectTodoList data={myTodoList}/>
                                 }
