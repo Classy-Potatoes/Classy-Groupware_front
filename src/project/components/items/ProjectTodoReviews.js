@@ -7,18 +7,35 @@ import {
     callProjectScheduleReplyRegistAPI, callProjectTodoReplyRegistAPI
 } from "../../../calendar/apis/SecondProjectAPICalls";
 
-function ProjectTodoReviews({projectCode, todo, memberId}) {
+function ProjectTodoReviews({projectCode, postSuccess, todo, memberId}) {
 
     const [modifyMode, setModifyMode] = useState(false);
     const [form, setForm] = useState({});
     const [modifyForm, setModifyForm] = useState({});
     const dispatch = useDispatch();
 
-    console.log(todo.todoList, "sssssss")
-
     useEffect(() => {
         dispatch(callProjectInviteAPI({projectCode}));
-    }, [todo]);
+        setModifyForm(prevState => {
+            const updatedForm = { ...prevState };
+            todo.replies.forEach(reply => {
+                if (!updatedForm[reply.replyCode]) {
+                    updatedForm[reply.replyCode] = {
+                        replyBody: reply.replyBody || ""
+                    };
+                }
+            });
+            return updatedForm;
+        });
+    }, [todo, postSuccess]);
+
+    useEffect(() => {
+        if (postSuccess) {
+            setForm({
+                replyBody: ""
+            })
+        }
+    }, [todo, postSuccess]);
 
     const onModifyChangeHandler = (e, replyCode) => {
         const {name, value} = e.target;
@@ -81,35 +98,35 @@ function ProjectTodoReviews({projectCode, todo, memberId}) {
                                    id={`sch-reivew-write-${reply.replyCode}`}
                                    name="replyBody"
                                    onChange={(e) => onModifyChangeHandler(e, reply.replyCode)}
-                                   placeholder={
-                                       reply.replyBody
-                                   }
+                                   // placeholder={
+                                   //     reply.replyBody
+                                   // }
                                    value={modifyMode ? (modifyForm[reply.replyCode] ? modifyForm[reply.replyCode].replyBody : reply.replyBody) : reply.replyBody}
                                    maxLength={20}
                                    readOnly={!modifyMode}
                             />
                         </div>
                         <div className="sch-rev-created">{reply.replyModifyDate.split('T')[0]}</div>
-                        {todo.memberId === memberId &&
+                        {todo.infoCode === reply.infoCode && (
                             <div className="sch-rev-stat-box">
                                 <div className="sch-rev-modify-box">
-                                    {todo.memberId === memberId && !modifyMode &&
+                                    {!modifyMode &&
                                         <button value={reply.replyCode} onClick={() => setModifyMode(true)}>수정</button>
                                     }
-                                    {todo.memberId == memberId && modifyMode &&
+                                    {modifyMode &&
                                         <button value={reply.replyCode} onClick={clickedModiSender}>등록</button>
                                     }
                                 </div>
                                 <div className="sch-rev-deleted-box">
-                                    {todo.memberId === memberId && !modifyMode &&
+                                    {!modifyMode &&
                                         <button value={reply.replyCode} onClick={clickedDelete}>삭제</button>
                                     }
-                                    {todo.memberId == memberId && modifyMode &&
+                                    {modifyMode &&
                                         <button value={reply.replyCode} onClick={() => setModifyMode(false)}>취소</button>
                                     }
                                 </div>
                             </div>
-                        }
+                        )}
                     </div>
                 </>
             ))

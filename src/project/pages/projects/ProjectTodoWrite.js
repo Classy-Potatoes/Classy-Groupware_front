@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import React, {useEffect, useState} from "react";
 import {getMemberId} from "../../../calendar/utils/MemberUtils";
 import {
-    callTodoListAPI
+    callTodoListAPI, todoListForDashboard
 } from "../../../calendar/apis/SecondProjectAPICalls";
 import PagingBar from "../../../dashBoard/components/common/PagingBar";
 import ProjectTodoRegist from "../../components/items/ProjectTodoRegist";
@@ -16,32 +16,36 @@ function ProjectTodoWrite() {
     const {projectCode} = useParams();
     const dispatch = useDispatch();
     const [currentPage, setCurrentPage] = useState(1);
-    const {allTodoList, postSuccess, allMyTodoList} = useSelector(state => state.secondProjectReducer);
+    const {allTodoList, postSuccess} = useSelector(state => state.secondProjectReducer);
     const memberId = getMemberId();
-    console.log(allMyTodoList, "Sssss")
 
     useEffect(() => {
         dispatch(callTodoListAPI({projectCode, currentPage}));
-    }, [currentPage]);
+        dispatch(todoListForDashboard())
+    }, [currentPage, postSuccess]);
 
     return (
         <>
             <ToastContainer hideProgressBar={true} position="top-center"/>
             <div className="sch-regist-box">
-                <ProjectTodoRegist projectCode={projectCode} postSuccess={postSuccess}/>
+                <ProjectTodoRegist todoList={allTodoList} projectCode={projectCode} postSuccess={postSuccess}/>
             </div>
             {allTodoList && allTodoList.data.map(todo => (
                     <div className="sch-list-box">
                         <div className="sch-project-list" key={todo.todoCode}>
-                            <ProjectTodoList projectCode={projectCode} postSuccess={postSuccess} todo={todo} memberId={memberId}/>
-                            <ProjectTodoReviews projectCode={projectCode} postSuccess={postSuccess} todo={todo} memberId={memberId}/>
+                            <ProjectTodoList projectCode={projectCode} postSuccess={postSuccess} todo={todo}
+                                             memberId={memberId}/>
+                            <ProjectTodoReviews projectCode={projectCode} postSuccess={postSuccess} todo={todo}
+                                                memberId={memberId}/>
                         </div>
                     </div>
                 )
             )
             }
             {allTodoList &&
-                <PagingBar pageInfo={allTodoList.pageInfo} setCurrentPage={setCurrentPage}/>
+                <div className="project-post-paging">
+                    <PagingBar pageInfo={allTodoList.pageInfo} setCurrentPage={setCurrentPage}/>
+                </div>
             }
         </>
     )
