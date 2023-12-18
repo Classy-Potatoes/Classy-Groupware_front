@@ -8,20 +8,18 @@ import MemberListModal from "./MemberListModal";
 function NoteSave() {
 
     const navigate = useNavigate();
-    const [form, setForm] = useState({});
+    const [form, setForm] = useState('');
     const [memberList, setMemberList] = useState(false);
     const dispatch = useDispatch();
 
-    const [selectedMember, setSelectedMember] =useState(null);
-
-    const { recipientSelect } = useSelector(state => state.noteReducer);
-    const { sendSuccess } = useSelector(state => state.noteReducer);
+   const { recipientSelect } = useSelector(state => state.noteReducer);
+    const { postSuccess } = useSelector(state => state.noteReducer);
 
     useEffect(() => {
-        if (sendSuccess === true) {
-            navigate(`/note/sent`, { replace : true });
+        if (postSuccess === true) {
+            navigate(`/note/send`, { replace : true });
         }
-    }, [sendSuccess]);
+    }, [postSuccess]);
 
     const onChangeHandler = (e) => {
         setForm({
@@ -30,140 +28,75 @@ function NoteSave() {
         });
     };
 
-    // const handleClickMember = (selectedMember) => {
-    //     if (selectedMember) {
-    //         setSelectedMember(selectedMember);
-    //         dispatch(selectRecipient(selectedMember));
-    //         // memberListClose();
-    //     }
-    // };
-
-
     const onClickNoteSendHandler = () => {
-        const formData = new FormData();
-        formData.append("noteSave", new Blob([JSON.stringify({ ...form, recipient: selectedMember })], { type: 'application/json' }));
-
-        dispatch(callNoteSendAPI({ saveRequest: formData }));
+        const noteReceiver = recipientMember.memberCode;
+        console.log(noteReceiver);
+        console.log(form);
+        dispatch(callNoteSendAPI({ sendRequest : {...form, noteReceiver : recipientMember.memberCode }}));
     }
 
-    const memberListOpen = () => {
-        setMemberList(true);
-        console.log(memberList);
-    }
-
-    // const memberListClose = () => setMemberList(false);
+    const {recipientMember} = useSelector(state => state.noteReducer);
 
     return (
         <>
-            <div className="note-write-container">
-                <div className="note-write-title">
-                    <img src="/note/fi-rs-paper-plane.png"/>
-                    <h1
-                        style={{ fontSize: '30px' }}
+            <div className="note-save-container">
+                <div className="note-write-container">
+                    <div className="note-write-title">
+                        <img src="/note/fi-rs-paper-plane.png" style={{ marginRight: "20px" }}/>
+                        <h1
+                            style={{ fontSize: '30px' }}
+                        >
+                            쪽지 작성
+                        </h1>
+                    </div>
+                </div>
+
+                <div className="note-recipient">
+                    <button
+                        onClick={ () => setMemberList(true) }
+                        className="note-recipient-btn"
                     >
-                        쪽지 작성
-                    </h1>
+                        <p style={{ fontSize: '20px' }}>받는 사람</p>
+                        <img src="/note/users.png" style={{ marginLeft: "10px" }}/>
+                   </button>
+                    { memberList &&
+                        <MemberListModal
+                            recipient={recipientSelect}
+                            // setMemberListModal={setMemberListModal}
+                            setMemberList={ setMemberList }
+                        />
+                    }
+
+                    <div className="note-body-write">
+                        <div className="note-save-title">
+                            {recipientMember &&
+                                recipientMember.infoName}
+                        </div>
+                        <div className="note-save-bodyy">
+                            <textarea
+                                className="note-save-body"
+                                style={{ writingMode: "horizontal-tb", textAlign: "start", paddingTop: "25px", paddingLeft: "30px" }}
+                                onChange={ onChangeHandler }
+                                name="noteBody"
+                            />
+                        </div>
+
+                        <div className="note-button-div">
+                            <button
+                                onClick={ onClickNoteSendHandler }
+                                className="note-sent-btn"
+                            >
+                                보내기
+                            </button>
+                            <button
+                                onClick={ () => navigate(-1) }
+                                className="note-sent-back"
+                            >
+                                취소
+                            </button>
+                        </div>
+                    </div>
                 </div>
-            </div>
-
-            <div className="note-recipient">
-                <button
-                    onClick={ memberListOpen }
-                >
-                    받는 사람
-                    <img src="/note/users.png"/>
-               </button>
-                {
-                    memberList &&
-                    <MemberListModal
-                        recipient={recipientSelect} // Fix: 'memberList' -> 'recipient'
-                        onClickMember={handleClickMember}
-                        onClose={memberListClose}
-                    />
-                }
-                {/*<div>*/}
-                {/*    { recipientSelect && recipientSelect.referenceLine.map((selectMember, index) =>(*/}
-                {/*        <div key={index} className="referenceLine-pickMemberInfo-div" >*/}
-                {/*            {selectMember && selectMember.infoName}*/}
-
-                {/*        </div>*/}
-                {/*    ))}*/}
-                {/*</div>*/}
-
-                <div className="note-body-write">
-                    <input
-                        type="text"
-                        onChange={ onChangeHandler }
-                    />
-                </div>
-
-
-                {/*<Modal*/}
-                {/*    memberList={ memberList }*/}
-                {/*    onClose={ memberListClose }*/}
-                {/*    aria-labelledby="modal-modal-title"*/}
-                {/*    aria-describedby="modal-modal-description"*/}
-                {/*>*/}
-                {/*    <Box sx={style}>*/}
-                {/*        <div className="approvalLine-searchInput-memberList-div">*/}
-                {/*            <input*/}
-                {/*                className="approvalLine-searchInput"*/}
-                {/*                type="text"*/}
-                {/*                placeholder="이름으로 검색"*/}
-                {/*                value={ searchMember }*/}
-                {/*                onChange={ handleSearchChange }*/}
-                {/*            />*/}
-
-                {/*            <div className="approvalLine-memberList">*/}
-                {/*                {filteredMembers.map((member) => (*/}
-                {/*                        <AllMember*/}
-                {/*                            key={member.memberCode}*/}
-                {/*                            member={member}*/}
-                {/*                            onSelect={() => handleSelectMember(member.memberCode)}*/}
-                {/*                            isSelected={selectedMembers.includes(member.memberCode)}*/}
-                {/*                        />*/}
-                {/*                    )*/}
-                {/*                )}*/}
-                {/*            </div>*/}
-                {/*        </div>*/}
-
-                {/*        <span className="referenceLine-pickMember-guide">* 참조자는 10명까지 선택 가능 합니다.</span>*/}
-
-                {/*        <div className="referenceLine-pickMember">*/}
-                {/*            <div className="approvalLine-selectMember">*/}
-                {/*                {pickMembers().map((selectedMember, index) => (*/}
-                {/*                    <div className="referenceLine-pickNum">*/}
-                {/*                        <div className="approvalLineNum-num">{index + 1}.</div>*/}
-                {/*                        <div className="approvalLineNum-deptName">{selectedMember.deptName}</div>*/}
-                {/*                        <div className="approvalLineNum-jobName">{selectedMember.jobName}</div>*/}
-                {/*                        <div className="approvalLineNum-infoName">{selectedMember.infoName}</div>*/}
-                {/*                        <div className="approvalLineNum-deleteBtn"><IconButton  aria-label="delete"  onClick={() => handleRemoveMember(index)}><DeleteIcon /></IconButton></div>*/}
-
-                {/*                    </div>*/}
-                {/*                ))}*/}
-
-                {/*            </div>*/}
-
-                {/*        </div>*/}
-                {/*        <div className="modal-cancel-sand-btn">*/}
-                {/*            <Button variant="contained" onClick={onClickCancelHandler} sx={{marginRight: '20px'}}>취소</Button>*/}
-                {/*            <Button variant="contained" onClick={onClickRegisterHandler} className="Modal-sendBtn" endIcon={<SendIcon />}>등록</Button>*/}
-                {/*        </div>*/}
-                {/*    </Box>*/}
-                {/*</Modal>*/}
-            </div>
-
-            <div className="note-button-div">
-                <button
-                    // onClick={ onClickNoteSendHandler }
-                >
-                    보내기
-                </button>
-                <button
-                    onClick={ () => navigate(-1) } //navigate에 url을 줄 수도 있지만 숫자를 줄 수도 있다.(history 관리되고 있고 숫자로 표현)
-                >
-                    취소
-                </button>
             </div>
         </>
     );

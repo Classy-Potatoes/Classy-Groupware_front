@@ -1,0 +1,74 @@
+.note-write-title {
+    display: flex;
+    margin-top: 55px;
+    margin-left: 40px;
+}
+
+.note-recipient {
+    display: flex;
+    z-index: 1000;
+}
+
+.note-body-write {
+    z-index: 1000;
+}
+
+.note-save-title {
+    height: 70px;
+    margin-top: 170px;
+    border: 1px solid #8A2BE2;
+    border-radius: 50px;
+    padding: 15px;
+    background: ghostwhite;
+}
+
+.note-save-body {
+    width: 1060px;
+    height: 300px;
+    margin-top: 30px;
+    border: 1px solid #8A2BE2;
+    border-radius: 50px;
+    padding: 15px;
+    background: ghostwhite;
+    font-size: 15px;
+}
+
+.note-sent-btn, .note-sent-back {
+    border-radius: 50px;
+    width: 130px;
+    padding: 15px;
+    background: ghostwhite;
+    margin-top: 30px;
+}
+
+.note-sent-btn {
+    margin-left: 730px;
+    background-color: #C0A3FF;
+    border: 1px solid #8A2BE2;
+}
+
+.note-sent-back {
+    margin-left: 65px;
+    background-color: #333333;
+    color: white;
+
+}
+
+.note-recipient-btn {
+    margin-top: 88px;
+    margin-left: 90px;
+    display: flex;
+    height: 20px;
+}
+
+.note-save-container {
+    z-index: 1000;
+}
+
+.note-recipient-container {
+    z-index: 1001;
+}
+
+.note-member-info {
+    display: flex;
+}

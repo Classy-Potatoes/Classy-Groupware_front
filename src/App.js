@@ -3,7 +3,8 @@ import './style/nav.css';
 import './calendar/calendarStyle/Calendar.css'
 import './style/member/admin.css';
 import './style/member/login.css';
-import './style/note/note.css'
+import './style/note/note.css';
+import './style/note/noteSave.css';
 import './style/member/member.css';
 import './style/project/Project.css';
 import './style/dashBoard/dashBoard.css';
@@ -94,7 +95,7 @@ function App() {
                         <Route path=":noteCode" element={<NoteReceived/>} />
                     </Route>
                     <Route path="search" element={ <NoteSearch/> }/>
-                    <Route path="save" element={ <NoteSave/> }/>
+                    <Route path="send" element={ <NoteSave/> }/>
                 </Route>
 
               <Route path="projects" element={ <ProtectedRoute loginCheck={ true }><ProjectLayout /></ProtectedRoute> } >

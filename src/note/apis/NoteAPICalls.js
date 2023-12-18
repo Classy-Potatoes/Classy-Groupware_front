@@ -1,7 +1,8 @@
 import {authRequest} from "../../common/apis/Api";
-import {getNotes, postSuccess} from "../modules/NoteModule";
+import {getNoteListMembers, getNoteMember, getNotes, postSuccess} from "../modules/NoteModule";
 import {getNote} from "../modules/NoteModule";
 import {toast} from "react-toastify";
+import {getAdminMembers} from "../../member/modules/AdminModule";
 
 export const callNoteReceivedListAPI = ({ currentPage }) => {
 
@@ -95,14 +96,21 @@ export const callNoteReceivedAPI = ({ noteCode }) => {
 
 };
 
-export const callNoteSendAPI = ({ saveRequest }) => {
+export const callNoteSendAPI = ({ sendRequest }) => {
 
     return async (dispatch, getState) => {
 
-        const result = await authRequest.post('/cg-api/v1/note/sent', saveRequest);
+        const result = await authRequest.post('/cg-api/v1/note/send', JSON.stringify(sendRequest),
+            {
+                headers : {
+                    'Content-Type' : 'application/json'
+                }
+            }).catch(e => {
+                toast.error("쪽지 발송이 불가합니다.");
+        })
         console.log('callNoteSendAPI result : ', result);
 
-        if (result.state === 201) {
+        if (result.status === 201) {
             dispatch(postSuccess());
             toast.info("💌쪽지 전송 완료!");
         }
@@ -111,4 +119,45 @@ export const callNoteSendAPI = ({ saveRequest }) => {
 
 }
 
-// export const callNote
+export const callNoteRecipientAPI = ({ currentPage = 1, infoName }) => {
+
+    return async (dispatch, getState) => {
+
+        try {
+            const result = await authRequest.get(`/cg-api/v1/note/member/search?page=${ currentPage }&infoName=${ infoName }`);
+            console.log('callNoteRecipientAPI: ', result);
+
+            if (result.status === 200) {
+                dispatch(getNoteMember(result));
+            }
+        } catch (error) {
+            console.error('API 호출 오류:', error);
+        }
+    };
+
+}
+
+// 회원 목록 조회
+export const callNoteListMembersAPI = ({ currentPage })  => {
+
+    return async (dispatch, getState) => {
+
+        const result =
+            await authRequest.get(`/cg-api/v1/note/member/list?page=${currentPage}`,
+                {
+                    headers : {
+                        'Content-Type' : 'application/json'
+                    }
+                }).catch(e => {
+                console.log(e);
+            });
+
+        console.log('callNoteListMembersAPI result : ', result);
+
+        if(result?.status === 200) {
+            dispatch( getNoteListMembers( result ) );
+        }
+
+    }
+
+};
