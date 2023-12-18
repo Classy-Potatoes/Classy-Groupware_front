@@ -1,76 +1,50 @@
 import * as React from "react";
 import {useEffect, useState} from "react";
-import '../../../style/approval/ApprovalLayOut.css'
-import '../../../style/approval/Reprot.css'
-import ReportDatePiker from "../mui/ReprotDatePiker";
+import '../../../../style/approval/ApprovalLayOut.css'
+import '../../../../style/approval/Reprot.css'
+import ReportDatePiker from "../../mui/ReprotDatePiker";
 import Button from "@mui/material/Button";
 import SendIcon from "@mui/icons-material/Send";
 import {useDispatch, useSelector} from "react-redux";
-import {callApprovalStatusUpdateAPI, callReportWaitingAPI} from "../../apis/ReportAPICalls";
-import ApprovalPagingBar from "../common/ApprovalPagingBar";
-import DeleteIcon from "@mui/icons-material/Delete";
+import ApprovalPagingBar from "../../common/ApprovalPagingBar";
 import AttachmentIcon from "@mui/icons-material/Attachment";
 import {ToastContainer} from "react-toastify";
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useSearchParams} from "react-router-dom";
+import {callSignPayingSearchAPI} from "../../../apis/SignAPICalls";
 
 
-function ReportWaiting() {
+function SignPayingSearch() {
 
     const dispatch = useDispatch();
     const [currentPage, setCurrentPage] = useState(1);
-    const [selectAll, setSelectAll] = useState(false);
-    const {reportWaiting} = useSelector(state => state.approvalReducer);
-    const [documentTitleSearch, setDocumentTitleSearch] = useState('');
-    const navigate = useNavigate();
+    const {searchData} = useSelector( state => state.approvalReducer)
+    const [searchParams] = useSearchParams();
+    const documentTitle = searchParams.get('documentTitle')
+    const startDate = searchParams.get("startDate")
+    const endDate = searchParams.get("endDate")
     const [startDateValue, setStartDateValue] = useState(null);
     const [endDateValue, setEndDateValue] = useState(null);
+    const navigate = useNavigate();
+    const [documentTitleSearch, setDocumentTitleSearch] = useState('');
+
 
 
 
     useEffect(() => {
-        dispatch(callReportWaitingAPI({currentPage}));
-    }, [currentPage]);
+        dispatch(callSignPayingSearchAPI({documentTitle,startDate,endDate,currentPage}));
+    }, [currentPage,documentTitle,startDate,endDate]);
 
-
-    const handleSelectAll = () => {
-        const allCheckboxes = document.querySelectorAll(".report-table-td-ck");
-        const isChecked = !selectAll;
-
-        allCheckboxes.forEach((checkbox) => {
-            checkbox.checked = isChecked;
-        });
-
-        setSelectAll(isChecked);
-    };
-
-    /* 회수처리를 위해 서버로 보내서 업데이트 */
-    const handleRecall = () => {
-        const selectedApprovals = Array.from(document.querySelectorAll(".report-table-td-ck:checked"))
-            .map((checkbox) => checkbox.value);
-
-        const confirmed = window.confirm("회수하시겠습니까?");
-        if (confirmed) {
-            // 회수 로직 실행
-            window.location.reload();
-        } else {
-            return;
-        }
-
-        if (selectedApprovals.length > 0) {
-            const recallRequest = {
-                approvalCode: selectedApprovals,
-            };
-
-            dispatch(callApprovalStatusUpdateAPI({approvalCode: recallRequest}))
-
-            console.log(recallRequest)
-        }
-    };
-
-    /* 검색 */
     const onSearchChangeHandler = (e) => {
         setDocumentTitleSearch(e.target.value);
     }
+
+
+
+    const handleDateChange = ({ startDate, endDate }) => {
+        setStartDateValue(startDate);
+        setEndDateValue(endDate);
+    };
+
     function formatSearchDate(dateString) {
         const parsedDate = new Date(dateString);
         if (isNaN(parsedDate.getTime())) {
@@ -83,17 +57,12 @@ function ReportWaiting() {
         const day = String(parsedDate.getDate()).padStart(2, '0');
         return `${year}-${month}-${day}`;
     }
-
     const onClickSearchHandler = e => {
         const formattedStartDate = startDateValue ? formatSearchDate(startDateValue) : '';
         const formattedEndDate = endDateValue ? formatSearchDate(endDateValue) : '';
-        navigate(`/approval/report/search-waiting?documentTitle=${documentTitleSearch}&startDate=${formattedStartDate}&endDate=${formattedEndDate}&page=${currentPage}`);
+        navigate(`/approval/sign/search-paying?documentTitle=${documentTitleSearch}&startDate=${formattedStartDate}&endDate=${formattedEndDate}&page=${currentPage}`);
     }
 
-    const handleDateChange = ({ startDate, endDate }) => {
-        setStartDateValue(startDate);
-        setEndDateValue(endDate);
-    };
 
 
     /*date 포맷*/
@@ -122,16 +91,14 @@ function ReportWaiting() {
 
         }
     };
-
-
     return (
         <>
             <div className="ReportTitle">
-                상신함 - 결재대기
+                결재함 - 승인
             </div>
 
 
-            <div className="reportContainer">
+            <div className="reportContainer-noRecall">
                 <ToastContainer
                     position="top-center"
                     autoClose={500}
@@ -160,23 +127,12 @@ function ReportWaiting() {
                     </Button>
                 </div>
 
-                {reportWaiting &&
+                {searchData &&
                     <div className="reportTable">
-                        <Button variant="outlined" startIcon={<DeleteIcon/>}
-                                sx={{width: '120px', marginBottom: '10px'}}
-                                onClick={handleRecall}
-                        >
-                            회수
-                        </Button>
+
                         <table className="Report-table">
                             <thead>
                             <tr>
-                                <th className="report-table-th"><input type="checkbox"
-                                                                       className="report-table-th-ck"
-                                                                       checked={selectAll}
-                                                                       onChange={handleSelectAll}
-                                />
-                                </th>
                                 <th className="report-table-th">문서 번호</th>
                                 <th className="report-table-th">제목</th>
                                 <th className="report-table-th">문서 종류</th>
@@ -186,20 +142,14 @@ function ReportWaiting() {
                                 <th className="report-table-th">결재상태</th>
                             </tr>
                             </thead>
-                            <tbody className="ainreport-table-tbody">
+                            <tbody className="report-table-tbody">
 
-                            {reportWaiting.data.map(report => (
+                            {searchData.data.map(report => (
                                 <tr
-                                    key={report.approvalCode}
+                                    key={searchData.approvalCode}
                                     onClick={() => onClickDetailPageHandler(report.documentType, report.approvalCode)}
                                 >
-                                    <td className="report-table-td"><input type="checkbox"
-                                                                           value={report.approvalCode}
-                                                                           className="report-table-td-ck"
-                                                                           onClick={(e) => {
-                                                                               e.stopPropagation(); }}
-                                    />
-                                    </td>
+
                                     <td className="report-table-td">{report.approvalCode}</td>
                                     <td className="report-table-td">{report.documentTitle}</td>
                                     <td className="report-table-td">{report.documentType}</td>
@@ -220,7 +170,7 @@ function ReportWaiting() {
 
                             </tbody>
                         </table>
-                        <ApprovalPagingBar pageInfo={reportWaiting.pageInfo} setCurrentPage={setCurrentPage}/>
+                        <ApprovalPagingBar pageInfo={searchData.pageInfo} setCurrentPage={setCurrentPage}/>
                     </div>
 
                 }
@@ -232,4 +182,4 @@ function ReportWaiting() {
 }
 
 
-export default ReportWaiting;
+export default SignPayingSearch;
