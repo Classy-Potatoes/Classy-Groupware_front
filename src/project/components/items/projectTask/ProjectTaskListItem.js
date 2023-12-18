@@ -23,9 +23,12 @@ function ProjectTaskListItem({projectTask}) {
     const [endDate, setEndDate] = useState(new Date(projectTask.taskEndDate));
     /* 우선 순위 */
     const [priorityOptions, setPriorityOptions] = useState(['낮음', '보통', '높음']);
-    const [selectedPriority, setSelectedPriority] = useState('');
+    const [selectedPriority, setSelectedPriority] = useState(projectTask.taskPriority);
     // 참석자추가
-    const [attendants, setAttendants] = useState([]);
+    const [attendants, setAttendants] = useState(projectTask.managers.map((manager) => ({
+        value: manager.infoCode,
+        label: manager.memberName,
+    })));
     const {projectMember} = useSelector((state) => state.projectReducer);
 
 
@@ -147,195 +150,216 @@ function ProjectTaskListItem({projectTask}) {
 
     return (
         <>
-        {confirmDeleteModal && (
-            <div className="confirm-delete-modal">
-                <p>정말 삭제하시겠습니까?</p>
-                <button className="confirm-delete-modal-button" onClick={confirmDelete}>확인</button>
-                <button onClick={cancelDelete}>취소</button>
-            </div>
-        )}
-        <div className="project-post-item-div">
-
-            <div className="project-task-title">
-                <label>제목 : </label>
-                <input
-                    name="taskTitle"
-                    placeholder="게시글 제목"
-                    value={modifyMode ? form.taskTitle : projectTask.taskTitle}
-                    disabled={!modifyMode}
-                    style={inputStyle}
-                    onChange={onChangeHandler}
-                />
-
-                <div className="project-task-name">
-                    <span>{projectTask.memberName}</span> <br/>
-                    {projectTask.taskRequestDate}
+            {confirmDeleteModal && (
+                <div className="confirm-delete-modal">
+                    <p>정말 삭제하시겠습니까?</p>
+                    <button className="confirm-delete-modal-button" onClick={confirmDelete}>확인</button>
+                    <button onClick={cancelDelete}>취소</button>
                 </div>
-                <div>
-                    {projectTask.memberCode === projectTask.customUser.infoCode && (
-                        <div className="project-postList-button">
-                            {!modifyMode &&
+            )}
+            <div className="project-post-item-div">
+
+                <div className="project-task-title">
+                    <label>제목 : </label>
+                    <input
+                        name="taskTitle"
+                        placeholder="게시글 제목"
+                        value={modifyMode ? form.taskTitle : projectTask.taskTitle}
+                        disabled={!modifyMode}
+                        style={inputStyle}
+                        onChange={onChangeHandler}
+                    />
+
+                    <div className="project-task-name">
+                        <span>{projectTask.memberName}</span> <br/>
+                        {projectTask.taskRequestDate}
+                    </div>
+                    <div>
+                        {projectTask.memberCode === projectTask.customUser.infoCode && (
+                            <div className="project-postList-button">
+                                {!modifyMode &&
+                                    <button
+                                        onClick={onClickModifyModeHandler}
+                                    >수정
+                                    </button>
+                                }
+                                {modifyMode &&
+                                    <button
+                                        onClick={onClickProjectPostUpdateHandler}
+                                    >
+                                        수정완료
+                                    </button>
+                                }
                                 <button
-                                    onClick={onClickModifyModeHandler}
-                                >수정
-                                </button>
-                            }
-                            {modifyMode &&
-                                <button
-                                    onClick={onClickProjectPostUpdateHandler}
+                                    onClick={onClickPostDeleteHandler}
                                 >
-                                    수정완료
+                                    삭제
                                 </button>
-                            }
-                            <button
-                                onClick={onClickPostDeleteHandler}
-                            >
-                                삭제
-                            </button>
-                        </div>
+                            </div>
+                        )}
+                    </div>
+                </div>
+
+                <div className="project-task-request">
+                    <img src="/project/요청.png"/>
+                    <span>{projectTask.taskStatus}</span>
+                    {projectTask.managers.some(manager => manager.memberCode === projectTask.customUser.infoCode) && (
+                        <>
+                            {(projectTask.taskStatus === '요청' || projectTask.taskStatus === '보류') && (
+                                <button onClick={onClickTaskCheckHandler}>확인하기</button>
+                            )}
+                            {projectTask.taskStatus === '요청' && (
+                                <button onClick={onClickTaskHoldHandler}>보류하기</button>
+                            )}
+                            {projectTask.taskStatus === '진행' && (
+                                <button onClick={onClickTaskCompleteHandler}>완료하기</button>
+                            )}
+                        </>
                     )}
                 </div>
-            </div>
 
-            <div className="project-task-request">
-                <img src="/project/요청.png"/>
-                <span>{projectTask.taskStatus}</span>
-                {projectTask.managers.some(manager => manager.memberCode === projectTask.customUser.infoCode) && (
-                    <>
-                        {(projectTask.taskStatus === '요청' || projectTask.taskStatus === '보류') && (
-                            <button onClick={onClickTaskCheckHandler}>확인하기</button>
-                        )}
-                        {projectTask.taskStatus === '요청' && (
-                            <button onClick={onClickTaskHoldHandler}>보류하기</button>
-                        )}
-                        {projectTask.taskStatus === '진행' && (
-                            <button onClick={onClickTaskCompleteHandler}>완료하기</button>
-                        )}
-                    </>
-                )}
-            </div>
+                <div className="project-task-info">
+                    <img src="/project/담당자.png"/>
+                    {/*{modifyMode ? (*/}
+                    {/*    <Select*/}
+                    {/*        placeholder="담당자 추가"*/}
+                    {/*        isMulti*/}
+                    {/*        options={projectMember.map((member) => ({*/}
+                    {/*            value: member.infoCode,*/}
+                    {/*            label: member.memberName,*/}
+                    {/*        }))}*/}
+                    {/*        value={attendants}*/}
+                    {/*        onChange={(selectedOptions) => {*/}
+                    {/*            setAttendants(selectedOptions);*/}
+                    {/*        }}*/}
+                    {/*    />*/}
+                    {/*) : (*/}
+                    {/*    <>*/}
+                    {/*        {projectTask.managers &&*/}
+                    {/*            projectTask.managers.map((manager, index) => (*/}
+                    {/*                <span key={index}>*/}
+                    {/*                    {manager.memberName} /!* manager 객체에서 원하는 필드를 선택 *!/*/}
+                    {/*                    {index < projectTask.managers.length - 1 && ", "} /!* 쉼표 추가 (마지막 요소 제외) *!/*/}
+                    {/*                </span>*/}
+                    {/*            ))}*/}
+                    {/*    </>*/}
+                    {/*)}*/}
 
-            <div className="project-task-info">
-                <img src="/project/담당자.png"/>
-                {/*{modifyMode ? (*/}
-                {/*    <Select*/}
-                {/*        placeholder="담당자 추가"*/}
-                {/*        isMulti*/}
-                {/*        options={projectMember.map((member) => ({*/}
-                {/*            value: member.infoCode,*/}
-                {/*            label: member.memberName,*/}
-                {/*        }))}*/}
-                {/*        value={attendants}*/}
-                {/*        onChange={(selectedOptions) => {*/}
-                {/*            setAttendants(selectedOptions);*/}
-                {/*        }}*/}
-                {/*    />*/}
-                {/*) : (*/}
-                {/*    <>*/}
-                {/*        {projectTask.managers &&*/}
-                {/*            projectTask.managers.map((manager, index) => (*/}
-                {/*                <span key={index}>*/}
-                {/*                    {manager.memberName} /!* manager 객체에서 원하는 필드를 선택 *!/*/}
-                {/*                    {index < projectTask.managers.length - 1 && ", "} /!* 쉼표 추가 (마지막 요소 제외) *!/*/}
-                {/*                </span>*/}
-                {/*            ))}*/}
-                {/*    </>*/}
-                {/*)}*/}
+                    {modifyMode ? (
+                        <>
 
-                {modifyMode ? (
-                    <Select
-                        placeholder="담당자 추가"
-                        isMulti
-                        options={projectMember.map((member) => ({
-                            value: member.infoCode,
-                            label: member.memberName,
-                        }))}
-                        value={projectTask.managers.map((manager) => ({
-                            value: manager.infoCode,
-                            label: manager.memberName,
-                        }))}
-                        onChange={(selectedOptions) => {
-                            setAttendants(selectedOptions);
-                        }}
-                    />
-                ) : (
-                    <>
-                        {projectTask.managers &&
-                            projectTask.managers.map((manager, index) => (
-                            <span key={index}>
-                             {manager.memberName} {/* manager 객체에서 원하는 필드를 선택 */}
-                                    {index < projectTask.managers.length - 1 && ", "} {/* 쉼표 추가 (마지막 요소 제외) */}
-                             </span>
+                            <Select
+                                placeholder="담당자 추가"
+                                isMulti
+                                options={projectMember.map((member) => ({
+                                    value: member.infoCode,
+                                    label: member.memberName,
+                                }))}
+                                value={attendants}
+                                onChange={(selectedOptions) => {
+                                    if (selectedOptions) {
+                                        setAttendants(selectedOptions);
+                                    }
+                                }}
+                            />
+
+                            {/*{attendants.map((attendant, index) => (*/}
+                            {/*    <span key={index}>*/}
+                            {/*                 {attendant.label}*/}
+                            {/*        <button*/}
+                            {/*            onClick={() => {*/}
+                            {/*                const updatedAttendants = attendants.filter((a, i) => i !== index);*/}
+                            {/*                setAttendants(updatedAttendants);*/}
+                            {/*            }}*/}
+                            {/*        >*/}
+                            {/*        삭제*/}
+                            {/*        </button>*/}
+                            {/*        {index < attendants.length - 1 && ", "}*/}
+                            {/*    </span>*/}
+                            {/*))}*/}
+                        </>
+                    ) : (
+
+                        <>
+                            {projectTask.managers &&
+                                projectTask.managers.map((manager, index) => (
+                                    <span key={index}>
+                                    {manager.memberName}
+                                    {index < projectTask.managers.length - 1 && ", "}
+                                    </span>
+                                ))}
+                        </>
+                    )}
+
+                </div>
+
+                <div className="project-task-info">
+                    <img src="/project/calender-icon2.png"/>
+                    {/*<span>{projectTask.taskStartDate} ~ {projectTask.taskEndDate}</span>*/}
+                    <div>
+                        {modifyMode ? (
+                            <>
+                                <DatePicker
+                                    dateFormat='yyyy-MM-dd'
+                                    name="taskStartDate"
+                                    selected={startDate}
+                                    onChange={(date: Date) => setStartDate(date)}
+                                    selectsStart
+                                    startDate={startDate}
+                                    endDate={endDate}
+                                    minDate={new Date()}
+                                    locale={ko}
+                                />
+                                ~
+                                <DatePicker
+                                    dateFormat='yyyy-MM-dd'
+                                    name="taskEndDate"
+                                    selected={endDate}
+                                    onChange={(date: Date) => setEndDate(date)}
+                                    selectsStart
+                                    startDate={startDate}
+                                    endDate={endDate}
+                                    minDate={startDate}
+                                    locale={ko}
+                                />
+                            </>
+                        ) : (
+                            <>
+                                <span>{projectTask.taskStartDate}</span>
+                                {' ~ '}
+                                <span>{projectTask.taskEndDate}</span>
+                            </>
+                        )}
+                    </div>
+                </div>
+
+                <div className="project-task-info">
+                    <img src="/project/우선순위.png"/>
+
+                    {modifyMode ? (
+                        <select
+                            name="taskPriority"
+                            onChange={(e) => {
+                                handlePriorityChange(e);
+                                onChangeHandler(e); // 추가: 사용자가 선택한 값을 form 상태에 반영
+                            }}
+                            value={selectedPriority}
+                        >
+                            <option value="" disabled>
+                                우선순위 선택
+                            </option>
+                            {priorityOptions.map((option, index) => (
+                                <option key={index} value={option}>
+                                    {option}
+                                </option>
                             ))}
-                    </>
-                )}
+                        </select>
+                    ) : (
+                        <span>{projectTask.taskPriority}</span>
+                    )}
+                </div>
 
-        </div>
-
-        <div className="project-task-info">
-            <img src="/project/calender-icon2.png"/>
-            {/*<span>{projectTask.taskStartDate} ~ {projectTask.taskEndDate}</span>*/}
-            <div>
-                {modifyMode ? (
-                    <>
-                        <DatePicker
-                            dateFormat='yyyy-MM-dd'
-                            name="taskStartDate"
-                            selected={startDate}
-                            onChange={(date: Date) => setStartDate(date)}
-                            selectsStart
-                            startDate={startDate}
-                            endDate={endDate}
-                            minDate={new Date()}
-                            locale={ko}
-                        />
-                        ~
-                        <DatePicker
-                            dateFormat='yyyy-MM-dd'
-                            name="taskEndDate"
-                            selected={endDate}
-                            onChange={(date: Date) => setEndDate(date)}
-                            selectsStart
-                            startDate={startDate}
-                            endDate={endDate}
-                            minDate={startDate}
-                            locale={ko}
-                        />
-                    </>
-                ) : (
-                    <>
-                        <span>{projectTask.taskStartDate}</span>
-                        {' ~ '}
-                        <span>{projectTask.taskEndDate}</span>
-                    </>
-                )}
-            </div>
-        </div>
-
-        <div className="project-task-info">
-            <img src="/project/우선순위.png"/>
-
-            {modifyMode ? (
-                <select
-                    name="taskPriority"
-                    onChange={handlePriorityChange}
-                    value={projectTask.taskPriority}
-                >
-                    <option value="" disabled>
-                        우선순위 선택
-                    </option>
-                    {priorityOptions.map((option, index) => (
-                        <option key={index} value={option}>
-                            {option}
-                        </option>
-                    ))}
-                </select>
-            ) : (
-                <span>{projectTask.taskPriority}</span>
-            )}
-        </div>
-
-        <div className="project-task-Body">
+                <div className="project-task-Body">
                     <textarea
                         name="taskBody"
                         placeholder="게시글 내용"
@@ -344,38 +368,38 @@ function ProjectTaskListItem({projectTask}) {
                         style={inputStyle}
                         onChange={onChangeHandler}
                     />
-        </div>
-
-        <div className="project-post-file">
-            <label>첨부파일 : </label>
-            {projectTask.files && projectTask.files.map(({fileName, filePathName}) => (
-                <div
-                    key={fileName}
-                    onClick={() => onClickImgLink({filePathName}, fileName)}
-                >
-                    <div className="fileNameButton">{fileName}</div>
                 </div>
-            ))}
-        </div>
-        <div>
-            <ProjectTaskReplyList projectTask={projectTask} reply={projectTask.replies}/>
-        </div>
 
-        <div className="reply-regist">
-            <img src="/project/담당자.png" alt="Profile"/>
-            <input
-                className="reply-regist-input"
-                type="text"
-                name="replyBody"
-                placeholder="댓글을 입력하세요."
-                onChange={onChangeHandler}
-            />
-            <button onClick={onClickTaskReplyRegistHandler}>등록</button>
-        </div>
-        </div>
-</>
-)
-    ;
+                <div className="project-post-file">
+                    <label>첨부파일 : </label>
+                    {projectTask.files && projectTask.files.map(({fileName, filePathName}) => (
+                        <div
+                            key={fileName}
+                            onClick={() => onClickImgLink({filePathName}, fileName)}
+                        >
+                            <div className="fileNameButton">{fileName}</div>
+                        </div>
+                    ))}
+                </div>
+                <div>
+                    <ProjectTaskReplyList projectTask={projectTask} reply={projectTask.replies}/>
+                </div>
+
+                <div className="reply-regist">
+                    <img src="/project/담당자.png" alt="Profile"/>
+                    <input
+                        className="reply-regist-input"
+                        type="text"
+                        name="replyBody"
+                        placeholder="댓글을 입력하세요."
+                        onChange={onChangeHandler}
+                    />
+                    <button onClick={onClickTaskReplyRegistHandler}>등록</button>
+                </div>
+            </div>
+        </>
+    )
+        ;
 }
 
 export default ProjectTaskListItem;
