@@ -11,6 +11,7 @@ function NoteReceived() {
     const { noteCode } = useParams();
     const { note } = useSelector(state => state.noteReducer);
 
+
     useEffect(() => {
         /* 쪽지에 대한 정보 요청 */
         dispatch(callNoteReceivedAPI({ noteCode }));
@@ -26,7 +27,7 @@ function NoteReceived() {
         <>
         { note
             &&
-            <NoteItem note={ note } titleName="보낸 사람" titleTime="받은 날짜"/>
+            <NoteItem note={ note } titleName="보낸 사람" titleTime="받은 날짜" isReceivedView={ true }/>
         }
         </>
     );

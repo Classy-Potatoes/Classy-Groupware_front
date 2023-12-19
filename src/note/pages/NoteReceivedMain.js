@@ -27,7 +27,7 @@ function NoteReceivedMain() {
             { notes
                 &&
                 <>
-                    <NoteListItem note={ notes.data } title="받은 쪽지함"
+                    <NoteListItem note={ notes.data }
                                   options={ options } noteType="received"
                                   showSender={ true } showReceiver={ false }/>
                     <PagingBar pageInfo={ notes.pageInfo } setCurrentPage={ setCurrentPage }/>

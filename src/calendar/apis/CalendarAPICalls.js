@@ -103,7 +103,7 @@ export const callScheduleRegistAPI = ({ registRequest }) => {
                 toast.info("일정 등록이 완료 되었습니다.");
                 dispatch(postSuccess())
                 setTimeout(() => {
-                    window.location.reload();
+                        window.location.reload();
                 }, 2000);
             }
         }

@@ -1,5 +1,12 @@
 import {authRequest} from "../../common/apis/Api";
-import {getNoteListMembers, getNoteMember, getNotes, postSuccess} from "../modules/NoteModule";
+import {
+    getNoteListMembers,
+    getNoteMember,
+    getNotes,
+    postSuccess,
+    putSuccess,
+    setRecipientMember
+} from "../modules/NoteModule";
 import {getNote} from "../modules/NoteModule";
 import {toast} from "react-toastify";
 
@@ -127,8 +134,12 @@ export const callNoteSendAPI = ({ sendRequest }) => {
         console.log('callNoteSendAPI result : ', result);
 
         if (result.status === 201) {
-            dispatch(postSuccess());
-            toast.info("💌쪽지 전송 완료!");
+            toast.success("💌 쪽지 전송 완료!");
+            setTimeout(() => {
+                dispatch(postSuccess());
+                dispatch(setRecipientMember(undefined));
+            }, 2000);
+
         }
 
     }
@@ -173,6 +184,28 @@ export const callNoteListMembersAPI = ({ currentPage })  => {
 
         if(result?.status === 200) {
             dispatch( getNoteListMembers( result ) );
+        }
+
+    }
+
+};
+
+export const callNotePostModifyAPI = ({ noteCode }) => {
+
+    return async (dispatch, getState) => {
+
+        try {
+
+            const result = await authRequest.put(`/cg-api/v1/note/move/${noteCode}`);
+
+            console.log('callNotePostModifyAPI result : ', result);
+
+            if(result.status === 201) {
+                dispatch(putSuccess());
+            }
+        } catch (error) {
+            console.error('쪽지 이동 실패', error);
+            throw error;
         }
 
     }

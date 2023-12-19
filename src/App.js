@@ -101,12 +101,10 @@ function App() {
                 <Route path="note" element={ <ProtectedRoute loginCheck={ true }><NoteLayout/></ProtectedRoute> }>
                     <Route index element={ <NoteReceivedMain/> }/>
                     <Route path="received/:noteCode" element={< NoteReceived/> }/>
-                    <Route path="sent" element={ <NoteSentMain/> }>
-                        <Route path=":noteCode" element={ <NoteReceived/> }/>
-                    </Route>
-                    <Route path="important" element={ <NoteImportantMain/> }>
-                        <Route path=":noteCode" element={<NoteReceived/>} />
-                    </Route>
+                    <Route path="sent" element={ <NoteSentMain/> }/>
+                    <Route path="sent/:noteCode" element={ <NoteReceived/> }/>
+                    <Route path="important" element={ <NoteImportantMain/> }/>
+                    <Route path="important/:noteCode" element={ <NoteReceived/> }/>
                     <Route path="search" element={ <NoteSearch/> }/>
                     <Route path="send" element={ <NoteSave/> }/>
                 </Route>

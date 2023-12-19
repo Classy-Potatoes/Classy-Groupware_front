@@ -4,7 +4,7 @@ import {callNoteSendAPI} from "../apis/NoteAPICalls";
 import {useDispatch, useSelector} from "react-redux";
 import * as React from "react";
 import MemberListModal from "./MemberListModal";
-import {toast} from "react-toastify";
+import {ToastContainer} from "react-toastify";
 
 function NoteSave() {
 
@@ -13,12 +13,11 @@ function NoteSave() {
     const [memberList, setMemberList] = useState(false);
     const dispatch = useDispatch();
 
-    const { recipientSelect } = useSelector(state => state.noteReducer);
-    const { postSuccess } = useSelector(state => state.noteReducer);
+    const { recipientSelect, postSuccess } = useSelector(state => state.noteReducer);
 
     useEffect(() => {
         if (postSuccess === true) {
-            navigate(`/note/send`, { replace : true });
+            navigate(`/note/sent`, { replace : true });
         }
     }, [postSuccess]);
 
@@ -33,17 +32,16 @@ function NoteSave() {
         const noteReceiver = recipientMember.memberCode;
         console.log(noteReceiver);
         console.log(form);
-        // dispatch(ccallNoteSendAPI({ sendRequest : { ...form, noteReceiver : recipientMember.memberCode }}));
+        // dispatch(callNoteSendAPI({ sendRequest : { ...form, noteReceiver : recipientMember.memberCode }}));
 
         try {
-            // API 호출 및 성공 여부에 따라 토스트 메시지 표시
             const response = await dispatch(callNoteSendAPI({ sendRequest: { ...form, noteReceiver: recipientMember.memberCode }}));
             console.log('API 호출', response);
-            toast.success('쪽지가 성공적으로 전송되었습니다.');
 
             // 상태 초기화
             setForm('');
             setMemberList(false);
+
         } catch (error) {
             console.error('API 호출 실패:', error);
         }
@@ -51,7 +49,7 @@ function NoteSave() {
 };
 
 
-    const {recipientMember} = useSelector(state => state.noteReducer);
+    const { recipientMember } = useSelector(state => state.noteReducer);
 
     return (
         <>
@@ -85,10 +83,10 @@ function NoteSave() {
 
                     <div className="note-body-write">
                         <div className="note-save-title">
-                            {recipientMember &&
-                                recipientMember.infoName}
+                            { recipientMember &&
+                                recipientMember.infoName }
                         </div>
-                        <div className="note-save-bodyy">
+                        <div className="note-body-box">
                             <textarea
                                 className="note-save-body"
                                 style={{ writingMode: "horizontal-tb", textAlign: "start", paddingTop: "25px", paddingLeft: "30px" }}
@@ -96,6 +94,8 @@ function NoteSave() {
                                 name="noteBody"
                             />
                         </div>
+
+                        <ToastContainer hideProgressBar={ true } position="top-center"/>
 
                         <div className="note-button-div">
                             <button

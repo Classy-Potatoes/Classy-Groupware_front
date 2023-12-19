@@ -20,17 +20,17 @@ function MemberListModal({ setMemberList }) {
     return (
         <>
             <div className="note-recipient-container">
-                <div className="note-recipient-search">
-                    <input
-                        type="text"
-                        value={selectedRecipient ? selectedRecipient.value : ''}
-                        onChange={ (e) => {
-                            const value = e.target.value;
-                            setSelectedRecipient({ value });
-                        }}
-                        placeholder="이름으로 검색"
-                    />
-                </div>
+                {/*<div className="note-recipient-search">*/}
+                {/*    <input*/}
+                {/*        type="text"*/}
+                {/*        value={selectedRecipient ? selectedRecipient.value : ''}*/}
+                {/*        onChange={ (e) => {*/}
+                {/*            const value = e.target.value;*/}
+                {/*            setSelectedRecipient({ value });*/}
+                {/*        }}*/}
+                {/*        placeholder="이름으로 검색"*/}
+                {/*    />*/}
+                {/*</div>*/}
 
                 <div className="member-list">
                     <div>
