@@ -1,10 +1,8 @@
 import {useNavigate, useParams} from "react-router-dom";
 import * as React from "react";
-import "react-toastify/dist/ReactToastify.css";
 import {useState} from "react";
-import { DatePicker } from 'react-rainbow-components';
+import "react-toastify/dist/ReactToastify.css";
 import {useDispatch} from "react-redux";
-import axios from 'axios';
 
 function getByteLength(str) {
     // Blob을 이용하여 문자열의 byte 길이 계산
