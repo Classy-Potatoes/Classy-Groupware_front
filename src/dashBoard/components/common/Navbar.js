@@ -44,7 +44,7 @@ function Navbar() {
                 <div className="main-nav-bar">
 
                     <NavLink to="/note"><p><img src="/message.png"/>쪽지함</p></NavLink>
-                    <NavLink to="/approval"><p><img src="/approval.png"/>전자결재</p></NavLink>
+                    <NavLink to="/approval/report-waiting"><p><img src="/approval.png"/>전자결재</p></NavLink>
                     <NavLink to="/projects"><p><img src="/project.png"/>프로젝트</p></NavLink>
                     <NavLink to="/calendar"><p><img src="/calender.png"/>캘린더</p></NavLink>
                     <p><img src="/board.png"/>공지게시판</p>
