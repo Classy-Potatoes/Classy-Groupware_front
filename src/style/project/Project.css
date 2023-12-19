@@ -796,7 +796,6 @@
     margin-top: 30px;
     padding: 20px;
     box-shadow: 0 0 5px rgba(132, 128, 133, 1);
-
 }
 
 .project-postList-name {
@@ -851,19 +850,24 @@
     font-size: 30px;
     font-family: Noto Sans;
     font-weight: 500;
+    width: 1000px;
 }
 
-.project-postList-Body{
+.project-postList-Body {
     border-bottom: 2px solid black;
     padding: 10px;
-    height: 200px;
+    height: auto;
     overflow-y: auto;
 }
 
-.project-postList-Body input {
+.project-postList-Body textarea {
     font-size: 20px;
-    font-family: Noto Sans;
+    font-family: 'Noto Sans', sans-serif;
     font-weight: 400;
+    width: 1130px;
+    resize: none;
+    overflow-y: auto;
+    height: 500px;
 }
 
 .project-post-file {

@@ -12,8 +12,11 @@ function ProjectModifyModal({setProjectModifyModal}) {
     const [form, setForm] = useState({});
     const dispatch = useDispatch();
     const {putSuccess, project} = useSelector(state => state.projectReducer);
-    const [startDate, setStartDate] = useState(new Date(project.projectStartDate));
-    const [endDate, setEndDate] = useState(new Date(project.projectEndDate));
+    const [startDate, setStartDate] = useState(
+        project && project.projectStartDate ? new Date(project.projectStartDate) : new Date()
+    );
+    const [endDate, setEndDate] = useState(
+        project && project.projectEndDate ? new Date(project.projectEndDate) : new Date());
     const navigate = useNavigate();
     const {projectCode} = useParams();
 
@@ -37,11 +40,11 @@ function ProjectModifyModal({setProjectModifyModal}) {
     // }, [project]);               /* 선생님한테 질문하기 !! */
 
     useEffect(() => {
-        if (project) {
+        if (project && project.projectStartDate) {
             setForm({
                 projectTitle: project.projectTitle || '',
                 projectBody: project.projectBody || '',
-                projectStartDate: project.projectStartDate ? new Date(project.projectStartDate) : null,
+                projectStartDate: new Date(project.projectStartDate),
                 projectEndDate: project.projectEndDate ? new Date(project.projectEndDate) : null,
                 deptCode: project.deptCode || '',
             });
@@ -124,7 +127,7 @@ function ProjectModifyModal({setProjectModifyModal}) {
                                     name="projectStartDate"
                                     selected={startDate}
                                     onChange={(date: Date) => setStartDate(date)}
-                                    selecetsStart
+                                    selectsStart
                                     startDate={startDate}
                                     endDate={endDate}
                                     minDate={new Date()}
@@ -139,7 +142,7 @@ function ProjectModifyModal({setProjectModifyModal}) {
                                     name="projectEndDate"
                                     selected={endDate}
                                     onChange={(date: Date) => setEndDate(date)}
-                                    selecetsStart
+                                    selectsEnd
                                     startDate={startDate}
                                     endDate={endDate}
                                     minDate={startDate}
