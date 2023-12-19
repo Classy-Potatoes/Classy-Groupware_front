@@ -214,8 +214,6 @@ function NoteListItem({ note, noteType , options, currentPage, setCurrentPage, s
                             )) }
                         </select>
 
-
-
                         {/*<SearchBar*/}
                         {/*    options={options}*/}
                         {/*    selectedOption={selectedOption}*/}
@@ -254,8 +252,8 @@ function NoteListItem({ note, noteType , options, currentPage, setCurrentPage, s
                         <div className="note-item" key={ note.noteCode }>
                             <div className="noteMember"
                                  style={{ width:'700px', marginLeft: '122px' }}>
-                                { noteType === "received" ? note.noteReceiver
-                                    : noteType === "sent" ? note.noteSender :
+                                { noteType === "received" ? note.noteSender
+                                    : noteType === "sent" ? note.noteReceiver :
                                         noteType === "important" ? note.noteSender : "" }
                             </div>
                             <div className="noteBody"
