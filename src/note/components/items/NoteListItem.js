@@ -1,8 +1,9 @@
 import {useNavigate, useParams} from "react-router-dom";
 import * as React from "react";
-import {useState} from "react";
 import "react-toastify/dist/ReactToastify.css";
+import {useState} from "react";
 import {useDispatch} from "react-redux";
+import axios from 'axios';
 
 function getByteLength(str) {
     // Blob을 이용하여 문자열의 byte 길이 계산
@@ -29,7 +30,7 @@ function truncateTextByByte(text, maxByteLength) {
 
 }
 
-function NoteListItem({ note, title , options, currentPage, setCurrentPage, showSender, showReceiver }) {
+function NoteListItem({ note, noteType , options, currentPage, setCurrentPage, showSender, showReceiver }) {
 
     const navigate = useNavigate();
     const [value, setValue] = useState('');
@@ -41,6 +42,7 @@ function NoteListItem({ note, title , options, currentPage, setCurrentPage, show
     const [search, setSearch] = useState('');
     const dispatch = useDispatch();
     const { noteCode } = useParams();
+    const [importantModal, setImportantModal] = useState(false);
     // const searchCondition = if (searchParams.get('all')) {
     //     searchCondition = 'all';
     // } else if (searchParams.get('noteReceiver')) {
@@ -54,7 +56,7 @@ function NoteListItem({ note, title , options, currentPage, setCurrentPage, show
 
     /* 쪽지 상세 페이지 이동*/
     const onClickNoteHandler = (note) => {
-        navigate(`/note/received/${ note.noteCode }`);
+        navigate(`/note/${noteType}/${ note.noteCode }`, {state : {noteType}});
     };
 
     const onChangeHandler = (e) => {
@@ -65,7 +67,10 @@ function NoteListItem({ note, title , options, currentPage, setCurrentPage, show
         setSearchValue(e.target.value);
     };
 
-
+    /* 중요 쪽지함 이동 */
+    const onClickImportant = () => {
+        setImportantModal(true);
+    };
 
 
 
@@ -187,7 +192,10 @@ function NoteListItem({ note, title , options, currentPage, setCurrentPage, show
         <>
             <div className="note-div">
                 <div className="note-title" style={{ fontSize: "30px", marginTop: "55px", marginLeft: "40px" }}>
-                    { title }
+                    { noteType === 'received' ? "받은 쪽지함" :
+                        noteType === 'sent' ? "보낸 쪽지함" :
+                            noteType === 'important' ? "중요 쪽지함" : ""
+                    }
                 </div>
             </div>
 
@@ -246,9 +254,9 @@ function NoteListItem({ note, title , options, currentPage, setCurrentPage, show
                         <div className="note-item" key={ note.noteCode }>
                             <div className="noteMember"
                                  style={{ width:'700px', marginLeft: '122px' }}>
-                                { title === "보낸 쪽지함" ? note.noteReceiver
-                                    : title === "받은 쪽지함" ? note.noteSender :
-                                        title === "중요 쪽지함" ? note.noteSender : "" }
+                                { noteType === "received" ? note.noteReceiver
+                                    : noteType === "sent" ? note.noteSender :
+                                        noteType === "important" ? note.noteSender : "" }
                             </div>
                             <div className="noteBody"
                                  onClick={ () => onClickNoteHandler(note) }
@@ -260,6 +268,7 @@ function NoteListItem({ note, title , options, currentPage, setCurrentPage, show
                                 { note.noteSentDate }</div>
                         </div>
                     ))}
+
                 </div>
             }
         </>

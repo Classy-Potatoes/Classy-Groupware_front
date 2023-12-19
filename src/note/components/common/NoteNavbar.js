@@ -37,7 +37,7 @@ function NoteNavbar() {
                     </div>
 
                     <div className="note-nav-category">
-                        <p><NavLink to="/note/save">쪽지 작성</NavLink></p>
+                        <p><NavLink to="/note/send">쪽지 작성</NavLink></p>
                         <p><NavLink to="/note">받은 쪽지함</NavLink></p>
                         <p><NavLink to="/note/sent">보낸 쪽지함</NavLink></p>
                         <p><NavLink to="/note/important">중요 쪽지함</NavLink></p>

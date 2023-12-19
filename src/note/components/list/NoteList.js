@@ -12,7 +12,6 @@ function NoteList({ data }) {
         </div>
     );
 
-
 }
 
 export default NoteList;

@@ -26,9 +26,9 @@ function NoteImportantMain() {
             { notes
                 &&
                 <>
-                    <NoteListItem note={ notes.data } title="중요 쪽지함"
+                    <NoteListItem note={ notes.data }
                                   options={ options } noteType="important"
-                                  showSender={ true } showReceiver={ false }/>
+                                  showSender={ true } showReceiver={ false } receivedViewProp={ true }/>
                     <PagingBar pageInfo={ notes.pageInfo } setCurrentPage={ setCurrentPage }/>
                 </>
             }

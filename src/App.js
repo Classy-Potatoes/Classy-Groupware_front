@@ -3,7 +3,8 @@ import './style/nav.css';
 import './calendar/calendarStyle/Calendar.css'
 import './style/member/admin.css';
 import './style/member/login.css';
-import './style/note/note.css'
+import './style/note/note.css';
+import './style/note/noteSave.css';
 import './style/member/member.css';
 import './style/project/Project.css';
 import './style/dashBoard/dashBoard.css';
@@ -100,14 +101,12 @@ function App() {
                 <Route path="note" element={ <ProtectedRoute loginCheck={ true }><NoteLayout/></ProtectedRoute> }>
                     <Route index element={ <NoteReceivedMain/> }/>
                     <Route path="received/:noteCode" element={< NoteReceived/> }/>
-                    <Route path="sent" element={ <NoteSentMain/> }>
-                        <Route path=":noteCode" element={ <NoteReceived/> }/>
-                    </Route>
-                    <Route path="important" element={ <NoteImportantMain/> }>
-                        <Route path=":noteCode" element={<NoteReceived/>} />
-                    </Route>
+                    <Route path="sent" element={ <NoteSentMain/> }/>
+                    <Route path="sent/:noteCode" element={ <NoteReceived/> }/>
+                    <Route path="important" element={ <NoteImportantMain/> }/>
+                    <Route path="important/:noteCode" element={ <NoteReceived/> }/>
                     <Route path="search" element={ <NoteSearch/> }/>
-                    <Route path="save" element={ <NoteSave/> }/>
+                    <Route path="send" element={ <NoteSave/> }/>
                 </Route>
 
               {/* 프로젝트 */}

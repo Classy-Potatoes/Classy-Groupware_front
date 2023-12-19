@@ -26,9 +26,9 @@ function NoteSentMain() {
             { notes
                 &&
                 <>
-                    <NoteListItem note={ notes.data } title="보낸 쪽지함"
+                    <NoteListItem note={ notes.data }
                                   options={ options } noteType="sent"
-                                  showSender={ false } showReceiver={ true }/>
+                                  showSender={ false } showReceiver={ true } receivedViewProp={ false }/>
                     <PagingBar pageInfo={ notes.pageInfo } setCurrentPage={ setCurrentPage }/>
                 </>
             }
