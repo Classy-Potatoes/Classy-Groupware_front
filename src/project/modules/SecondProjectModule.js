@@ -10,18 +10,16 @@ const GET_TODO_LIST = 'project/GET_TODO_LIST';
 const POST_SUCCESS = 'project/POST_SUCCESS';
 const PUT_SUCCESS = 'project/PUT_SUCCESS';
 const DELETE_SUCCESS = 'project/DELETE_SUCCESS';
-const GET_MY_TODO_LIST = 'project/GET_MY_TODO_LIST';
 const GET_ALL_TODO_LIST = 'project/GET_ALL_TODO_LIST';
 
 /* 액션 함수 */
-export const { project : {getAllManagers, getScheduleList, getTodoList, postSuccess, putSuccess, deleteSuccess, getMyTodoList, getAllTodoList} } = createActions({
+export const { project : {getAllManagers, getScheduleList, getTodoList, postSuccess, putSuccess, deleteSuccess, getAllTodoList} } = createActions({
     [GET_ALL_MANAGERS] : (result) => ({ allManagers : result.data }),
     [GET_SCHEDULE_LIST] : (result) => ({ allSchedules : result.data }),
     [GET_TODO_LIST] : (result) => ({ allTodoList : result.data }),
     [POST_SUCCESS] : () => ({ postSuccess: true }),
     [PUT_SUCCESS] : () => ({ putSuccess: true }),
     [DELETE_SUCCESS] : () => ({ deleteSuccess: true }),
-    [GET_MY_TODO_LIST] : (result) => ({ myTodoList: result.data }),
     [GET_ALL_TODO_LIST] : (result) => ({ allMyTodoList: result.data }),
 });
 
@@ -33,7 +31,6 @@ const secondProjectReducer = handleActions({
     [POST_SUCCESS] : (state, { payload }) => payload,
     [PUT_SUCCESS] : (state, { payload }) => payload,
     [DELETE_SUCCESS] : (state, { payload }) => payload,
-    [GET_MY_TODO_LIST] : (state, { payload }) => payload,
     [GET_ALL_TODO_LIST] : (state, { payload }) => payload,
 
 }, initialState);

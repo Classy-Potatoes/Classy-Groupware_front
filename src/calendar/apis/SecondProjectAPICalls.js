@@ -3,12 +3,12 @@ import {toast} from "react-toastify";
 import {
     deleteSuccess,
     getAllTodoList,
-    getMyTodoList,
     getScheduleList,
     getTodoList,
     postSuccess,
     putSuccess
 } from "../../project/modules/SecondProjectModule";
+import {getMyTodoList} from "../../project/modules/MyTodoListModule";
 
 /* 일정 APIS */
 export const callProjectScheduleRegistAPI = ({ registRequest, projectCode }) => {
