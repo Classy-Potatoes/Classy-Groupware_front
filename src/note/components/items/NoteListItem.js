@@ -214,8 +214,6 @@ function NoteListItem({ note, noteType , options, currentPage, setCurrentPage, s
                             )) }
                         </select>
 
-
-
                         {/*<SearchBar*/}
                         {/*    options={options}*/}
                         {/*    selectedOption={selectedOption}*/}
