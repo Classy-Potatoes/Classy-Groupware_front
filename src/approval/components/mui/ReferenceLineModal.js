@@ -33,7 +33,7 @@ export default function ReferenceLineModal({writer, onRegisterClick}) {
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
-    const [selectedMembers, setSelectedMembers] = React.useState([]);
+    const [selectedMembers, setSelectedMembers] = useState([]);
 
     /* 검색 기능 */
     const handleSearchChange = (event) => {
@@ -54,7 +54,7 @@ export default function ReferenceLineModal({writer, onRegisterClick}) {
         }
     };
     const filteredMembers = writer.memberList.filter((member) =>
-        !selectedMembers.includes(member.memberCode)
+        member.infoName.toLowerCase().includes(searchMember.toLowerCase())
 
     );
 

@@ -119,7 +119,7 @@ function ProjectPostWrite({projectCode}) {
                             />
                 </div>
                 <div>
-                            <input
+                            <textarea
                                 type="text"
                                 name="postBody"
                                 placeholder="내용을 입력하세요."

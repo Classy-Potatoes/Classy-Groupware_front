@@ -52,10 +52,10 @@ function CalendarLayout() {
                             <CalendarMain allSchedule={allSchedule}/>
                         </div>
                         <div className="cal-button-area">
-                            <div className="cal-add-button cal-select-button" onClick={clickedNewSchedule}>일정 추가</div>
-                            <div className="cal-all-button cal-select-button" onClick={clickAllSchedule}>전체일정</div>
-                            <div className="cal-project-button cal-select-button" onClick={clickedProject}>프로젝트</div>
-                            <div className="cal-personal-button cal-select-button" onClick={clickedPersonal}>개인일정</div>
+                            <div className="cal-add-button cal-select-button" onClick={clickedNewSchedule}><div className="cal-btn-icon-box"><div className="cal-btn-icon"></div></div>일정 추가</div>
+                            <div className="cal-all-button cal-select-button" onClick={clickAllSchedule}><div className="cal-btn-icon-box"><div className="cal-btn-icon"></div></div>전체 일정</div>
+                            <div className="cal-project-button cal-select-button" onClick={clickedProject}><div className="cal-btn-icon-box"><div className="cal-btn-icon"></div></div>프로젝트</div>
+                            <div className="cal-personal-button cal-select-button" onClick={clickedPersonal}><div className="cal-btn-icon-box"><div className="cal-btn-icon"></div></div>개인일정</div>
                         </div>
                     </>
                 }

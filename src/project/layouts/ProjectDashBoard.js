@@ -12,7 +12,7 @@ function ProjectDashBoard() {
     const dispatch = useDispatch();
     const [currentPage, setCurrentPage] = useState(1);
     const { myTask } = useSelector(state => state.projectReducer);
-    const { myTodoList } = useSelector(state => state.secondProjectReducer);
+    const { myTodoList} = useSelector(state => state.thirdProjectReducer);
     const {projectCode} = useParams();
 
     useEffect(() => {

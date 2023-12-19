@@ -1,4 +1,8 @@
+import {useNavigate} from "react-router-dom";
+
 function DashBoardMyProjectTaskListItem({ projectTask }) {
+
+    const navigate = useNavigate();
     function truncateText(text, maxLength) {
         if (text.length <= maxLength) {
             return text;
@@ -9,17 +13,25 @@ function DashBoardMyProjectTaskListItem({ projectTask }) {
 
     const truncatedTitle = truncateText(projectTask.taskTitle, 5);
 
+    const goDetailHandler = (projectCode) => {
+        navigate(`/projects/${projectCode}`);
+    }
+
     return (
         <>
             <div className="dashBoard-project-item">
                 <div>
                     [{projectTask.taskCode}]
                 </div>
-                <div  className="dashBoard-project-Title">
+                <div
+                    onClick={ () => goDetailHandler(projectTask.projectCode) }
+
+                    className="dashBoard-project-Title">
                     {truncatedTitle}
                 </div>
                 <div>
-                    {projectTask.taskRequestDate}
+                    <label>마감 날짜 : </label>
+                    {projectTask.taskEndDate}
                 </div>
             </div>
         </>

@@ -94,6 +94,9 @@ function MypageForm( { data } ) {
     /* ----------------------- 수정 모드 관련 -----------------------*/
     // 수정모드가 아닐때 회색 관련 스타일
     const inputStyle = !modifyMode ? { color : 'white' } : { color : 'black' };
+    const selectBoxStyle =
+        !modifyMode ? { color : 'white', backgroundColor: '#9f9f9f' } : { color : 'black', backgroundColor: 'white' };
+    const selectBoxStyle2 = { color : 'white', backgroundColor: '#9f9f9f' };
     const inputStyleWhite = { color : 'white' };
 
     // 수정 모드로 변환하는 이벤트
@@ -241,6 +244,7 @@ function MypageForm( { data } ) {
                                             name="emailUrl"
                                             onChange={ onChangeHandler }
                                             value={ !modifyMode ? '@' + data.infoEmail.split('@')[1] : form.emailUrl }
+                                            style={ selectBoxStyle }
                                             disabled={ !modifyMode ? true : false }
                                         >
                                             <option value="@gmail.com">@gmail.com</option>
@@ -268,6 +272,7 @@ function MypageForm( { data } ) {
                                         name="deptCode"
                                         onChange={ onChangeHandler }
                                         value={ !modifyMode ? data.deptCode : form.deptCode }
+                                        style={ selectBoxStyle2 }
                                         // disabled={ !modifyMode ? true : false }
                                         disabled={ true }
                                     >
@@ -285,6 +290,7 @@ function MypageForm( { data } ) {
                                         name="jobCode"
                                         onChange={ onChangeHandler }
                                         value={ !modifyMode ? data.jobCode : form.jobCode }
+                                        style={ selectBoxStyle2 }
                                         // disabled={ !modifyMode ? true : false }
                                         disabled={ true }
                                     >
@@ -372,6 +378,7 @@ function MypageForm( { data } ) {
                                         name="memberStatus"
                                         onChange={ onChangeHandler }
                                         value={ !modifyMode ? data.memberStatus : form.memberStatus }
+                                        style={ selectBoxStyle2 }
                                         // disabled={ !modifyMode ? true : false }
                                         disabled={ true }
                                     >

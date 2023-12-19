@@ -84,6 +84,10 @@
     /*margin-bottom: 15px;*/
 }
 
+.main-nav-bar p:hover {
+    color: #81BFDA;
+}
+
 .main-nav-bar img {
     margin-right: 10px;
 }
@@ -182,6 +186,10 @@
 
 .nav-bar-p {
     margin-top: 20px;
+}
+
+.nav-bar-p p:hover{
+    color: #CEC35E;
 }
 
 .nav-bar-p p {
@@ -348,12 +356,12 @@
 .approvalNav {
     height: 100%;
 }
-
+/* 준홍 ---------------------------------------------------------------------- */
 /* 네비 위에 네비 나타내기 */
 .approval-navbar-overlay {
     height: 85%;
     position: fixed;
-    top: 143px;
+    top: 142px;
     left: 0;
     z-index: 1; /* Navbar가 ProjectNavBar 위에 나타나도록 더 높은 z-index를 설정합니다. */
     background-color: #333333; /* 슬라이딩된 부분을 채울 색상을 설정하세요. */

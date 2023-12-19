@@ -1,28 +1,22 @@
 import * as React from "react";
 import {useEffect, useState} from "react";
-import '../../../style/approval/ApprovalLayOut.css'
-import '../../../style/approval/Reprot.css'
-import ReportDatePiker from "../mui/ReprotDatePiker";
+import '../../../../style/approval/ApprovalLayOut.css'
+import '../../../../style/approval/Reprot.css'
+import ReportDatePiker from "../../mui/ReprotDatePiker";
 import Button from "@mui/material/Button";
 import SendIcon from "@mui/icons-material/Send";
 import {useDispatch, useSelector} from "react-redux";
-import {
-    callApprovalStatusUpdateAPI,
-    callReportApproveSearchAPI,
-    callReportWaitingSearchAPI
-} from "../../apis/ReportAPICalls";
-import ApprovalPagingBar from "../common/ApprovalPagingBar";
-import DeleteIcon from "@mui/icons-material/Delete";
+import ApprovalPagingBar from "../../common/ApprovalPagingBar";
 import AttachmentIcon from "@mui/icons-material/Attachment";
 import {ToastContainer} from "react-toastify";
 import {useNavigate, useSearchParams} from "react-router-dom";
+import {callSignPayingSearchAPI} from "../../../apis/SignAPICalls";
 
 
-function ReportApproveSearch() {
+function SignPayingSearch() {
 
     const dispatch = useDispatch();
     const [currentPage, setCurrentPage] = useState(1);
-    const [selectAll, setSelectAll] = useState(false);
     const {searchData} = useSelector( state => state.approvalReducer)
     const [searchParams] = useSearchParams();
     const documentTitle = searchParams.get('documentTitle')
@@ -37,45 +31,14 @@ function ReportApproveSearch() {
 
 
     useEffect(() => {
-        dispatch(callReportApproveSearchAPI({documentTitle,startDate,endDate,currentPage}));
+        dispatch(callSignPayingSearchAPI({documentTitle,startDate,endDate,currentPage}));
     }, [currentPage,documentTitle,startDate,endDate]);
 
     const onSearchChangeHandler = (e) => {
         setDocumentTitleSearch(e.target.value);
     }
 
-    const handleSelectAll = () => {
-        const allCheckboxes = document.querySelectorAll(".report-table-td-ck");
-        const isChecked = !selectAll;
 
-        allCheckboxes.forEach((checkbox) => {
-            checkbox.checked = isChecked;
-        });
-
-        setSelectAll(isChecked);
-    };
-
-    /* 회수처리를 위해 서버로 보내서 업데이트 */
-    const handleRecall = () => {
-        const selectedApprovals = Array.from(document.querySelectorAll(".report-table-td-ck:checked"))
-            .map((checkbox) => checkbox.value);
-
-        const confirmed = window.confirm("회수하시겠습니까?");
-        if (confirmed) {
-            // 회수 로직 실행
-            window.location.reload();
-        }
-
-        if (selectedApprovals.length > 0) {
-            const recallRequest = {
-                approvalCode: selectedApprovals,
-            };
-
-            dispatch(callApprovalStatusUpdateAPI({approvalCode: recallRequest}))
-
-            console.log(recallRequest)
-        }
-    };
 
     const handleDateChange = ({ startDate, endDate }) => {
         setStartDateValue(startDate);
@@ -97,7 +60,7 @@ function ReportApproveSearch() {
     const onClickSearchHandler = e => {
         const formattedStartDate = startDateValue ? formatSearchDate(startDateValue) : '';
         const formattedEndDate = endDateValue ? formatSearchDate(endDateValue) : '';
-        navigate(`/approval/report/search-approve?documentTitle=${documentTitleSearch}&startDate=${formattedStartDate}&endDate=${formattedEndDate}&page=${currentPage}`);
+        navigate(`/approval/sign/search-paying?documentTitle=${documentTitleSearch}&startDate=${formattedStartDate}&endDate=${formattedEndDate}&page=${currentPage}`);
     }
 
 
@@ -131,11 +94,11 @@ function ReportApproveSearch() {
     return (
         <>
             <div className="ReportTitle">
-                상신함 - 승인
+                결재함 - 승인
             </div>
 
 
-            <div className="reportContainer">
+            <div className="reportContainer-noRecall">
                 <ToastContainer
                     position="top-center"
                     autoClose={500}
@@ -166,21 +129,10 @@ function ReportApproveSearch() {
 
                 {searchData &&
                     <div className="reportTable">
-                        <Button variant="outlined" startIcon={<DeleteIcon/>}
-                                sx={{width: '120px', marginBottom: '10px'}}
-                                onClick={handleRecall}
-                        >
-                            회수
-                        </Button>
+
                         <table className="Report-table">
                             <thead>
                             <tr>
-                                <th className="report-table-th"><input type="checkbox"
-                                                                       className="report-table-th-ck"
-                                                                       checked={selectAll}
-                                                                       onChange={handleSelectAll}
-                                />
-                                </th>
                                 <th className="report-table-th">문서 번호</th>
                                 <th className="report-table-th">제목</th>
                                 <th className="report-table-th">문서 종류</th>
@@ -197,11 +149,7 @@ function ReportApproveSearch() {
                                     key={searchData.approvalCode}
                                     onClick={() => onClickDetailPageHandler(report.documentType, report.approvalCode)}
                                 >
-                                    <td className="report-table-td"><input type="checkbox"
-                                                                           value={report.approvalCode}
-                                                                           className="report-table-td-ck"
-                                    />
-                                    </td>
+
                                     <td className="report-table-td">{report.approvalCode}</td>
                                     <td className="report-table-td">{report.documentTitle}</td>
                                     <td className="report-table-td">{report.documentType}</td>
@@ -234,4 +182,4 @@ function ReportApproveSearch() {
 }
 
 
-export default ReportApproveSearch;
+export default SignPayingSearch;

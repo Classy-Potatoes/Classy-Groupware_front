@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useState, useRef} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {callProjectInviteAPI} from "../../apis/ProjectAPICalls";
 import tdPlus from "../../../calendar/images/todoPlus.png"
@@ -6,6 +6,7 @@ import tdMinus from "../../../calendar/images/todoMinus.png";
 import DatePicker from "react-datepicker";
 import {ko} from "date-fns/esm/locale";
 import {callProjectTodoRegistAPI, callTodoListAPI} from "../../../calendar/apis/SecondProjectAPICalls";
+import {toast} from "react-toastify";
 
 function ProjectTodoRegist({projectCode, postSuccess, currentPage}) {
 
@@ -27,10 +28,22 @@ function ProjectTodoRegist({projectCode, postSuccess, currentPage}) {
                     endDates: "",
                     attendant: ""
                 }))
-            })
+            });
+        }
+    }, [postSuccess]);
+
+    useEffect(() => {
+
+        if (postSuccess) {
+            const initialTodos = [
+                {id: 0, todoBody: "", endDate: "", attendant: ""}
+            ];
+            setTodos(initialTodos);
         }
 
-    }, [projectCode, postSuccess]);
+        document.getElementById("td-manager-selected").value = "";
+
+    }, [postSuccess]);
 
     const removeTodo = (e) => {
         const targetId = parseInt(e.target.id);
@@ -57,9 +70,7 @@ function ProjectTodoRegist({projectCode, postSuccess, currentPage}) {
                     case 'todoBody':
                         return {...todo, todoBody: value};
                     case 'endDate':
-                        return {
-                            ...todo, endDate: value
-                        };
+                        return {...todo, endDate: value};
                     case 'attendant':
                         return {...todo, attendant: value}
                     default:
@@ -93,8 +104,8 @@ function ProjectTodoRegist({projectCode, postSuccess, currentPage}) {
             ...form,
             projectTodolistCreateRequestList: todos.map(todo => ({
                 todoBody: todo.todoBody,
-                endDates: formatDate(addOneDay(todo.endDate)).toLocaleString('ko-KR'),
-                attendant: todo.attendant
+                endDates: todo.endDate ? formatDate(addOneDay(todo.endDate)).toLocaleString('ko-KR') : toast.error("마감일이 비었습니다."),
+                attendant: todo.attendant ? todo.attendant : toast.error("담당자가 비었습니다.")
             }))
 
         };
@@ -163,7 +174,11 @@ function ProjectTodoRegist({projectCode, postSuccess, currentPage}) {
                                 id="td-manager-selected"
                                 className="sch-manager-selected"
                                 onChange={(e) => changeTodos(todo.id, e.target.value, 'attendant')}
+                                value={todos.attendant}
                             >
+                                <option value="">
+                                    이름 조회
+                                </option>
                                 {projectMember && projectMember.map(member => (
                                     <option
                                         key={member.infoCode}
@@ -172,9 +187,6 @@ function ProjectTodoRegist({projectCode, postSuccess, currentPage}) {
                                         {member.memberName}
                                     </option>
                                 ))}
-                                <option value="이름 조회" selected>
-                                    이름 조회
-                                </option>
                             </select>
                         </div>
                     </div>

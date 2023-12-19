@@ -3,9 +3,9 @@ import React, {useEffect, useState} from "react";
 import ProjectScheduleRegist from "../../components/items/ProjectScheduleRegist";
 import ProjectScheduleReviews from "../../components/items/ProjectScheduleReviews";
 import {useDispatch, useSelector} from "react-redux";
-import {callScheduleListAPI} from "../../../calendar/apis/SecondProjectAPICalls";
+import {callProjectMyTodoListAPI, callScheduleListAPI} from "../../../calendar/apis/SecondProjectAPICalls";
 import PagingBar from "../../../dashBoard/components/common/PagingBar";
-import {getMemberId} from "../../../calendar/utils/MemberUtils";
+import {getDecodeAccessToken, getMemberId} from "../../../calendar/utils/MemberUtils";
 import ProjectScheduleList from "../../components/lists/ProjectScheduleList";
 
 function ProjectCalendarWrite() {
@@ -26,19 +26,21 @@ function ProjectCalendarWrite() {
                 <ProjectScheduleRegist postSuccess={postSuccess} projectCode={projectCode}/>
             </div>
             {allSchedules && allSchedules.data.map(schedule => (
-                <div className="sch-list-box">
-                    <div className="sch-project-list" key={schedule.scheduleCode}>
-                        <ProjectScheduleList postSuccess={postSuccess} projectCode={projectCode} schedule={schedule} memberId={memberId}/>
-                        <ProjectScheduleReviews postSuccess={postSuccess} projectCode={projectCode} schedule={schedule} memberId={memberId}/>
+                    <div className="sch-list-box">
+                        <div className="sch-project-list" key={schedule.scheduleCode}>
+                            <ProjectScheduleList postSuccess={postSuccess} projectCode={projectCode} schedule={schedule}
+                                                 memberId={memberId}/>
+                            <ProjectScheduleReviews postSuccess={postSuccess} projectCode={projectCode} schedule={schedule}
+                                                    memberId={memberId}/>
+                        </div>
                     </div>
-                </div>
                 )
             )}
-
             {allSchedules &&
-                <PagingBar pageInfo={allSchedules.pageInfo} setCurrentPage={setCurrentPage}/>
+                <div className="project-post-paging">
+                    <PagingBar pageInfo={allSchedules.pageInfo} setCurrentPage={setCurrentPage}/>
+                </div>
             }
-
         </>
     )
         ;

@@ -6,6 +6,8 @@ import {useDispatch, useSelector} from "react-redux";
 import SendIcon from "@mui/icons-material/Send";
 import {callReportDetailAPI} from "../../../apis/ReportAPICalls";
 import {useNavigate, useParams} from "react-router-dom";
+import SignUpCheckModal from "../../mui/SignUpCheckModal";
+import {ToastContainer} from "react-toastify";
 
 
 function LetterDetail() {
@@ -50,7 +52,18 @@ function LetterDetail() {
             </div>
 
             <div className="letterContainer">
-
+                <ToastContainer
+                    position="top-center"
+                    autoClose={500}
+                    hideProgressBar={true}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss={false}
+                    draggable
+                    pauseOnHover={false}
+                    theme="dark"
+                />
 
                 <div className="letter-left">
                     <p
@@ -116,27 +129,32 @@ function LetterDetail() {
                 <div className="approvalLineDiv">
                     <p>결재선</p>
                 </div>
+
+                {reportDetail && reportDetail.approvalLine && (
                 <div className="approvalLine">
                     {reportDetail && reportDetail.approvalLine.map((selectedMember, index) =>(
                         <div key={index} className="approvalLine-selectMember-div">
                             {selectedMember && selectedMember.infoName}<br/>
                             {selectedMember && (
                                 <>
-                                    {selectedMember.approvalLineReuslt === '승인' && (
-                                        <img src="/approval/승인%20이미지.png" alt="승인" className="approveImg"/>
-                                    )}
-                                    {selectedMember.approvalLineReuslt === '반려' && (
-                                        <img src="/approval/반려%20이미지.png" alt="반려" className="turnbackImg"/>
-                                    )}
-                                    <span className={`${selectedMember.approvalLineWaitingStatus === '결재요청' ? 'blink' : ''}`}>
+                                    <span
+                                        className={`${selectedMember.approvalLineWaitingStatus === '결재요청' ? 'blink' : ''}`}>
                                                  {selectedMember.approvalLineWaitingStatus}
                                     </span>
-                                    {selectedMember.approvalLineDate}
+                                    {selectedMember.approvalLineDate !== null && (
+                                        <div className="approvalSignTime">
+                                            {formatDate(selectedMember.approvalLineDate)}
+                                            <div>{selectedMember.approvalLineResult === 'TURNBACK' ? '반려' :
+                                                selectedMember.approvalLineResult === 'APPROVE' ? '승인' : ''}
+                                            </div>
+                                        </div>
+                                    )}
                                 </>
                             )}
                         </div>
                     ))}
                 </div>
+                )}
             </div>
             <div className="approval-completeBtn">
                 <Button variant="contained" endIcon={<SendIcon />} onClick={ () => navigate(-1)} >
@@ -144,6 +162,20 @@ function LetterDetail() {
                 </Button>
             </div>
 
+            <div className="approval-signUp">
+                {reportDetail &&
+                    reportDetail.approvalLine &&
+                    reportDetail.approvalLine.map((member, index) => {
+                        if (member.memberCode === reportDetail.loginMember &&
+                            member.approvalLineWaitingStatus === '결재요청') {
+                            return (
+                                <SignUpCheckModal key={index} approvalCode={approvalCode}/>
+                            );
+                        } else {
+                            return null;
+                        }
+                    })}
+            </div>
         </>
     );
 }

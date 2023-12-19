@@ -1,35 +1,13 @@
-import Modal from "react-modal";
-import MemberInfoRegistModal from "../form/MemberInfoRegistModal";
 import {useState} from "react";
 import {useNavigate} from "react-router-dom";
 
 
-// 모달 스타일 설정
-const customStyles = {
-    overlay: {
-        backgroundColor: 'rgba(0, 0, 0, 0.5)',
-        zIndex: 1000,
-    },
-    content: {
-        width: '360px',
-        height: '360px',
-        margin: 'auto',
-        border: 0,
-        backgroundColor: 'rgb(0, 0, 0, 60%)',
-        borderRadius: '10px',
-    },
-};
-
 function AdminMemberTop() {
 
     const navigate = useNavigate();
-    const [ modalIsOpen, setModalIsOpen ] = useState(false );
     const [ search, setSearch ] = useState('');
 
-    // 모달 토글
-    const onToggleModal = () => {
-        setModalIsOpen((isCheck) => !isCheck );
-    };
+
 
     /* 검색어 입력 값 상태 저장 */
     const onSearchChangeHandler = e => {
@@ -59,18 +37,6 @@ function AdminMemberTop() {
                     />
                 </div>
             </div>
-
-            { modalIsOpen && (
-                <Modal
-                    isOpen={ modalIsOpen }
-                    onRequestClose={ onToggleModal }
-                    style={ customStyles }
-                >
-                    <MemberInfoRegistModal
-                        setModalIsOpen = { setModalIsOpen }
-                    />
-                </Modal>
-            ) }
         </>
     );
 }

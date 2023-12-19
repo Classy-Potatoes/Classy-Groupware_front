@@ -1,7 +1,7 @@
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useState} from "react";
-import approvalReducer from "../../appreval/modules/ApprovalModule";
-import {callReportWaitingAPI} from "../../appreval/apis/ReportAPICalls";
+import approvalReducer from "../../approval/modules/ApprovalModule";
+import {callReportWaitingAPI} from "../../approval/apis/ReportAPICalls";
 import DashBoardMyApprevalList from "../components/list/DashBoardMyApprevalList";
 
 function DashBoardMyAppreval() {

@@ -18,10 +18,10 @@ import ProtectedRoute from "./common/components/router/ProtectedRoute";
 import Login from "./common/pages/Login";
 import NoteReceivedMain from "./note/pages/NoteReceivedMain";
 import NoteLayout from "./note/layouts/NoteLayout";
-import Vacation from "./appreval/components/Form/Vacation";
-import Expense from "./appreval/components/Form/Expense";
-import Letter from "./appreval/components/Form/Letter";
-import ApprovalLayOut from "./appreval/layouts/ApprovalLayOut";
+import Vacation from "./approval/components/Form/Vacation";
+import Expense from "./approval/components/Form/Expense";
+import Letter from "./approval/components/Form/Letter";
+import ApprovalLayOut from "./approval/layouts/ApprovalLayOut";
 import MyProjectMain from "./project/pages/projects/MyProjectMain";
 import MyDeptProjectMain from "./project/pages/projects/MyDeptProjectMain";
 import Error from "./common/pages/Error";
@@ -40,27 +40,40 @@ import MemberReturn from "./member/pages/mypage/MemberReturn";
 import AdminPageLayout from "./member/layouts/AdminPageLayout";
 import AdminMemberMain from "./member/pages/admin/AdminMemberMain";
 import NonMemberMain from "./member/pages/admin/NonMemberMain";
-import MemberNetwork from "./member/pages/network/MemberNetwork";
+import MemberNetworkMain from "./member/pages/network/MemberNetworkMain";
+import MemberNetworkSearchMain from "./member/pages/network/MemberNetworkSearchMain";
 import NetworkPageLayout from "./member/layouts/NetworkPageLayout";
 import NoteSearch from "./note/pages/NoteSearch";
 import NoteReceived from "./note/pages/NoteReceived";
 import NonMemberSearchMain from "./member/pages/admin/NonMemberSearchMain";
 import AdminMemberSearchMain from "./member/pages/admin/AdminMemberSearchMain";
-import ReportWaiting from "./appreval/components/ReportLists/ReportWaiting";
-import ReportApprove from "./appreval/components/ReportLists/ReprotApprove";
-import ReportTurnback from "./appreval/components/ReportLists/ReprotTurnback";
-import ReportRecall from "./appreval/components/ReportLists/ReprotRecall";
-import ReportPaying from "./appreval/components/ReportLists/ReprotPaying";
-import ReportWaitingSearch from "./appreval/components/ReportLists/ReportWaitingSearch";
-import ReportPayingSearch from "./appreval/components/ReportLists/ReportPayingSearch";
-import ReportApproveSearch from "./appreval/components/ReportLists/ReportApproveSearch";
-import ReportTurnbackSearch from "./appreval/components/ReportLists/ReportTurnbackSearch";
-import ReportRecallSearch from "./appreval/components/ReportLists/ReportRecallSearch";
-import LetterDetail from "./appreval/components/ReportLists/reportDetail/ReprotLetterDetail";
-import VacationDetail from "./appreval/components/ReportLists/reportDetail/ReportVacationDetail";
-import ExpenseDetail from "./appreval/components/ReportLists/reportDetail/ReprotExpenseDetail";
+import ReportWaiting from "./approval/components/ReportLists/ReportWaiting";
+import ReportApprove from "./approval/components/ReportLists/ReportApprove";
+import ReportTurnback from "./approval/components/ReportLists/ReportTurnback";
+import ReportRecall from "./approval/components/ReportLists/ReportRecall";
+import ReportPaying from "./approval/components/ReportLists/ReportPaying";
+import ReportWaitingSearch from "./approval/components/ReportLists/ReportWaitingSearch";
+import ReportPayingSearch from "./approval/components/ReportLists/ReportPayingSearch";
+import ReportApproveSearch from "./approval/components/ReportLists/ReportApproveSearch";
+import ReportTurnbackSearch from "./approval/components/ReportLists/ReportTurnbackSearch";
+import ReportRecallSearch from "./approval/components/ReportLists/ReportRecallSearch";
+import LetterDetail from "./approval/components/ReportLists/reportDetail/ReprotLetterDetail";
+import VacationDetail from "./approval/components/ReportLists/reportDetail/ReportVacationDetail";
+import ExpenseDetail from "./approval/components/ReportLists/reportDetail/ReprotExpenseDetail";
 import NoteSave from "./note/pages/NoteSave";
 import DashBoard from "./dashBoard/page/DashBoard";
+import ProjectMyTask from "./project/pages/projects/ProjectMyTask";
+
+import SignWaiting from "./approval/components/ReportLists/sign/SignWaiting";
+import SignPaying from "./approval/components/ReportLists/sign/SignPaying";
+import SignApprove from "./approval/components/ReportLists/sign/SignApprove";
+import SignTurnback from "./approval/components/ReportLists/sign/SignTurnback";
+import SignPayingSearch from "./approval/components/ReportLists/sign/SignPayingSearch";
+import SignApproveSearch from "./approval/components/ReportLists/sign/SignApproveSearch";
+import SignTurnbackSearch from "./approval/components/ReportLists/sign/SignTurnbackSearch";
+import SignWaitingSearch from "./approval/components/ReportLists/sign/SignWaitingSearch";
+import ReferenceReport from "./approval/components/ReportLists/ReferenceReport";
+import ReferenceReportSearch from "./approval/components/ReportLists/ReferenceReportSearch";
 
 function App() {
   return (
@@ -79,9 +92,9 @@ function App() {
                   <Route path="pwdSearch" element={ <ProtectedRoute loginCheck={ false }><SearchPwd /></ProtectedRoute> } />
                   <Route path="mypage" element={ <ProtectedRoute loginCheck={ true }><MyPageLayout/></ProtectedRoute> }>
                       <Route index element={ <Navigate to="/member/mypage/profile" replace/>}/>
-                      <Route path="profile" element={  <Profile/> }/>
-                      <Route path="passwordChange" element={  <PwdChange/> }/>
-                      <Route path="memberReturn" element={  <MemberReturn/> }/>
+                      <Route path="profile" element={  <ProtectedRoute loginCheck={ true }><Profile/></ProtectedRoute> }/>
+                      <Route path="passwordChange" element={  <ProtectedRoute loginCheck={ true }><PwdChange/></ProtectedRoute> }/>
+                      <Route path="memberReturn" element={  <ProtectedRoute loginCheck={ true }><MemberReturn/></ProtectedRoute> }/>
                   </Route>
               </Route>
 
@@ -98,6 +111,7 @@ function App() {
                     <Route path="send" element={ <NoteSave/> }/>
                 </Route>
 
+              {/* 프로젝트 */}
               <Route path="projects" element={ <ProtectedRoute loginCheck={ true }><ProjectLayout /></ProtectedRoute> } >
                   <Route index element={
                       <div>
@@ -107,13 +121,10 @@ function App() {
                   }/>
                   <Route path=":projectCode" element={<ProtectedRoute loginCheck={ true }><ProjectDetailLayout /></ProtectedRoute>} >
                     <Route index element={
-                        <div className="project-post-div">
-                            <ProjectDashBoard/>
-                        </div>
-                    }>
+                        <div className="project-post-div"><ProjectDashBoard/></div>}>
                     </Route>
                   </Route>
-                  <Route path="myTask" element={<ProtectedRoute loginCheck={ true }><ProjectDashBoard /></ProtectedRoute>} />
+                  <Route path="myTask" element={<ProtectedRoute loginCheck={true}><ProjectMyTask /></ProtectedRoute>}></Route>
               </Route>
 
               <Route path="calendar" element={ <ProtectedRoute loginCheck={ true }><CalendarLayout/></ProtectedRoute> }/>
@@ -135,6 +146,16 @@ function App() {
                   <Route path="report/letter/:approvalCode" element={<ProtectedRoute loginCheck={true}> <LetterDetail/> </ProtectedRoute> }/>
                   <Route path="report/expense/:approvalCode" element={<ProtectedRoute loginCheck={true}> <ExpenseDetail/> </ProtectedRoute> }/>
                   <Route path="report/vacation/:approvalCode" element={<ProtectedRoute loginCheck={true}> <VacationDetail/> </ProtectedRoute> }/>
+                  <Route path="sign-waiting" element={<ProtectedRoute loginCheck={true }> <SignWaiting/></ProtectedRoute>} />
+                  <Route path="sign-paying" element={<ProtectedRoute loginCheck={true }> <SignPaying/></ProtectedRoute>} />
+                  <Route path="sign-approve" element={<ProtectedRoute loginCheck={true }> <SignApprove/></ProtectedRoute>} />
+                  <Route path="sign-turnback" element={<ProtectedRoute loginCheck={true }> <SignTurnback/></ProtectedRoute>} />
+                  <Route path="sign/search-waiting" element={<ProtectedRoute loginCheck={true}> <SignWaitingSearch/> </ProtectedRoute> }/>
+                  <Route path="sign/search-paying" element={<ProtectedRoute loginCheck={true}> <SignPayingSearch/> </ProtectedRoute> }/>
+                  <Route path="sign/search-approve" element={<ProtectedRoute loginCheck={true}> <SignApproveSearch/> </ProtectedRoute> }/>
+                  <Route path="sign/search-turnback" element={<ProtectedRoute loginCheck={true}> <SignTurnbackSearch/> </ProtectedRoute> }/>
+                  <Route path="report/search-reference" element={<ProtectedRoute loginCheck={true}> <ReferenceReportSearch/> </ProtectedRoute> }/>
+                  <Route path="report/reference" element={<ProtectedRoute loginCheck={true}> <ReferenceReport/> </ProtectedRoute> }/>
 
 
 
@@ -142,19 +163,23 @@ function App() {
 
               {/* 연락망 */}
               <Route path="/network" element={ <ProtectedRoute loginCheck={ true }><NetworkPageLayout/></ProtectedRoute> }>
-                  <Route index element={ <MemberNetwork /> }/>
+                  <Route index element={ <Navigate to="/network/members/main" replace/>}/>
+                  <Route path="members">
+                      <Route path="main" element={ <ProtectedRoute loginCheck={ true }><MemberNetworkMain /></ProtectedRoute> } />
+                      <Route path="search" element={ <ProtectedRoute loginCheck={ true }><MemberNetworkSearchMain /></ProtectedRoute> } />
+                  </Route>
               </Route>
 
               {/* 관리기능 */}
               <Route path="/admin" element={ <ProtectedRoute loginCheck={ true }><AdminPageLayout/></ProtectedRoute> }>
-                  <Route index element={ <Navigate to="/admin/managementMember" replace/>}/>
+                  <Route index element={ <Navigate to="/admin/member/main" replace/>}/>
                   <Route path="member">
-                      <Route path="main" element={  <AdminMemberMain/> }/>
-                      <Route path="search" element={  <AdminMemberSearchMain/> }/>
+                      <Route path="main" element={  <ProtectedRoute loginCheck={ true }><AdminMemberMain/></ProtectedRoute> }/>
+                      <Route path="search" element={  <ProtectedRoute loginCheck={ true }><AdminMemberSearchMain/></ProtectedRoute> }/>
                   </Route>
                   <Route path="nonMember">
-                      <Route path="main" element={  <NonMemberMain/> }/>
-                      <Route path="search" element={  <NonMemberSearchMain/> }/>
+                      <Route path="main" element={  <ProtectedRoute loginCheck={ true }><NonMemberMain/></ProtectedRoute> }/>
+                      <Route path="search" element={  <ProtectedRoute loginCheck={ true }><NonMemberSearchMain/></ProtectedRoute> }/>
                   </Route>
               </Route>
 

@@ -1,13 +1,14 @@
 import {authRequest, request} from "./Apis";
 import {toast} from "react-toastify";
 import {
+    deleteSuccess,
     getAllTodoList,
-    getMyTodoList,
     getScheduleList,
     getTodoList,
     postSuccess,
     putSuccess
 } from "../../project/modules/SecondProjectModule";
+import {getMyTodoList} from "../../project/modules/MyTodoListModule";
 
 /* 일정 APIS */
 export const callProjectScheduleRegistAPI = ({ registRequest, projectCode }) => {
@@ -28,6 +29,8 @@ export const callProjectScheduleRegistAPI = ({ registRequest, projectCode }) => 
                     toast.error("시작일을 입력해주세요.");
                 } else if (res.response.data.code === 4008) {
                     toast.error("시작일이 종료일보다 이전이어야 합니다.");
+                } else if (res.response.data.code === 4012) {
+                    toast.error("참석자를 선택하세요.")
                 }
             })
 
@@ -35,7 +38,10 @@ export const callProjectScheduleRegistAPI = ({ registRequest, projectCode }) => 
         if (result != undefined) {
             if (result.status === 201) {
                 toast.info("일정 등록이 완료 되었습니다.");
-                dispatch(postSuccess());
+                dispatch(postSuccess())
+            //     setTimeout(() => {
+            //         window.location.reload();
+            //     }, 2000);
             }
         }
     }
@@ -74,7 +80,10 @@ export const callProjectScheduleModifyAPI = ({ registRequest, projectCode, sched
         if (result != undefined) {
             if (result.status === 201) {
                 toast.info("일정 수정이 완료 되었습니다.");
-                dispatch(postSuccess());
+                dispatch(postSuccess())
+                // setTimeout(() => {
+                //     window.location.reload();
+                // }, 2022200);
             }
         }
     }
@@ -101,7 +110,7 @@ export const callProjectScheduleReplyRegistAPI = ({ registRequest, projectCode, 
         const result = await authRequest.post(`/cg-api/v1/projects/${projectCode}/schedule/${scheduleCode}/reply`,
             registRequest)
             .catch(res => {
-                if (res.response.data.code === 4013) {
+                if (res.response.data.code === 9000) {
                     toast.error("작성된 댓글 내용이 없습니다.");
                 }
             })
@@ -110,7 +119,7 @@ export const callProjectScheduleReplyRegistAPI = ({ registRequest, projectCode, 
         if (result != undefined) {
             if (result.status === 201) {
                 toast.info("댓글 등록이 완료 되었습니다.");
-                dispatch(postSuccess())
+             dispatch(postSuccess())
             }
         }
     }
@@ -119,8 +128,6 @@ export const callProjectScheduleReplyRegistAPI = ({ registRequest, projectCode, 
 export const callProjectReplyUpdateAPI = ({ projectCode, scheduleCode, replyCode, registRequest }) => {
 
     return async (dispatch, getState) => {
-
-        console.log("확인 : ", registRequest)
 
         const result = await authRequest.put(`/cg-api/v1/projects/${projectCode}/schedule/${scheduleCode}/reply/${replyCode}`,
             JSON.stringify(registRequest),
@@ -131,7 +138,7 @@ export const callProjectReplyUpdateAPI = ({ projectCode, scheduleCode, replyCode
             })
             .catch(res => {
                 console.log(res,"res")
-                if (res.response.data.code === 4013) {
+                if (res.response.data.code === 9000) {
                     toast.error("작성된 댓글 내용이 없습니다.");
                 }
             })
@@ -142,8 +149,8 @@ export const callProjectReplyUpdateAPI = ({ projectCode, scheduleCode, replyCode
         }
         if (result != undefined) {
             if (result.status === 201) {
-                toast.info("일정 수정이 완료 되었습니다.");
-                dispatch(postSuccess())
+                toast.info("댓글 수정이 완료 되었습니다.");
+                dispatch(postSuccess());
             }
         }
     }
@@ -157,7 +164,7 @@ export const callProjectReplyDeleteAPI = ({ replyCode }) => {
         console.log('callProjectReplyDeleteAPI result : ', result);
 
         if(result.status === 204) {
-            toast.info("일정 삭제가 완료 되었습니다.");
+            toast.info("댓글 삭제가 완료 되었습니다.");
             dispatch(postSuccess())
         }
     }
@@ -201,7 +208,7 @@ export const callProjectTodoRegistAPI = ({ registRequest, projectCode }) => {
         if (result != undefined) {
             if (result.status === 201) {
                 toast.info("일정 등록이 완료 되었습니다.");
-                dispatch(putSuccess());
+                dispatch(postSuccess())
             }
         }
     }
@@ -252,7 +259,7 @@ export const callProjectMyTodoListAPI = ({ projectCode }) => {
         const result = await authRequest.get(`/cg-api/v1/projects/${projectCode}/myTodoList`);
         console.log('callProjectMyTodoListAPI result : ', result);
 
-        if(result.status === 200) {
+        if(result?.status === 200) {
             dispatch(getMyTodoList(result));
         }
 
@@ -266,7 +273,7 @@ export const callProjectTodoReplyRegistAPI = ({ registRequest, projectCode, todo
         const result = await authRequest.post(`/cg-api/v1/projects/${projectCode}/todo/${todoCode}/reply`,
             registRequest)
             .catch(res => {
-                if (res.response.data.code === 4013) {
+                if (res.response.data.code === 9000) {
                     toast.error("작성된 댓글 내용이 없습니다.");
                 }
             })
@@ -294,4 +301,31 @@ export const todoListForDashboard = () => {
 
     }
 };
+
+export const callProjectTodoUpdateAPI = ({ registRequest, projectCode, todoCode }) => {
+
+    return async (dispatch, getState) => {
+
+        const result = await authRequest.put(`/cg-api/v1/projects/${projectCode}/todo/${todoCode}`,
+            registRequest)
+            .catch(res => {
+                if (res.response.data.code === 9000) {
+                    toast.error("제목을 입력해주세요.");
+                } else if (res.response.data.code === 4006) {
+                    toast.error("시작일을 입력해주세요.");
+                } else if (res.response.data.code === 4008) {
+                    toast.error("시작일이 종료일보다 이전이어야 합니다.");
+                }
+            })
+
+        console.log('callProjectTodoUpdateAPI result : ', result);
+        if (result != undefined) {
+            if (result.status === 201) {
+                toast.info("일정 수정이 완료 되었습니다.");
+                dispatch(postSuccess())
+            }
+        }
+    }
+};
+
 
