@@ -150,7 +150,7 @@ function ProjectPostItem({ projectPost }) {
                     />
                 </div>
                 <div className="project-postList-Body">
-                    <input
+                    <textarea
                         name="postBody"
                         placeholder="게시글 내용"
                         value={ modifyMode ? form.postBody : projectPost.postBody }
