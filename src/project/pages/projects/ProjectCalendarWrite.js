@@ -3,7 +3,7 @@ import React, {useEffect, useState} from "react";
 import ProjectScheduleRegist from "../../components/items/ProjectScheduleRegist";
 import ProjectScheduleReviews from "../../components/items/ProjectScheduleReviews";
 import {useDispatch, useSelector} from "react-redux";
-import {callScheduleListAPI} from "../../../calendar/apis/SecondProjectAPICalls";
+import {callProjectMyTodoListAPI, callScheduleListAPI} from "../../../calendar/apis/SecondProjectAPICalls";
 import PagingBar from "../../../dashBoard/components/common/PagingBar";
 import {getDecodeAccessToken, getMemberId} from "../../../calendar/utils/MemberUtils";
 import ProjectScheduleList from "../../components/lists/ProjectScheduleList";
@@ -19,7 +19,6 @@ function ProjectCalendarWrite() {
     useEffect(() => {
         dispatch(callScheduleListAPI({projectCode, currentPage}));
     }, [currentPage, postSuccess]);
-    console.log(allSchedules, "sdsdsd")
 
     return (
         <>

@@ -8,6 +8,7 @@ import secondProjectReducer from "../../project/modules/SecondProjectModule";
 import adminReducer from "../../member/modules/AdminModule";
 import projectPostReducer from "../../project/modules/ProjectPostModule";
 import projectTaskReducer from "../../project/modules/ProjectTaskModule";
+import thirdProjectReducer from "../../project/modules/MyTodoListModule";
 
 const rootReducer = combineReducers({
     scheduleReducer,
@@ -18,7 +19,8 @@ const rootReducer = combineReducers({
     projectReducer,
     projectPostReducer,
     projectTaskReducer,
-    secondProjectReducer
+    secondProjectReducer,
+    thirdProjectReducer
 });
 
 export default rootReducer;

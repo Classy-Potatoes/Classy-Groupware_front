@@ -52,7 +52,7 @@ function ProjectNavList() {
                 <div>
                     {currentComponent === 'post' && <ProjectPostWrite projectCode={projectCode}/>}
                     {currentComponent === 'task' && <ProjectTaskWrite projectCode={projectCode}/>}
-                    {currentComponent === 'calendar' && <ProjectCalendarWrite />}
+                    {currentComponent === 'calendar' && <ProjectCalendarWrite/>}
                     {currentComponent === 'todo' && <ProjectTodoWrite />}
                 </div>
             </div>
