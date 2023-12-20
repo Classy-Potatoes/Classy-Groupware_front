@@ -14,7 +14,7 @@ export const callNoteReceivedListAPI = ({ currentPage }) => {
 
     return async (dispatch, getState) => {
 
-        const result = await authRequest.get(`/cg-api/v1/note/received?page=${ currentPage }`);
+        const result = await authRequest.get(`/cg-api/v1/note/?page=${ currentPage }`);
         console.log('callNoteReceivedListAPI result : ', result)
 
         if (result.status === 200) {

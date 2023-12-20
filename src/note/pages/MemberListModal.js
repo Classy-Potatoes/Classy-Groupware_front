@@ -33,6 +33,11 @@ function MemberListModal({ setMemberList }) {
                 {/*</div>*/}
 
                 <div className="member-list">
+                    <div className="member-list-title" style={{ display:'flex' }}>
+                        <div className="member-list-dept">부서</div>
+                        <div className="member-list-job">직급</div>
+                        <div className="member-list-name">이름</div>
+                    </div>
                     <div>
                         { getNoteListMembers &&
                             <NoteMemberList data={getNoteListMembers.data}/>
@@ -40,8 +45,8 @@ function MemberListModal({ setMemberList }) {
                     </div>
                 </div>
 
-                <div className="recipient-btn">
-                    <button
+                <div className="recipient-list">
+                    <button className="recipient-list-button"
                         onClick={ () => setMemberList(false) }
                     >
                         취소
