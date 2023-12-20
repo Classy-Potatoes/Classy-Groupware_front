@@ -29,7 +29,9 @@ function NoteSentMain() {
                     <NoteListItem note={ notes.data }
                                   options={ options } noteType="sent"
                                   showSender={ false } showReceiver={ true } receivedViewProp={ false }/>
-                    <PagingBar pageInfo={ notes.pageInfo } setCurrentPage={ setCurrentPage }/>
+                    <div className="note-main-pagebar">
+                        <PagingBar pageInfo={ notes.pageInfo } setCurrentPage={ setCurrentPage }/>
+                    </div>
                 </>
             }
         </>

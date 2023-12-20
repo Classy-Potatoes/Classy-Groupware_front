@@ -146,25 +146,6 @@ export const callNoteSendAPI = ({ sendRequest }) => {
 
 }
 
-
-export const callNoteRecipientAPI = ({ currentPage = 1, infoName }) => {
-
-    return async (dispatch, getState) => {
-
-        try {
-            const result = await authRequest.get(`/cg-api/v1/note/member/search?page=${ currentPage }&infoName=${ infoName }`);
-            console.log('callNoteRecipientAPI: ', result);
-
-            if (result.status === 200) {
-                dispatch(getNoteMember(result));
-            }
-        } catch (error) {
-            console.error('API 호출 오류:', error);
-        }
-    };
-
-}
-
 /* 쪽지 작성 시 회원 목록 조회 */
 export const callNoteListMembersAPI = ({ currentPage })  => {
 

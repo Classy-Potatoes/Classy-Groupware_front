@@ -32,7 +32,6 @@ function NoteSave() {
         const noteReceiver = recipientMember.memberCode;
         console.log(noteReceiver);
         console.log(form);
-        // dispatch(callNoteSendAPI({ sendRequest : { ...form, noteReceiver : recipientMember.memberCode }}));
 
         try {
             const response = await dispatch(callNoteSendAPI({ sendRequest: { ...form, noteReceiver: recipientMember.memberCode }}));
@@ -76,7 +75,6 @@ function NoteSave() {
                     { memberList &&
                         <MemberListModal
                             recipient={recipientSelect}
-                            // setMemberListModal={setMemberListModal}
                             setMemberList={ setMemberList }
                         />
                     }
@@ -92,6 +90,7 @@ function NoteSave() {
                                 style={{ writingMode: "horizontal-tb", textAlign: "start", paddingTop: "25px", paddingLeft: "30px" }}
                                 onChange={ onChangeHandler }
                                 name="noteBody"
+                                style={{ resize: 'none' }}
                             />
                         </div>
 

@@ -50,9 +50,20 @@ function NoteReplyModal({ onClose }) {
                       onChange={ onChangeBody }
                       rows="4"
                       cols="50"
+                      placeholder="답장을 입력하세요."
+                      style={{ resize: 'none', // 창 조절 비활성화
+                          border: 'none',
+                          backgroundColor: '#f0f0f0',
+                          outline: 'none' }}
                   />
-                  <button onClick={ onClose }>취소</button>
-                  <button onClick={() => onSaveReply(replyBody, noteReceiver)}>보내기</button>
+                  <div className="reply-btn">
+                      <div className="reply-cancel">
+                          <button onClick={ onClose }><p>취소</p></button>
+                      </div>
+                      <div className="reply-sent">
+                          <button onClick={() => onSaveReply(replyBody, noteReceiver)}><p>보내기</p></button>
+                      </div>
+                  </div>
               </div>
           </div>
       </>
