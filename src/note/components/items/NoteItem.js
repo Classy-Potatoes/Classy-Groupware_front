@@ -2,8 +2,14 @@ import {useLocation, useNavigate, useParams} from "react-router-dom";
 import * as React from "react";
 import {useEffect, useState} from "react";
 import NoteReplyModal from "../../pages/NoteReplyModal";
-import {callNotePostModifyAPI, callNoteSentRemoveAPI} from "../../apis/NoteAPICalls";
+import {
+    callNoteImportantRemoveAPI,
+    callNotePostModifyAPI,
+    callNoteReceivedRemoveAPI,
+    callNoteSentRemoveAPI
+} from "../../apis/NoteAPICalls";
 import {useDispatch, useSelector} from "react-redux";
+import {ToastContainer} from "react-toastify";
 
 function NoteItem({ note, titleName, titleTime}) {
 
@@ -17,6 +23,7 @@ function NoteItem({ note, titleName, titleTime}) {
     const { state : {noteType} } = useLocation();
     const {putSuccess} =  useSelector(state => state.noteReducer)
 
+    console.log(noteType, "3232")
     useEffect(() => {
         if(putSuccess === true) {
             if(noteType === 'received') {
@@ -46,7 +53,13 @@ function NoteItem({ note, titleName, titleTime}) {
     };
 
     const deleteModalBtn =() => {
-        dispatch(callNoteSentRemoveAPI({ noteCode }));
+        if (noteType === 'received') {
+            dispatch(callNoteReceivedRemoveAPI({ noteCode }));
+        } else if (noteType === 'sent') {
+            dispatch(callNoteSentRemoveAPI({ noteCode }));
+        } else if (noteType === 'important') {
+            dispatch(callNoteImportantRemoveAPI({ noteCode }));
+        }
         setDeleteModal(false);
     };
 
@@ -70,12 +83,12 @@ function NoteItem({ note, titleName, titleTime}) {
 
     return (
         <>
+            <ToastContainer hideProgressBar={ true } position="top-center"/>
             <div className="note-detail-div">
                 <div className="note-detail-title"
                      style={{ fontSize: "30px", marginTop: "20px", marginLeft: "40px" }}>
                     <img src="/note/fi-rs-comment.png" style={{ marginRight: "20px" }}/>
-                    쪽지 읽기
-                    {noteType}
+                    {noteType}&nbsp;쪽지 읽기
                 </div>
             </div>
 
@@ -103,7 +116,7 @@ function NoteItem({ note, titleName, titleTime}) {
                                 onClick={ onClickImportant }
                                 className="note-important-btn"
                             >
-                                <img src="/note/fi-rr-star.png" alt="쪽지 보관"/>
+                                <img style={noteType === 'important' ? {background : 'yellow'} : {backgroundColor: 'none'}} src="/note/fi-rr-star.png" alt="쪽지 보관"/>
                             </button>
                         }
                     </div>

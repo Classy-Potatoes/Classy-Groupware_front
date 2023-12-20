@@ -5,7 +5,8 @@ import {
     getNotes,
     postSuccess,
     putSuccess,
-    setRecipientMember
+    setRecipientMember,
+    getSearchSuccess
 } from "../modules/NoteModule";
 import {getNote} from "../modules/NoteModule";
 import {toast} from "react-toastify";
@@ -55,7 +56,7 @@ export const callNoteImportantListAPI = ({ currentPage }) => {
 
 };
 
-export const callNoteReceivedSearchAPI = ({ searchCondition, searchValue, currentPage }) => {
+export const callNoteReceivedSearchAPI = ({ searchCondition, searchValue, currentPage = 1 }) => {
 
     return async (dispatch, getState) => {
 
@@ -64,7 +65,7 @@ export const callNoteReceivedSearchAPI = ({ searchCondition, searchValue, curren
         console.log('callNoteReceivedSearchAPI result: ', result);
 
         if (result.status === 200) {
-            dispatch(getNotes(result));
+            dispatch(getSearchSuccess(result));
         }
 
     };
@@ -80,7 +81,7 @@ export const callNoteReceivedRemoveAPI = ({ noteCode }) => {
         console.log('callNoteReceivedRemoveAPI result:', result);
 
         if(result.status === 204) {
-            window.location.replace("/note/received");
+            window.location.replace("/note");
         }
 
     }
@@ -97,6 +98,22 @@ export const callNoteSentRemoveAPI = ({ noteCode }) => {
 
         if(result.status === 204) {
             window.location.replace("/note/sent");
+        }
+
+    }
+
+}
+
+/* 중요 쪽지 삭제 */
+export const callNoteImportantRemoveAPI = ({ noteCode }) => {
+
+    return async (dispatch, getState) => {
+
+        const result = await authRequest.delete(`/cg-api/v1/note/important/${ noteCode }`);
+        console.log('callNoteImportantRemoveAPI result:', result);
+
+        if(result.status === 204) {
+            window.location.replace("/note/important");
         }
 
     }
