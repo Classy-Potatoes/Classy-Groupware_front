@@ -8,12 +8,16 @@ import PagingBar from "../../common/components/pagingBar/PagingBar";
 function MemberListModal({ setMemberList }) {
     const dispatch = useDispatch();
     const [searchParams, setSearchParams] = useState('');
-    const [selectedMember, setSelectedMember] = useState(null);
     const [selectedRecipient, setSelectedRecipient] = useState(null);
     const [currentPage, setCurrentPage] = useState(1);
     const {getNoteListMembers} = useSelector(state => state.noteReducer);
-    const infoName = searchParams.value;
     const modalRef = useRef();
+    const [searchValue, setSearchValue] = useState('');
+
+    const filteredMembers = getNoteListMembers && getNoteListMembers.data
+        ? getNoteListMembers.data.filter((member) =>
+            member.infoName.includes(searchValue)
+        ) : [];
 
     useEffect(() => {
         dispatch(callNoteListMembersAPI({ currentPage }));
@@ -44,17 +48,14 @@ function MemberListModal({ setMemberList }) {
     return (
         <>
             <div ref={ modalRef } className="note-recipient-container">
-                {/*<div className="note-recipient-search">*/}
-                {/*    <input*/}
-                {/*        type="text"*/}
-                {/*        value={selectedRecipient ? selectedRecipient.value : ''}*/}
-                {/*        onChange={ (e) => {*/}
-                {/*            const value = e.target.value;*/}
-                {/*            setSelectedRecipient({ value });*/}
-                {/*        }}*/}
-                {/*        placeholder="이름으로 검색"*/}
-                {/*    />*/}
-                {/*</div>*/}
+                <div className="note-recipient-search">
+                    <input
+                        type="text"
+                        value={ searchValue }
+                        onChange={ (e) => setSearchValue(e.target.value) }
+                        placeholder="이름으로 검색"
+                    />
+                </div>
 
                 <div className="member-list">
                     <div className="member-list-title" style={{ display: 'flex' }}>
@@ -64,15 +65,15 @@ function MemberListModal({ setMemberList }) {
                     </div>
                     <div>
                         { getNoteListMembers &&
-                            <NoteMemberList data={ getNoteListMembers.data }
+                            <NoteMemberList data={ filteredMembers }
                                             onRecipientSelect={ handleRecipientSelect }/>
                         }
                     </div>
                     { getNoteListMembers && getNoteListMembers.pageInfo && (
                         <div className="note-list-member-pagingbar">
                             <PagingBar
-                                pageInfo={getNoteListMembers.pageInfo}
-                                setCurrentPage={setCurrentPage}
+                                pageInfo={ getNoteListMembers.pageInfo }
+                                setCurrentPage={ setCurrentPage }
                             />
                         </div>
                     )}

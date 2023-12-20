@@ -32,8 +32,8 @@ function NoteReplyModal({ onClose }) {
             });
 
             console.log('Saved reply:', response.data);
-            onClose();
             toast.success("답장이 전송되었습니다!");
+            onClose();
         } catch (error) {
             console.error('Error saving reply:', error);
             toast.error("답장 전송에 실패했습니다.");

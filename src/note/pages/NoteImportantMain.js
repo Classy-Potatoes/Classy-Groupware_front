@@ -27,7 +27,8 @@ function NoteImportantMain() {
                 &&
                 <>
                     <NoteListItem note={ notes.data }
-                                  options={ options } noteType="important"
+                                  options={ options }
+                                  noteType="important"
                                   showSender={ true } showReceiver={ false } receivedViewProp={ true }/>
                     <div className="note-main-pagebar">
                         <PagingBar pageInfo={ notes.pageInfo } setCurrentPage={ setCurrentPage }/>

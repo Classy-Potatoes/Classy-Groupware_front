@@ -12,9 +12,10 @@ const SET_RECIPIENT_MEMBER = 'note/SET_RECIPIENT_MEMBER';
 const GET_NOTE_LIST_MEMBERS = 'note/GET_NOTE_LIST_MEMBERS';
 const SET_NOTE_RECEIVER = 'note/SET_NOTE_RECEIVER';
 const PUT_SUCCESS = 'note/PUT_SUCCESS';
+const GET_SEARCH_SUCCESS = 'note/GET_SEARCH_SUCCESS';
 
 /* 액션 함수 */
-export const { note : { postSuccess, getNotes, getNote, getNoteMember, setRecipientMember, getNoteListMembers, setNoteReceiver, putSuccess } } = createActions({
+export const { note : { postSuccess, getNotes, getNote, getNoteMember, setRecipientMember, getNoteListMembers, setNoteReceiver, putSuccess, getSearchSuccess } } = createActions({
     [POST_SUCCESS] : () => ({ postSuccess : true }),
     [GET_NOTES] : result => ({ notes : result.data }), /*data 속성이 사용하려고 하는 정보가 담긴 속성 */
     [GET_NOTE] : result => ({ note : result.data }), /*data 속성이 사용하려고 하는 정보가 담긴 속성 */
@@ -23,6 +24,7 @@ export const { note : { postSuccess, getNotes, getNote, getNoteMember, setRecipi
     [GET_NOTE_LIST_MEMBERS] : result => ({ getNoteListMembers : result.data }),
     [SET_NOTE_RECEIVER] : noteReceiver =>({ noteReceiver: noteReceiver }),
     [PUT_SUCCESS] : ()=>({putSuccess : true}),
+    [GET_SEARCH_SUCCESS] : result => ({ getSearchSuccess: result.data }),
 });
 
 /* 리듀서 */
@@ -35,6 +37,7 @@ const noteReducer = handleActions({
     [GET_NOTE_LIST_MEMBERS] : (state, { payload }) => ({ ...state, ...payload }),
     [SET_NOTE_RECEIVER] : (state, { payload }) => ({ ...state, ...payload }),
     [PUT_SUCCESS] :(state,{payload}) =>  ({ ...state, ...payload }),
+    [GET_SEARCH_SUCCESS] :(state,{payload}) =>  ({ ...state, ...payload }),
 }, initialState);
 
 export default noteReducer;

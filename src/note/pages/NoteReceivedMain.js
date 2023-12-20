@@ -17,9 +17,9 @@ function NoteReceivedMain() {
     }, [currentPage]);
 
     const options = [
-        { value: '전체', label: '전체' },
-        { value: '보낸 사람', label: '보낸 사람' },
-        { value: '내용', label: '내용' },
+        { value: 'all', label: '전체' },
+        { value: 'noteSender', label: '보낸 사람' },
+        { value: 'noteBody', label: '내용' },
     ];
 
     return (
@@ -28,7 +28,8 @@ function NoteReceivedMain() {
                 &&
                 <>
                     <NoteListItem note={ notes.data }
-                                  options={ options } noteType="received"
+                                  options={ options }
+                                  noteType="received"
                                   showSender={ true } showReceiver={ false }/>
                     <div className="note-list-member-pagingbar">
                         <PagingBar pageInfo={ notes.pageInfo } setCurrentPage={ setCurrentPage }/>
