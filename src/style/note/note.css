@@ -144,3 +144,50 @@
     border-radius: 50px;
     padding: 15px;
 }
+
+/* 쪽지 이동, 삭제 모달창 */
+.note-important-modal, .note-delete-modal {
+    position: fixed;
+    top: 35%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #f0f0f0;
+    padding: 30px;
+    border: 1px solid black;
+    border-radius: 45px;
+    z-index: 1000;
+    text-align: center;
+}
+
+.note-important-modal p, .note-delete-modal p {
+    margin-bottom: 10px;
+}
+.important-modal-btn, .important-modal-btton, .delete-modal-btn, .delete-modal-btton{
+    margin-right: 10px;
+    padding: 10px;
+    border-radius: 45px;
+}
+
+.important-modal-btn, .delete-modal-btn, .recipient-list-button {
+    background-color: #333333;
+    color: #ffffff;
+}
+
+.important-modal-btton .delete-modal-btton {
+    background-color: #bfbfbf;
+    color: #333333;
+}
+
+.note-recipient-container {
+    position: fixed;
+    top: 355px;
+    left: 550px;
+    transform: translate(-50%, -50%);
+    background-color: #f0f0f0;
+    padding: 30px;
+    border: 1px solid black;
+    border-radius: 45px;
+    z-index: 1000;
+    text-align: center;
+}
+

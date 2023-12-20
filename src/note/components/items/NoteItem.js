@@ -7,8 +7,6 @@ import {useDispatch, useSelector} from "react-redux";
 
 function NoteItem({ note, titleName, titleTime}) {
 
-    console.log(titleName   , "13213123")
-
     const dispatch = useDispatch();
     const { noteCode } = useParams();
     const navigate = useNavigate();
@@ -125,7 +123,7 @@ function NoteItem({ note, titleName, titleTime}) {
                         }
                     </p>
                     <button className="important-modal-btn" onClick={ importantModalBtn }>확인</button>
-                    <button onClick={ cancelImportantBtn }>취소</button>
+                    <button className="important-modal-btton" onClick={ cancelImportantBtn }>취소</button>
                 </div>
             )}
 
@@ -133,7 +131,7 @@ function NoteItem({ note, titleName, titleTime}) {
                 <div className="note-delete-modal">
                     <p>삭제하시겠습니까?</p>
                     <button className="delete-modal-btn" onClick={ deleteModalBtn }>확인</button>
-                    <button onClick={ cancelDeleteBtn }>취소</button>
+                    <button className="delete-modal-btton" onClick={ cancelDeleteBtn }>취소</button>
                 </div>
             )}
 

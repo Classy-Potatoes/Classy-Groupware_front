@@ -72,13 +72,11 @@ function NoteListItem({ note, noteType , options, currentPage, setCurrentPage, s
         setImportantModal(true);
     };
 
-
-
     /*const handleSearch = async () => {
         try {
             // 서버로의 GET 요청을 보내 검색 결과를 가져옴
             const response = await axios.get('/cg-api/v1/note/received/search', {
-                params: {
+                params:
                     searchCondition: selectedOption, // 선택된 옵션(보낸 사람, 내용, 전체)
                     searchValue: searchValue.value,  // 검색어
                 },
