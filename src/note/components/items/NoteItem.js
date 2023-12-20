@@ -92,6 +92,12 @@ function NoteItem({ note, titleName, titleTime}) {
                     <span style={{ marginLeft: '30px', marginBottom: '20px' }}>{ note.noteSentDate }</span>
 
                     <div className="note-btn">
+                        <button
+                            onClick={ onClickDelete }
+                            className="note-delete-btn"
+                        >
+                            <img src="/note/trash-2.png" alt="쪽지 삭제"/>
+                        </button>
                         { (noteType === "received" || noteType === "important") &&
                             <button
                                 onClick={ onClickImportant }
@@ -100,13 +106,6 @@ function NoteItem({ note, titleName, titleTime}) {
                                 <img src="/note/fi-rr-star.png" alt="쪽지 보관"/>
                             </button>
                         }
-
-                        <button
-                            onClick={ onClickDelete }
-                            className="note-delete-btn"
-                        >
-                            <img src="/note/trash-2.png" alt="쪽지 삭제"/>
-                        </button>
                     </div>
                 </div>
 
@@ -136,6 +135,13 @@ function NoteItem({ note, titleName, titleTime}) {
             )}
 
             <div class="note-button">
+                <button
+                    onClick={ () => navigate(-1) }
+                    className="note-back"
+                >
+                    취소
+                </button>
+
                 { (noteType === "received" || noteType === "important") &&
                     <button
                         onClick={ onClickSent }
@@ -145,16 +151,10 @@ function NoteItem({ note, titleName, titleTime}) {
                     </button>
                 }
 
-
-                { isModalOpen &&
-                    (<NoteReplyModal onClose={ closeModal } onSaveReply={ onSaveReply }/>) }
-
-                <button
-                    onClick={ () => navigate(-1) }
-                    className="note-back"
-                >
-                    취소
-                </button>
+                <div className="note-reply-modal">
+                    { isModalOpen &&
+                        (<NoteReplyModal onClose={ closeModal } onSaveReply={ onSaveReply }/>) }
+                </div>
             </div>
         </>
     );

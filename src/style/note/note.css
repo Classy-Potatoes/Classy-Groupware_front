@@ -117,27 +117,35 @@
 }
 
 /* 쪽지 삭제 및 이동버튼 */
-.note-btn {
-    margin-left: 1250px;
+.note-btn{
+    display: flex;
+    padding-left: 1250px;
 }
+
 .note-important-btn {
-    margin-right: 20px;
+    margin-left: 20px;
+}
+
+/* 쪽지 답장/취소 버튼 */
+.note-button {
+    display: flex;
+    justify-content: left;
+    margin-left: 50px;
+    margin-top: 50px;
+
 }
 
 .note-back{
-    margin-right: 65px;
-    margin-top: 30px;
     background-color: black;
     color: white;
     border: 1px solid black;
     width: 130px;
     border-radius: 50px;
     padding: 15px;
+    margin-right: 20px;
 }
 
 .note-sent {
-    margin-left: 1100px;
-    margin-top: 30px;
     background-color: #C0A3FF;
     border: 1px solid #8A2BE2;
     width: 130px;
@@ -178,16 +186,38 @@
     color: #333333;
 }
 
-.note-recipient-container {
+/* 쪽지 메인 페이지 페이징바*/
+.note-main-pagebar {
+    display: flex;
+    justify-content: center;
+}
+
+/* 쪽지 답장 모달 */
+.note-reply-body {
     position: fixed;
-    top: 355px;
-    left: 550px;
     transform: translate(-50%, -50%);
-    background-color: #f0f0f0;
-    padding: 30px;
+    padding: 40px;
+    bottom: 140px;
     border: 1px solid black;
     border-radius: 45px;
     z-index: 1000;
     text-align: center;
+    background-color: #f0f0f0;
 }
 
+.reply-btn {
+    display: flex;
+    justify-content: center;
+}
+
+.reply-cancel, .reply-sent {
+    background-color: #333333;
+    color: #ffffff;
+    margin-right: 10px;
+    padding: 10px;
+    border-radius: 45px;
+    width: 100px;
+}
+.reply-cancel p, .reply-sent p {
+    color: white;
+}

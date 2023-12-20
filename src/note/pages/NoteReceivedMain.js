@@ -30,7 +30,9 @@ function NoteReceivedMain() {
                     <NoteListItem note={ notes.data }
                                   options={ options } noteType="received"
                                   showSender={ true } showReceiver={ false }/>
-                    <PagingBar pageInfo={ notes.pageInfo } setCurrentPage={ setCurrentPage }/>
+                    <div className="note-list-member-pagingbar">
+                        <PagingBar pageInfo={ notes.pageInfo } setCurrentPage={ setCurrentPage }/>
+                    </div>
                 </>
             }
         </>
