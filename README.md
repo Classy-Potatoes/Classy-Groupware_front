@@ -159,7 +159,7 @@
 
 ## 🥔: ERD 설계
 
-<div>
-  <img src="https://github.com/Classy-Potatoes/Server_Classy-Groupware/assets/138549312/8f063643-bab4-4d38-b6ea-3dcaa54a4e30" width="1400" height="430"/>
-  <img src="https://github.com/Classy-Potatoes/Server_Classy-Groupware/assets/138549312/0d8851f7-250c-468a-b059-da09016091d7" width="1400" height="430"/>
-</div>
+ <div>
+  <img src="https://github.com/Classy-Potatoes/Server_Classy-Groupware/assets/138549170/93f9bb3a-3571-471e-834e-dabb512cfada" width="700" height="300">
+  <img src="https://github.com/Classy-Potatoes/Server_Classy-Groupware/assets/138549170/3a2fa573-cd8c-4b62-838a-d138cbe92c73" width="700" height="180"> 
+ </div>
